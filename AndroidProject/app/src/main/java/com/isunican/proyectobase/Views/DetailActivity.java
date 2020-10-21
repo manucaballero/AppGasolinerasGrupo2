@@ -45,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         g = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosGasolinera));
         textView.setText(g.toString());
+        
 
     }
 }

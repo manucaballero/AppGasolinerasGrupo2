@@ -1,0 +1,13 @@
+
+F
+java:S1199"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ
+m	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
+C
+java:S5411"*Use the primitive boolean expression here.(Ì¡¡ƒúÿÿÿÿ
+F
+java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ
+J
+java:S1128"1Remove this unused import 'android.view.Gravity'.(ÎÎÎıÿÿÿÿ
+:
+java:S1172"&Remove these unused method parameters.(•çÛÌ
+T	java:S125"<This block of commented-out lines of code should be removed.(€¬Ò´ıÿÿÿÿ
