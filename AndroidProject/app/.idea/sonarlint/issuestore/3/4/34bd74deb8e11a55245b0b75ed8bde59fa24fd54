@@ -1,3 +1,18 @@
 
-V	java:S110"<This class has 8 parents which is greater than 5 authorized.(îÆÇĞüÿÿÿÿ
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
+V	java:S110"<This class has 8 parents which is greater than 5 authorized.(îÆÇĞüÿÿÿÿ
+G
+java:S1659"*Declare "txtLocalidad" on a separate line.(Üù°²8˜áÜÔ.
+J
+java:S1659"-Declare "txtDieselPrecio" on a separate line.(Üù°²8¼š„ÜÔ.
+G
+java:S1659"*Declare "txtDireccion" on a separate line.(Üù°²8˜áÜÔ.
+N
+java:S1659"1Declare "txtGasolina95Precio" on a separate line.(Üù°²8¼š„ÜÔ.
+T
+java:S1128
+"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ8ØÇ‡ÜÔ.
+B
+java:S1659"%Declare "txtMaps" on a separate line.(Üù°²8œ‡ÜÔ.
+E
+java:S1659"(Declare "txtMasInfo" on a separate line.(Üù°²8¼š„ÜÔ.
