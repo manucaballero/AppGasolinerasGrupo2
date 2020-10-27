@@ -5,6 +5,10 @@ import com.isunican.proyectobase.Model.*;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -20,7 +24,10 @@ import android.widget.TextView;
 */
 public class DetailActivity extends AppCompatActivity {
 
-    TextView textView;
+    TextView txtNombre, txtDireccion, txtLocalidad, txtDieselPrecio, txtGasolina95Precio, txtMasInfo, txtMaps;
+    ImageView imgLogo;
+    //logo
+
     Gasolinera g;
 
     /**
@@ -42,9 +49,31 @@ public class DetailActivity extends AppCompatActivity {
         // captura el TextView
         // obtiene el objeto Gasolinera a mostrar
         // y lo introduce en el TextView convertido a cadena de texto
-        textView = findViewById(R.id.textView);
+        imgLogo = findViewById(R.id.imgLogo);
+        txtNombre = findViewById(R.id.txtNombre);
+        txtDireccion = findViewById(R.id.txtDireccion);
+        txtLocalidad = findViewById(R.id.txtLocalidad);
+        txtMaps = findViewById(R.id.txtMaps);
+        txtDieselPrecio = findViewById(R.id.txtPrecioDIesel);
+        txtGasolina95Precio = findViewById(R.id.txtPrecioGasolina95);
+        txtMasInfo = findViewById(R.id.txtMasInfo);
+
         g = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosGasolinera));
-        textView.setText(g.toString());
+
+        txtNombre.setText(g.getRotulo());
+        txtDireccion.setText(g.getDireccion());
+        txtLocalidad.setText(g.getLocalidad());
+        //txtMapsç
+        txtDieselPrecio.setText(Double.toString(g.getGasoleoA()));
+        txtGasolina95Precio.setText(Double.toString(g.getGasolina95()));
+        int imageID = getResources().getIdentifier(g.getRotulo().toLowerCase(),
+                "drawable", getPackageName());
+
+        if (imageID == 0 || TextUtils.isDigitsOnly(g.getRotulo().toLowerCase())) {
+            imageID = getResources().getIdentifier(getResources().getString(R.string.pordefecto),
+                    "drawable", getPackageName());
+        }
+        imgLogo.setImageResource(imageID);
 
     }
 }
