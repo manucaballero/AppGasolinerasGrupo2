@@ -21,6 +21,11 @@ public class Gasolinera implements Parcelable {
     private double gasolina95;
     private String rotulo;
 
+    //private Descuento descuento;
+
+    private double distanciaEnKm;
+
+
 
     /**
      * Constructor, getters y setters
@@ -33,7 +38,25 @@ public class Gasolinera implements Parcelable {
         this.gasoleoA = gasoleoA;
         this.gasolina95 = gasolina95;
         this.rotulo = rotulo;
+
+        //this.distanciaEnKm=getDistanciaEnKm();
+        this.calculaPrecioFinal();
     }
+
+    /**
+     * Método que retorna el precio final que
+     */
+    private void calculaPrecioFinal(){
+        //Precio con descuento asignado a la gasolinera y el consumo del vehiculo
+        //this.gasoleoA=gasoleoA*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
+        //this.gasolina95=gasolina95*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
+
+        //Precio con descuento del 10% y consumo de 6L a los 100Km
+        this.gasoleoA=gasoleoA*0.1+distanciaEnKm*6/100;
+        this.gasolina95=gasolina95*0.1+distanciaEnKm*6/100;
+    }
+
+
 
     public int getIdeess() { return ideess; }
     public void setIdeess(int ideess) { this.ideess = ideess; }
