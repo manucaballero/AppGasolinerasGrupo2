@@ -17,15 +17,19 @@ public class Gasolinera implements Parcelable {
     private String localidad;
     private String provincia;
     private String direccion;
-    private double gasoleoA;
-    private double gasolina95;
     private String rotulo;
 
+    //Guardarán el precio con descuento y consumo.
+    private double gasoleoA;
+    private double gasolina95;
+
+    //Precio sin el descuento pero contando con el consumo hasta la gasolinera.
+    private double precioSinDescuentoGasoleoA;
+    private double precioSinDescuentoGasolina95;
+
+    //Posteriormente...
     //private Descuento descuento;
-
     private double distanciaEnKm;
-
-
 
     /**
      * Constructor, getters y setters
@@ -44,16 +48,36 @@ public class Gasolinera implements Parcelable {
     }
 
     /**
-     * Método que retorna el precio final que
+     * Método que calcula el precio por litro final que tendrá cada tipo de combustible
+     * teniendo en cuenta el descuento disponible en la gasolinera y el consumo de conducir
+     * hasta ella.
      */
     private void calculaPrecioFinal(){
         //Precio con descuento asignado a la gasolinera y el consumo del vehiculo
         //this.gasoleoA=gasoleoA*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
         //this.gasolina95=gasolina95*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
 
+        //Precio Sin descuento y con consumo
+        this.precioSinDescuentoGasoleoA =round(gasoleoA+distanciaEnKm*6/100,4);
+        this.precioSinDescuentoGasolina95=round(gasolina95+distanciaEnKm*6/100,4);
         //Precio con descuento del 10% y consumo de 6L a los 100Km
-        this.gasoleoA=gasoleoA*0.1+distanciaEnKm*6/100;
-        this.gasolina95=gasolina95*0.1+distanciaEnKm*6/100;
+        this.gasoleoA=round(gasoleoA*0.1+distanciaEnKm*6/100,4);
+        this.gasolina95=round(gasolina95*0.1+distanciaEnKm*6/100,4);
+    }
+
+    /**
+     * Método que redondea un número double.
+     * @param value valor a redondear
+     * @param places número de decimales deseados
+     * @return valor introducido redondeado
+     */
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
 
