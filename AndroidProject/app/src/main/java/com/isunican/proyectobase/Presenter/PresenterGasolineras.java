@@ -2,6 +2,8 @@ package com.isunican.proyectobase.Presenter;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.isunican.proyectobase.Model.*;
 import com.isunican.proyectobase.Utilities.ParserJSONGasolineras;
 import com.isunican.proyectobase.Utilities.RemoteFetch;
@@ -150,6 +152,8 @@ public class PresenterGasolineras {
         }
 
         return gasolineras;
-
     }
+
+
+
 }

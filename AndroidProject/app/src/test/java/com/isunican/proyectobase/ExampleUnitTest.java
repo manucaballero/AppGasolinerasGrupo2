@@ -25,46 +25,33 @@ public class ExampleUnitTest {
 
 
     private PresenterGasolineras mockPresenter;
-    private MainActivity.CargaDatosGasolinerasTask sut;
+    private MainActivity sut;
+
+    PresenterGasolineras pg;
+    List<Gasolinera> listaOrdenada;
+    List<Gasolinera> lista;
 
     @Before
     public void setUp(){
-
-        /*
-        Gasolinera g1 = new Gasolinera(1000,SANTANDER,SANTANDER, "Av Valdecilla", 1.299,1.359,"AVIA");
-        Gasolinera g2 = new Gasolinera(1053,SANTANDER,SANTANDER, "Plaza Matias Montero", 1.270,1.349,"CAMPSA"));
-        Gasolinera g3 = new Gasolinera(420,SANTANDER,SANTANDER, "Area Arrabal Puerto de Raos", 1.249,1.279,"E.E.S.S. MAS, S.L.");
-         */
-        List<Gasolinera> lista;
-        /*
-        lista.add(g1);
-        lista.add(g2);
-        lista.add(g3);
-
-        listaOrdenada.add(g3);
-        listaOrdenada.add(g2);
-        listaOrdenada.add(g1);
-
-         */
-
-        List<Gasolinera> listaOrdenada = new ArrayList<>();
-        mockPresenter = mock(PresenterGasolineras.class);
-        mockPresenter.cargaDatosDummy();
-        lista = mockPresenter.getGasolineras();
+        pg = new PresenterGasolineras();
+        pg.cargaDatosDummy();
+        listaOrdenada = new ArrayList<>();
+        lista = pg.getGasolineras();
         listaOrdenada.add(lista.get(3));
         listaOrdenada.add(lista.get(2));
         listaOrdenada.add(lista.get(4));
         listaOrdenada.add(lista.get(1));
         listaOrdenada.add(lista.get(0));
 
-        //Comportamiento mock
-        when(mockPresenter.ordenaLista()).thenReturn(listaOrdenada);
-
     }
     @Test
     public void ordenaListaTest(){
-
-
+        List<Gasolinera> gasolinerasOrdenadas = pg.ordenaLista();
+        assertTrue(gasolinerasOrdenadas.get(0).equals(listaOrdenada.get(0)));
+        assertTrue(gasolinerasOrdenadas.get(1).equals(listaOrdenada.get(1)));
+        assertTrue(gasolinerasOrdenadas.get(2).equals(listaOrdenada.get(2)));
+        assertTrue(gasolinerasOrdenadas.get(3).equals(listaOrdenada.get(3)));
+        assertTrue(gasolinerasOrdenadas.get(4).equals(listaOrdenada.get(4)));
     }
 
 
