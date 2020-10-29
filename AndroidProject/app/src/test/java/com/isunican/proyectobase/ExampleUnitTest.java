@@ -10,7 +10,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -21,7 +25,7 @@ public class ExampleUnitTest {
 
 
     private PresenterGasolineras mockPresenter;
-    private MainActivity sut;
+    private MainActivity.CargaDatosGasolinerasTask sut;
 
     @Before
     public void setUp(){
@@ -42,9 +46,8 @@ public class ExampleUnitTest {
         listaOrdenada.add(g1);
 
          */
-        /*
+
         List<Gasolinera> listaOrdenada = new ArrayList<>();
-        sut = new MainActivity();
         mockPresenter = mock(PresenterGasolineras.class);
         mockPresenter.cargaDatosDummy();
         lista = mockPresenter.getGasolineras();
@@ -55,19 +58,13 @@ public class ExampleUnitTest {
         listaOrdenada.add(lista.get(0));
 
         //Comportamiento mock
-        when(mockPresenter.ordenaLista(lista)).thenReturn(listaOrdenada);
+        when(mockPresenter.ordenaLista()).thenReturn(listaOrdenada);
 
-        */
     }
     @Test
     public void ordenaListaTest(){
-        /*
-        List<Gasolinera> gasolineras = sut.
-        assertTrue(gasolineras.get(0).equals(lista.get(0)));
-        assertTrue(gasolineras.get(1).equals(lista.get(1)));
-        assertTrue(gasolineras.get(2).equals(lista.get(2)));
 
-         */
+
     }
 
 

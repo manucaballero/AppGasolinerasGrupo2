@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * http://www.sgoliver.net/blog/tareas-en-segundo-plano-en-android-i-thread-y-asynctask/
      */
-    private class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
+    public class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
 
         Activity activity;
 
