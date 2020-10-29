@@ -119,4 +119,35 @@ public class PresenterGasolineras {
             return false;
         }
     }
+
+    public void ordenaLista(List<Gasolinera> listaNumeros) {
+        //Variable que nos permite saber si ha habido movimiento durante la ronda
+        //Si en una ronda no hay movimiento, el programa sale, ya que ya estÃ¡ la lista ordenada
+        boolean movimiento = true;
+        //Contador que nos indica cuantas rondas comparando parejas llevamos en el bucle
+        int contRondas = 0;
+        //Mientras que haya movimiento, comprobaremos las posiciones
+        while(movimiento){
+            /* Iniciamos el boleano como falso, y si cambia durante el bucle, es que ha habido un movimiento */
+            movimiento = false;
+			/*comenzamos el bucle en 1, y comparamos con el anterior para no salirnos de los lÃ­mites
+			de la array */
+            for(int i=1;i<listaNumeros.size()-contRondas;i++){
+                /* Si el número de la derecha es menor que el de la izquierda, los intercambia */
+                if(listaNumeros.get(i).getGasoleoA()<listaNumeros.get(i-1).getGasoleoA()){
+                    /*Como ha habido movimiento, lo indicamos en el boleano que tenemos
+                     * así cuando acabe el bucle, comenzará de nuevo
+                     */
+                    movimiento=true;
+                    /* intercambiamos las posiciones */
+                    /* guardamos uno de los valores temporalmente en otra variable para evitar su pérdida */
+                    Gasolinera aux = listaNumeros.get(i);
+                    //Intercambiamos los valores en sendas posiciones
+                    listaNumeros.set(i,listaNumeros.get(i-1));
+                    listaNumeros.set(i-1, aux);
+                }
+            }
+        }
+
+    }
 }
