@@ -204,13 +204,13 @@ public class MainActivity extends AppCompatActivity {
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (res) {
                 // Definimos el array adapter
-                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
+                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.ordenaLista());
 
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
                 //Añadido por mi, ordenamos las gasolineras
-                ordenaGasolineras();
+                //ordenaGasolineras();
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
@@ -257,19 +257,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-
-        /*
-            Añadido por mi
-        */
-        public List<Gasolinera> ordenaGasolineras(){
-            adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
-
-            List<Gasolinera> listaOrdenada = presenterGasolineras.getGasolineras();
-
-            presenterGasolineras.ordenaLista(listaOrdenada);
-
-            return listaOrdenada;
-        }
     }
 
 

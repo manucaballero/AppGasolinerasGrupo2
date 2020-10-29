@@ -80,11 +80,15 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     testImplementation 'junit:junit:4.12'
+    def mockito_version= ' latest.release '
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation 'androidx.annotation:annotation:1.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+
 
 }
