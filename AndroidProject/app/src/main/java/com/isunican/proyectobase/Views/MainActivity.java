@@ -204,7 +204,8 @@ public class MainActivity extends AppCompatActivity {
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (res) {
                 // Definimos el array adapter
-                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.ordenaLista());
+                presenterGasolineras.ordenaLista();
+                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
 
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
