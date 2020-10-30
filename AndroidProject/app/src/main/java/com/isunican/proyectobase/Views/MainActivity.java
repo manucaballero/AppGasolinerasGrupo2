@@ -43,10 +43,10 @@ import android.widget.Toast;
 */
 public class MainActivity extends AppCompatActivity {
 
-    PresenterGasolineras presenterGasolineras;
+    public PresenterGasolineras presenterGasolineras;
 
     // Vista de lista y adaptador para cargar datos en ella
-    ListView listViewGasolineras;
+    public ListView listViewGasolineras;
     ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public PresenterGasolineras getPresenter(){
+    /*public PresenterGasolineras getPresenter(){
         return presenterGasolineras;
-    }
+    }*/
     /**
      * onCreate
      *

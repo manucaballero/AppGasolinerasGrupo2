@@ -46,7 +46,7 @@ public class ExampleInstrumentedTest {
         } catch (InterruptedException e) {
 
         }
-        PresenterGasolineras presenterGasolineras = mActivityTestRule.getActivity().getPresenter();
+        PresenterGasolineras presenterGasolineras = mActivityTestRule.getActivity().presenterGasolineras;
         Gasolinera g = presenterGasolineras.getGasolineras().get(0);
 
         onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).perform(click());

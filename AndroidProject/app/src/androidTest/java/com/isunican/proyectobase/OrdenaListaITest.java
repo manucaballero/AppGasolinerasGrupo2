@@ -44,9 +44,13 @@ public class OrdenaListaITest {
 
         //assertEquals("com.isunican.proyectobase", appContext.getPackageName());
 
-        ListView lv = (ListView) mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
+        /*ListView lv = (ListView) mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
+        ListAdapter adapter = lv.getAdapter();*/
+
+        ListView lv = mActivityTestRule.getActivity().listViewGasolineras;
         ListAdapter adapter = lv.getAdapter();
 
+        //ListAdapter adapter = mActivityTestRule.getActivity().adapter;  //poner adapter publico?
 
         Gasolinera g1 = (Gasolinera) adapter.getItem(0);
         Gasolinera g2 = (Gasolinera) adapter.getItem(1);
