@@ -2,6 +2,7 @@ package com.isunican.proyectobase.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 
 /*
@@ -44,6 +45,7 @@ public class Gasolinera implements Parcelable {
         this.gasolina95 = gasolina95;
         this.rotulo = rotulo;
         this.tieneDescuento=false;
+        Log.d("Test",Double.toString(gasoleoA));
 
         //this.distanciaEnKm=getDistanciaEnKm();
         this.calculaPrecioFinal();
@@ -63,15 +65,15 @@ public class Gasolinera implements Parcelable {
         this.precioSinDescuentoGasoleoA =round(gasoleoA+distanciaEnKm*6/100,4);
         this.precioSinDescuentoGasolina95=round(gasolina95+distanciaEnKm*6/100,4);
         //Precio con descuento del 10% y consumo de 6L a los 100Km
-        this.gasoleoA=round(gasoleoA*0.1+distanciaEnKm*6/100,4);
-        this.gasolina95=round(gasolina95*0.1+distanciaEnKm*6/100,4);
+        this.gasoleoA=round(gasoleoA*0.9+distanciaEnKm*6/100,4);
+        this.gasolina95=round(gasolina95*0.9+distanciaEnKm*6/100,4);
     }
 
-    private boolean getTieneDescuento(){
+    public boolean getTieneDescuento(){
         return tieneDescuento;
     }
 
-    private void setTieneDescuento(boolean tieneDescuento){
+    public void setTieneDescuento(boolean tieneDescuento){
         this.tieneDescuento=tieneDescuento;
     }
 
@@ -112,6 +114,10 @@ public class Gasolinera implements Parcelable {
 
     public double getGasolina95() { return gasolina95; }
     public void setGasolina95(double gasolina95) { this.gasolina95 = gasolina95; }
+
+    public double getPrecioSinDescuentoGasoleoA(){return precioSinDescuentoGasoleoA;}
+
+    public double getPrecioSinDescuentoGasolina95(){return precioSinDescuentoGasolina95;}
 
 
     /**
@@ -156,6 +162,12 @@ public class Gasolinera implements Parcelable {
         gasoleoA = in.readDouble();
         gasolina95 = in.readDouble();
         rotulo = in.readString();
+        this.calculaPrecioFinal();
+
+        if(rotulo.equals("CEPSA")){
+            setTieneDescuento(true);
+        }
+
     }
 
     @Override
