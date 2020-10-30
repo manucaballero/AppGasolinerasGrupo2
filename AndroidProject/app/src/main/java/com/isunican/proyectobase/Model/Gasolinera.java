@@ -30,6 +30,7 @@ public class Gasolinera implements Parcelable {
     //Posteriormente...
     //private Descuento descuento;
     private double distanciaEnKm;
+    private boolean tieneDescuento;
 
     /**
      * Constructor, getters y setters
@@ -42,6 +43,7 @@ public class Gasolinera implements Parcelable {
         this.gasoleoA = gasoleoA;
         this.gasolina95 = gasolina95;
         this.rotulo = rotulo;
+        this.tieneDescuento=false;
 
         //this.distanciaEnKm=getDistanciaEnKm();
         this.calculaPrecioFinal();
@@ -63,6 +65,14 @@ public class Gasolinera implements Parcelable {
         //Precio con descuento del 10% y consumo de 6L a los 100Km
         this.gasoleoA=round(gasoleoA*0.1+distanciaEnKm*6/100,4);
         this.gasolina95=round(gasolina95*0.1+distanciaEnKm*6/100,4);
+    }
+
+    private boolean getTieneDescuento(){
+        return tieneDescuento;
+    }
+
+    private void setTieneDescuento(boolean tieneDescuento){
+        this.tieneDescuento=tieneDescuento;
     }
 
     /**
