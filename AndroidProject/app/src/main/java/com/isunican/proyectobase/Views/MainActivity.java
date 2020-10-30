@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+    public PresenterGasolineras getPresenter(){
+        return presenterGasolineras;
+    }
     /**
      * onCreate
      *
@@ -341,6 +344,8 @@ public class MainActivity extends AppCompatActivity {
 
             return view;
         }
+
+
     }
 
 }
