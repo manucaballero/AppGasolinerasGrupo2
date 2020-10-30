@@ -37,11 +37,15 @@ public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        //Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         //assertEquals("com.isunican.proyectobase", appContext.getPackageName());
-        PresenterGasolineras presenterGasolineras = new PresenterGasolineras();
-        presenterGasolineras.cargaDatosGasolineras();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+
+        }
+        PresenterGasolineras presenterGasolineras = mActivityTestRule.getActivity().getPresenter();
         Gasolinera g = presenterGasolineras.getGasolineras().get(0);
 
         onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).perform(click());

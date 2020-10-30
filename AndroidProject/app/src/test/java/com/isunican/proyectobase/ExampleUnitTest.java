@@ -9,12 +9,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -22,10 +17,6 @@ import static org.mockito.Mockito.when;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-
-
-    private PresenterGasolineras mockPresenter;
-    private MainActivity sut;
 
     PresenterGasolineras pg;
     List<Gasolinera> listaOrdenada;
@@ -46,7 +37,8 @@ public class ExampleUnitTest {
     }
     @Test
     public void ordenaListaTest(){
-        List<Gasolinera> gasolinerasOrdenadas = pg.ordenaLista();
+        pg.ordenaLista();
+        List<Gasolinera> gasolinerasOrdenadas = pg.getGasolineras();
         assertTrue(gasolinerasOrdenadas.get(0).equals(listaOrdenada.get(0)));
         assertTrue(gasolinerasOrdenadas.get(1).equals(listaOrdenada.get(1)));
         assertTrue(gasolinerasOrdenadas.get(2).equals(listaOrdenada.get(2)));

@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+    public PresenterGasolineras getPresenter(){
+        return presenterGasolineras;
+    }
     /**
      * onCreate
      *
@@ -204,7 +207,8 @@ public class MainActivity extends AppCompatActivity {
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (res) {
                 // Definimos el array adapter
-                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.ordenaLista());
+                presenterGasolineras.ordenaLista();
+                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
 
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
@@ -223,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
                 }
             } else {
+                Intent myIntent = new Intent(MainActivity.this, NoDatosActivity.class);
+                MainActivity.this.startActivity(myIntent);
                 // error en la obtencion de datos desde el servidor
                 toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);
             }
@@ -340,6 +346,8 @@ public class MainActivity extends AppCompatActivity {
 
             return view;
         }
+
+
     }
 
 }

@@ -122,7 +122,7 @@ public class PresenterGasolineras {
         }
     }
 
-    public List ordenaLista() {
+    public void ordenaLista() {
         //Variable que nos permite saber si ha habido movimiento durante la ronda
         //Si en una ronda no hay movimiento, el programa sale, ya que ya estÃ¡ la lista ordenada
         boolean movimiento = true;
@@ -150,8 +150,6 @@ public class PresenterGasolineras {
                 }
             }
         }
-
-        return gasolineras;
     }
 
 
