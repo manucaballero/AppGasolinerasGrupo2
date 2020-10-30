@@ -224,6 +224,8 @@ public class MainActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
                 }
             } else {
+                Intent myIntent = new Intent(MainActivity.this, NoDatosActivity.class);
+                MainActivity.this.startActivity(myIntent);
                 // error en la obtencion de datos desde el servidor
                 toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);
             }
