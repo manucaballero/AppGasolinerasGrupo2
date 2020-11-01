@@ -1,0 +1,6 @@
+Ordenar de menor a mayor las gasolineras
+
+Ordenamos las gasolineras de menor a mayor, en función del precio del Gasoleo.
+Sin tener en cuenta la existencia de descuentos o la distancia a la gasolinera.
+Ademas he añadido al gitignore, el fichero mensage para realizar commits.
+
