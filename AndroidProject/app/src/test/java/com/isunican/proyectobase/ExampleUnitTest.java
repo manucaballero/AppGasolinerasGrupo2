@@ -42,13 +42,15 @@ public class ExampleUnitTest {
         assertTrue(lista.get(3).getGasoleoA() <= lista.get(4).getGasoleoA());
 
     }
-
+    /*
     @Test
     public void calcularPrecioFinal(){
         g1.calculaPrecioFinal();
         assertTrue(g1.getGasoleoA() == precio);
 
     }
+    
+     */
 
 
 
