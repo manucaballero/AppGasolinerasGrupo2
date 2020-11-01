@@ -60,6 +60,7 @@ public class Gasolinera implements Parcelable {
         //this.gasoleoA=gasoleoA*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
         //this.gasolina95=gasolina95*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
         //Precio Sin descuento y con consumo
+
         this.precioSinDescuentoGasoleoA =round(gasoleoA+distanciaEnKm*6/100,4);
         this.precioSinDescuentoGasolina95=round(gasolina95+distanciaEnKm*6/100,4);
         //Precio con descuento del 10% y consumo de 6L a los 100Km

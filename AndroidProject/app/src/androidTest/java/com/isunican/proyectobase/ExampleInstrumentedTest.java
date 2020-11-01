@@ -52,7 +52,6 @@ public class ExampleInstrumentedTest {
         PresenterGasolineras presenterGasolineras = mActivityTestRule.getActivity().presenterGasolineras;
         Gasolinera g = presenterGasolineras.getGasolineras().get(0);
 
-
         onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).perform(click());
         onView(withId(R.id.txtLocalidad)).check(matches(withText(g.getLocalidad())));
         onView(withId(R.id.txtDireccion)).check(matches(withText(g.getDireccion())));

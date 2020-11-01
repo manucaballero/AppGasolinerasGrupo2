@@ -28,9 +28,11 @@ public class ExampleUnitTest {
         pg.cargaDatosDummy();
 
         g1 = pg.getGasolineras().get(0);
-        precio = g1.getPrecioSinDescuentoGasoleoA()*0.9+g1.getDistanciaEnKm()*6/100;
+        precio = g1.getGasoleoA();
 
     }
+
+    
     @Test
     public void ordenaListaTest(){
         pg.ordenaLista();
@@ -40,19 +42,12 @@ public class ExampleUnitTest {
         assertTrue(lista.get(1).getGasoleoA() <= lista.get(2).getGasoleoA());
         assertTrue(lista.get(2).getGasoleoA() <= lista.get(3).getGasoleoA());
         assertTrue(lista.get(3).getGasoleoA() <= lista.get(4).getGasoleoA());
-
     }
-    /*
+
     @Test
     public void calcularPrecioFinal(){
         g1.calculaPrecioFinal();
-        assertTrue(g1.getGasoleoA() == precio);
-
+        assertTrue(g1.getGasoleoA() == precio*0.9+g1.getDistanciaEnKm()*6/100);
     }
-
-     */
-
-
-
 
 }
