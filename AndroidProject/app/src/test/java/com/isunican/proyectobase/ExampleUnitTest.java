@@ -19,32 +19,38 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
 
     PresenterGasolineras pg;
-    List<Gasolinera> listaOrdenada;
-    List<Gasolinera> lista;
+    Gasolinera g1;
+    double precio;
 
     @Before
     public void setUp(){
         pg = new PresenterGasolineras();
         pg.cargaDatosDummy();
-        listaOrdenada = new ArrayList<>();
-        lista = pg.getGasolineras();
-        listaOrdenada.add(lista.get(3));
-        listaOrdenada.add(lista.get(2));
-        listaOrdenada.add(lista.get(4));
-        listaOrdenada.add(lista.get(1));
-        listaOrdenada.add(lista.get(0));
+
+        g1 = pg.getGasolineras().get(0);
+        precio = g1.getPrecioSinDescuentoGasoleoA()*0.9+g1.getDistanciaEnKm()*6/100;
 
     }
     @Test
     public void ordenaListaTest(){
         pg.ordenaLista();
-        List<Gasolinera> gasolinerasOrdenadas = pg.getGasolineras();
-        assertTrue(gasolinerasOrdenadas.get(0).equals(listaOrdenada.get(0)));
-        assertTrue(gasolinerasOrdenadas.get(1).equals(listaOrdenada.get(1)));
-        assertTrue(gasolinerasOrdenadas.get(2).equals(listaOrdenada.get(2)));
-        assertTrue(gasolinerasOrdenadas.get(3).equals(listaOrdenada.get(3)));
-        assertTrue(gasolinerasOrdenadas.get(4).equals(listaOrdenada.get(4)));
+        List<Gasolinera> lista = lista = pg.getGasolineras();
+
+        assertTrue(lista.get(0).getGasoleoA() <= lista.get(1).getGasoleoA());
+        assertTrue(lista.get(1).getGasoleoA() <= lista.get(2).getGasoleoA());
+        assertTrue(lista.get(2).getGasoleoA() <= lista.get(3).getGasoleoA());
+        assertTrue(lista.get(3).getGasoleoA() <= lista.get(4).getGasoleoA());
+
     }
+
+    @Test
+    public void calcularPrecioFinal(){
+        g1.calculaPrecioFinal();
+        assertTrue(g1.getGasoleoA() == precio);
+
+    }
+
+
 
 
 }

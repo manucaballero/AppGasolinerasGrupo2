@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Vista de lista y adaptador para cargar datos en ella
     public ListView listViewGasolineras;
-    ArrayAdapter<Gasolinera> adapter;
+    public ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
