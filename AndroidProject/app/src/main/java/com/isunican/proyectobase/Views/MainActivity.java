@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             mSwipeRefreshLayout.setRefreshing(false);
 
             // Si se ha obtenido resultado en la tarea en segundo plano
-            if (res) {
+            if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
                 adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
 
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
             Gasolinera gasolinera = listaGasolineras.get(position);
 
             // Indica el layout a usar en cada elemento de la lista
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_gasolinera, null);
 
             // Asocia las variables de dicho layout
@@ -301,20 +301,8 @@ public class MainActivity extends AppCompatActivity {
             gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
 
             // carga icono
-            {
-                String rotuleImageID = gasolinera.getRotulo().toLowerCase();
+            cargaIcono(gasolinera, logo);
 
-                // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
-                // En ese caso getIdentifier devuelve esos digitos en vez de 0.
-                int imageID = context.getResources().getIdentifier(rotuleImageID,
-                        "drawable", context.getPackageName());
-
-                if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
-                    imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
-                            "drawable", context.getPackageName());
-                }
-                logo.setImageResource(imageID);
-            }
 
 
             // Si las dimensiones de la pantalla son menores
@@ -335,6 +323,21 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return view;
+        }
+
+        private void cargaIcono(Gasolinera gasolinera, ImageView logo) {
+            String rotuleImageID = gasolinera.getRotulo().toLowerCase();
+
+            // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
+            // En ese caso getIdentifier devuelve esos digitos en vez de 0.
+            int imageID = context.getResources().getIdentifier(rotuleImageID,
+                    "drawable", context.getPackageName());
+
+            if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
+                imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
+                        "drawable", context.getPackageName());
+            }
+            logo.setImageResource(imageID);
         }
     }
 

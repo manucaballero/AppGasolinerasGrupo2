@@ -17,6 +17,15 @@ import java.net.URL;
 public class RemoteFetch {
 
     /**
+     * Constructor privado que oculta el público ya que esta clase
+     * no tiene ojetivo de que se creen objetos de ella, ya que solo
+     * tiene métodos static.
+     */
+    private RemoteFetch(){
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
      * cargaBufferDesdeURL
      *
      * Toma la direccion pasada como parámetro y descarga los datos,
