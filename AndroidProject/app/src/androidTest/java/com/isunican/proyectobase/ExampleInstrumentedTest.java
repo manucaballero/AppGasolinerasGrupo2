@@ -29,6 +29,7 @@ import static org.hamcrest.CoreMatchers.anything;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
 
@@ -38,11 +39,15 @@ public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        //Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         //assertEquals("com.isunican.proyectobase", appContext.getPackageName());
-        PresenterGasolineras presenterGasolineras = new PresenterGasolineras();
-        presenterGasolineras.cargaDatosGasolineras();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+
+        }
+        PresenterGasolineras presenterGasolineras = mActivityTestRule.getActivity().presenterGasolineras;
         Gasolinera g = presenterGasolineras.getGasolineras().get(0);
 
         onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).perform(click());
@@ -51,9 +56,6 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.txtNombre)).check(matches(withText(g.getRotulo())));
         onView(withId(R.id.txtPrecioDIesel)).check(matches(withText(Double.toString(g.getGasoleoA()))));
         onView(withId(R.id.txtPrecioGasolina95)).check(matches(withText(Double.toString(g.getGasolina95()))));
-
-
-
-
     }
 }
+

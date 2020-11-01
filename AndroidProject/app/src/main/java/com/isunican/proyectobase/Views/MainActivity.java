@@ -43,7 +43,7 @@ import android.widget.Toast;
 */
 public class MainActivity extends AppCompatActivity {
 
-    PresenterGasolineras presenterGasolineras;
+    public PresenterGasolineras presenterGasolineras;
 
     // Vista de lista y adaptador para cargar datos en ella
     ListView listViewGasolineras;
