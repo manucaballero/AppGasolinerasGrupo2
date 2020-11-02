@@ -43,11 +43,11 @@ import android.widget.Toast;
 */
 public class MainActivity extends AppCompatActivity {
 
-    PresenterGasolineras presenterGasolineras;
+    public PresenterGasolineras presenterGasolineras;
 
     // Vista de lista y adaptador para cargar datos en ella
-    ListView listViewGasolineras;
-    ArrayAdapter<Gasolinera> adapter;
+    public ListView listViewGasolineras;
+    public ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+    /*public PresenterGasolineras getPresenter(){
+        return presenterGasolineras;
+    }*/
     /**
      * onCreate
      *
@@ -143,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * http://www.sgoliver.net/blog/tareas-en-segundo-plano-en-android-i-thread-y-asynctask/
      */
-    private class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
+    public class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
 
         Activity activity;
 
@@ -204,10 +207,14 @@ public class MainActivity extends AppCompatActivity {
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (res) {
                 // Definimos el array adapter
+                presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
 
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
+
+                //Añadido por mi, ordenamos las gasolineras
+                //ordenaGasolineras();
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
@@ -220,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
                 }
             } else {
+                Intent myIntent = new Intent(MainActivity.this, NoDatosActivity.class);
+                MainActivity.this.startActivity(myIntent);
                 // error en la obtencion de datos desde el servidor
                 toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);
             }
@@ -253,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
 
 
@@ -336,6 +346,8 @@ public class MainActivity extends AppCompatActivity {
 
             return view;
         }
+
+
     }
 
 }

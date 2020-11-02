@@ -1,7 +1,7 @@
 
-s
-Capp/src/main/java/com/isunican/proyectobase/Views/InfoActivity.java,8\a\8ad2f8367468349769400717a29f799817ad01fc
-s
-Capp/src/main/java/com/isunican/proyectobase/Views/MainActivity.java,2\7\2766c3364bbc87e9d6af195383119d56572479aa
-u
-Eapp/src/main/java/com/isunican/proyectobase/Views/DetailActivity.java,3\4\34bd74deb8e11a55245b0b75ed8bde59fa24fd54
+o
+?src/main/java/com/isunican/proyectobase/Views/MainActivity.java,0\5\0597c841608345669c167b5feeb3994ef1c28388
+{
+Ksrc/androidTest/java/com/isunican/proyectobase/ExampleInstrumentedTest.java,0\4\047d0f0bb9c770470fd769305294031d719ae487
+t
+Dsrc/androidTest/java/com/isunican/proyectobase/OrdenaListaITest.java,4\5\45cee21139548c5c8cd415ee0cdc9e2f84a3e1c7
