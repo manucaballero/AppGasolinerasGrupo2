@@ -1,23 +1,12 @@
 package com.isunican.proyectobase.Views;
 
-import com.isunican.proyectobase.Presenter.*;
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +21,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /*
 ------------------------------------------------------------------
@@ -44,6 +43,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     public PresenterGasolineras presenterGasolineras;
+
 
     // Vista de lista y adaptador para cargar datos en ella
     ListView listViewGasolineras;

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +23,13 @@ import android.widget.TextView;
 */
 public class DetailActivity extends AppCompatActivity {
 
-    TextView txtNombre, txtDireccion, txtLocalidad, txtDieselPrecio, txtGasolina95Precio, txtMasInfo, txtMaps;
+    TextView txtNombre;
+    TextView txtDireccion;
+    TextView txtLocalidad;
+    TextView txtDieselPrecio;
+    TextView txtGasolina95Precio;
+    TextView txtMasInfo;
+    TextView txtMaps;
     ImageView imgLogo;
     //logo
 
