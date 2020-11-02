@@ -2,7 +2,10 @@ package com.isunican.proyectobase;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListAdapter;
 
+import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.core.internal.deps.guava.util.concurrent.ExecutionList;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -49,9 +52,13 @@ public class ExampleInstrumentedTest {
         } catch (InterruptedException e) {
 
         }
-        PresenterGasolineras presenterGasolineras = mActivityTestRule.getActivity().presenterGasolineras;
-        Gasolinera g = presenterGasolineras.getGasolineras().get(0);
+        //PresenterGasolineras presenterGasolineras = mActivityTestRule.getActivity().presenterGasolineras;
+        ListAdapter adapter = mActivityTestRule.getActivity().adapter;
+        Gasolinera g = (Gasolinera) adapter.getItem(0);
 
+
+        //DataInteraction v = onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0);
+        //Detalle
         onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).perform(click());
         onView(withId(R.id.txtLocalidad)).check(matches(withText(g.getLocalidad())));
         onView(withId(R.id.txtDireccion)).check(matches(withText(g.getDireccion())));

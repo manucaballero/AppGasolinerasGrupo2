@@ -48,6 +48,7 @@ public class Gasolinera implements Parcelable {
         this.tieneDescuento=false;
         //Log.d("Test",Double.toString(gasoleoA));
         //this.distanciaEnKm=getDistanciaEnKm();
+        this.calculaPrecioFinal();
     }
 
     /**

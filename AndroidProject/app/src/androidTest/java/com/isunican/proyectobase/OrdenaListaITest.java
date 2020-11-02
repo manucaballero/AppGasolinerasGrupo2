@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.AdapterDataLoaderAction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -43,52 +44,46 @@ public class OrdenaListaITest {
     @Test
     public void useAppContext() {
 
-        /*ListView lv = (ListView) mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
-        ListAdapter adapter = lv.getAdapter();*/
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {}
 
-        //ListView lv = mActivityTestRule.getActivity().listViewGasolineras;
-        //ListAdapter adapter = mActivityTestRule.getActivity().adapter;
+        ListAdapter adapter = mActivityTestRule.getActivity().adapter;
 
-        //ListAdapter adapter = mActivityTestRule.getActivity().adapter;  //poner adapter publico?
-
-        PresenterGasolineras presenterGasolineras = mActivityTestRule.getActivity().presenterGasolineras;
-        List<Gasolinera> lista = presenterGasolineras.getGasolineras();
-
-        int tamnaho = lista.size();
-
-        Assert.assertTrue(tamnaho == 0);
-        /*
-        for (int i = 0; i < lista.size(); i++) {
-            Log.d("barbara", lista.get(i).getProvincia());
-        }
-
-         */
-
-        /*
-        Gasolinera g1 = presenterGasolineras.getGasolineras().get(0);
-        Gasolinera g2 = presenterGasolineras.getGasolineras().get(1);
-        Gasolinera g3 = presenterGasolineras.getGasolineras().get(2);
-
-         /*
         Gasolinera g1 = (Gasolinera) adapter.getItem(0);
         Gasolinera g2 = (Gasolinera) adapter.getItem(1);
         Gasolinera g3 = (Gasolinera) adapter.getItem(2);
-          */
 
-        /*
-        onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).perform(click());
-        precio1 = R.id.txtPrecioDIesel;
-        Espresso.pressBack();
-        onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(1).perform(click());
-        precio2 = R.id.txtPrecioDIesel;
-        Espresso.pressBack();
-        onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(2).perform(click());
-        precio3 = R.id.txtPrecioDIesel;
-         */
-        /*
+        //Se comprueban los datos en la interfaz de la primera gasolinera (ordenada por precio)
+        //onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).perform(click());
+        DataInteraction v1 = onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0);
+        //v1.onChildView(withId(R.id.txtLocalidad)).check(matches(withText(g1.getLocalidad())));
+        v1.onChildView(withId(R.id.textViewDireccion)).check(matches(withText(g1.getDireccion())));
+        v1.onChildView(withId(R.id.textViewRotulo)).check(matches(withText(g1.getRotulo())));
+        v1.onChildView(withId(R.id.textViewGasoleoA)).check(matches(withText(Double.toString(g1.getGasoleoA())+"€")));
+        v1.onChildView(withId(R.id.textViewGasolina95)).check(matches(withText(Double.toString(g1.getGasolina95())+"€")));
+        //Espresso.pressBack();
+
+        //Se comprueban los datos en la interfaz de la segunda gasolinera (ordenada por precio)
+        onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(1);
+        onView(withId(R.id.txtLocalidad)).check(matches(withText(g2.getLocalidad())));
+        onView(withId(R.id.txtDireccion)).check(matches(withText(g2.getDireccion())));
+        onView(withId(R.id.txtNombre)).check(matches(withText(g2.getRotulo())));
+        onView(withId(R.id.txtPrecioDiesel)).check(matches(withText(Double.toString(g2.getGasoleoA()))));
+        onView(withId(R.id.txtPrecioGasolina95)).check(matches(withText(Double.toString(g2.getGasolina95()))));
+        //Espresso.pressBack();
+
+        //Se comprueban los datos en la interfaz de la tercera gasolinera (ordenada por precio)
+        onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(2);
+        onView(withId(R.id.txtLocalidad)).check(matches(withText(g3.getLocalidad())));
+        onView(withId(R.id.txtDireccion)).check(matches(withText(g3.getDireccion())));
+        onView(withId(R.id.txtNombre)).check(matches(withText(g3.getRotulo())));
+        onView(withId(R.id.txtPrecioDiesel)).check(matches(withText(Double.toString(g3.getGasoleoA()))));
+        onView(withId(R.id.txtPrecioGasolina95)).check(matches(withText(Double.toString(g3.getGasolina95()))));
+
         Assert.assertTrue(g1.getGasoleoA() < g2.getGasoleoA());
         Assert.assertTrue(g2.getGasoleoA() < g3.getGasoleoA());
-        */
+
 
 
     }
