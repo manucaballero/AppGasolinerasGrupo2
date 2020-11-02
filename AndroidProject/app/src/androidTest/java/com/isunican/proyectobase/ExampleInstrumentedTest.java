@@ -1,8 +1,9 @@
 package com.isunican.proyectobase;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.util.Log;
 
+import androidx.test.espresso.core.internal.deps.guava.util.concurrent.ExecutionList;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -15,6 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+
+import java.util.List;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -56,7 +59,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.txtLocalidad)).check(matches(withText(g.getLocalidad())));
         onView(withId(R.id.txtDireccion)).check(matches(withText(g.getDireccion())));
         onView(withId(R.id.txtNombre)).check(matches(withText(g.getRotulo())));
-        onView(withId(R.id.txtPrecioDIesel)).check(matches(withText(Double.toString(g.getGasoleoA()))));
+        onView(withId(R.id.txtPrecioDiesel)).check(matches(withText(Double.toString(g.getGasoleoA()))));
         onView(withId(R.id.txtPrecioGasolina95)).check(matches(withText(Double.toString(g.getGasolina95()))));
     }
 }

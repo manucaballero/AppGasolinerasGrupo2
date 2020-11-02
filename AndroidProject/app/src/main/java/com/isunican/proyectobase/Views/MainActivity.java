@@ -44,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     public PresenterGasolineras presenterGasolineras;
 
-
     // Vista de lista y adaptador para cargar datos en ella
-    ListView listViewGasolineras;
-    ArrayAdapter<Gasolinera> adapter;
+    public ListView listViewGasolineras;
+    public ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * http://www.sgoliver.net/blog/tareas-en-segundo-plano-en-android-i-thread-y-asynctask/
      */
-    private class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
+    public class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
 
         Activity activity;
 
@@ -204,13 +203,14 @@ public class MainActivity extends AppCompatActivity {
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
+                presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
 
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
                 //Añadido por mi, ordenamos las gasolineras
-                ordenaGasolineras();
+                //ordenaGasolineras();
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
@@ -223,6 +223,8 @@ public class MainActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
                 }
             } else {
+                Intent myIntent = new Intent(MainActivity.this, NoDatosActivity.class);
+                MainActivity.this.startActivity(myIntent);
                 // error en la obtencion de datos desde el servidor
                 toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);
             }
@@ -257,19 +259,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-
-        /*
-            Añadido por mi
-        */
-        public List<Gasolinera> ordenaGasolineras(){
-            adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
-
-            List<Gasolinera> listaOrdenada = presenterGasolineras.getGasolineras();
-
-            ordenaLista(listaOrdenada);
-
-            return listaOrdenada;
-        }
     }
 
 
@@ -342,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
             return view;
         }
 
+
         private void cargaIcono(Gasolinera gasolinera, ImageView logo) {
             String rotuleImageID = gasolinera.getRotulo().toLowerCase();
 
@@ -358,35 +348,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void ordenaLista(List<Gasolinera> listaNumeros) {
-        //Variable que nos permite saber si ha habido movimiento durante la ronda
-        //Si en una ronda no hay movimiento, el programa sale, ya que ya estÃ¡ la lista ordenada
-        boolean movimiento = true;
-        //Contador que nos indica cuantas rondas comparando parejas llevamos en el bucle
-        int contRondas = 0;
-        //Mientras que haya movimiento, comprobaremos las posiciones
-        while(movimiento){
-            /* Iniciamos el boleano como falso, y si cambia durante el bucle, es que ha habido un movimiento */
-            movimiento = false;
-			/*comenzamos el bucle en 1, y comparamos con el anterior para no salirnos de los lÃ­mites
-			de la array */
-            for(int i=1;i<listaNumeros.size()-contRondas;i++){
-                /* Si el número de la derecha es menor que el de la izquierda, los intercambia */
-                if(listaNumeros.get(i).getGasoleoA()<listaNumeros.get(i-1).getGasoleoA()){
-                    /*Como ha habido movimiento, lo indicamos en el boleano que tenemos
-                     * así cuando acabe el bucle, comenzará de nuevo
-                     */
-                    movimiento=true;
-                    /* intercambiamos las posiciones */
-                    /* guardamos uno de los valores temporalmente en otra variable para evitar su pérdida */
-                    Gasolinera aux = listaNumeros.get(i);
-                    //Intercambiamos los valores en sendas posiciones
-                    listaNumeros.set(i,listaNumeros.get(i-1));
-                    listaNumeros.set(i-1, aux);
-                }
-            }
-        }
 
-    }
 
 }
+

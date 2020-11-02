@@ -2,6 +2,8 @@ package com.isunican.proyectobase.Presenter;
 
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.isunican.proyectobase.Model.*;
 import com.isunican.proyectobase.Utilities.ParserJSONGasolineras;
 import com.isunican.proyectobase.Utilities.RemoteFetch;
@@ -119,4 +121,37 @@ public class PresenterGasolineras {
             return false;
         }
     }
+
+    public void ordenaLista() {
+        //Variable que nos permite saber si ha habido movimiento durante la ronda
+        //Si en una ronda no hay movimiento, el programa sale, ya que ya estÃ¡ la lista ordenada
+        boolean movimiento = true;
+        //Contador que nos indica cuantas rondas comparando parejas llevamos en el bucle
+        int contRondas = 0;
+        //Mientras que haya movimiento, comprobaremos las posiciones
+        while(movimiento){
+            /* Iniciamos el boleano como falso, y si cambia durante el bucle, es que ha habido un movimiento */
+            movimiento = false;
+			/*comenzamos el bucle en 1, y comparamos con el anterior para no salirnos de los lÃ­mites
+			de la array */
+            for(int i=1;i<gasolineras.size()-contRondas;i++){
+                /* Si el número de la derecha es menor que el de la izquierda, los intercambia */
+                if(gasolineras.get(i).getGasoleoA()<gasolineras.get(i-1).getGasoleoA()){
+                    /*Como ha habido movimiento, lo indicamos en el boleano que tenemos
+                     * así cuando acabe el bucle, comenzará de nuevo
+                     */
+                    movimiento=true;
+                    /* intercambiamos las posiciones */
+                    /* guardamos uno de los valores temporalmente en otra variable para evitar su pérdida */
+                    Gasolinera aux = gasolineras.get(i);
+                    //Intercambiamos los valores en sendas posiciones
+                    gasolineras.set(i,gasolineras.get(i-1));
+                    gasolineras.set(i-1, aux);
+                }
+            }
+        }
+    }
+
+
+
 }

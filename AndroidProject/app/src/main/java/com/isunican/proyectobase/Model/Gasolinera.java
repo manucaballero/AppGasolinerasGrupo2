@@ -2,6 +2,7 @@ package com.isunican.proyectobase.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 
 /*
@@ -17,9 +18,20 @@ public class Gasolinera implements Parcelable {
     private String localidad;
     private String provincia;
     private String direccion;
+    private String rotulo;
+
+    //Guardarán el precio con descuento y consumo.
     private double gasoleoA;
     private double gasolina95;
-    private String rotulo;
+
+    //Precio sin el descuento pero contando con el consumo hasta la gasolinera.
+    private double precioSinDescuentoGasoleoA;
+    private double precioSinDescuentoGasolina95;
+
+    //Posteriormente...
+    //private Descuento descuento;
+    private double distanciaEnKm;
+    private boolean tieneDescuento;
 
 
     /**
@@ -33,7 +45,53 @@ public class Gasolinera implements Parcelable {
         this.gasoleoA = gasoleoA;
         this.gasolina95 = gasolina95;
         this.rotulo = rotulo;
+        this.tieneDescuento=false;
+        //Log.d("Test",Double.toString(gasoleoA));
+        //this.distanciaEnKm=getDistanciaEnKm();
     }
+
+    /**
+     * Método que calcula el precio por litro final que tendrá cada tipo de combustible
+     * teniendo en cuenta el descuento disponible en la gasolinera y el consumo de conducir
+     * hasta ella.
+     */
+    public void calculaPrecioFinal(){
+        //Precio con descuento asignado a la gasolinera y el consumo del vehiculo
+        //this.gasoleoA=gasoleoA*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
+        //this.gasolina95=gasolina95*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
+        //Precio Sin descuento y con consumo
+
+        this.precioSinDescuentoGasoleoA =round(gasoleoA+distanciaEnKm*6/100,4);
+        this.precioSinDescuentoGasolina95=round(gasolina95+distanciaEnKm*6/100,4);
+        //Precio con descuento del 10% y consumo de 6L a los 100Km
+        this.gasoleoA=round(gasoleoA*0.9+distanciaEnKm*6/100,4);
+        this.gasolina95=round(gasolina95*0.9+distanciaEnKm*6/100,4);
+    }
+
+    public boolean getTieneDescuento(){
+        return tieneDescuento;
+    }
+
+    public void setTieneDescuento(boolean tieneDescuento){
+        this.tieneDescuento=tieneDescuento;
+    }
+
+    /**
+     * Método que redondea un número double.
+     * @param value valor a redondear
+     * @param places número de decimales deseados
+     * @return valor introducido redondeado
+     */
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
+
 
     public int getIdeess() { return ideess; }
     public void setIdeess(int ideess) { this.ideess = ideess; }
@@ -56,6 +114,11 @@ public class Gasolinera implements Parcelable {
     public double getGasolina95() { return gasolina95; }
     public void setGasolina95(double gasolina95) { this.gasolina95 = gasolina95; }
 
+    public double getPrecioSinDescuentoGasoleoA(){return precioSinDescuentoGasoleoA;}
+
+    public double getPrecioSinDescuentoGasolina95(){return precioSinDescuentoGasolina95;}
+
+    public double getDistanciaEnKm(){return distanciaEnKm;}
 
     /**
      * toString
@@ -99,6 +162,12 @@ public class Gasolinera implements Parcelable {
         gasoleoA = in.readDouble();
         gasolina95 = in.readDouble();
         rotulo = in.readString();
+        this.calculaPrecioFinal();
+
+        if(rotulo.equals("CEPSA")){
+            setTieneDescuento(true);
+        }
+
     }
 
     @Override
