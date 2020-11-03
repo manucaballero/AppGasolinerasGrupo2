@@ -1,10 +1,5 @@
 package com.isunican.proyectobase;
 
-import android.content.Context;
-import android.util.Log;
-
-import androidx.test.espresso.core.internal.deps.guava.util.concurrent.ExecutionList;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 

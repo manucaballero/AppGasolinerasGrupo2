@@ -45,14 +45,16 @@ public class MainActivity extends AppCompatActivity {
     public PresenterGasolineras presenterGasolineras;
 
     // Vista de lista y adaptador para cargar datos en ella
-    public ListView listViewGasolineras;
-    public ArrayAdapter<Gasolinera> adapter;
+    private ListView listViewGasolineras;
+    private ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
 
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+
 
     /**
      * onCreate
@@ -156,11 +158,11 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * onPreExecute
-         *
+         * @deprecated deprecated method
          * Metodo ejecutado de forma previa a la ejecucion de la tarea definida en el metodo doInBackground()
          * Muestra un diálogo de progreso
          */
-        @Override
+        @Override @Deprecated
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);  //To show ProgressBar
         }
@@ -180,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * onPostExecute
-         *
+         * @deprecated deprecated method
          * Se ejecuta al finalizar doInBackground
          * Oculta el diálogo de progreso.
          * Muestra en una lista los datos de las gasolineras cargadas,
@@ -191,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
          *
          * @param res
          */
-        @Override
+        @Override @Deprecated
         protected void onPostExecute(Boolean res) {
             Toast toast;
 
@@ -259,6 +261,22 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    /**
+     * Método que retorna el objeto Adapter de la activity.
+     * @return adapter
+     */
+    public ArrayAdapter<Gasolinera> getAdapter(){
+        return adapter;
+    }
+
+    /**
+     * Método que retorna una ListView de las gasolineras.
+     * @return listViewGasolineras
+     */
+    public ListView getListViewGasolineras(){
+        return listViewGasolineras;
     }
 
 

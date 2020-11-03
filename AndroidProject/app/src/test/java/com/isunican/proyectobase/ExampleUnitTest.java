@@ -47,7 +47,7 @@ public class ExampleUnitTest {
     @Test
     public void calcularPrecioFinal(){
         g1.calculaPrecioFinal();
-        assertTrue(g1.getGasoleoA() == precio*0.9+g1.getDistanciaEnKm()*6/100);
+        assertEquals(g1.getGasoleoA(),precio*0.9+g1.getDistanciaEnKm()*6/100, 0);
     }
 
 }
