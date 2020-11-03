@@ -3,6 +3,7 @@ package com.isunican.proyectobase.Views;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -323,6 +324,12 @@ public class MainActivity extends AppCompatActivity {
             direccion.setText(gasolinera.getDireccion());
             gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
             gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+
+            if(gasolinera.getRotulo().equals("CEPSA")){
+                view.setBackgroundColor(0xfffffd82);
+                gasoleoA.setTextColor(Color.RED);
+                gasolina95.setTextColor(Color.RED);
+            }
 
             // carga icono
             cargaIcono(gasolinera, logo);
