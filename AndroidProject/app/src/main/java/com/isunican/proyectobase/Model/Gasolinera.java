@@ -30,13 +30,14 @@ public class Gasolinera implements Parcelable {
     private double gasolina95;
 
     //Precio sin el descuento pero contando con el consumo hasta la gasolinera.
-    private double precioSinDescuentoGasoleoA = 2;
-    private double precioSinDescuentoGasolina95;
+    private double gasoleoAConDescuento;
+    private double gasolina95ConDescuento;
 
     //Posteriormente...
     //private Descuento descuento;
     private double distanciaEnKm;
     private boolean tieneDescuento;
+    private final double DEPOSITO = 50;
 
 
     /**
@@ -52,6 +53,11 @@ public class Gasolinera implements Parcelable {
         this.rotulo = rotulo;
         this.tieneDescuento=false;
         this.posicion = new Posicion(Double.parseDouble(latitud.replaceAll(",",".")),Double.parseDouble(longitud.replaceAll(",",".")));
+        if(rotulo.equals("CEPSA")){
+            setTieneDescuento(true);
+        }else{
+            setTieneDescuento(false);
+        }
         //Log.d("Test",Double.toString(gasoleoA));
         //this.distanciaEnKm=getDistanciaEnKm();
     }
@@ -72,11 +78,15 @@ public class Gasolinera implements Parcelable {
         //Precio Sin descuento y con consumo
         //FALTA METER DEPOSITO
         //precioSinDescuentoGasoleoA =100;
-        this.precioSinDescuentoGasoleoA =round(gasoleoA+distanciaEnKm*6/100,4);
-        this.precioSinDescuentoGasolina95=round(gasolina95+distanciaEnKm*6/100,4);
+        //Log.d("prueba",direccion+"    " + String.valueOf(distanciaEnKm) +"        "+ String.valueOf(gasoleoAConDescuento)+"    "+tieneDescuento);
         //Precio con descuento del 10% y consumo de 6L a los 100Km
-        this.gasoleoA=round(gasoleoA*0.9+distanciaEnKm*6/100,4);
-        this.gasolina95=round(gasolina95*0.9+distanciaEnKm*6/100,4);
+        if(this.getTieneDescuento()){
+            this.gasoleoAConDescuento=round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO*0.9,3);
+            this.gasolina95ConDescuento=round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO*0.9,3);
+        }
+        this.gasoleoA=round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO,3);
+        this.gasolina95=round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO,3);
+
 
     }
 
@@ -126,15 +136,19 @@ public class Gasolinera implements Parcelable {
     public double getGasolina95() { return gasolina95; }
     public void setGasolina95(double gasolina95) { this.gasolina95 = gasolina95; }
 
+
+    public Posicion getPosicion(){ return posicion; }
+
+    public double getGasoleoAConDescuento(){return gasoleoAConDescuento;}
+    public void setGasoleoAConDescuento(double gasoleoA) { this.gasoleoAConDescuento = gasoleoA; }
+
+    public double getGasolina95ConDescuento(){return gasolina95ConDescuento;}
+    public void setGasolina95ConDescuento(double gasolina95) { this.gasolina95ConDescuento = gasolina95; }
+
+    public double getDistanciaEnKm(){return distanciaEnKm;}
     public void setDistanciaEnKm(double distanciaEnKm){
         this.distanciaEnKm = distanciaEnKm;
     }
-    public Posicion getPosicion(){ return posicion; }
-    public double getPrecioSinDescuentoGasoleoA(){return precioSinDescuentoGasoleoA;}
-
-    public double getPrecioSinDescuentoGasolina95(){return precioSinDescuentoGasolina95;}
-
-    public double getDistanciaEnKm(){return distanciaEnKm;}
 
     /**
      * toString
@@ -181,6 +195,8 @@ public class Gasolinera implements Parcelable {
         posicion = new Posicion(Double.parseDouble(in.readString().replaceAll(",",".")),Double.parseDouble(in.readString().replaceAll(",",".")));
         if(rotulo.equals("CEPSA")){
             setTieneDescuento(true);
+        }else{
+            setTieneDescuento(false);
         }
 
     }

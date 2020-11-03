@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -96,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.presenterGasolineras = new PresenterGasolineras();
 
+
+
         // Barra de progreso
         // https://materialdoc.com/components/progress/
         progressBar = new ProgressBar(MainActivity.this,null,android.R.attr.progressBarStyleLarge);
@@ -175,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
      * http://www.sgoliver.net/blog/tareas-en-segundo-plano-en-android-i-thread-y-asynctask/
      */
     public class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
+
 
         Activity activity;
 
@@ -256,25 +260,38 @@ public class MainActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Location> task)
                                 {
                                     Location location = task.getResult();
-                                    if (location == null) {
-                                        Toast.makeText(MainActivity.this, "Esperando a recibir la señal gps", Toast.LENGTH_SHORT).show();
-                                        for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                                            g.setDistanciaEnKm(0);
-                                            g.calculaPrecioFinal();
-                                        }
-                                        Toast.makeText(MainActivity.this, "Sin Ubi Precio Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getGasoleoA(), Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(MainActivity.this, "Sin Ubi Precio Sin Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getPrecioSinDescuentoGasoleoA(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Esperando a recibir la señal gps", Toast.LENGTH_SHORT).show();
+                                    for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                                        //Log.d("foreach",Double.toString(g.getPrecioSinDescuentoGasoleoA()));
+                                        g.setDistanciaEnKm(0);
+                                        g.calculaPrecioFinal();
 
-                                    } else {
+                                    }
+                                     //Toast.makeText(MainActivity.this, "Sin Ubi Precio Sin Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getPrecioSinDescuentoGasoleoA(), Toast.LENGTH_SHORT).show();
+
+                                    if (location != null) {
                                         Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
+
                                         for(Gasolinera g:presenterGasolineras.getGasolineras()){
                                             g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
+                                            Log.d("foreach",Double.toString(g.getGasoleoA()));
                                             g.calculaPrecioFinal();
-                                        }
-                                        Toast.makeText(MainActivity.this, "Precio Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getGasoleoA(), Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(MainActivity.this, "Precio Sin Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getPrecioSinDescuentoGasoleoA(), Toast.LENGTH_SHORT).show();
+
+
+                                            //Tiene que ir en el detailActivity
+                                            //g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
+                                            //g.calculaPrecioFinal();
+
                                     }
-                                }
+                                        presenterGasolineras.ordenaLista();
+                                        Toast.makeText(MainActivity.this, "Sin Ubi Precio Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(0).getGasoleoAConDescuento(), Toast.LENGTH_SHORT).show();
+                                        adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
+                                        listViewGasolineras.setAdapter(adapter);
+                                        //Toast.makeText(MainActivity.this, "Precio Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getGasoleoA(), Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(MainActivity.this, "Precio Sin Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getPrecioSinDescuentoGasoleoA(), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    }
                             });
 
                         } catch (ApiException exception) {
@@ -302,14 +319,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
                 presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
 
+
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
-
-                //Añadido por mi, ordenamos las gasolineras
-                //ordenaGasolineras();
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
@@ -349,6 +365,7 @@ public class MainActivity extends AppCompatActivity {
                      * Alternativa 1: a partir de posicion obtener algun atributo int opcionSeleccionada = ((Gasolinera) a.getItemAtPosition(position)).getIdeess();
                      * Alternativa 2: a partir de la vista obtener algun atributo String opcionSeleccionada = ((TextView)v.findViewById(R.id.textViewRotulo)).getText().toString();
                      */
+
                     Intent myIntent = new Intent(MainActivity.this, DetailActivity.class);
                     myIntent.putExtra(getResources().getString(R.string.pasoDatosGasolinera),
                             presenterGasolineras.getGasolineras().get(position));
@@ -402,8 +419,14 @@ public class MainActivity extends AppCompatActivity {
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
-            gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-            gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+            if(gasolinera.getTieneDescuento()){
+                gasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
+                gasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
+            }else{
+                gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
+                gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+            }
+
 
             // carga icono
             {
