@@ -1,6 +1,5 @@
-Mostrar pantalla en caso de no poder obtener los datos
+Cambios en la ubicacion de las pruebas de integracion y errores solucionados
 
-En caso de que no se puedan obtener los datos de las gasolineras por algún motivo concreto,
-se muestra una pantalla con información que le puede resultar de ayuda al usuario para solucionar el problema.
-En esta pantalla podemos relanzar la operación de consultar gasolinera.
-
+Todos los test de integracion de la historia de usuario calculaGasolineraMasBarata estan ahora en la clase
+calculaGasolineraMasBarataITest para que sea mas facil encontrarlos. Se ha solucionado el error que daba en el
+test ordenaListaITest. Todos los test pasan con el codigo actual.

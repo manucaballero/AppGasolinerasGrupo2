@@ -213,9 +213,6 @@ public class MainActivity extends AppCompatActivity {
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
-                //Añadido por mi, ordenamos las gasolineras
-                //ordenaGasolineras();
-
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
                     // datos obtenidos con exito
@@ -304,6 +301,9 @@ public class MainActivity extends AppCompatActivity {
             TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
             TextView gasolina95 = view.findViewById(R.id.textViewGasolina95);
 
+            if(gasolinera.getTieneDescuento()){
+                gasolinera.calculaPrecioFinal();
+            }
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());

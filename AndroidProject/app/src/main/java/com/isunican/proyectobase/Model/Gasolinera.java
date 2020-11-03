@@ -46,8 +46,6 @@ public class Gasolinera implements Parcelable {
         this.gasolina95 = gasolina95;
         this.rotulo = rotulo;
         this.tieneDescuento=false;
-        //Log.d("Test",Double.toString(gasoleoA));
-        //this.distanciaEnKm=getDistanciaEnKm();
         this.calculaPrecioFinal();
     }
 
