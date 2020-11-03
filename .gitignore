@@ -43,7 +43,6 @@ AndroidProject/.idea/libraries
 AndroidProject/.idea/caches
 AndroidProject/.idea/lint
 AndroidProject/.idea/sonarlint
-AndroidProject/app/.idea/sonarlint/issuestore
 
 # Keystore files
 
