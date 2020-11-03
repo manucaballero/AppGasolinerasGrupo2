@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     public PresenterGasolineras presenterGasolineras;
 
     // Vista de lista y adaptador para cargar datos en ella
-    private ListView listViewGasolineras;
-    private ArrayAdapter<Gasolinera> adapter;
+    public ListView listViewGasolineras;
+    public ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -262,22 +262,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-    }
-
-    /**
-     * Método que retorna el objeto Adapter de la activity.
-     * @return adapter
-     */
-    public ArrayAdapter<Gasolinera> getAdapter(){
-        return adapter;
-    }
-
-    /**
-     * Método que retorna una ListView de las gasolineras.
-     * @return listViewGasolineras
-     */
-    public ListView getListViewGasolineras(){
-        return listViewGasolineras;
     }
 
 
