@@ -207,13 +207,10 @@ public class MainActivity extends AppCompatActivity {
             if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
                 presenterGasolineras.ordenaLista();
-                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
+                adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
                 // Obtenemos la vista de la lista
                 listViewGasolineras = findViewById(R.id.listViewGasolineras);
-
-                //Añadido por mi, ordenamos las gasolineras
-                //ordenaGasolineras();
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
@@ -250,8 +247,6 @@ public class MainActivity extends AppCompatActivity {
 
                     /* Obtengo el elemento directamente de su posicion,
                      * ya que es la misma que ocupa en la lista
-                     * Alternativa 1: a partir de posicion obtener algun atributo int opcionSeleccionada = ((Gasolinera) a.getItemAtPosition(position)).getIdeess();
-                     * Alternativa 2: a partir de la vista obtener algun atributo String opcionSeleccionada = ((TextView)v.findViewById(R.id.textViewRotulo)).getText().toString();
                      */
                     Intent myIntent = new Intent(MainActivity.this, DetailActivity.class);
                     myIntent.putExtra(getResources().getString(R.string.pasoDatosGasolinera),

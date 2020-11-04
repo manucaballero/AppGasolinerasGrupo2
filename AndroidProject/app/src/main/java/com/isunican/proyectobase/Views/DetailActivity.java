@@ -69,7 +69,6 @@ public class DetailActivity extends AppCompatActivity {
         txtMaps = findViewById(R.id.txtMaps);
         txtDieselPrecio = findViewById(R.id.txtPrecioDiesel);
         txtGasolina95Precio = findViewById(R.id.txtPrecioGasolina95);
-        //txtMasInfo = findViewById(R.id.txtMasInfo);
 
 
         txtDieselPrecioConDescuento=findViewById(R.id.txtPrecioDieselConDescuento);
