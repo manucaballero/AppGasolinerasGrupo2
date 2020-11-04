@@ -16,4 +16,5 @@
     <string name="pasoDatosInfo">DatosInfo</string>
     <string name="pasoDatosGasolinera">DatosGasolinera</string>
     <string name="volverAIntentar">Volver a intentar</string>
+    <string name="datosConUbicacion">Datos con ubicación obtenidos correctamente</string>
 </resources>

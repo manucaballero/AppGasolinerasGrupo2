@@ -41,6 +41,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.Posicion;
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     /*public PresenterGasolineras getPresenter(){
         return presenterGasolineras;
     }*/
+
     /**
      * onCreate
      *
@@ -97,15 +99,17 @@ public class MainActivity extends AppCompatActivity {
 
         this.presenterGasolineras = new PresenterGasolineras();
 
+        // Obtenemos la vista de la lista
+        listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
 
         // Barra de progreso
         // https://materialdoc.com/components/progress/
-        progressBar = new ProgressBar(MainActivity.this,null,android.R.attr.progressBarStyleLarge);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        progressBar = new ProgressBar(MainActivity.this, null, android.R.attr.progressBarStyleLarge);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         RelativeLayout layout = findViewById(R.id.activity_precio_gasolina);
-        layout.addView(progressBar,params);
+        layout.addView(progressBar, params);
 
         // Muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -120,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 new CargaDatosGasolinerasTask(MainActivity.this).execute();
             }
         });
-        if(checkPermission()){
+        if (checkPermission()) {
 
-        }else{
+        } else {
             requestPermission();
         }
         // Al terminar de inicializar todas las variables
@@ -148,16 +152,16 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.itemActualizar){
+        if (item.getItemId() == R.id.itemActualizar) {
             mSwipeRefreshLayout.setRefreshing(true);
             new CargaDatosGasolinerasTask(this).execute();
-        }
-        else if(item.getItemId()==R.id.itemInfo){
+        } else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
-            }
+        }
         return true;
     }
 
@@ -229,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(Boolean res) {
-            Toast toast;
+            Toast toast = null;
 
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
@@ -238,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
 
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (res) {
-                //Aqui calculamos DistanciaenKM
                 // Definimos el array adapter
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
                 LocationRequest mLocationRequest = new LocationRequest();
@@ -260,37 +263,21 @@ public class MainActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Location> task)
                                 {
                                     Location location = task.getResult();
-                                    Toast.makeText(MainActivity.this, "Esperando a recibir la señal gps", Toast.LENGTH_SHORT).show();
-                                    for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                                        //Log.d("foreach",Double.toString(g.getPrecioSinDescuentoGasoleoA()));
-                                        g.setDistanciaEnKm(0);
-                                        g.calculaPrecioFinal();
-
-                                    }
-                                     //Toast.makeText(MainActivity.this, "Sin Ubi Precio Sin Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getPrecioSinDescuentoGasoleoA(), Toast.LENGTH_SHORT).show();
-
+                                    //Cuando el usuario tiene la ubicacion activada
                                     if (location != null) {
                                         Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
 
                                         for(Gasolinera g:presenterGasolineras.getGasolineras()){
                                             g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
-                                            Log.d("foreach",Double.toString(g.getGasoleoA()));
                                             g.calculaPrecioFinal();
-
-
-                                            //Tiene que ir en el detailActivity
-                                            //g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
-                                            //g.calculaPrecioFinal();
+                                        }
 
                                     }
-                                        presenterGasolineras.ordenaLista();
-                                        Toast.makeText(MainActivity.this, "Sin Ubi Precio Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(0).getGasoleoAConDescuento(), Toast.LENGTH_SHORT).show();
-                                        adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
-                                        listViewGasolineras.setAdapter(adapter);
-                                        //Toast.makeText(MainActivity.this, "Precio Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getGasoleoA(), Toast.LENGTH_SHORT).show();
-                                        //Toast.makeText(MainActivity.this, "Precio Sin Descuento gasoleoA: "+presenterGasolineras.getGasolineras().get(2).getPrecioSinDescuentoGasoleoA(), Toast.LENGTH_SHORT).show();
-                                    }
-
+                                    presenterGasolineras.ordenaLista();
+                                    adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
+                                    listViewGasolineras.setAdapter(adapter);
+                                    Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
+                                    toast.show();
                                     }
                             });
 
@@ -320,12 +307,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
+                for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                    g.calculaPrecioFinal();
+                }
                 presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
-
-
-                // Obtenemos la vista de la lista
-                listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {

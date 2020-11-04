@@ -58,8 +58,6 @@ public class Gasolinera implements Parcelable {
         }else{
             setTieneDescuento(false);
         }
-        //Log.d("Test",Double.toString(gasoleoA));
-        //this.distanciaEnKm=getDistanciaEnKm();
     }
 
     /**
@@ -68,21 +66,12 @@ public class Gasolinera implements Parcelable {
      * hasta ella.
      */
     public void calculaPrecioFinal(){
-        Log.d("calculaPrecioFinalTest","dentro de calculaPrecioFinal");
-        //if en el que si la distancia es distinto a 0, quiere decir que tenemos la ubicacion del usuario,
-        //y podemos calcular el precio con la distancia
-
-        //Precio con descuento asignado a la gasolinera y el consumo del vehiculo
-        //this.gasoleoA=gasoleoA*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
-        //this.gasolina95=gasolina95*(1-descuento.getPorcentaje()/100)+distanciaEnKm;
-        //Precio Sin descuento y con consumo
-        //FALTA METER DEPOSITO
-        //precioSinDescuentoGasoleoA =100;
-        //Log.d("prueba",direccion+"    " + String.valueOf(distanciaEnKm) +"        "+ String.valueOf(gasoleoAConDescuento)+"    "+tieneDescuento);
-        //Precio con descuento del 10% y consumo de 6L a los 100Km
         if(this.getTieneDescuento()){
             this.gasoleoAConDescuento=round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO*0.9,3);
             this.gasolina95ConDescuento=round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO*0.9,3);
+        }else{
+            this.gasoleoAConDescuento=round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO,3);
+            this.gasolina95ConDescuento=round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO,3);
         }
         this.gasoleoA=round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO,3);
         this.gasolina95=round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO,3);

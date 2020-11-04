@@ -124,7 +124,7 @@ public class PresenterGasolineras {
 
     public void ordenaLista() {
         //Variable que nos permite saber si ha habido movimiento durante la ronda
-        //Si en una ronda no hay movimiento, el programa sale, ya que ya estÃ¡ la lista ordenada
+        //Si en una ronda no hay movimiento, el programa sale, ya que ya esta la lista ordenada
         boolean movimiento = true;
         //Contador que nos indica cuantas rondas comparando parejas llevamos en el bucle
         int contRondas = 0;
@@ -132,11 +132,11 @@ public class PresenterGasolineras {
         while(movimiento){
             /* Iniciamos el boleano como falso, y si cambia durante el bucle, es que ha habido un movimiento */
             movimiento = false;
-			/*comenzamos el bucle en 1, y comparamos con el anterior para no salirnos de los lÃ­mites
+			/*comenzamos el bucle en 1, y comparamos con el anterior para no salirnos de los limites
 			de la array */
             for(int i=1;i<gasolineras.size()-contRondas;i++){
                 /* Si el número de la derecha es menor que el de la izquierda, los intercambia */
-                if(gasolineras.get(i).getGasoleoA()<gasolineras.get(i-1).getGasoleoA()){
+                if(gasolineras.get(i).getGasoleoAConDescuento()<gasolineras.get(i-1).getGasoleoAConDescuento()){
                     /*Como ha habido movimiento, lo indicamos en el boleano que tenemos
                      * así cuando acabe el bucle, comenzará de nuevo
                      */
