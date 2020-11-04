@@ -44,11 +44,11 @@ import android.widget.Toast;
 */
 public class MainActivity extends AppCompatActivity {
 
-    PresenterGasolineras presenterGasolineras;
+    public PresenterGasolineras presenterGasolineras;
 
     // Vista de lista y adaptador para cargar datos en ella
-    ListView listViewGasolineras;
-    ArrayAdapter<Gasolinera> adapter;
+    public ListView listViewGasolineras;
+    public ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         en el listview del layout principal de la aplicacion
     ------------------------------------------------------------------
     */
-    class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
+    public class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 
         private Context context;
         private List<Gasolinera> listaGasolineras;
@@ -287,7 +287,6 @@ public class MainActivity extends AppCompatActivity {
             // Indica el layout a usar en cada elemento de la lista
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_gasolinera, null);
-
             // Asocia las variables de dicho layout
             ImageView logo = view.findViewById(R.id.imageViewLogo);
             TextView rotulo = view.findViewById(R.id.textViewRotulo);
@@ -301,6 +300,7 @@ public class MainActivity extends AppCompatActivity {
             gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
             gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
 
+            view.setBackgroundColor(Color.WHITE);
             if(gasolinera.getRotulo().equals("CEPSA")){
                 view.setBackgroundColor(0xfffffd82);
                 gasoleoA.setTextColor(Color.RED);
