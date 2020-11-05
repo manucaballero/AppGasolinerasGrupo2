@@ -53,16 +53,20 @@ public class PruebasUnitariasTest {
         pg.ordenaLista();
         List<Gasolinera> lista = lista = pg.getGasolineras();
 
+        //Gasolineras ordenadas correctamente por precio
         assertTrue(lista.get(0).getGasoleoA() <= lista.get(1).getGasoleoA());
         assertTrue(lista.get(1).getGasoleoA() <= lista.get(2).getGasoleoA());
         assertTrue(lista.get(2).getGasoleoA() <= lista.get(3).getGasoleoA());
         assertTrue(lista.get(3).getGasoleoA() <= lista.get(4).getGasoleoA());
+
+        //Gasolineras no estan ordenadas por precio
+
     }
 
     @Test
     public void calcularPrecioFinalTest(){
         g1.calculaPrecioFinal();
-        assertTrue(g1.getGasoleoA() == precio*0.9+g1.getDistanciaEnKm()*6/100);
+        assertTrue(g1.getGasoleoA() == Gasolinera.round(precio*0.9+g1.getDistanciaEnKm()*6/100,4));
     }
 
 

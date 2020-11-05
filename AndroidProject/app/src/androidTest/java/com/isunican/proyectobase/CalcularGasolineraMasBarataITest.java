@@ -60,7 +60,7 @@ public class CalcularGasolineraMasBarataITest {
     }
 
     @Test
-    public void ordenaListaITest(){
+    public void compruebaListaITest(){
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {}
@@ -95,23 +95,27 @@ public class CalcularGasolineraMasBarataITest {
         v3.onChildView(withId(R.id.textViewGasoleoA)).check(matches(withText(" "+Double.toString(g3.getGasoleoA())+"€")));
         v3.onChildView(withId(R.id.textViewGasolina95)).check(matches(withText(" "+Double.toString(g3.getGasolina95())+"€")));
 
+
+    }
+
+    @Test
+    public void listaOrdenadaITest(){
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {}
+
+        ListAdapter adapter = mActivityTestRule.getActivity().adapter;
+
+        Gasolinera g1 = (Gasolinera) adapter.getItem(0);
+        Gasolinera g2 = (Gasolinera) adapter.getItem(1);
+        Gasolinera g3 = (Gasolinera) adapter.getItem(2);
+
         Assert.assertTrue(g1.getGasoleoA() < g2.getGasoleoA());
         Assert.assertTrue(g2.getGasoleoA() < g3.getGasoleoA());
 
     }
 
-    @Test
-    public void conexionITest(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getS
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        if (networkInfo != null && networkInfo.isConnected()) {
-            // Si hay conexión a Internet en este momento
-        } else {
-            // No hay conexión a Internet en este momento
-        }
-
-
-    }
 
 }

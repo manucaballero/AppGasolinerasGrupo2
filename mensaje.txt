@@ -1,3 +1,4 @@
-Anhadido test para comprobar la conexion
+Anhadidos test y solucionado errores en test
 
-Se ha nahadido  el test conexionItest para comprobar que si no hay conexion se muestra la interfaz de no_datos
+Se ha anhadido un nuevo test listaOrdenadaITest y solucionado el fallo que daba el test calcularPrecioFinal, cuyo nombre ha sido
+cambiado a calcularPrecioFinalTest. 
