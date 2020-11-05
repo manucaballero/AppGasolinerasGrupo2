@@ -301,6 +301,8 @@ public class MainActivity extends AppCompatActivity {
             gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
 
             view.setBackgroundColor(Color.WHITE);
+            gasoleoA.setTextColor(Color.BLACK);
+            gasolina95.setTextColor(Color.BLACK);
             if(gasolinera.getRotulo().equals("CEPSA")){
                 view.setBackgroundColor(0xfffffd82);
                 gasoleoA.setTextColor(Color.RED);

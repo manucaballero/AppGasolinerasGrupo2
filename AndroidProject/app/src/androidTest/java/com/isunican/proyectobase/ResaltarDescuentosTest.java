@@ -33,6 +33,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -66,7 +67,7 @@ public class ResaltarDescuentosTest {
         int i = 0;
         int j = 2;
 
-        Gasolinera g = (Gasolinera) adapter.getItem(0);
+        /*Gasolinera g = (Gasolinera) adapter.getItem(0);
 
         LayoutInflater inflater = (LayoutInflater) mActivityTestRule.getActivity().getApplicationContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.item_gasolinera, null);
@@ -96,8 +97,27 @@ public class ResaltarDescuentosTest {
         Assert.assertEquals(gasolina95Desc.getCurrentTextColor(),Color.RED);
 
         Assert.assertEquals(gasoleoASin.getCurrentTextColor(),-65536);
-        Assert.assertEquals(gasolina95Sin.getCurrentTextColor(),-65536);
+        Assert.assertEquals(gasolina95Sin.getCurrentTextColor(),-65536);*/
 
+        ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
+        View v1 = lv.getChildAt(0);
+        View v2 = lv.getChildAt(1);
+        ColorDrawable cBck1 = (ColorDrawable) v1.getBackground();
+        ColorDrawable cBck2 = (ColorDrawable) v2.getBackground();
+
+        Assert.assertEquals(cBck1.getColor(), 0xfffffd82);
+        Assert.assertEquals(cBck2.getColor(), Color.WHITE);
+
+        TextView gasolinaCon = v1.findViewById(R.id.textViewGasolina95);
+        TextView gasoleoCon = v1.findViewById(R.id.textViewGasoleoA);
+        TextView gasolinaSin = v2.findViewById(R.id.textViewGasolina95);
+        TextView gasoleoSin = v2.findViewById(R.id.textViewGasoleoA);
+
+        Assert.assertEquals(gasolinaCon.getCurrentTextColor(),Color.RED);
+        Assert.assertEquals(gasoleoCon.getCurrentTextColor(),Color.RED);
+
+        Assert.assertEquals(gasolinaSin.getCurrentTextColor(),Color.BLACK);
+        Assert.assertEquals(gasoleoSin.getCurrentTextColor(),Color.BLACK);
 
 
 
