@@ -1,4 +1,4 @@
-Solucionado error en modules.xml
+Calcular gasolinera mas barata con distancia
 
 Se han borrado las lineas del merge sospechosamente mal hecho y que generaban errores
 en el androidStudio.

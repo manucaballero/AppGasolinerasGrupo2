@@ -105,7 +105,8 @@ public class ParserJSONGasolineras {
         int id = -1;
         double gasoleoA = 0.0;
         double sinplomo95 = 0.0;
-
+        String latitud = "";
+        String longitud = "";
         while(reader.hasNext()){
             String name = reader.nextName();
 
@@ -123,13 +124,18 @@ public class ParserJSONGasolineras {
                 sinplomo95 = parseDouble(reader.nextString().replace(",", "."));
             }else if(name.equals("Dirección")){
                 direccion = reader.nextString();
+            }else if(name.equals("Latitud")){
+                latitud = reader.nextString();
+            }
+            else if(name.equals("Longitud (WGS84)")){
+                longitud = reader.nextString();
             }else{
                 reader.skipValue();
             }
 
         }
         reader.endObject();
-        return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo);
+        return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo,latitud,longitud);
     }
 
     private static double parseDouble(String str) {
