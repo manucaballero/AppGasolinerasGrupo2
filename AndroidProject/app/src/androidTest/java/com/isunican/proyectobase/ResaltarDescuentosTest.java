@@ -35,6 +35,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Objects;
 
 import static androidx.test.espresso.Espresso.onData;
@@ -52,10 +56,48 @@ public class ResaltarDescuentosTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    /*
+    private static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
+    }
 
     @Test
+    public void internetTest(){
+        Assert.assertEquals(netIsAvailable(),true);
+
+        try {
+            Assert.assertEquals(netIsAvailable(),false);
+            Assert.fail("Error de conexión");
+        }catch(Exception e){}
+    }*/
+
+    /*
+        Se comprueba que la lista se cargue correctamente en el presenter
+     */
+    @Test
+    public void listaCargadaTest(){
+        PresenterGasolineras presenterGasolineras = new PresenterGasolineras();
+        presenterGasolineras.cargaDatosGasolineras();
+        Assert.assertNotEquals(presenterGasolineras.getGasolineras().size(),0);
+    }
+
+    /*
+        Se comprueba que se muestre por la interfaz el color esperado de background de cada view y el color
+        de letra esperado de los precios de cada una de las views que correspondan a las gasolineras con
+        descuentos.
+     */
+    @Test
     public void resaltarTest() {
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         try {
             Thread.sleep(4000);
@@ -63,116 +105,30 @@ public class ResaltarDescuentosTest {
 
         }
         ListAdapter adapter = mActivityTestRule.getActivity().adapter;
+        //Obtenemos la lista de vistas
+        ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
 
         int i = 0;
         int j = 2;
-
-        /*Gasolinera g = (Gasolinera) adapter.getItem(0);
-
-        LayoutInflater inflater = (LayoutInflater) mActivityTestRule.getActivity().getApplicationContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_gasolinera, null);
-        TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
-        TextView gasolina95 = view.findViewById(R.id.textViewGasolina95);
-        if (g.getRotulo().equals("CEPSA")) {
-            view.setBackgroundColor(0xfffffd82);
-            gasoleoA.setTextColor(Color.RED);
-            gasolina95.setTextColor(Color.RED);
-        }
-
-        View vDescuento = adapter.getView(i, view, (ViewGroup) view.getParent());
-        View vSinDescuento = adapter.getView(j, view, (ViewGroup) view.getParent());
-
-        ColorDrawable backColor1 = (ColorDrawable) vDescuento.getBackground();
-        ColorDrawable backColor2 = (ColorDrawable) vSinDescuento.getBackground();
-
-        Assert.assertTrue(backColor1.getColor() == 0xfffffd82);
-        Assert.assertEquals(backColor2.getColor(), Color.WHITE);
-
-        TextView gasoleoADesc = view.findViewById(R.id.textViewGasoleoA);
-        TextView gasolina95Desc = view.findViewById(R.id.textViewGasolina95);
-        TextView gasoleoASin = view.findViewById(R.id.textViewGasoleoA);
-        TextView gasolina95Sin = view.findViewById(R.id.textViewGasolina95);
-
-        Assert.assertEquals(gasoleoADesc.getCurrentTextColor(),Color.RED);
-        Assert.assertEquals(gasolina95Desc.getCurrentTextColor(),Color.RED);
-
-        Assert.assertEquals(gasoleoASin.getCurrentTextColor(),-65536);
-        Assert.assertEquals(gasolina95Sin.getCurrentTextColor(),-65536);*/
-
-        ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
-        View v1 = lv.getChildAt(0);
-        View v2 = lv.getChildAt(1);
+        //Cogemos las vistas que queremos (correspondientes a cada elemento de la listview de la interfaz principal
+        View v1 = lv.getChildAt(i);
+        View v2 = lv.getChildAt(j);
+        //Obtenemos los colores de background
         ColorDrawable cBck1 = (ColorDrawable) v1.getBackground();
         ColorDrawable cBck2 = (ColorDrawable) v2.getBackground();
-
+        //Comparamos con los valores esperados
         Assert.assertEquals(cBck1.getColor(), 0xfffffd82);
         Assert.assertEquals(cBck2.getColor(), Color.WHITE);
-
+        //Obtenemos las textview que queremos observar
         TextView gasolinaCon = v1.findViewById(R.id.textViewGasolina95);
         TextView gasoleoCon = v1.findViewById(R.id.textViewGasoleoA);
         TextView gasolinaSin = v2.findViewById(R.id.textViewGasolina95);
         TextView gasoleoSin = v2.findViewById(R.id.textViewGasoleoA);
-
+        //Comparamos con los valores esperados
         Assert.assertEquals(gasolinaCon.getCurrentTextColor(),Color.RED);
         Assert.assertEquals(gasoleoCon.getCurrentTextColor(),Color.RED);
-
         Assert.assertEquals(gasolinaSin.getCurrentTextColor(),Color.BLACK);
         Assert.assertEquals(gasoleoSin.getCurrentTextColor(),Color.BLACK);
 
-
-
-
-        /*
-       while (!((Gasolinera) adapter.getItem(i)).getTieneDescuento()) {
-            i++;
-       }
-        Gasolinera gDescuento = (Gasolinera) adapter.getItem(i);
-        //Buscamos otra gasolinera sin descuento
-        while (((Gasolinera) adapter.getItem(j)).getTieneDescuento()) {
-            j++;
-        }
-        Gasolinera gSinDescuento = (Gasolinera) adapter.getItem(j);*/
-
-      /*onView(withIndex(withId(R.id.relativeLayoutGasolinera),i)).check(matches(withBgColor(0xfffffd82)));
-
-
-        DataInteraction v1 = onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(i);
-        DataInteraction v2 = onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(j);
-
-        v1.onChildView(withId(R.id.relativeLayoutGasolinera)).check(matches(withBgColor(0xfffffd82)));
-
-           */
     }
-
-    /*public static Matcher<View> withBgColor(final int color) {
-        Checks.checkNotNull(color);
-        return new BoundedMatcher<View, LinearLayout>(LinearLayout.class) {
-            @Override
-            public boolean matchesSafely(LinearLayout row) {
-                return color == ((ColorDrawable) row.getBackground()).getColor();
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("with text color: ");
-            }
-        };
-    }
-    public static Matcher<View> withIndex(final Matcher<View> matcher, final int index) {
-        return new TypeSafeMatcher<View>() {
-            int currentIndex = 0;
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("with index: ");
-                description.appendValue(index);
-                matcher.describeTo(description);
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                return matcher.matches(view) && currentIndex++ == index;
-            }
-        };
-    }*/
 }
