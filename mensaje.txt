@@ -1,5 +1,3 @@
-Cambios en la ubicacion de las pruebas de integracion y errores solucionados
+Anhadido test para comprobar la conexion
 
-Todos los test de integracion de la historia de usuario calculaGasolineraMasBarata estan ahora en la clase
-calculaGasolineraMasBarataITest para que sea mas facil encontrarlos. Se ha solucionado el error que daba en el
-test ordenaListaITest. Todos los test pasan con el codigo actual.
+Se ha nahadido  el test conexionItest para comprobar que si no hay conexion se muestra la interfaz de no_datos
