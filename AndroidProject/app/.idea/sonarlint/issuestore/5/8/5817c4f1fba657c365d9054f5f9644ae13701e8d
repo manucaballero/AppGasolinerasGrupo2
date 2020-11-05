@@ -1,26 +1,26 @@
 
-@
-java:S1659"*Declare "txtLocalidad" on a separate line.(ğ²µ—
-O
-java:S1659"9Declare "txtDieselPrecioConDescuento" on a separate line.(ğ²µ—
-L
-java:S1659"1Declare "txtGasolina95Precio" on a separate line.(¿·“Úûÿÿÿÿ
-M
-java:S1128"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ
-@
-java:S1659"%Declare "txtMaps" on a separate line.(¿·“Úûÿÿÿÿ
 V	java:S110"<This class has 8 parents which is greater than 5 authorized.(îÆÇĞüÿÿÿÿ
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
-V	java:S125>"<This block of commented-out lines of code should be removed.(¯¢¬úÿÿÿÿ
-C
-java:S1659"(Declare "txtMasInfo" on a separate line.(¿·“Úûÿÿÿÿ
-R
-java:S1659"7Declare "txtGasolina95ConDescuento" on a separate line.(¿·“Úûÿÿÿÿ
 I
 java:S1659"3Declare "txtDieselConDescuento" on a separate line.(ğ²µ—
+R
+java:S1659"7Declare "txtGasolina95ConDescuento" on a separate line.(¿·“Úûÿÿÿÿ
+V	java:S125>"<This block of commented-out lines of code should be removed.(¯¢¬úÿÿÿÿ
+@
+java:S1659"*Declare "txtLocalidad" on a separate line.(ğ²µ—
 @
 java:S1659"*Declare "txtDireccion" on a separate line.(ğ²µ—
 C
 java:S1659"-Declare "txtDieselPrecio" on a separate line.(ğ²µ—
+@
+java:S1659"%Declare "txtMaps" on a separate line.(¿·“Úûÿÿÿÿ
 X
 java:S1659"=Declare "txtPrecioGasolina95ConDescuento" on a separate line.(¿·“Úûÿÿÿÿ
+C
+java:S1659"(Declare "txtMasInfo" on a separate line.(¿·“Úûÿÿÿÿ
+M
+java:S1128"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ
+O
+java:S1659"9Declare "txtDieselPrecioConDescuento" on a separate line.(ğ²µ—
+L
+java:S1659"1Declare "txtGasolina95Precio" on a separate line.(¿·“Úûÿÿÿÿ

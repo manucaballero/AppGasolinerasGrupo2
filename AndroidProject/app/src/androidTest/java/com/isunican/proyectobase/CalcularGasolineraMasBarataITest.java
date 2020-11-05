@@ -1,19 +1,18 @@
 package com.isunican.proyectobase;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import android.widget.ListAdapter;
 
+import androidx.core.content.ContextCompat;
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.core.internal.deps.guava.util.concurrent.ExecutionList;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.isunican.proyectobase.Model.Gasolinera;
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.Views.MainActivity;
 
 import org.junit.Assert;
@@ -22,8 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
-import java.util.List;
-
+import static androidx.core.content.ContextCompat.getSystemService;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -101,4 +99,19 @@ public class CalcularGasolineraMasBarataITest {
         Assert.assertTrue(g2.getGasoleoA() < g3.getGasoleoA());
 
     }
+
+    @Test
+    public void conexionITest(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getS
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // Si hay conexión a Internet en este momento
+        } else {
+            // No hay conexión a Internet en este momento
+        }
+
+
+    }
+
 }

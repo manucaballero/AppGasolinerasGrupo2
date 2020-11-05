@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 
 /*
 ------------------------------------------------------------------
@@ -197,4 +199,7 @@ public class Gasolinera implements Parcelable {
             return new Gasolinera[size];
         }
     };
+
+
+
 }

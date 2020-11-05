@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.isunican.proyectobase.R;
 
@@ -18,13 +15,13 @@ public class NoDatosActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_datos);
-        Button b = findViewById(R.id.button);
+        Button b = findViewById(R.id.buttonNoDatos);
         b.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.button){
+        if(v.getId()==R.id.buttonNoDatos){
             Intent myIntent = new Intent(NoDatosActivity.this, MainActivity.class);
             NoDatosActivity.this.startActivity(myIntent);
 

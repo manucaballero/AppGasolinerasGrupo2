@@ -1,5 +1,8 @@
 
-]	java:S1251"<This block of commented-out lines of code should be removed.(ôµ¿€øÿÿÿÿ8ÍŸÔ¥Ø.
+V
+java:S1128"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš8å•«Ù.
+Q	java:S125""<This block of commented-out lines of code should be removed.(ü×¿ü
+O
+java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8éç’œÙ.
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¸ğ¯ìıÿÿÿÿ
-Q	java:S125?"<This block of commented-out lines of code should be removed.(¤Ñ‡Â
-Q	java:S125 "<This block of commented-out lines of code should be removed.(ü×¿ü
+Q	java:S125="<This block of commented-out lines of code should be removed.(¤Ñ‡Â

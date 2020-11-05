@@ -1,36 +1,34 @@
 
+a
+java:S1874¦"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ËĞƒ
+W	java:S125ù"<This block of commented-out lines of code should be removed.(€¬Ò´ıÿÿÿÿ
+Q	java:S110,"<This class has 8 parents which is greater than 5 authorized.(²Ú±
 f
-java:S1874Ç"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(É…Ê°üÿÿÿÿ
-C
-java:S1905Ó",Remove this unnecessary cast to "ArrayList".(ÍÄÓ
+java:S3252¤"OUse static access with "android.content.Context" for "LAYOUT_INFLATER_SERVICE".(ìù•ª
+D
+java:S1874z"/Remove this use of "execute"; it is deprecated.(Ø©¼a
+F
+java:S5411Î"*Use the primitive boolean expression here.(Ì¡¡ƒúÿÿÿÿ
 u
 java:S11042"SMake adapter a static final constant or non-public and provide accessors if needed.(ò±ãˆøÿÿÿÿ8‘‰ˆø×.
+H
+java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ
+C
+java:S1905Ñ",Remove this unnecessary cast to "ArrayList".(ÍÄÓ
 D
-java:S1874d"/Remove this use of "execute"; it is deprecated.(Ø©¼a
-a
-java:S1874¨"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ËĞƒ
+java:S1874b"/Remove this use of "execute"; it is deprecated.(Ø©¼a
+E
+java:S1874["/Remove this use of "execute"; it is deprecated.(ÌÁÈ¬
+H
+java:S1874“"1Remove this use of "AsyncTask"; it is deprecated.(óâø
 z
 java:S11041"_Make listViewGasolineras a static final constant or non-public and provide accessors if needed.(ì±ˆøøÿÿÿÿ
 f
-java:S3252©"OUse static access with "android.content.Context" for "LAYOUT_INFLATER_SERVICE".(ìù•ª
-F
-java:S5411Ğ"*Use the primitive boolean expression here.(Ì¡¡ƒúÿÿÿÿ
-L
-java:S1128"1Remove this unused import 'android.view.Gravity'.(ÎÎÎıÿÿÿÿ
-W	java:S125Ù"<This block of commented-out lines of code should be removed.(„ò…Àÿÿÿÿÿ
-Q	java:S110,"<This class has 8 parents which is greater than 5 authorized.(²Ú±
-Q	java:S125:"<This block of commented-out lines of code should be removed.(ÈÓŠ
-D
-java:S1874|"/Remove this use of "execute"; it is deprecated.(Ø©¼a
-E
-java:S1874]"/Remove this use of "execute"; it is deprecated.(ÌÁÈ¬
+java:S1874Å"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(É…Ê°üÿÿÿÿ
 v
 java:S1104."`Make presenterGasolineras a static final constant or non-public and provide accessors if needed.(…ıÅç
-W	java:S125ş"<This block of commented-out lines of code should be removed.(€¬Ò´ıÿÿÿÿ
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
-H
-java:S1874•"1Remove this use of "AsyncTask"; it is deprecated.(óâø
+L
+java:S1128"1Remove this unused import 'android.view.Gravity'.(ÎÎÎıÿÿÿÿ
 I
-java:S1199º"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ
-H
-java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ
+java:S1199¸"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ
