@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/AndroidProject.iml" filepath="$PROJECT_DIR$/AndroidProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidProject-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidProject-app.iml" group="AndroidProject/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppGasolinerasGrupo2-AndroidProject.iml" filepath="$PROJECT_DIR$/.idea/modules/AppGasolinerasGrupo2-AndroidProject.iml" group="AndroidProject" />
@@ -13,10 +12,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ProyectoIntegrado-AppGasolinerasGrupo2-AndroidProject.iml" filepath="$PROJECT_DIR$/.idea/modules/ProyectoIntegrado-AppGasolinerasGrupo2-AndroidProject.iml" group="AndroidProject" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ProyectoIntegrado-AppGasolinerasGrupo2-AndroidProject-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ProyectoIntegrado-AppGasolinerasGrupo2-AndroidProject-app.iml" group="AndroidProject/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-=======
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidProject.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidProject.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidProject.app.iml" />
->>>>>>> feature/772771-ImplementarVista
     </modules>
   </component>
 </project>

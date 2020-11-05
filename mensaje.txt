@@ -1,6 +1,4 @@
-Mostrar pantalla en caso de no poder obtener los datos
+Solucionado error en modules.xml
 
-En caso de que no se puedan obtener los datos de las gasolineras por algún motivo concreto,
-se muestra una pantalla con información que le puede resultar de ayuda al usuario para solucionar el problema.
-En esta pantalla podemos relanzar la operación de consultar gasolinera.
-
+Se han borrado las lineas del merge sospechosamente mal hecho y que generaban errores
+en el androidStudio.
