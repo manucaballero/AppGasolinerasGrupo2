@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.isunican.proyectobase.Views.MainActivity;
 
+import androidx.annotation.Nullable;
+
 
 /*
 ------------------------------------------------------------------
@@ -219,4 +221,7 @@ public class Gasolinera implements Parcelable {
             return new Gasolinera[size];
         }
     };
+
+
+
 }

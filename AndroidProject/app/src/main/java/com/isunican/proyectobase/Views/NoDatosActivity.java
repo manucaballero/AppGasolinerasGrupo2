@@ -15,13 +15,13 @@ public class NoDatosActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_datos);
-        Button b = findViewById(R.id.button);
+        Button b = findViewById(R.id.buttonNoDatos);
         b.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.button){
+        if(v.getId()==R.id.buttonNoDatos){
             Intent myIntent = new Intent(NoDatosActivity.this, MainActivity.class);
             NoDatosActivity.this.startActivity(myIntent);
 

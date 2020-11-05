@@ -89,13 +89,11 @@ public class MainActivity extends AppCompatActivity {
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    /*public PresenterGasolineras getPresenter(){
-        return presenterGasolineras;
-    }*/
 
     /**
      * onCreate
@@ -414,6 +412,9 @@ public class MainActivity extends AppCompatActivity {
             TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
             TextView gasolina95 = view.findViewById(R.id.textViewGasolina95);
 
+            if(gasolinera.getTieneDescuento()){
+                gasolinera.calculaPrecioFinal();
+            }
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
