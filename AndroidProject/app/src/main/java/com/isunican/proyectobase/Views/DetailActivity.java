@@ -49,6 +49,7 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
 
+
         // captura el TextView
         // obtiene el objeto Gasolinera a mostrar
         // y lo introduce en el TextView convertido a cadena de texto
@@ -69,28 +70,40 @@ public class DetailActivity extends AppCompatActivity {
         txtPrecioGasolina95ConDescuento=findViewById(R.id.txtPrecioGasolina95ConDescuento);
 
 
+
         g = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosGasolinera));
+
+
+        //Si lo llamas aqui aunque no hagas nada va bien
+        //g.setDistanciaEnKm(0);
+        //Este hace falta
+        g.calculaPrecioFinal();
+
 
         txtNombre.setText(g.getRotulo());
         txtDireccion.setText(g.getDireccion());
         txtLocalidad.setText(g.getLocalidad());
 
+
+
         //Precio Sin el Descuento
         //Diesel
-        txtDieselPrecio.setText(Double.toString(g.getPrecioSinDescuentoGasoleoA()));
+
+        txtDieselPrecio.setText(Double.toString(g.getGasoleoA()));
         //Gasolina95
-        txtGasolina95Precio.setText(Double.toString(g.getPrecioSinDescuentoGasolina95()));
+        txtGasolina95Precio.setText(Double.toString(g.getGasolina95()));
+
 
         //Precio Con el Descuento
         //Diesel
-        txtDieselPrecioConDescuento.setText(Double.toString(g.getGasoleoA()));
+        txtDieselPrecioConDescuento.setText(Double.toString(g.getGasoleoAConDescuento()));
         txtDieselPrecioConDescuento.setTextColor(Color.RED);
         txtDieselPrecioConDescuento.setTextSize(20);
         txtDieselConDescuento.setTextSize(20);
 
         //Gasolina 95
 
-        txtPrecioGasolina95ConDescuento.setText(Double.toString(g.getGasolina95()));
+        txtPrecioGasolina95ConDescuento.setText(Double.toString(g.getGasolina95ConDescuento()));
         txtPrecioGasolina95ConDescuento.setTextColor(Color.RED);
         txtPrecioGasolina95ConDescuento.setTextSize(20);
         txtGasolina95ConDescuento.setTextSize(20);

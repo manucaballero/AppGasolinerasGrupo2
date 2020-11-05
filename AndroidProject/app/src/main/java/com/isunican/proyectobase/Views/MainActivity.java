@@ -1,23 +1,17 @@
 package com.isunican.proyectobase.Views;
 
-import com.isunican.proyectobase.Presenter.*;
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.R;
-
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +25,34 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Model.Posicion;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.R;
+import com.isunican.proyectobase.Utilities.Distancia;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 
 /*
@@ -56,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout mSwipeRefreshLayout;
 
 
+    private static final int PERMISSION_REQUEST = 100;
+    private static final int REQUEST_CHECK_SETTINGS = 101;
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    /*public PresenterGasolineras getPresenter(){
+        return presenterGasolineras;
+    }*/
+
+
     /**
      * onCreate
      *
@@ -70,13 +101,17 @@ public class MainActivity extends AppCompatActivity {
 
         this.presenterGasolineras = new PresenterGasolineras();
 
+        // Obtenemos la vista de la lista
+        listViewGasolineras = findViewById(R.id.listViewGasolineras);
+
+
         // Barra de progreso
         // https://materialdoc.com/components/progress/
-        progressBar = new ProgressBar(MainActivity.this,null,android.R.attr.progressBarStyleLarge);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        progressBar = new ProgressBar(MainActivity.this, null, android.R.attr.progressBarStyleLarge);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         RelativeLayout layout = findViewById(R.id.activity_precio_gasolina);
-        layout.addView(progressBar,params);
+        layout.addView(progressBar, params);
 
         // Muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -91,7 +126,11 @@ public class MainActivity extends AppCompatActivity {
                 new CargaDatosGasolinerasTask(MainActivity.this).execute();
             }
         });
+        if (checkPermission()) {
 
+        } else {
+            requestPermission();
+        }
         // Al terminar de inicializar todas las variables
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
@@ -115,16 +154,16 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.itemActualizar){
+        if (item.getItemId() == R.id.itemActualizar) {
             mSwipeRefreshLayout.setRefreshing(true);
             new CargaDatosGasolinerasTask(this).execute();
-        }
-        else if(item.getItemId()==R.id.itemInfo){
+        } else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
-            }
+        }
         return true;
     }
 
@@ -145,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
      * http://www.sgoliver.net/blog/tareas-en-segundo-plano-en-android-i-thread-y-asynctask/
      */
     public class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
+
 
         Activity activity;
 
@@ -195,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(Boolean res) {
-            Toast toast;
+            Toast toast = null;
 
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
@@ -205,11 +245,76 @@ public class MainActivity extends AppCompatActivity {
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (res) {
                 // Definimos el array adapter
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
+                LocationRequest mLocationRequest = new LocationRequest();
+                LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                        .addLocationRequest(mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY));
+                Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(MainActivity.this).checkLocationSettings(builder.build());
+                result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+                    @Override
+                    public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                        try {
+                            LocationSettingsResponse response = task.getResult(ApiException.class);
+                            // All location settings are satisfied. The client can initialize location
+                            // requests here.
+                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                requestPermission();
+                            }
+                            mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Location> task)
+                                {
+                                    Location location = task.getResult();
+                                    //Cuando el usuario tiene la ubicacion activada
+                                    if (location != null) {
+                                        Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
+
+                                        for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                                            g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
+                                            g.calculaPrecioFinal();
+                                        }
+
+                                    }
+                                    presenterGasolineras.ordenaLista();
+                                    adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
+                                    listViewGasolineras.setAdapter(adapter);
+                                    Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
+                                    toast.show();
+                                    }
+                            });
+
+                        } catch (ApiException exception) {
+                            switch (exception.getStatusCode()) {
+                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                    // Location settings are not satisfied. But could be fixed by showing the
+                                    // user a dialog.
+                                    try {
+                                        // Cast to a resolvable exception.
+                                        ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                        // Show the dialog by calling startResolutionForResult(),
+                                        // and check the result in onActivityResult().
+                                        resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                                    } catch (IntentSender.SendIntentException e) {
+                                        // Ignore the error.
+                                    } catch (ClassCastException e) {
+                                        // Ignore, should be an impossible error.
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                    // Location settings are not satisfied. However, we have no way to fix the
+                                    // settings so we won't show the dialog.
+                                    break;
+                            }
+                        }
+                    }
+                });
+
+
+                for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                    g.calculaPrecioFinal();
+                }
                 presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
-
-                // Obtenemos la vista de la lista
-                listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
@@ -249,6 +354,7 @@ public class MainActivity extends AppCompatActivity {
                      * Alternativa 1: a partir de posicion obtener algun atributo int opcionSeleccionada = ((Gasolinera) a.getItemAtPosition(position)).getIdeess();
                      * Alternativa 2: a partir de la vista obtener algun atributo String opcionSeleccionada = ((TextView)v.findViewById(R.id.textViewRotulo)).getText().toString();
                      */
+
                     Intent myIntent = new Intent(MainActivity.this, DetailActivity.class);
                     myIntent.putExtra(getResources().getString(R.string.pasoDatosGasolinera),
                             presenterGasolineras.getGasolineras().get(position));
@@ -305,8 +411,14 @@ public class MainActivity extends AppCompatActivity {
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
-            gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-            gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+            if(gasolinera.getTieneDescuento()){
+                gasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
+                gasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
+            }else{
+                gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
+                gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+            }
+
 
             // carga icono
             {
@@ -347,5 +459,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION},PERMISSION_REQUEST );
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == PERMISSION_REQUEST){
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    Toast.makeText(MainActivity.this, "Permisos concedidos, reinicie la app", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(MainActivity.this, "Permisos no concedidos, la app no funcionara correctamente", Toast.LENGTH_SHORT).show();
+                    requestPermission();
+                }
+            }
+        }
+    }
 }
