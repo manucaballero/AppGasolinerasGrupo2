@@ -382,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
         en el listview del layout principal de la aplicacion
     ------------------------------------------------------------------
     */
-    class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
+    public class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 
         private Context context;
         private List<Gasolinera> listaGasolineras;
@@ -404,7 +404,6 @@ public class MainActivity extends AppCompatActivity {
             // Indica el layout a usar en cada elemento de la lista
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_gasolinera, null);
-
             // Asocia las variables de dicho layout
             ImageView logo = view.findViewById(R.id.imageViewLogo);
             TextView rotulo = view.findViewById(R.id.textViewRotulo);
@@ -427,6 +426,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+            view.setBackgroundColor(Color.WHITE);
+            gasoleoA.setTextColor(Color.BLACK);
+            gasolina95.setTextColor(Color.BLACK);
             if(gasolinera.getRotulo().equals("CEPSA")){
                 view.setBackgroundColor(0xfffffd82);
                 gasoleoA.setTextColor(Color.RED);

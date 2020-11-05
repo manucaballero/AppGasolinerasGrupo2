@@ -10,6 +10,7 @@ import com.isunican.proyectobase.Views.MainActivity;
 import androidx.annotation.Nullable;
 
 
+
 /*
 ------------------------------------------------------------------
     Clase que almacena la informacion de una gasolinera
@@ -27,6 +28,7 @@ public class Gasolinera implements Parcelable {
     //private String latitud;
     //private String longitud;
     private Posicion posicion;
+
     //Guardarán el precio con descuento y consumo.
     private double gasoleoA;
     private double gasolina95;
@@ -54,6 +56,7 @@ public class Gasolinera implements Parcelable {
         this.tieneDescuento=false;
 
         this.posicion = new Posicion(Double.parseDouble(latitud.replaceAll(",",".")),Double.parseDouble(longitud.replaceAll(",",".")));
+
         if(rotulo.equals("CEPSA")){
             setTieneDescuento(true);
         }else{
@@ -126,6 +129,7 @@ public class Gasolinera implements Parcelable {
     public double getGasolina95() { return gasolina95; }
     public void setGasolina95(double gasolina95) { this.gasolina95 = gasolina95; }
 
+    public double getDistanciaEnKm(){return distanciaEnKm;}
 
     public Posicion getPosicion(){ return posicion; }
 
@@ -135,11 +139,10 @@ public class Gasolinera implements Parcelable {
     public double getGasolina95ConDescuento(){return gasolina95ConDescuento;}
     public void setGasolina95ConDescuento(double gasolina95) { this.gasolina95ConDescuento = gasolina95; }
 
-    public double getDistanciaEnKm(){return distanciaEnKm;}
     public void setDistanciaEnKm(double distanciaEnKm){
         this.distanciaEnKm = distanciaEnKm;
     }
-
+    public double getDEPOSITO(){ return  DEPOSITO;}
     /**
      * toString
      *
@@ -154,10 +157,10 @@ public class Gasolinera implements Parcelable {
         String textoGasolineras = "";
         textoGasolineras +=
                 getRotulo() + "\n"+
-                getDireccion() + "\n" +
-                getLocalidad() + "\n" +
-                "Precio diesel: " + getGasoleoA() + " " + "\n" +
-                "Precio gasolina 95: " + getGasolina95() + " " + "\n\n";
+                        getDireccion() + "\n" +
+                        getLocalidad() + "\n" +
+                        "Precio diesel: " + getGasoleoA() + " " + "\n" +
+                        "Precio gasolina 95: " + getGasolina95() + " " + "\n\n";
 
         return textoGasolineras;
     }
