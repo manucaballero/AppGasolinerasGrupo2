@@ -2,7 +2,7 @@ package com.isunican.proyectobase;
 
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
-import com.isunican.proyectobase.Utilities.RemoteFetch;
+//import com.isunican.proyectobase.Utilities.RemoteFetch;
 import com.isunican.proyectobase.Views.MainActivity;
 
 import org.junit.Assert;

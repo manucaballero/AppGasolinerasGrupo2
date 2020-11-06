@@ -38,16 +38,16 @@ public class ExampleUnitTest {
         pg.ordenaLista();
         List<Gasolinera> lista = lista = pg.getGasolineras();
 
-        assertTrue(lista.get(0).getGasoleoA() <= lista.get(1).getGasoleoA());
-        assertTrue(lista.get(1).getGasoleoA() <= lista.get(2).getGasoleoA());
-        assertTrue(lista.get(2).getGasoleoA() <= lista.get(3).getGasoleoA());
-        assertTrue(lista.get(3).getGasoleoA() <= lista.get(4).getGasoleoA());
+        assertTrue(lista.get(0).getGasoleoAConDescuento() <= lista.get(1).getGasoleoAConDescuento());
+        assertTrue(lista.get(1).getGasoleoAConDescuento() <= lista.get(2).getGasoleoAConDescuento());
+        assertTrue(lista.get(2).getGasoleoAConDescuento() <= lista.get(3).getGasoleoAConDescuento());
+        assertTrue(lista.get(3).getGasoleoAConDescuento() <= lista.get(4).getGasoleoAConDescuento());
     }
 
     @Test
     public void calcularPrecioFinal(){
         g1.calculaPrecioFinal();
-        assertEquals(g1.getGasoleoA(),precio*0.9+g1.getDistanciaEnKm()*6/100, 0);
+        assertTrue(g1.getGasoleoA()==Gasolinera.round((g1.getDEPOSITO()*precio+g1.getDistanciaEnKm()*6/100*precio)/g1.getDEPOSITO(),3));
     }
 
 }
