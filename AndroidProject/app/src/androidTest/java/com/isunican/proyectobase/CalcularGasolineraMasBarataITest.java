@@ -50,6 +50,7 @@ public class CalcularGasolineraMasBarataITest {
      * coinciden con los de la gasolinera seleccionada en la vista principal.
      */
    /*
+
     @Test
     public void detalleITest() {
         try {
@@ -59,7 +60,6 @@ public class CalcularGasolineraMasBarataITest {
         }
         ListAdapter adapter = mActivityTestRule.getActivity().adapter;
         Gasolinera g = (Gasolinera) adapter.getItem(0);
-
 
         onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(0).perform(click());
         onView(withId(R.id.txtLocalidad)).check(matches(withText(g.getLocalidad())));
@@ -74,6 +74,7 @@ public class CalcularGasolineraMasBarataITest {
      * son los correctos
      */
     /*
+
     @Test
     public void compruebaListaITest(){
         try {
@@ -94,14 +95,12 @@ public class CalcularGasolineraMasBarataITest {
         v1.onChildView(withId(R.id.textViewGasoleoA)).check(matches(withText(" "+Double.toString(g1.getGasoleoAConDescuento())+"€")));
         v1.onChildView(withId(R.id.textViewGasolina95)).check(matches(withText(" "+Double.toString(g1.getGasolina95ConDescuento())+"€")));
 
-
         //Se comprueban los datos en la interfaz de la segunda gasolinera (ordenada por precio)
         DataInteraction v2 = Espresso.onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(1);
         v2.onChildView(withId(R.id.textViewDireccion)).check(matches(withText(g2.getDireccion())));
         v2.onChildView(withId(R.id.textViewRotulo)).check(matches(withText(g2.getRotulo())));
         v2.onChildView(withId(R.id.textViewGasoleoA)).check(matches(withText(" "+Double.toString(g2.getGasoleoAConDescuento())+"€")));
         v2.onChildView(withId(R.id.textViewGasolina95)).check(matches(withText(" "+Double.toString(g2.getGasolina95ConDescuento())+"€")));
-
 
         //Se comprueban los datos en la interfaz de la tercera gasolinera (ordenada por precio)
         DataInteraction v3 = onData(anything()).inAdapterView(withId(R.id.listViewGasolineras)).atPosition(2);
@@ -129,8 +128,8 @@ public class CalcularGasolineraMasBarataITest {
         Gasolinera g2 = (Gasolinera) adapter.getItem(1);
         Gasolinera g3 = (Gasolinera) adapter.getItem(2);
 
-        Assert.assertTrue(g1.getGasoleoA() < g2.getGasoleoA());
-        Assert.assertTrue(g2.getGasoleoA() < g3.getGasoleoA());
+        Assert.assertTrue(g1.getGasoleoAConDescuento() < g2.getGasoleoAConDescuento());
+        Assert.assertTrue(g2.getGasoleoAConDescuento() < g3.getGasoleoAConDescuento());
 
     }
 
@@ -146,7 +145,4 @@ public class CalcularGasolineraMasBarataITest {
         
         Assert.assertNotEquals(adapter.getCount(), 0);
     }
-
-
-
 }

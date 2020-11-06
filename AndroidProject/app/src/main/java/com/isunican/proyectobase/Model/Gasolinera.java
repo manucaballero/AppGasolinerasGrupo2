@@ -6,6 +6,8 @@ import android.os.Parcelable;
 
 
 
+import androidx.annotation.Nullable;
+
 
 /*
 ------------------------------------------------------------------
@@ -56,6 +58,7 @@ public class Gasolinera implements Parcelable {
         }else{
             setTieneDescuento(false);
         }
+
     }
 
     /**

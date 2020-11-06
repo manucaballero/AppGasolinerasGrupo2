@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
 
 
+
     /**
      * onCreate
      *
