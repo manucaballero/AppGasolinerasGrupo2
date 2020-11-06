@@ -402,8 +402,15 @@ public class MainActivity extends AppCompatActivity {
             TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
             TextView gasolina95 = view.findViewById(R.id.textViewGasolina95);
 
+            view.setBackgroundColor(Color.WHITE);
+            gasoleoA.setTextColor(Color.GRAY);
+            gasolina95.setTextColor(Color.GRAY);
+
             if(gasolinera.getTieneDescuento()){
                 gasolinera.calculaPrecioFinal();
+                view.setBackgroundColor(0xfffffd82);
+                gasoleoA.setTextColor(Color.RED);
+                gasolina95.setTextColor(Color.RED);
             }
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
@@ -414,16 +421,6 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
                 gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
-            }
-
-
-            view.setBackgroundColor(Color.WHITE);
-            gasoleoA.setTextColor(Color.BLACK);
-            gasolina95.setTextColor(Color.BLACK);
-            if(gasolinera.getRotulo().equals("CEPSA")){
-                view.setBackgroundColor(0xfffffd82);
-                gasoleoA.setTextColor(Color.RED);
-                gasolina95.setTextColor(Color.RED);
             }
 
             // carga icono
