@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
+
+import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Views.MainActivity;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -55,8 +57,21 @@ public class ResaltarDescuentosTest {
         //Obtenemos la lista de vistas
         ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
 
+        ListAdapter adapter = mActivityTestRule.getActivity().adapter;
         int i = 0;
-        int j = 2;
+        int j = 0;
+
+        Gasolinera gDesc=(Gasolinera)adapter.getItem(0);
+        while(!gDesc.getTieneDescuento()){
+            i++;
+            gDesc=(Gasolinera)adapter.getItem(i);
+        }
+        Gasolinera gSin=(Gasolinera)adapter.getItem(0);
+        while(gSin.getTieneDescuento()){
+            j++;
+            gSin=(Gasolinera)adapter.getItem(j);
+        }
+
         //Cogemos las vistas que queremos (correspondientes a cada elemento de la listview de la interfaz principal
         View v1 = lv.getChildAt(i);
         View v2 = lv.getChildAt(j);
