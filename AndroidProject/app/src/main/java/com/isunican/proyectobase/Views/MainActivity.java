@@ -125,9 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 new CargaDatosGasolinerasTask(MainActivity.this).execute();
             }
         });
-        if (checkPermission()) {
-
-        } else {
+        if (!checkPermission()) {
             requestPermission();
         }
         // Al terminar de inicializar todas las variables
@@ -253,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
                         try {
-                            LocationSettingsResponse response = task.getResult(ApiException.class);
+                            task.getResult(ApiException.class);
                             // All location settings are satisfied. The client can initialize location
                             // requests here.
                             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -275,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     }
                                     presenterGasolineras.ordenaLista();
-                                    adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
+                                    adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
                                     Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
                                     toast.show();
@@ -302,6 +300,8 @@ public class MainActivity extends AppCompatActivity {
                                 case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                                     // Location settings are not satisfied. However, we have no way to fix the
                                     // settings so we won't show the dialog.
+                                    break;
+                                default:
                                     break;
                             }
                         }
@@ -477,15 +477,13 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == PERMISSION_REQUEST){
-            if (grantResults.length > 0) {
+        if(requestCode == PERMISSION_REQUEST && grantResults.length > 0){
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     Toast.makeText(MainActivity.this, "Permisos concedidos, reinicie la app", Toast.LENGTH_SHORT).show();
                 else {
                     Toast.makeText(MainActivity.this, "Permisos no concedidos, la app no funcionara correctamente", Toast.LENGTH_SHORT).show();
                     requestPermission();
                 }
-            }
         }
     }
 }
