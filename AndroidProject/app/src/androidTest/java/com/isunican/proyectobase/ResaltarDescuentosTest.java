@@ -75,6 +75,7 @@ public class ResaltarDescuentosTest {
         //Cogemos las vistas que queremos (correspondientes a cada elemento de la listview de la interfaz principal
         View v1 = lv.getChildAt(i);
         View v2 = lv.getChildAt(j);
+        
         //Obtenemos los colores de background
         ColorDrawable cBck1 = (ColorDrawable) v1.getBackground();
         ColorDrawable cBck2 = (ColorDrawable) v2.getBackground();

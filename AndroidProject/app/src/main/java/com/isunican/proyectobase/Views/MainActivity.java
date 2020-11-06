@@ -403,8 +403,8 @@ public class MainActivity extends AppCompatActivity {
             TextView gasolina95 = view.findViewById(R.id.textViewGasolina95);
 
             view.setBackgroundColor(Color.WHITE);
-            gasoleoA.setTextColor(Color.GRAY);
-            gasolina95.setTextColor(Color.GRAY);
+            gasoleoA.setTextColor(Color.BLACK);
+            gasolina95.setTextColor(Color.BLACK);
 
             if(gasolinera.getTieneDescuento()){
                 gasolinera.calculaPrecioFinal();
