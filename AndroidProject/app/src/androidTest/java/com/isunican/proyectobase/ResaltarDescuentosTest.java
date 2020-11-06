@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.rule.GrantPermissionRule;
 import com.isunican.proyectobase.Views.MainActivity;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -21,6 +22,8 @@ public class ResaltarDescuentosTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
     /*
         Se comprueba que la lista se cargue correctamente en la interfaz
