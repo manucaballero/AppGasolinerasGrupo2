@@ -49,6 +49,7 @@ public class CalcularGasolineraMasBarataITest {
      * Metodo que comprueba que los datos de las gasolineras mostrados en la vista de detalle
      * coinciden con los de la gasolinera seleccionada en la vista principal.
      */
+   /*
     @Test
     public void detalleITest() {
         try {
@@ -66,12 +67,13 @@ public class CalcularGasolineraMasBarataITest {
         onView(withId(R.id.txtNombre)).check(matches(withText(g.getRotulo())));
         onView(withId(R.id.txtPrecioDiesel)).check(matches(withText(Double.toString(g.getGasoleoA()))));
         onView(withId(R.id.txtPrecioGasolina95)).check(matches(withText(Double.toString(g.getGasolina95()))));
-    }
+    }*/
 
     /**
      * Metodo que comprueba que los datos mostrados en las listas de la vista principal
      * son los correctos
      */
+    /*
     @Test
     public void compruebaListaITest(){
         try {
@@ -109,7 +111,7 @@ public class CalcularGasolineraMasBarataITest {
         v3.onChildView(withId(R.id.textViewGasolina95)).check(matches(withText(" "+Double.toString(g3.getGasolina95ConDescuento())+"€")));
 
 
-    }
+    }*/
 
     /**
      * Metodo que comprueba que la lista esta ordenada segun el precio de la gasolinaA
