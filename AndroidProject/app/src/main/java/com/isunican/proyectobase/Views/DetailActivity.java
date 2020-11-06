@@ -2,15 +2,11 @@ package com.isunican.proyectobase.Views;
 
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Model.*;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.TextUtils;
-
 import android.view.View;
-
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,7 +80,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
         //Si lo llamas aqui aunque no hagas nada va bien
-        //g.setDistanciaEnKm(0);
         //Este hace falta
         g.calculaPrecioFinal();
 

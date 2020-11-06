@@ -1,28 +1,28 @@
 package com.isunican.proyectobase.Model;
 
 public class Posicion {
-    private double Latitud;
-    private double Longitud;
+    private double latitud;
+    private double longitud;
     public double getLatitud() {
-        return Latitud;
+        return latitud;
     }
 
     public void setLatitud(double latitud) {
-        Latitud = latitud;
+        this.latitud = latitud;
     }
 
     public double getLongitud() {
-        return Longitud;
+        return longitud;
     }
 
     public void setLongitud(double longitud) {
-        Longitud = longitud;
+        this.longitud = longitud;
     }
 
 
     public Posicion(double latitud, double longitud)
     {
-        Latitud = latitud;
-        Longitud = longitud;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 }

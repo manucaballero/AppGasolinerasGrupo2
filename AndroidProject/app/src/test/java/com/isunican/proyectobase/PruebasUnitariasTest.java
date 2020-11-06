@@ -45,11 +45,11 @@ public class PruebasUnitariasTest {
      */
     @Test
     public void cargaDatosDummyTest(){
-        assertEquals(lista.get(0).getIdeess(), 1000);
-        assertEquals(lista.get(1).getIdeess(), 1053);
-        assertEquals(lista.get(2).getIdeess(), 420);
-        assertEquals(lista.get(3).getIdeess(), 9564);
-        assertEquals(lista.get(4).getIdeess(), 1025);
+        assertEquals(1000, lista.get(0).getIdeess());
+        assertEquals(1053,lista.get(1).getIdeess() );
+        assertEquals(420,lista.get(2).getIdeess() );
+        assertEquals(9564,lista.get(3).getIdeess() );
+        assertEquals(1025, lista.get(4).getIdeess());
     }
 
     /**

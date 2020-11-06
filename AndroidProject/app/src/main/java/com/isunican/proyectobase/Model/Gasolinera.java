@@ -2,12 +2,8 @@ package com.isunican.proyectobase.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.isunican.proyectobase.Views.MainActivity;
 
-import androidx.annotation.Nullable;
 
 
 
@@ -25,8 +21,6 @@ public class Gasolinera implements Parcelable {
     private String provincia;
     private String direccion;
     private String rotulo;
-    //private String latitud;
-    //private String longitud;
     private Posicion posicion;
 
     //Guardarán el precio con descuento y consumo.
@@ -55,7 +49,7 @@ public class Gasolinera implements Parcelable {
         this.rotulo = rotulo;
         this.tieneDescuento=false;
 
-        this.posicion = new Posicion(Double.parseDouble(latitud.replaceAll(",",".")),Double.parseDouble(longitud.replaceAll(",",".")));
+        this.posicion = new Posicion(Double.parseDouble(latitud.replace(",",".")),Double.parseDouble(longitud.replace(",",".")));
 
         if(rotulo.equals("CEPSA")){
             setTieneDescuento(true);
@@ -185,7 +179,7 @@ public class Gasolinera implements Parcelable {
         gasoleoA = in.readDouble();
         gasolina95 = in.readDouble();
         rotulo = in.readString();
-        posicion = new Posicion(Double.parseDouble(in.readString().replaceAll(",",".")),Double.parseDouble(in.readString().replaceAll(",",".")));
+        posicion = new Posicion(Double.parseDouble(in.readString().replace(",",".")),Double.parseDouble(in.readString().replace(",",".")));
         if(rotulo.equals("CEPSA")){
             setTieneDescuento(true);
         }else{

@@ -65,18 +65,18 @@ public class ResaltarDescuentosTest {
         ColorDrawable cBck1 = (ColorDrawable) v1.getBackground();
         ColorDrawable cBck2 = (ColorDrawable) v2.getBackground();
         //Comparamos con los valores esperados
-        Assert.assertEquals(cBck1.getColor(), 0xfffffd82);
-        Assert.assertEquals(cBck2.getColor(), Color.WHITE);
+        Assert.assertEquals(0xfffffd82, cBck1.getColor());
+        Assert.assertEquals(Color.WHITE, cBck2.getColor());
         //Obtenemos las textview que queremos observar
         TextView gasolinaCon = v1.findViewById(R.id.textViewGasolina95);
         TextView gasoleoCon = v1.findViewById(R.id.textViewGasoleoA);
         TextView gasolinaSin = v2.findViewById(R.id.textViewGasolina95);
         TextView gasoleoSin = v2.findViewById(R.id.textViewGasoleoA);
         //Comparamos con los valores esperados
-        Assert.assertEquals(gasolinaCon.getCurrentTextColor(),Color.RED);
-        Assert.assertEquals(gasoleoCon.getCurrentTextColor(),Color.RED);
-        Assert.assertEquals(gasolinaSin.getCurrentTextColor(),Color.BLACK);
-        Assert.assertEquals(gasoleoSin.getCurrentTextColor(),Color.BLACK);
+        Assert.assertEquals(Color.RED,gasolinaCon.getCurrentTextColor());
+        Assert.assertEquals(Color.RED,gasoleoCon.getCurrentTextColor());
+        Assert.assertEquals(Color.BLACK,gasolinaSin.getCurrentTextColor());
+        Assert.assertEquals(Color.BLACK,gasoleoSin.getCurrentTextColor());
 
     }
 }
