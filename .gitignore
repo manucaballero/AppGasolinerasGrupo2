@@ -1,6 +1,6 @@
 # Built application files
-*.apk
-*.ap_
+#*.apk
+#*.ap_
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -42,7 +42,7 @@ AndroidProject/.idea/dictionaries
 AndroidProject/.idea/libraries
 AndroidProject/.idea/caches
 AndroidProject/.idea/lint
-AndroidProject/.idea/sonarlint
+AndroidProject/.idea/sonarlint/
 
 # Keystore files
 
@@ -67,3 +67,6 @@ AndroidProject/fastlane/Preview.html
 AndroidProject/fastlane/screenshots
 AndroidProject/fastlane/test_output
 AndroidProject/fastlane/readme.md
+
+#commit message
+mensaje.txt

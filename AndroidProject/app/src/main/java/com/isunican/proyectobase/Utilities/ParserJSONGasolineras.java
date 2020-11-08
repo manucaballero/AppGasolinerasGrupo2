@@ -5,6 +5,8 @@ import com.isunican.proyectobase.Model.*;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
+
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
@@ -36,11 +38,8 @@ public class ParserJSONGasolineras {
      * @throws IOException
      */
     public static List<Gasolinera> parseaArrayGasolineras (InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        try {
+        try (JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
             return readArrayGasolineras(reader);
-        } finally {
-            reader.close();
         }
     }
 
@@ -60,7 +59,7 @@ public class ParserJSONGasolineras {
      * @return List Lista de objetos Gasolinera con los datos obtenidas tras parsear el JSON
      * @throws IOException
      */
-    public static List readArrayGasolineras (JsonReader reader) throws IOException {
+    public static List<Gasolinera> readArrayGasolineras (JsonReader reader) throws IOException {
         List<Gasolinera> listGasolineras = new ArrayList<>();
 
         reader.beginObject();
@@ -106,7 +105,8 @@ public class ParserJSONGasolineras {
         int id = -1;
         double gasoleoA = 0.0;
         double sinplomo95 = 0.0;
-
+        String latitud = "";
+        String longitud = "";
         while(reader.hasNext()){
             String name = reader.nextName();
 
@@ -124,13 +124,18 @@ public class ParserJSONGasolineras {
                 sinplomo95 = parseDouble(reader.nextString().replace(",", "."));
             }else if(name.equals("Dirección")){
                 direccion = reader.nextString();
+            }else if(name.equals("Latitud")){
+                latitud = reader.nextString();
+            }
+            else if(name.equals("Longitud (WGS84)")){
+                longitud = reader.nextString();
             }else{
                 reader.skipValue();
             }
 
         }
         reader.endObject();
-        return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo);
+        return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo,latitud,longitud);
     }
 
     private static double parseDouble(String str) {

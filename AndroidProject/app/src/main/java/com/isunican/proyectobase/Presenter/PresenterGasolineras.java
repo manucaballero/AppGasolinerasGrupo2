@@ -2,7 +2,7 @@ package com.isunican.proyectobase.Presenter;
 
 import android.util.Log;
 
-import com.isunican.proyectobase.Model.*;
+import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Utilities.ParserJSONGasolineras;
 import com.isunican.proyectobase.Utilities.RemoteFetch;
 
@@ -73,11 +73,11 @@ public class PresenterGasolineras {
      * @return boolean
      */
     public boolean cargaDatosDummy(){
-        this.gasolineras.add(new Gasolinera(1000,SANTANDER,SANTANDER, "Av Valdecilla", 1.299,1.359,"AVIA"));
-        this.gasolineras.add(new Gasolinera(1053,SANTANDER,SANTANDER, "Plaza Matias Montero", 1.270,1.349,"CAMPSA"));
-        this.gasolineras.add(new Gasolinera(420,SANTANDER,SANTANDER, "Area Arrabal Puerto de Raos", 1.249,1.279,"E.E.S.S. MAS, S.L."));
-        this.gasolineras.add(new Gasolinera(9564,SANTANDER,SANTANDER, "Av Parayas", 1.189,1.269,"EASYGAS"));
-        this.gasolineras.add(new Gasolinera(1025,SANTANDER,SANTANDER, "Calle el Empalme", 1.259,1.319,"CARREFOUR"));
+        this.gasolineras.add(new Gasolinera(1000,SANTANDER,SANTANDER, "Av Valdecilla", 1.299,1.359,"AVIA","43.45741814","-3.82677519"));
+        this.gasolineras.add(new Gasolinera(1053,SANTANDER,SANTANDER, "Plaza Matias Montero", 1.270,1.349,"CAMPSA","43.25741814","-3.84477519"));
+        this.gasolineras.add(new Gasolinera(420,SANTANDER,SANTANDER, "Area Arrabal Puerto de Raos", 1.249,1.279,"E.E.S.S. MAS, S.L.","43.45741814","-3.82677519"));
+        this.gasolineras.add(new Gasolinera(9564,SANTANDER,SANTANDER, "Av Parayas", 1.189,1.269,"EASYGAS","43.40741814","-3.92677519"));
+        this.gasolineras.add(new Gasolinera(1025,SANTANDER,SANTANDER, "Calle el Empalme", 1.259,1.319,"CARREFOUR","43.42741814","-3.02677519"));
         return true;
     }
 
@@ -119,4 +119,39 @@ public class PresenterGasolineras {
             return false;
         }
     }
+
+    public void ordenaLista() {
+        //Variable que nos permite saber si ha habido movimiento durante la ronda
+        //Si en una ronda no hay movimiento, el programa sale, ya que ya esta la lista ordenada
+        boolean movimiento = true;
+        //Contador que nos indica cuantas rondas comparando parejas llevamos en el bucle
+        int contRondas = 0;
+        //Mientras que haya movimiento, comprobaremos las posiciones
+        while(movimiento){
+            /* Iniciamos el boleano como falso, y si cambia durante el bucle, es que ha habido un movimiento */
+            movimiento = false;
+			/*comenzamos el bucle en 1, y comparamos con el anterior para no salirnos de los limites
+			de la array */
+            for(int i=1;i<gasolineras.size()-contRondas;i++){
+                /* Si el número de la derecha es menor que el de la izquierda, los intercambia */
+                if(gasolineras.get(i).getGasoleoAConDescuento()<gasolineras.get(i-1).getGasoleoAConDescuento()){
+                    /*Como ha habido movimiento, lo indicamos en el boleano que tenemos
+                     * así cuando acabe el bucle, comenzará de nuevo
+                     */
+                    movimiento=true;
+                    /* intercambiamos las posiciones */
+                    /* guardamos uno de los valores temporalmente en otra variable para evitar su pérdida */
+                    Gasolinera aux = gasolineras.get(i);
+                    //Intercambiamos los valores en sendas posiciones
+                    gasolineras.set(i,gasolineras.get(i-1));
+                    gasolineras.set(i-1, aux);
+                }
+            }
+        }
+    }
+
+
+
+
+
 }

@@ -1,0 +1,4 @@
+Anhadidos test y solucionado errores en test
+
+Se ha anhadido un nuevo test listaOrdenadaITest y solucionado el fallo que daba el test calcularPrecioFinal, cuyo nombre ha sido
+cambiado a calcularPrecioFinalTest.

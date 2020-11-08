@@ -4,6 +4,8 @@
     <string name="datos_exito">Datos obtenidos con éxito</string>
     <string name="datos_no_accesibles">Los datos están siendo actualizados en el servidor, inténtelo más tarde</string>
     <string name="datos_no_obtenidos">No se han podido obtener los datos</string>
+    <string name="no_internet_no_datos">No tiene conexión a internet, active el wifi y vuelvelo a intentar,
+        si el error persiste intentelo de nuevo más tarde</string>
     <string name="gasoleoa">Gasóleo:</string>
     <string name="gasolina95">Gasolina:</string>
     <string name="pordefecto">por_defecto</string>
@@ -13,4 +15,6 @@
     <string name="menuInfo">Info</string>
     <string name="pasoDatosInfo">DatosInfo</string>
     <string name="pasoDatosGasolinera">DatosGasolinera</string>
+    <string name="volverAIntentar">Volver a intentar</string>
+    <string name="datosConUbicacion">Datos con ubicación obtenidos correctamente</string>
 </resources>

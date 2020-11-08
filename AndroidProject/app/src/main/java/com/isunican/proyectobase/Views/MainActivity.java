@@ -1,23 +1,19 @@
 package com.isunican.proyectobase.Views;
 
-import com.isunican.proyectobase.Presenter.*;
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.Manifest;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import java.util.ArrayList;
-import java.util.List;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +28,34 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.R;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.isunican.proyectobase.Model.Posicion;
+import com.isunican.proyectobase.Utilities.Distancia;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 
 /*
 ------------------------------------------------------------------
@@ -43,17 +67,24 @@ import android.widget.Toast;
 */
 public class MainActivity extends AppCompatActivity {
 
-    PresenterGasolineras presenterGasolineras;
+    public PresenterGasolineras presenterGasolineras;
 
     // Vista de lista y adaptador para cargar datos en ella
-    ListView listViewGasolineras;
-    ArrayAdapter<Gasolinera> adapter;
+    public ListView listViewGasolineras;
+    public ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
 
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+
+    private static final int PERMISSION_REQUEST = 100;
+    private static final int REQUEST_CHECK_SETTINGS = 101;
+    private FusedLocationProviderClient mFusedLocationClient;
+
+
 
     /**
      * onCreate
@@ -69,13 +100,17 @@ public class MainActivity extends AppCompatActivity {
 
         this.presenterGasolineras = new PresenterGasolineras();
 
+        // Obtenemos la vista de la lista
+        listViewGasolineras = findViewById(R.id.listViewGasolineras);
+
+
         // Barra de progreso
         // https://materialdoc.com/components/progress/
-        progressBar = new ProgressBar(MainActivity.this,null,android.R.attr.progressBarStyleLarge);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        progressBar = new ProgressBar(MainActivity.this, null, android.R.attr.progressBarStyleLarge);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         RelativeLayout layout = findViewById(R.id.activity_precio_gasolina);
-        layout.addView(progressBar,params);
+        layout.addView(progressBar, params);
 
         // Muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -90,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
                 new CargaDatosGasolinerasTask(MainActivity.this).execute();
             }
         });
-
+        if (!checkPermission()) {
+            requestPermission();
+        }
         // Al terminar de inicializar todas las variables
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
@@ -114,16 +151,16 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.itemActualizar){
+        if (item.getItemId() == R.id.itemActualizar) {
             mSwipeRefreshLayout.setRefreshing(true);
             new CargaDatosGasolinerasTask(this).execute();
-        }
-        else if(item.getItemId()==R.id.itemInfo){
+        } else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
-            }
+        }
         return true;
     }
 
@@ -143,7 +180,8 @@ public class MainActivity extends AppCompatActivity {
      *
      * http://www.sgoliver.net/blog/tareas-en-segundo-plano-en-android-i-thread-y-asynctask/
      */
-    private class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
+    public class CargaDatosGasolinerasTask extends AsyncTask<Void, Void, Boolean> {
+
 
         Activity activity;
 
@@ -157,11 +195,11 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * onPreExecute
-         *
+         * @deprecated deprecated method
          * Metodo ejecutado de forma previa a la ejecucion de la tarea definida en el metodo doInBackground()
          * Muestra un diálogo de progreso
          */
-        @Override
+        @Override @Deprecated
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);  //To show ProgressBar
         }
@@ -181,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * onPostExecute
-         *
+         * @deprecated deprecated method
          * Se ejecuta al finalizar doInBackground
          * Oculta el diálogo de progreso.
          * Muestra en una lista los datos de las gasolineras cargadas,
@@ -192,9 +230,9 @@ public class MainActivity extends AppCompatActivity {
          *
          * @param res
          */
-        @Override
+        @Override @Deprecated
         protected void onPostExecute(Boolean res) {
-            Toast toast;
+            Toast toast = null;
 
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
@@ -202,12 +240,81 @@ public class MainActivity extends AppCompatActivity {
             mSwipeRefreshLayout.setRefreshing(false);
 
             // Si se ha obtenido resultado en la tarea en segundo plano
-            if (res) {
+            if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
-                adapter = new GasolineraArrayAdapter(activity, 0, (ArrayList<Gasolinera>) presenterGasolineras.getGasolineras());
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
+                LocationRequest mLocationRequest = new LocationRequest();
+                LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                        .addLocationRequest(mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY));
+                Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(MainActivity.this).checkLocationSettings(builder.build());
+                result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+                    @Override
+                    public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                        try {
+                            task.getResult(ApiException.class);
+                            // All location settings are satisfied. The client can initialize location
+                            // requests here.
+                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                requestPermission();
+                            }
+                            mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Location> task)
+                                {
+                                    Location location = task.getResult();
+                                    //Cuando el usuario tiene la ubicacion activada
+                                    if (location != null) {
+                                        Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
 
-                // Obtenemos la vista de la lista
-                listViewGasolineras = findViewById(R.id.listViewGasolineras);
+                                        for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                                            g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
+                                            g.calculaPrecioFinal();
+                                        }
+
+                                    }
+                                    presenterGasolineras.ordenaLista();
+                                    adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
+                                    listViewGasolineras.setAdapter(adapter);
+                                    Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
+                                    toast.show();
+                                    }
+                            });
+
+                        } catch (ApiException exception) {
+                            switch (exception.getStatusCode()) {
+                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                    // Location settings are not satisfied. But could be fixed by showing the
+                                    // user a dialog.
+                                    try {
+                                        // Cast to a resolvable exception.
+                                        ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                        // Show the dialog by calling startResolutionForResult(),
+                                        // and check the result in onActivityResult().
+                                        resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                                    } catch (IntentSender.SendIntentException e) {
+                                        // Ignore the error.
+                                    } catch (ClassCastException e) {
+                                        // Ignore, should be an impossible error.
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                    // Location settings are not satisfied. However, we have no way to fix the
+                                    // settings so we won't show the dialog.
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
+
+
+                for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                    g.calculaPrecioFinal();
+                }
+                presenterGasolineras.ordenaLista();
+                adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
+
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
@@ -220,6 +327,8 @@ public class MainActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
                 }
             } else {
+                Intent myIntent = new Intent(MainActivity.this, NoDatosActivity.class);
+                MainActivity.this.startActivity(myIntent);
                 // error en la obtencion de datos desde el servidor
                 toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);
             }
@@ -242,9 +351,8 @@ public class MainActivity extends AppCompatActivity {
 
                     /* Obtengo el elemento directamente de su posicion,
                      * ya que es la misma que ocupa en la lista
-                     * Alternativa 1: a partir de posicion obtener algun atributo int opcionSeleccionada = ((Gasolinera) a.getItemAtPosition(position)).getIdeess();
-                     * Alternativa 2: a partir de la vista obtener algun atributo String opcionSeleccionada = ((TextView)v.findViewById(R.id.textViewRotulo)).getText().toString();
                      */
+
                     Intent myIntent = new Intent(MainActivity.this, DetailActivity.class);
                     myIntent.putExtra(getResources().getString(R.string.pasoDatosGasolinera),
                             presenterGasolineras.getGasolineras().get(position));
@@ -253,6 +361,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
 
 
@@ -264,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
         en el listview del layout principal de la aplicacion
     ------------------------------------------------------------------
     */
-    class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
+    public class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 
         private Context context;
         private List<Gasolinera> listaGasolineras;
@@ -284,9 +393,8 @@ public class MainActivity extends AppCompatActivity {
             Gasolinera gasolinera = listaGasolineras.get(position);
 
             // Indica el layout a usar en cada elemento de la lista
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.item_gasolinera, null);
-
             // Asocia las variables de dicho layout
             ImageView logo = view.findViewById(R.id.imageViewLogo);
             TextView rotulo = view.findViewById(R.id.textViewRotulo);
@@ -294,27 +402,30 @@ public class MainActivity extends AppCompatActivity {
             TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
             TextView gasolina95 = view.findViewById(R.id.textViewGasolina95);
 
+            view.setBackgroundColor(Color.WHITE);
+            gasoleoA.setTextColor(Color.BLACK);
+            gasolina95.setTextColor(Color.BLACK);
+
+            if(gasolinera.getTieneDescuento()){
+                gasolinera.calculaPrecioFinal();
+                view.setBackgroundColor(0xfffffd82);
+                gasoleoA.setTextColor(Color.RED);
+                gasolina95.setTextColor(Color.RED);
+            }
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
-            gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-            gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+            if(gasolinera.getTieneDescuento()){
+                gasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
+                gasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
+            }else{
+                gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
+                gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+            }
 
             // carga icono
-            {
-                String rotuleImageID = gasolinera.getRotulo().toLowerCase();
+            cargaIcono(gasolinera, logo);
 
-                // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
-                // En ese caso getIdentifier devuelve esos digitos en vez de 0.
-                int imageID = context.getResources().getIdentifier(rotuleImageID,
-                        "drawable", context.getPackageName());
-
-                if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
-                    imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
-                            "drawable", context.getPackageName());
-                }
-                logo.setImageResource(imageID);
-            }
 
 
             // Si las dimensiones de la pantalla son menores
@@ -336,6 +447,40 @@ public class MainActivity extends AppCompatActivity {
 
             return view;
         }
+
+
+        private void cargaIcono(Gasolinera gasolinera, ImageView logo) {
+            String rotuleImageID = gasolinera.getRotulo().toLowerCase();
+
+            // Tengo que protegerme ante el caso en el que el rotulo solo tiene digitos.
+            // En ese caso getIdentifier devuelve esos digitos en vez de 0.
+            int imageID = context.getResources().getIdentifier(rotuleImageID,
+                    "drawable", context.getPackageName());
+
+            if (imageID == 0 || TextUtils.isDigitsOnly(rotuleImageID)) {
+                imageID = context.getResources().getIdentifier(getResources().getString(R.string.pordefecto),
+                        "drawable", context.getPackageName());
+            }
+            logo.setImageResource(imageID);
+        }
     }
 
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION},PERMISSION_REQUEST );
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == PERMISSION_REQUEST && grantResults.length > 0){
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    Toast.makeText(MainActivity.this, "Permisos concedidos, reinicie la app", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(MainActivity.this, "Permisos no concedidos, la app no funcionara correctamente", Toast.LENGTH_SHORT).show();
+                    requestPermission();
+                }
+        }
+    }
 }

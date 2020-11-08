@@ -99,19 +99,50 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Diesel:"
-                android:textAlignment="center"
+                android:paddingLeft="20sp"
+                android:text="Gasoleo A:"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
                 tools:text="Diesel: " />
 
             <TextView
-                android:id="@+id/txtPrecioDIesel"
+                android:id="@+id/txtPrecioDiesel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:paddingRight="20sp"
                 android:text="TextView"
-                android:textAlignment="center" />
+                android:textAlignment="textEnd"
+                android:textSize="16sp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textDieselConDescuento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="20sp"
+                android:text="Diesel con descuento:"
+                android:textAlignment="textStart"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtPrecioDieselConDescuento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="20sp"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -126,8 +157,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:paddingLeft="20sp"
                 android:text="Gasolina 95:"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
                 tools:text="Gasolina 95:" />
 
             <TextView
@@ -136,8 +169,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:paddingRight="20sp"
                 android:text="TextView"
-                android:textAlignment="center" />
+                android:textAlignment="textEnd"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -148,15 +183,32 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtMasInfo"
+                android:id="@+id/txtGasolina95ConDescuento"
+                android:layout_width="216dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingLeft="20sp"
+                android:text="Gasolina 95 con descuento:"
+                android:textAlignment="textStart"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtPrecioGasolina95ConDescuento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Más info."
-                android:textAlignment="center"
-                tools:text="Más info." />
+                android:paddingRight="20sp"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"/>
     </LinearLayout>
 
 </RelativeLayout>
