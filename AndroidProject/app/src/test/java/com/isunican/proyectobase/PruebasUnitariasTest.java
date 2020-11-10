@@ -76,6 +76,6 @@ public class PruebasUnitariasTest {
     @Test
     public void calcularPrecioFinalTest(){
         g1.calculaPrecioFinal();
-        assertTrue(g1.getGasoleoA() == Gasolinera.round((g1.getDEPOSITO()*precio+g1.getDistanciaEnKm()*6/100*precio)/g1.getDEPOSITO(),3));
+        assertEquals(g1.getGasoleoA(), Gasolinera.round((g1.getDEPOSITO() * precio + g1.getDistanciaEnKm() * 6 / 100 * precio) / g1.getDEPOSITO(), 3), 0.0);
     }
 }

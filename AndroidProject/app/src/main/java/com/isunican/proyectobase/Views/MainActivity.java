@@ -250,61 +250,7 @@ public class MainActivity extends AppCompatActivity {
                 result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
                     @Override
                     public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
-                        try {
-                            task.getResult(ApiException.class);
-                            // All location settings are satisfied. The client can initialize location
-                            // requests here.
-                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                requestPermission();
-                            }
-                            mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Location> task)
-                                {
-                                    Location location = task.getResult();
-                                    //Cuando el usuario tiene la ubicacion activada
-                                    if (location != null) {
-                                        Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
-
-                                        for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                                            g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
-                                            g.calculaPrecioFinal();
-                                        }
-
-                                    }
-                                    presenterGasolineras.ordenaLista();
-                                    adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
-                                    listViewGasolineras.setAdapter(adapter);
-                                    Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
-                                    toast.show();
-                                    }
-                            });
-
-                        } catch (ApiException exception) {
-                            switch (exception.getStatusCode()) {
-                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                    // Location settings are not satisfied. But could be fixed by showing the
-                                    // user a dialog.
-                                    try {
-                                        // Cast to a resolvable exception.
-                                        ResolvableApiException resolvable = (ResolvableApiException) exception;
-                                        // Show the dialog by calling startResolutionForResult(),
-                                        // and check the result in onActivityResult().
-                                        resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
-                                    } catch (IntentSender.SendIntentException e) {
-                                        // Ignore the error.
-                                    } catch (ClassCastException e) {
-                                        // Ignore, should be an impossible error.
-                                    }
-                                    break;
-                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                    // Location settings are not satisfied. However, we have no way to fix the
-                                    // settings so we won't show the dialog.
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
+                        exceptionApiLocation(task);
                     }
                 });
 
@@ -360,6 +306,64 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+        }
+
+        private void exceptionApiLocation(@NonNull Task<LocationSettingsResponse> task) {
+            try {
+                task.getResult(ApiException.class);
+                // All location settings are satisfied. The client can initialize location
+                // requests here.
+                if (androidx.core.content.ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermission();
+                }
+                mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task)
+                    {
+                        Location location = task.getResult();
+                        //Cuando el usuario tiene la ubicacion activada
+                        if (location != null) {
+                            Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
+
+                            for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                                g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
+                                g.calculaPrecioFinal();
+                            }
+
+                        }
+                        presenterGasolineras.ordenaLista();
+                        adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
+                        listViewGasolineras.setAdapter(adapter);
+                        Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
+                        toast.show();
+                        }
+                });
+
+            } catch (ApiException exception) {
+                switch (exception.getStatusCode()) {
+                    case com.google.android.gms.common.api.CommonStatusCodes.RESOLUTION_REQUIRED:
+                        // Location settings are not satisfied. But could be fixed by showing the
+                        // user a dialog.
+                        try {
+                            // Cast to a resolvable exception.
+                            ResolvableApiException resolvable = (ResolvableApiException) exception;
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                        } catch (IntentSender.SendIntentException e) {
+                            // Ignore the error.
+                        } catch (ClassCastException e) {
+                            // Ignore, should be an impossible error.
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        // Location settings are not satisfied. However, we have no way to fix the
+                        // settings so we won't show the dialog.
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
     }
