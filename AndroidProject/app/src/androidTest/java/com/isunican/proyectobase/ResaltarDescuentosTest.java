@@ -3,6 +3,7 @@ package com.isunican.proyectobase;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -67,7 +68,7 @@ public class ResaltarDescuentosTest {
             gDesc=(Gasolinera)adapter.getItem(i);
         }
         Gasolinera gSin=(Gasolinera)adapter.getItem(0);
-        while(gSin.getTieneDescuento()){
+        while(!gSin.getTieneDescuento()){
             j++;
             gSin=(Gasolinera)adapter.getItem(j);
         }
@@ -79,6 +80,7 @@ public class ResaltarDescuentosTest {
         //Obtenemos los colores de background
         ColorDrawable cBck1 = (ColorDrawable) v1.getBackground();
         ColorDrawable cBck2 = (ColorDrawable) v2.getBackground();
+
         //Comparamos con los valores esperados
         Assert.assertEquals(0xfffffd82, cBck1.getColor());
         Assert.assertEquals(Color.WHITE, cBck2.getColor());
