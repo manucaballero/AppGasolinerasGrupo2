@@ -133,6 +133,7 @@ public class CalcularGasolineraMasBarataITest {
 
     }
 
+    /*
     @Test
     public void listaCargadaTest() {
 
@@ -145,4 +146,6 @@ public class CalcularGasolineraMasBarataITest {
         
         Assert.assertNotEquals(adapter.getCount(), 0);
     }
+
+     */
 }
