@@ -8,6 +8,11 @@
         android:id="@+id/itemActualizar"
         android:title="@string/menuActualizar" />
 
+    <!-- opcion para mostrar lista de vehiculos del usuario -->
+    <item
+        android:id="@+id/itemMisVehiculos"
+        android:title="@string/menuMisVehiculos" />
+
     <!-- opcion para mostrar informacion -->
     <item
         android:id="@+id/itemInfo"

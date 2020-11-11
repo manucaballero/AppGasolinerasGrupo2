@@ -12,7 +12,23 @@ public class PresenterVehiculos {
         this.listVehiculos=new ArrayList<Vehiculo>();
     }
 
+    /**
+     * TO DO
+     * @return
+     */
     public boolean cargaDatosVehiculos(){
-        return false;
+
+        Vehiculo v1= new Vehiculo("Mercedes-Benz Clase A 180 CDI");
+        Vehiculo v2=new Vehiculo("Tesla model S P100D");
+        listVehiculos.add(v1);
+        listVehiculos.add(v2);
+        return true;
+
     }
+
+    public List<Vehiculo> getVehiculos(){
+        return listVehiculos;
+    }
+
+
 }
