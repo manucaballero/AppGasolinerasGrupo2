@@ -31,7 +31,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.isunican.proyectobase.Model.AscendenteFiltro;
+import com.isunican.proyectobase.Model.ConDescuentoFiltro;
+import com.isunican.proyectobase.Model.DieselFiltro;
 import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Model.IFiltro;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 import androidx.annotation.NonNull;
@@ -71,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Vista de lista y adaptador para cargar datos en ella
     public ListView listViewGasolineras;
+    public ListView listViewFiltros;
     public ArrayAdapter<Gasolinera> adapter;
+    public ArrayAdapter<IFiltro> adapterFiltros;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -102,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
+        listViewFiltros = findViewById(R.id.listViewFiltros);
 
 
         // Barra de progreso
@@ -233,7 +240,13 @@ public class MainActivity extends AppCompatActivity {
         @Override @Deprecated
         protected void onPostExecute(Boolean res) {
             Toast toast = null;
-
+            ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
+            listaFiltros.add(new AscendenteFiltro());
+            listaFiltros.add(new DieselFiltro());
+            listaFiltros.add(new ConDescuentoFiltro());
+            listaFiltros.add(new AscendenteFiltro());
+            listaFiltros.add(new DieselFiltro());
+            listaFiltros.add(new ConDescuentoFiltro());
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
 
@@ -314,6 +327,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
+                adapterFiltros = new FiltroArrayAdapter(activity, 0, listaFiltros);
+                listViewFiltros.setAdapter(adapterFiltros);
+
 
 
                 // Cargamos los datos en la lista
@@ -364,7 +380,54 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+        ------------------------------------------------------------------
+            FiltroArrayAdapter
 
+            Adaptador para inyectar los filtros en el listview
+            de filtros del layout principal de la aplicacion
+        ------------------------------------------------------------------
+        */
+    public class FiltroArrayAdapter extends ArrayAdapter<IFiltro> {
+
+        private Context context;
+        private List<IFiltro> listaFiltros;
+
+        // Constructor
+        public FiltroArrayAdapter(Context context, int resource, List<IFiltro> objects) {
+            super(context, resource, objects);
+            this.context = context;
+            this.listaFiltros = objects;
+        }
+
+        // Llamado al renderizar la lista
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            // Obtiene el elemento que se está mostrando
+            IFiltro filtro = listaFiltros.get(position);
+
+            // Indica el layout a usar en cada elemento de la lista
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.item_filtro_activo, null);
+            // Asocia las variables de dicho layout
+            TextView nombreFiltro = view.findViewById(R.id.txtNombreFiltro);
+
+            // Y carga los datos del item
+            nombreFiltro.setText(filtro.getNombre());
+
+            // Si las dimensiones de la pantalla son menores
+            // reducimos el texto de las etiquetas para que se vea correctamente
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            if (displayMetrics.widthPixels < 720) {
+                RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) nombreFiltro.getLayoutParams());
+                params.setMargins(15, 0, 0, 0);
+                nombreFiltro.setTextSize(12);
+            }
+
+            return view;
+        }
+    }
     /*
     ------------------------------------------------------------------
         GasolineraArrayAdapter
@@ -406,7 +469,7 @@ public class MainActivity extends AppCompatActivity {
             gasoleoA.setTextColor(Color.BLACK);
             gasolina95.setTextColor(Color.BLACK);
 
-            if(gasolinera.getTieneDescuento()){
+            if (gasolinera.getTieneDescuento()) {
                 view.setBackgroundColor(0xfffffd82);
                 gasoleoA.setTextColor(Color.RED);
                 gasolina95.setTextColor(Color.RED);
@@ -414,17 +477,16 @@ public class MainActivity extends AppCompatActivity {
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
-            if(gasolinera.getTieneDescuento()){
+            if (gasolinera.getTieneDescuento()) {
                 gasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
                 gasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
-            }else{
+            } else {
                 gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
                 gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
             }
 
             // carga icono
             cargaIcono(gasolinera, logo);
-
 
 
             // Si las dimensiones de la pantalla son menores
@@ -446,7 +508,6 @@ public class MainActivity extends AppCompatActivity {
 
             return view;
         }
-
 
         private void cargaIcono(Gasolinera gasolinera, ImageView logo) {
             String rotuleImageID = gasolinera.getRotulo().toLowerCase();
