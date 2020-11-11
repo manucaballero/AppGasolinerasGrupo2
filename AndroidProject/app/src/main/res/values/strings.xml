@@ -14,6 +14,7 @@
     <string name="menuActualizar">Actualizar</string>
     <string name="menuInfo">Info</string>
     <string name="menuMisVehiculos">Mis Vehículos</string>
+    <string name="menuGasolineras">Gasolineras</string>
     <string name="modelo">Modelo:</string>
     <string name="matricula">Matrícula:</string>
     <string name="anotacion">Nota:</string>
