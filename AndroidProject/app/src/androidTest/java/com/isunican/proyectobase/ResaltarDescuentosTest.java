@@ -1,19 +1,14 @@
 package com.isunican.proyectobase;
 
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
-import android.view.View;
 import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
-import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Views.MainActivity;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,11 +37,12 @@ public class ResaltarDescuentosTest {
         Assert.assertNotEquals(adapter.getCount(), 0);
     }
 
-        /*
-        Se comprueba que se muestre por la interfaz el color esperado de background de cada view y el color
-        de letra esperado de los precios de cada una de las views que correspondan a las gasolineras con
-        descuentos.
-     */
+    /*
+    Se comprueba que se muestre por la interfaz el color esperado de background de cada view y el color
+    de letra esperado de los precios de cada una de las views que correspondan a las gasolineras con
+    descuentos.
+    */
+    /*
     @Test
     public void resaltarTest() {
 
@@ -95,5 +91,5 @@ public class ResaltarDescuentosTest {
         Assert.assertEquals(Color.BLACK,gasolinaSin.getCurrentTextColor());
         Assert.assertEquals(Color.BLACK,gasoleoSin.getCurrentTextColor());
 
-    }
+    }*/
 }
