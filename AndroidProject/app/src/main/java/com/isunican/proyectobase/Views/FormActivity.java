@@ -70,10 +70,10 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
 
             //listaVehiculos.add(v1);
         }
-        guardaDatos();
+        //guardaDatos();
 
     }
-
+/*
     public void guardaDatos(){
 
         String output="";
@@ -82,5 +82,5 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             output = v1.getMatricula() + "/" + v1.getModelo() + "/" + v1.getDeposito() + "/" + v1.getConsumoMedio() + "/" + v1.getAnotaciones()+"\n";
         }
         //TODO AÑADIR EL VEHICULO A LA LISTA
-    }
+    }*/
 }
