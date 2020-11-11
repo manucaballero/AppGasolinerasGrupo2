@@ -22,7 +22,6 @@ import android.widget.TextView;
 */
 public class FormActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //TODO declarar todos los textviews etc
     EditText campoMatricula;
     EditText campoModelo;
     EditText campoCapacidad;
@@ -30,13 +29,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     EditText campoConsumomedio;
     TextView txtAceptar;
 
-    /**
-     * onCreate
-     *
-     * Crea los elementos que conforman la actividad
-     *
-     * @param savedInstanceState
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +39,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
 
-
-        //COGER LOS DATOS DE TODOS LOS CAMPOS DE TEXTO Y CREAR UN NUEVO VEHICULO Y AÑADIRLO AL PRESENTER
-        //ADEMAS ALMACENAR DATOS DE FORMA EXTERNA
+        //ADEMAS ALMACENAR DATOS DE FORMA EXTERNA Y AÑADIRLO AL PRESENTER
 
         txtAceptar = findViewById(R.id.txtAceptar);
         campoMatricula = findViewById(R.id.campoMatricula);
@@ -63,8 +54,9 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Vehiculo v1 = null;
         if(v.getId()==R.id.txtAceptar){
-            Vehiculo v1 = new Vehiculo(campoModelo.getText().toString());
+            v1 = new Vehiculo(campoModelo.getText().toString());
             v1.setMatricula(campoMatricula.getText().toString());
             v1.setDeposito(Double.parseDouble(campoCapacidad.getText().toString()));
 
@@ -75,6 +67,19 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             Double consumomedio = Double.parseDouble(campoConsumomedio.getText().toString());
             if(consumomedio!=null)
                 v1.setConsumoMedio(consumomedio);
+
+            //listaVehiculos.add(v1);
+        }
+        guardaDatos();
+
+    }
+
+    public void guardaDatos(){
+
+        String output="";
+
+        for (Vehiculo v: listaVehiculos) {
+            output = v1.getMatricula() + "/" + v1.getModelo() + "/" + v1.getDeposito() + "/" + v1.getConsumoMedio() + "/" + v1.getAnotaciones()+"\n";
         }
         //TODO AÑADIR EL VEHICULO A LA LISTA
     }
