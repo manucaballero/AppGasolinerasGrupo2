@@ -17,4 +17,6 @@
     <string name="pasoDatosGasolinera">DatosGasolinera</string>
     <string name="volverAIntentar">Volver a intentar</string>
     <string name="datosConUbicacion">Datos con ubicación obtenidos correctamente</string>
+    <string name="primerVehiculo">No tiene ningún vehículo, ¡añade uno!</string>
+    <string name="botonAnhadir">Añadir</string>
 </resources>
