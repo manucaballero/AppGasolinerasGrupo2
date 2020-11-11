@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -120,12 +121,25 @@ public class MisVehiculosActivity extends AppCompatActivity {
         @Override
         @Deprecated
         protected void onPostExecute(Boolean res) {
+
+            Toast toast = null;
+
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
 
             // Si se ha obtenido resultado en la tarea en segundo plano
             if (Boolean.TRUE.equals(res)) {
                 adapter = new MisVehiculosActivity.VehiculoArrayAdapter(activity, 0, presenterVehiculos.getVehiculos());
+                if (!presenterVehiculos.getVehiculos().isEmpty()) {
+                    // datos obtenidos con exito
+                    listViewVehiculos.setAdapter(adapter);
+                    toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
+                } else {
+                    toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
+                }
+            }
+            if (toast != null) {
+                toast.show();
             }
         }
     }
