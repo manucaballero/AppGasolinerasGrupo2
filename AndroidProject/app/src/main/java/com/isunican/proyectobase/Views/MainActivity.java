@@ -406,7 +406,6 @@ public class MainActivity extends AppCompatActivity {
             gasolina95.setTextColor(Color.BLACK);
 
             if(gasolinera.getTieneDescuento()){
-                gasolinera.calculaPrecioFinal();
                 view.setBackgroundColor(0xfffffd82);
                 gasoleoA.setTextColor(Color.RED);
                 gasolina95.setTextColor(Color.RED);
