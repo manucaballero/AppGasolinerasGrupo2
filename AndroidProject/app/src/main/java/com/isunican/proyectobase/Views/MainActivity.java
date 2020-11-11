@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     // Vista de lista y adaptador para cargar datos en ella
     public ListView listViewGasolineras;
     public ArrayAdapter<Gasolinera> adapter;
+    private Spinner spinner;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -103,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
+        //Desplegable
+        spinner = findViewById(R.id.spinner);
 
         // Barra de progreso
         // https://materialdoc.com/components/progress/
