@@ -47,4 +47,8 @@ public class Vehiculo {
     public double getConsumoMedio() {
         return consumoMedio;
     }
+
+    public void setConsumoMedio(double consumoMedio) {
+        this.consumoMedio = consumoMedio;
+    }
 }
