@@ -32,7 +32,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.isunican.proyectobase.Model.ConDescuentoFiltro;
+import com.isunican.proyectobase.Model.DieselFiltro;
 import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Model.IFiltro;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 import androidx.annotation.NonNull;
@@ -67,6 +70,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 ------------------------------------------------------------------
 */
 public class MainActivity extends AppCompatActivity {
+
 
     public PresenterGasolineras presenterGasolineras;
 
@@ -316,7 +320,12 @@ public class MainActivity extends AppCompatActivity {
                 for(Gasolinera g:presenterGasolineras.getGasolineras()){
                     g.calculaPrecioFinal();
                 }
-                presenterGasolineras.ordenaLista();
+
+                IFiltro f = new ConDescuentoFiltro();
+                f.ordena(presenterGasolineras);
+
+
+                //presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
 

@@ -1,5 +1,10 @@
 package com.isunican.proyectobase.Model;
 
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+
 public interface IFiltro {
-    void ordena();
+    String nombre=null;
+    void ordena(PresenterGasolineras presenterGasolineras);
+    public String getNombre();
+
 }
