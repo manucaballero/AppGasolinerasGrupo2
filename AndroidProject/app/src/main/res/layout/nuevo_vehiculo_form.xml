@@ -40,31 +40,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtMatricula"
-                android:layout_width="92dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20sp"
-                android:text="Matrícula:"
-                android:textAlignment="textStart"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/campoMatricula"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="text"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
                 android:id="@+id/txtModelo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -132,6 +107,31 @@
                 android:layout_weight="1"
                 android:ems="3"
                 android:inputType="number"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtMatricula"
+                android:layout_width="92dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="20sp"
+                android:text="Matrícula:"
+                android:textAlignment="textStart"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/campoMatricula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
                 android:textSize="20sp" />
         </LinearLayout>
 
