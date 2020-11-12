@@ -384,54 +384,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
-        ------------------------------------------------------------------
-            FiltroArrayAdapter
 
-            Adaptador para inyectar los filtros en el listview
-            de filtros del layout principal de la aplicacion
-        ------------------------------------------------------------------
-        */
-    public class FiltroArrayAdapter extends ArrayAdapter<IFiltro> {
-
-        private Context context;
-        private List<IFiltro> listaFiltros;
-
-        // Constructor
-        public FiltroArrayAdapter(Context context, int resource, List<IFiltro> objects) {
-            super(context, resource, objects);
-            this.context = context;
-            this.listaFiltros = objects;
-        }
-
-        // Llamado al renderizar la lista
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            // Obtiene el elemento que se está mostrando
-            IFiltro filtro = listaFiltros.get(position);
-
-            // Indica el layout a usar en cada elemento de la lista
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.item_filtro_activo, null);
-            // Asocia las variables de dicho layout
-            TextView nombreFiltro = view.findViewById(R.id.txtNombreFiltro);
-
-            // Y carga los datos del item
-            nombreFiltro.setText(filtro.getNombre());
-
-            // Si las dimensiones de la pantalla son menores
-            // reducimos el texto de las etiquetas para que se vea correctamente
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-            if (displayMetrics.widthPixels < 720) {
-                RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) nombreFiltro.getLayoutParams());
-                params.setMargins(15, 0, 0, 0);
-                nombreFiltro.setTextSize(12);
-            }
-
-            return view;
-        }
-    }
     /*
     ------------------------------------------------------------------
         GasolineraArrayAdapter

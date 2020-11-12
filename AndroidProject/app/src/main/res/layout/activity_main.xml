@@ -21,13 +21,13 @@
             android:id="@+id/recyclerViewFiltros"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="15" />
+            android:layout_weight="4" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swiperefresh"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="85">
+            android:layout_weight="96">
 
             <ListView
                 android:id="@+id/listViewGasolineras"
