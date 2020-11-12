@@ -81,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //Si lo llamas aqui aunque no hagas nada va bien
         //Este hace falta
-        g.calculaPrecioFinal();
+        //g.calculaPrecioFinal();
 
 
         txtNombre.setText(g.getRotulo());

@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                    //g.calculaPrecioFinal();
+                    // g.calculaPrecioFinal();
                 }
                 presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
