@@ -29,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.isunican.proyectobase.Model.AscendenteFiltro;
@@ -75,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Vista de lista y adaptador para cargar datos en ella
     public ListView listViewGasolineras;
-    public ListView listViewFiltros;
+    public RecyclerView recyclerViewFiltros;
     public ArrayAdapter<Gasolinera> adapter;
-    public ArrayAdapter<IFiltro> adapterFiltros;
+    public AdapterFiltros adapterFiltros;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -108,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
-        listViewFiltros = findViewById(R.id.listViewFiltros);
+        recyclerViewFiltros = findViewById(R.id.recyclerViewFiltros);
+
+        recyclerViewFiltros.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
         // Barra de progreso
@@ -327,8 +331,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
-                adapterFiltros = new FiltroArrayAdapter(activity, 0, listaFiltros);
-                listViewFiltros.setAdapter(adapterFiltros);
+                adapterFiltros = new AdapterFiltros(MainActivity.this, listaFiltros);
+                recyclerViewFiltros.setAdapter(adapterFiltros);
 
 
 
@@ -542,5 +546,43 @@ public class MainActivity extends AppCompatActivity {
                     requestPermission();
                 }
         }
+    }
+}
+
+class ViewHolder extends RecyclerView.ViewHolder{
+
+    public TextView nombreFiltro;
+
+    public ViewHolder(@NonNull View itemView) {
+        super(itemView);
+        nombreFiltro = itemView.findViewById(R.id.txtNombreFiltro);
+    }
+}
+
+class AdapterFiltros extends RecyclerView.Adapter<ViewHolder>{
+    private List<IFiltro> lista;
+    private LayoutInflater inflater;
+
+    public AdapterFiltros(Context context, List<IFiltro> lista){
+        this.lista = lista;
+        this.inflater = LayoutInflater.from(context);
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.item_filtro_activo, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        IFiltro filtro = lista.get(position);
+        holder.nombreFiltro.setText(filtro.getNombre());
+    }
+
+    @Override
+    public int getItemCount() {
+        return lista.size();
     }
 }

@@ -17,8 +17,8 @@
         android:orientation="vertical"
         android:weightSum="100">
 
-        <ListView
-            android:id="@+id/listViewFiltros"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFiltros"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="15" />
