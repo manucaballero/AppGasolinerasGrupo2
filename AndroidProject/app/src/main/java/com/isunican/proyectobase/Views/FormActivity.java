@@ -1,6 +1,7 @@
 package com.isunican.proyectobase.Views;
 
 import com.isunican.proyectobase.Model.Vehiculo;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 
 import android.content.Intent;
@@ -30,12 +31,14 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     EditText campoAnotaciones;
     EditText campoConsumomedio;
     TextView txtAceptar;
-
+    public PresenterVehiculos presenterVehiculos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nuevo_vehiculo_form);
+
+        this.presenterVehiculos = new PresenterVehiculos();
 
         // muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -57,7 +60,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Toast toast = null;
-        Vehiculo v1 = null;
+
 
         if(v.getId()==R.id.txtAceptar){
 
@@ -67,28 +70,33 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             String capacidadtxt = campoCapacidad.getText().toString();
             String consumoMediotxt = campoConsumomedio.getText().toString();
 
-            if(!modelo.equals("") && !capacidadtxt.equals("")){
-                v1 = new Vehiculo(modelo);
+            if(!modelo.equals("") && !capacidadtxt.equals("") && matricula.length()>5){
+                Vehiculo v1 = new Vehiculo(modelo);
                 v1.setDeposito(Double.parseDouble(capacidadtxt));
+                v1.setMatricula(matricula);
 
-                if(!matricula.equals(""))
-                    v1.setMatricula(matricula);
-
-                if(!anotacion.equals(""))
+                if(anotacion.equals("")){
+                    v1.setAnotaciones("Coche nuevo");
+                }else{
                     v1.setAnotaciones(anotacion);
+                }
 
-                if(!consumoMediotxt.equals(""))
+                if(consumoMediotxt.equals("")){
+                    v1.setConsumoMedio(5);
+                }else{
                     v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
+                }
 
-                //TODO AÑADIRLO A LA LUSTA Y ESCRIBIRLO
                 toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
                 toast.show();
+                //TODO Algo aqui no funciona porque no se actualiza la lista
+                presenterVehiculos.getVehiculos().add(v1);
 
-                Intent myIntent1 = new Intent(FormActivity.this, MainActivity.class);
-                FormActivity.this.startActivity(myIntent1);
+                Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
+                FormActivity.this.startActivity(myIntent);
 
             }else {
-                toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);
+                toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
                 toast.show();
                 campoModelo.setText("Campo Requerido");
                 campoModelo.setTextColor(Color.RED);
@@ -96,10 +104,9 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 campoCapacidad.setTextColor(Color.RED);
                 campoAnotaciones.setText("");
                 campoConsumomedio.setText("");
-                campoMatricula.setText("");
+                campoMatricula.setText("Campo Requerido");
+                campoMatricula.setTextColor(Color.RED);
             }
-
-            //listaVehiculos.add(v1);
 
         }
         //guardaDatos();

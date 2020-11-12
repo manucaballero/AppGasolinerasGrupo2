@@ -45,6 +45,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.Posicion;
+import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
-
+    public static boolean flagYaEnsenada=false;
     /**
      * onCreate
      *
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
         new CargaDatosGasolinerasTask(this).execute();
+
     }
 
 
@@ -159,6 +161,9 @@ public class MainActivity extends AppCompatActivity {
             new CargaDatosGasolinerasTask(this).execute();
         } else if(item.getItemId()==R.id.itemMisVehiculos) {
             Intent myIntent = new Intent(MainActivity.this, MisVehiculosActivity.class);
+            MainActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemNuevoVehiculo) {
+            Intent myIntent = new Intent(MainActivity.this, FormActivity.class);
             MainActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);

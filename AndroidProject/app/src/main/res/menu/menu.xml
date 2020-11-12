@@ -20,6 +20,9 @@
 
     <!-- opcion para mostrar informacion -->
     <item
+        android:id="@+id/itemNuevoVehiculo"
+        android:title="Nuevo Vehículo" />
+    <item
         android:id="@+id/itemInfo"
         android:title="@string/menuInfo" />
 
