@@ -1,19 +1,18 @@
 package com.isunican.proyectobase.Views;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.Manifest;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,15 +27,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.isunican.proyectobase.Model.Gasolinera;
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
-import com.isunican.proyectobase.R;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -48,10 +43,13 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.Posicion;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
+import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -68,6 +66,8 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class MainActivity extends AppCompatActivity {
 
     public PresenterGasolineras presenterGasolineras;
+
+    public PresenterVehiculos presenterVehiculos;
 
     // Vista de lista y adaptador para cargar datos en ella
     public ListView listViewGasolineras;
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.presenterGasolineras = new PresenterGasolineras();
+        this.presenterVehiculos= new PresenterVehiculos();
 
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
@@ -156,7 +157,10 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.itemActualizar) {
             mSwipeRefreshLayout.setRefreshing(true);
             new CargaDatosGasolinerasTask(this).execute();
-        } else if (item.getItemId() == R.id.itemInfo) {
+        } else if(item.getItemId()==R.id.itemMisVehiculos) {
+            Intent myIntent = new Intent(MainActivity.this, MisVehiculosActivity.class);
+            MainActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
         }
@@ -267,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
                                         for(Gasolinera g:presenterGasolineras.getGasolineras()){
                                             g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
-                                            g.calculaPrecioFinal();
+                                            g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
                                         }
 
                                     }
@@ -309,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                    g.calculaPrecioFinal();
+                    g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
                 }
                 presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
@@ -387,7 +391,6 @@ public class MainActivity extends AppCompatActivity {
         // Llamado al renderizar la lista
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
             // Obtiene el elemento que se está mostrando
             Gasolinera gasolinera = listaGasolineras.get(position);
 

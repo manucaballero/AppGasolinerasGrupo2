@@ -1,14 +1,17 @@
 package com.isunican.proyectobase.Views;
 
-import com.isunican.proyectobase.R;
-import com.isunican.proyectobase.Model.*;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
+import com.isunican.proyectobase.R;
 
 
 /*
@@ -81,7 +84,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //Si lo llamas aqui aunque no hagas nada va bien
         //Este hace falta
-        g.calculaPrecioFinal();
+        g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
 
 
         txtNombre.setText(g.getRotulo());
