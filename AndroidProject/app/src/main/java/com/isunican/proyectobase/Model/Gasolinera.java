@@ -66,17 +66,17 @@ public class Gasolinera implements Parcelable {
      * teniendo en cuenta el descuento disponible en la gasolinera y el consumo de conducir
      * hasta ella.
      */
-    public void calculaPrecioFinal(){
+    public void calculaPrecioFinal(Vehiculo v){
 
         if(this.getTieneDescuento()){
-            this.gasoleoAConDescuento=Math.abs(round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO*0.9,3));
-            this.gasolina95ConDescuento=Math.abs(round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO*0.9,3));
+            this.gasoleoAConDescuento=round((v.getDeposito()*gasoleoA+distanciaEnKm*v.getConsumoMedio()*gasoleoA)/v.getDeposito()*0.9,3);
+            this.gasolina95ConDescuento=round((v.getDeposito()*gasolina95+distanciaEnKm*v.getConsumoMedio()*gasolina95)/v.getDeposito()*0.9,3);
         }else{
-            this.gasoleoAConDescuento=Math.abs(round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO,3));
-            this.gasolina95ConDescuento=Math.abs(round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO,3));
+            this.gasoleoAConDescuento=round((v.getDeposito()*gasoleoA+distanciaEnKm*v.getConsumoMedio()*gasoleoA)/v.getDeposito(),3);
+            this.gasolina95ConDescuento=round((v.getDeposito()*gasolina95+distanciaEnKm*v.getConsumoMedio()*gasolina95)/v.getDeposito(),3);
         }
-        this.gasoleoA=Math.abs(round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO,3));
-        this.gasolina95=Math.abs(round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO,3));
+        this.gasoleoA=round((v.getDeposito()*gasoleoA+distanciaEnKm*v.getConsumoMedio()*gasoleoA)/v.getDeposito(),3);
+        this.gasolina95=round((v.getDeposito()*gasolina95+distanciaEnKm*v.getConsumoMedio()*gasolina95)/v.getDeposito(),3);
 
     }
 

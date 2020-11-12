@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
 
 
-
     /**
      * onCreate
      *
@@ -256,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                    g.calculaPrecioFinal();
+                    //g.calculaPrecioFinal();
                 }
                 presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
@@ -273,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
                 }
             } else {
-                Intent myIntent = new Intent(MainActivity.this, NoDatosActivity.class);
+                Intent myIntent = new Intent(MainActivity.this, PopUpPV.class);
                 MainActivity.this.startActivity(myIntent);
                 // error en la obtencion de datos desde el servidor
                 toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);
@@ -327,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
 
                             for(Gasolinera g:presenterGasolineras.getGasolineras()){
                                 g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
-                                g.calculaPrecioFinal();
+                                //g.calculaPrecioFinal();
                             }
 
                         }
