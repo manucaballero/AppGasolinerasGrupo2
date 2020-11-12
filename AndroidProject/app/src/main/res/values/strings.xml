@@ -20,6 +20,11 @@
     <string name="anotacion">Nota:</string>
     <string name="pasoDatosInfo">DatosInfo</string>
     <string name="pasoDatosGasolinera">DatosGasolinera</string>
+    <string name="pasoDatosVehiculo">DatosVehiculo</string>
     <string name="volverAIntentar">Volver a intentar</string>
     <string name="datosConUbicacion">Datos con ubicación obtenidos correctamente</string>
+    <string name="deposito">Depósito(L):</string>
+    <string name="consumoMedio">Consumo medio(L/100Km):</string>
+    <string name="seleccionado">Seleccionado</string>
+    <string name="seleccionarVehiculo">Seleccionar Vehículo</string>
 </resources>

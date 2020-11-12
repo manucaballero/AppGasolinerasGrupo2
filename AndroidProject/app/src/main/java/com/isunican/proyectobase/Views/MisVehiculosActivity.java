@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -199,6 +200,29 @@ public class MisVehiculosActivity extends AppCompatActivity {
             if (toast != null) {
                 toast.show();
             }
+
+            /*
+             * Define el manejo de los eventos de click sobre elementos de la lista
+             * En este caso, al pulsar un elemento se lanzará una actividad con una vista de detalle
+             * a la que le pasamos el objeto Gasolinera sobre el que se pulsó, para que en el
+             * destino tenga todos los datos que necesita para mostrar.
+             * Para poder pasar un objeto Gasolinera mediante una intent con putExtra / getExtra,
+             * hemos tenido que hacer que el objeto Gasolinera implemente la interfaz Parcelable
+             */
+            listViewVehiculos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+
+                    /* Obtengo el elemento directamente de su posicion,
+                     * ya que es la misma que ocupa en la lista
+                     */
+
+                    Intent myIntent = new Intent(MisVehiculosActivity.this, DetailVehiculoActivity.class);
+                    myIntent.putExtra(getResources().getString(R.string.pasoDatosVehiculo),
+                            presenterVehiculos.getVehiculos().get(position));
+                    MisVehiculosActivity.this.startActivity(myIntent);
+
+                }
+            });
         }
     }
 
@@ -239,6 +263,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
             TextView anotacion = view.findViewById(R.id.textViewAnotacion);
             TextView matricula = view.findViewById(R.id.textViewMatricula);
             TextView matriculaLabel=view.findViewById(R.id.textViewMatriculaLabel);
+            TextView seleccionado=view.findViewById(R.id.textViewSeleccionado);
 
             view.setBackgroundColor(Color.WHITE);
             modelo.setTextColor(Color.BLACK);
@@ -250,9 +275,17 @@ public class MisVehiculosActivity extends AppCompatActivity {
             anotacion.setText(vehiculo.getAnotaciones());
             matricula.setText(vehiculo.getMatricula());
 
-            if(matricula.equals("")){
+            if(matricula.getText().equals("")){
                 matriculaLabel.setVisibility(View.INVISIBLE);
                 matricula.setVisibility(View.INVISIBLE);
+            }
+
+
+            ;
+            if(vehiculo.equals(PresenterVehiculos.getVehiculoSeleccionado())){
+                seleccionado.setVisibility(View.VISIBLE);
+            }else{
+                seleccionado.setVisibility(View.INVISIBLE);
             }
 
 

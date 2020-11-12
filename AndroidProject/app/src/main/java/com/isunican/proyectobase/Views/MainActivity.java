@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -389,7 +388,6 @@ public class MainActivity extends AppCompatActivity {
         // Llamado al renderizar la lista
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Log.d("prueba", "Pasa por aquí MainActivitys");
             // Obtiene el elemento que se está mostrando
             Gasolinera gasolinera = listaGasolineras.get(position);
 

@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PresenterVehiculos {
+
     private List<Vehiculo> listVehiculos;
+
+    //Vehiculo seleccionado por el usuario. De este vehiculo se utilizará el desposito y consumo medio.
+    private static Vehiculo vehiculoSeleccionado;
 
     public PresenterVehiculos(){
         this.listVehiculos=new ArrayList<Vehiculo>();
@@ -17,6 +21,9 @@ public class PresenterVehiculos {
 
         v1.setAnotaciones("Familiar");
         v2.setAnotaciones("Trabajo");
+
+        v1.setDeposito(60);
+        v1.setConsumoMedio(6.4);
 
         listVehiculos.add(v1);
         listVehiculos.add(v2);
@@ -37,6 +44,14 @@ public class PresenterVehiculos {
 
     public List<Vehiculo> getVehiculos(){
         return listVehiculos;
+    }
+
+    public static Vehiculo getVehiculoSeleccionado() {
+        return vehiculoSeleccionado;
+    }
+
+    public static void setVehiculoSeleccionado(Vehiculo vehiculoSeleccionado) {
+        PresenterVehiculos.vehiculoSeleccionado = vehiculoSeleccionado;
     }
 
 
