@@ -20,12 +20,10 @@ import static org.mockito.Mockito.when;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class PruebasUnitariasTest {
+public class PresenterGasolinerasTest {
 
     PresenterGasolineras sut;
-    Gasolinera g1;
-    Gasolinera g2;
-    double precio;
+
     //lista desordenada
     List<Gasolinera> lista;
     //lista desordenada con gasoleoA = 0
@@ -37,9 +35,7 @@ public class PruebasUnitariasTest {
         sut = new PresenterGasolineras();
         sut.cargaDatosDummy();
         lista = sut.getGasolineras();
-        g1 = sut.getGasolineras().get(0);
-        g2 = sut.getGasolineras().get(1);
-        precio = g1.getGasoleoA();
+
         l = new ArrayList<>();
         l.add(new Gasolinera(1001,"SANTANDER","SANTANDER", "Av Valdecilla", 0,1.359,"AVIA","43.45741814","-3.82677519"));
         l.add(new Gasolinera(1052,"SANTANDER","SANTANDER", "Plaza Matias Montero", 0,1.349,"CAMPSA","43.25741814","-3.84477519"));
@@ -63,7 +59,7 @@ public class PruebasUnitariasTest {
         sut.ordenaLista();
         List<Gasolinera> lista = lista = sut.getGasolineras();
 
-        //Gasolineras ordenadas correctamente por precio
+        //UTD.1a
         assertTrue(lista.get(0).getGasoleoAConDescuento() <= lista.get(1).getGasoleoAConDescuento());
         assertTrue(lista.get(1).getGasoleoAConDescuento() <= lista.get(2).getGasoleoAConDescuento());
         assertTrue(lista.get(2).getGasoleoAConDescuento() <= lista.get(3).getGasoleoAConDescuento());
@@ -72,29 +68,18 @@ public class PruebasUnitariasTest {
         sut.setGasolineras(l);
         sut.ordenaLista();
 
-        //Gasolineras en el mismo orden que en la entrada
+        //UTD.1b
         assertTrue(lista.get(0).getGasoleoAConDescuento() == l.get(0).getGasoleoAConDescuento());
         assertTrue(lista.get(1).getGasoleoAConDescuento() == l.get(1).getGasoleoAConDescuento());
         assertTrue(lista.get(2).getGasoleoAConDescuento() == l.get(2).getGasoleoAConDescuento());
         assertTrue(lista.get(3).getGasoleoAConDescuento() == l.get(3).getGasoleoAConDescuento());
         assertTrue(lista.get(4).getGasoleoAConDescuento() == l.get(4).getGasoleoAConDescuento());
 
+        l.clear();
+
+        //UTD.1d
+        assertEquals(l.size(), 0);
+
     }
-
-    @Test
-    public void calcularPrecioFinalTest(){
-        g1.setTieneDescuento(true);
-        g1.calculaPrecioFinal();
-
-        //Gasolinera con descuento
-        assertTrue(g1.getGasoleoAConDescuento() == Gasolinera.round((50*g1.getGasoleoA()+g1.getDistanciaEnKm()*6/100*g1.getGasoleoA())/50*0.9,3));
-
-        g2.setTieneDescuento(false);
-        g2.calculaPrecioFinal();
-
-        //Gasolinera sin descuento
-        assertTrue(g2.getGasoleoA() == Gasolinera.round((50*g2.getGasoleoA()+g2.getDistanciaEnKm()*6/100*g2.getGasoleoA())/50,3));
-    }
-
 
 }

@@ -21,3 +21,11 @@ Ksrc/main/java/com/isunican/proyectobase/Presenter/PresenterGasolineras.java,e\
 Tsrc/androidTest/java/com/isunican/proyectobase/CalcularGasolineraMasBarataITest.java,3\1\31727f9a14b6ce88ef86dba76f94cee947d4c140
 L
 src/main/AndroidManifest.xml,0\6\066a3db98a4a279fde40d6ddf92c417b5c93198b
+k
+;src/test/java/com/isunican/proyectobase/GasolineraTest.java,9\9\9925b33f2c16795b400786067d08d55c4bce5b9f
+u
+Esrc/test/java/com/isunican/proyectobase/PresenterGasolinerasTest.java,4\3\430e169c5588e3d20cb9085e207efcd36039f8e6
+…
+Usrc/androidTest/java/com/isunican/proyectobase/CalcularGasolineraMasBarataUITest.java,7\d\7d7e8cccc78c93a0efe383bc193a9123ca61dec5
+t
+Dsrc/androidTest/java/com/isunican/proyectobase/VerDetalleUITest.java,0\7\07c351faa5ca90d1ac0f1a2b84e1f728e7ac615e
