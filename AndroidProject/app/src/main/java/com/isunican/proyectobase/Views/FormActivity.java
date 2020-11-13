@@ -1,20 +1,17 @@
 package com.isunican.proyectobase.Views;
 
-import com.isunican.proyectobase.Model.Vehiculo;
-import com.isunican.proyectobase.Presenter.PresenterVehiculos;
-import com.isunican.proyectobase.R;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.isunican.proyectobase.Model.Vehiculo;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
+import com.isunican.proyectobase.R;
 
 
 /*
@@ -91,6 +88,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
                 toast.show();
                 //TODO Algo aqui no funciona porque no se actualiza la lista
+                // Se deberá llamar a un método que guarde el vehículo en el fichero
                 presenterVehiculos.getVehiculos().add(v1);
 
                 Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
@@ -99,14 +97,10 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             }else {
                 toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
                 toast.show();
-                campoModelo.setText("Campo Requerido");
-                campoModelo.setTextColor(Color.RED);
-                campoCapacidad.setText("50");
-                campoCapacidad.setTextColor(Color.RED);
-                campoAnotaciones.setText("");
-                campoConsumomedio.setText("");
-                campoMatricula.setText("Campo Requerido");
-                campoMatricula.setTextColor(Color.RED);
+                campoModelo.setError("Campo Requerido");
+                campoCapacidad.setError("Campo Requerido");
+                campoMatricula.setError("Campo Requerido");
+
             }
 
         }

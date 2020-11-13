@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -133,10 +133,10 @@
 
             <EditText
                 android:id="@+id/campoMatricula"
-                android:layout_width="wrap_content"
+                android:layout_width="30sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="text"
+                android:inputType="textCapCharacters"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -157,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="20sp"
-                    android:text="Anotaciones:"
+                    android:text="@string/anotacion"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="20sp" />
@@ -175,7 +175,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="10sp"
                     android:layout_weight="1"
-                    android:inputType="text"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="20sp"
                     android:textSize="20sp" />
 
             </LinearLayout>
