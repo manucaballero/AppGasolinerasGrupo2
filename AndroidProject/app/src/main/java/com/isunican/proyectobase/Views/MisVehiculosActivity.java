@@ -113,6 +113,9 @@ public class MisVehiculosActivity extends AppCompatActivity {
         } else if(item.getItemId()==R.id.itemGasolineras) {
             Intent myIntent = new Intent(MisVehiculosActivity.this, MainActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemNuevoVehiculo) {
+            Intent myIntent = new Intent(MisVehiculosActivity.this, FormActivity.class);
+            MisVehiculosActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MisVehiculosActivity.this, InfoActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);

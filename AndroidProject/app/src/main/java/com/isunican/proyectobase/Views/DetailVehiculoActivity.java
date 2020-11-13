@@ -21,6 +21,7 @@ public class DetailVehiculoActivity extends AppCompatActivity {
     TextView textViewAnotacion;
     TextView textViewDeposito;
     TextView textViewConsumoMedio;
+    TextView textViewMatriculaLabel;
 
     /**
      * onCreate
@@ -47,6 +48,7 @@ public class DetailVehiculoActivity extends AppCompatActivity {
         textViewMatricula = findViewById(R.id.textViewMatricula);
         textViewDeposito = findViewById(R.id.textViewDeposito);
         textViewConsumoMedio = findViewById(R.id.textViewConsumoMedio);
+        textViewMatriculaLabel= findViewById(R.id.textViewMatriculaLabel);
 
         vehiculo = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosVehiculo));
 
@@ -57,6 +59,10 @@ public class DetailVehiculoActivity extends AppCompatActivity {
         textViewConsumoMedio.setText(Double.toString(vehiculo.getConsumoMedio()));
 
         Button buttonSeleccionado=findViewById(R.id.buttonSeleccionado);
+
+        if(vehiculo.getMatricula()==null){
+            textViewMatriculaLabel.setVisibility(View.INVISIBLE);
+        }
 
         buttonSeleccionado.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

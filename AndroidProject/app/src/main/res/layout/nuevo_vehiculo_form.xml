@@ -28,8 +28,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2"
-                android:text="Introduzca los datos del vehículo"
+                android:text="Introduzca los datos del nuevo vehículo:"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textSize="30sp" />
         </LinearLayout>
 
@@ -40,43 +41,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtMatricula"
-                android:layout_width="92dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="20sp"
-                android:text="Matrícula:"
-                android:textAlignment="textStart"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/campoMatricula"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="text"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
                 android:id="@+id/txtModelo"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
-                android:text="Modelo:"
+                android:text="Modelo*:"
                 android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/campoModelo"
-                android:layout_width="wrap_content"
+                android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
@@ -91,12 +68,13 @@
 
             <TextView
                 android:id="@+id/txtCapacidad"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
-                android:text="Capacidad (Litros):"
+                android:text="Capacidad (Litros)*:"
                 android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -105,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -117,12 +95,13 @@
 
             <TextView
                 android:id="@+id/txtConsumoMedio"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
                 android:text="Consumo medio: \n(L/Km)"
                 android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -131,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="3"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -142,31 +121,86 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtAnotaciones"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtMatricula"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Anotaciones:"
+                android:paddingLeft="20sp"
+                android:text="Matrícula*:"
                 android:textAlignment="textStart"
-                android:textSize="20sp"
-                android:paddingLeft="20sp" />
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/campoMatricula"
+                android:layout_width="30sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textCapCharacters"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/campoAnotaciones"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="text"
-                android:textSize="20sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtAnotaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20sp"
+                    android:text="@string/anotacion"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/campoAnotaciones"
+                    android:layout_width="237dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="10sp"
+                    android:layout_weight="1"
+                    android:inputType="textCapSentences"
+                    android:paddingLeft="20sp"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/txtAceptar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/roundedbutton"
+                android:backgroundTint="#547980"
+                android:gravity="center"
+                android:text="Añadir"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="28dp" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -174,16 +208,13 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtAceptar"
+                android:id="@+id/txtAviso"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="#A5A5A5"
                 android:gravity="center"
-                android:text="Añadir"
-                android:textAlignment="center"
-                android:textSize="36dp" />
+                android:text="* Campo obligatorio"
+                android:textSize="15dp" />
         </LinearLayout>
 
     </LinearLayout>

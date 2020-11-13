@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
-
+    public static boolean flagYaEnsenada=false;
     /**
      * onCreate
      *
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.presenterGasolineras = new PresenterGasolineras();
+        this.presenterVehiculos= new PresenterVehiculos();
 
         this.presenterVehiculos = new PresenterVehiculos();
 
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
         new CargaDatosGasolinerasTask(this).execute();
+
     }
 
 
@@ -160,6 +162,9 @@ public class MainActivity extends AppCompatActivity {
             new CargaDatosGasolinerasTask(this).execute();
         } else if(item.getItemId()==R.id.itemMisVehiculos) {
             Intent myIntent = new Intent(MainActivity.this, MisVehiculosActivity.class);
+            MainActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemNuevoVehiculo) {
+            Intent myIntent = new Intent(MainActivity.this, FormActivity.class);
             MainActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
@@ -271,13 +276,17 @@ public class MainActivity extends AppCompatActivity {
                     // datos obtenidos con exito
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
+                    if(!presenterVehiculos.getVehiculos().isEmpty()){
+                        Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                        MainActivity.this.startActivity(myIntent);
+                    }
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
                     // sucede en torno a las :00 y :30 de cada hora
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
                 }
             } else {
-                Intent myIntent = new Intent(MainActivity.this, PopUpPV.class);
+                Intent myIntent = new Intent(MainActivity.this, NoDatosActivity.class);
                 MainActivity.this.startActivity(myIntent);
                 // error en la obtencion de datos desde el servidor
                 toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);
