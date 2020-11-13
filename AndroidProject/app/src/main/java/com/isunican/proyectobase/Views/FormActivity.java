@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     EditText campoCapacidad;
     EditText campoAnotaciones;
     EditText campoConsumomedio;
-    TextView txtAceptar;
+    Button txtAceptar;
     public PresenterVehiculos presenterVehiculos;
 
     @Override

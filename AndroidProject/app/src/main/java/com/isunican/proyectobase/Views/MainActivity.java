@@ -45,7 +45,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.Posicion;
-import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
@@ -329,13 +328,17 @@ public class MainActivity extends AppCompatActivity {
                     // datos obtenidos con exito
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
+                    if(!presenterVehiculos.getVehiculos().isEmpty()){
+                        Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                        MainActivity.this.startActivity(myIntent);
+                    }
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
                     // sucede en torno a las :00 y :30 de cada hora
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_accesibles), Toast.LENGTH_LONG);
                 }
             } else {
-                Intent myIntent = new Intent(MainActivity.this, PopUpPV.class);
+                Intent myIntent = new Intent(MainActivity.this, NoDatosActivity.class);
                 MainActivity.this.startActivity(myIntent);
                 // error en la obtencion de datos desde el servidor
                 toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG);

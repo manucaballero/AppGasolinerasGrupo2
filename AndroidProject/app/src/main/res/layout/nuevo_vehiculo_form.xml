@@ -30,6 +30,7 @@
                 android:layout_weight="2"
                 android:text="Introduzca los datos del vehículo"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textSize="30sp" />
         </LinearLayout>
 
@@ -45,8 +46,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
-                android:text="* Modelo:"
+                android:text="Modelo*"
                 android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -70,8 +72,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
-                android:text="* Capacidad (Litros):"
+                android:text="Capacidad (Litros)*"
                 android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -98,6 +101,7 @@
                 android:paddingLeft="20sp"
                 android:text="Consumo medio: \n(L/Km)"
                 android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -122,8 +126,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
-                android:text="* Matrícula:"
+                android:text="Matrícula*"
                 android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textSize="20sp" />
 
             <EditText
@@ -146,10 +151,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Anotaciones:"
+                android:paddingLeft="20sp"
+                android:text="Anotaciones"
                 android:textAlignment="textStart"
-                android:textSize="20sp"
-                android:paddingLeft="20sp" />
+                android:textColor="#000000"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -173,16 +179,18 @@
             android:layout_weight="2"
             android:orientation="horizontal">
 
-            <TextView
+            <Button
                 android:id="@+id/txtAceptar"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="#A5A5A5"
+                android:background="@drawable/roundedbutton"
+                android:backgroundTint="#547980"
                 android:gravity="center"
                 android:text="Añadir"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textSize="36dp" />
         </LinearLayout>
         <LinearLayout
@@ -197,7 +205,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="* Los campos marcados con el asterisco son obligatorios"
+                android:text="* Campo obligatorio"
                 android:textSize="15dp" />
         </LinearLayout>
 

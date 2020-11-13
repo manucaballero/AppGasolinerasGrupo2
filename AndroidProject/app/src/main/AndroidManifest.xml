@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.PopUpPV"
+        <activity android:name=".Views.PopUpPrimerVehiculoActivity"
             android:theme="@style/AppTheme.TemasPopUps"/>
 
         <activity android:name=".Views.NoDatosActivity" />
@@ -32,7 +32,7 @@
         </activity>
         <activity android:name=".Views.InfoActivity" />
         <activity android:name=".Views.DetailActivity" />
-        <activity android:name=".Views.FormActivity" />
+        <activity android:name=".Views.FormActivity"/>
         <activity android:name=".Views.DetailVehiculoActivity"/>
 
     </application>
