@@ -5,6 +5,9 @@ import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import java.util.Comparator;
 import java.util.Iterator;
 
+/**
+ * Filtro que muestra solo las gasolineras que tienen un descuento activo
+ */
 public class ConDescuentoFiltro implements IDescuentoFiltro {
 
     String nombre = "conDescuento";

@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
                     g.calculaPrecioFinal();
                 }
 
-                IFiltro f = new ConDescuentoFiltro();
+                IFiltro f = new DieselFiltro();
                 f.ordena(presenterGasolineras);
 
 

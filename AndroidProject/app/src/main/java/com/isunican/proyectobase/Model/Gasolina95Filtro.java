@@ -4,6 +4,9 @@ import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 
 import java.util.Comparator;
 
+/**
+ * Filtro que muestra las gasolineras ordenadas de menor a mayor precio de la gasolina95
+ */
 public class Gasolina95Filtro implements ICombustibleFiltro{
 
     String nombre = "gasolina";
@@ -18,7 +21,9 @@ public class Gasolina95Filtro implements ICombustibleFiltro{
         return nombre;
     }
 }
-
+/**
+ * Clase para comparar dos gasolineras en función del precio de la gasolina95
+ */
 class comparadorGasolinerasGasolina implements Comparator<Gasolinera> {
     @Override
     public int compare(Gasolinera g1, Gasolinera g2) {
