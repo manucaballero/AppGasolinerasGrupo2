@@ -4,6 +4,7 @@ import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Filtro que muestra solo las gasolineras que tienen un descuento activo
@@ -13,8 +14,8 @@ public class ConDescuentoFiltro implements IDescuentoFiltro {
     String nombre = "conDescuento";
 
     @Override
-    public void ordena(PresenterGasolineras presenterGasolineras) {
-        Iterator i = presenterGasolineras.getGasolineras().iterator();
+    public void ordena(List<Gasolinera> listaGasolineras) {
+        Iterator i = listaGasolineras.iterator();
 
         while(i.hasNext()){
             Gasolinera g = (Gasolinera) i.next();

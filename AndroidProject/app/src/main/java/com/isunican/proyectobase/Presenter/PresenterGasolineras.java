@@ -74,9 +74,9 @@ public class PresenterGasolineras {
      */
     public boolean cargaDatosDummy(){
         this.gasolineras.add(new Gasolinera(1000,SANTANDER,SANTANDER, "Av Valdecilla", 1.299,1.359,"AVIA","43.45741814","-3.82677519"));
-        this.gasolineras.add(new Gasolinera(1053,SANTANDER,SANTANDER, "Plaza Matias Montero", 1.270,1.349,"CAMPSA","43.25741814","-3.84477519"));
+        this.gasolineras.add(new Gasolinera(1053,SANTANDER,SANTANDER, "Plaza Matias Montero", 1.270,1.349,"CEPSA","43.25741814","-3.84477519"));
         this.gasolineras.add(new Gasolinera(420,SANTANDER,SANTANDER, "Area Arrabal Puerto de Raos", 1.249,1.279,"E.E.S.S. MAS, S.L.","43.45741814","-3.82677519"));
-        this.gasolineras.add(new Gasolinera(9564,SANTANDER,SANTANDER, "Av Parayas", 1.189,1.269,"EASYGAS","43.40741814","-3.92677519"));
+        this.gasolineras.add(new Gasolinera(9564,SANTANDER,SANTANDER, "Av Parayas", 1.189,1.269,"CEPSA","43.40741814","-3.92677519"));
         this.gasolineras.add(new Gasolinera(1025,SANTANDER,SANTANDER, "Calle el Empalme", 1.259,1.319,"CARREFOUR","43.42741814","-3.02677519"));
         return true;
     }

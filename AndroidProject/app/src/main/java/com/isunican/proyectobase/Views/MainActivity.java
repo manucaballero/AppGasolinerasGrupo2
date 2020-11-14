@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 IFiltro f = new DieselFiltro();
-                f.ordena(presenterGasolineras);
+                f.ordena(presenterGasolineras.getGasolineras());
 
 
                 //presenterGasolineras.ordenaLista();

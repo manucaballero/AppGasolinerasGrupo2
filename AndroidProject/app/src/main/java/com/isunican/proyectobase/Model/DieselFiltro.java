@@ -5,6 +5,7 @@ import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import static java.util.Collections.*;
 
@@ -16,8 +17,8 @@ public class DieselFiltro implements ICombustibleFiltro{
     String nombre = "diesel";
 
     @Override
-    public void ordena(PresenterGasolineras presenterGasolineras) {
-        sort(presenterGasolineras.getGasolineras(),new comparadorGasolinerasDiesel());
+    public void ordena(List<Gasolinera> listaGasolineras) {
+        sort(listaGasolineras,new ComparadorGasolinerasDiesel());
     }
 
     @Override
@@ -31,7 +32,7 @@ public class DieselFiltro implements ICombustibleFiltro{
 /**
  * Clase para comparar dos gasolineras en función del precio del diesel
  */
-class comparadorGasolinerasDiesel implements Comparator<Gasolinera>{
+class ComparadorGasolinerasDiesel implements Comparator<Gasolinera>{
     @Override
     public int compare(Gasolinera g1, Gasolinera g2) {
         double resta = g1.getGasoleoAConDescuento() - g2.getGasoleoAConDescuento();
