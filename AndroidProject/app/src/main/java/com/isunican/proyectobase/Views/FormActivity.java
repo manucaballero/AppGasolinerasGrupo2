@@ -88,7 +88,6 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 toast.show();
                 //TODO Algo aqui no funciona porque no se actualiza la lista
                 // Se deberá llamar a un método que guarde el vehículo en el fichero
-                presenterVehiculos.anhadeVehiculo(v1);
 
                 Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
                 FormActivity.this.startActivity(myIntent);
