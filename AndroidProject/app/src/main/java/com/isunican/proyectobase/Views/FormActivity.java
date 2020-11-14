@@ -42,7 +42,6 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
 
-        //ADEMAS ALMACENAR DATOS DE FORMA EXTERNA Y AÑADIRLO AL PRESENTER
 
         txtAceptar = findViewById(R.id.txtAceptar);
         campoMatricula = findViewById(R.id.campoMatricula);
@@ -89,7 +88,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 toast.show();
                 //TODO Algo aqui no funciona porque no se actualiza la lista
                 // Se deberá llamar a un método que guarde el vehículo en el fichero
-                presenterVehiculos.getVehiculos().add(v1);
+                presenterVehiculos.anhadeVehiculo(v1);
 
                 Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
                 FormActivity.this.startActivity(myIntent);
@@ -97,9 +96,13 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             }else {
                 toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
                 toast.show();
+                if(matricula.length()<6)
+                    campoMatricula.setError("Mínimo 6 caracteres");
+                else
+                    campoMatricula.setError("Campo Requerido");
                 campoModelo.setError("Campo Requerido");
                 campoCapacidad.setError("Campo Requerido");
-                campoMatricula.setError("Campo Requerido");
+
 
             }
 
