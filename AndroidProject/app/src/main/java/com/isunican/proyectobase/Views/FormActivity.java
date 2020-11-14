@@ -29,7 +29,8 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     EditText campoAnotaciones;
     EditText campoConsumomedio;
     Button txtAceptar;
-    public PresenterVehiculos presenterVehiculos;
+    private PresenterVehiculos presenterVehiculos;
+    private static final String CAMPO_REQUERIDO = "Campo Requerido";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,25 +99,16 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 if(matricula.length()<6)
                     campoMatricula.setError("Mínimo 6 caracteres");
                 else
-                    campoMatricula.setError("Campo Requerido");
-                campoModelo.setError("Campo Requerido");
-                campoCapacidad.setError("Campo Requerido");
+                    campoMatricula.setError(CAMPO_REQUERIDO);
+                campoModelo.setError(CAMPO_REQUERIDO);
+                campoCapacidad.setError(CAMPO_REQUERIDO);
 
 
             }
 
         }
-        //guardaDatos();
+
 
     }
-/*
-    public void guardaDatos(){
 
-        String output="";
-
-        for (Vehiculo v: listaVehiculos) {
-            output = v1.getMatricula() + "/" + v1.getModelo() + "/" + v1.getDeposito() + "/" + v1.getConsumoMedio() + "/" + v1.getAnotaciones()+"\n";
-        }
-        //TODO AÑADIR EL VEHICULO A LA LISTA
-    }*/
 }

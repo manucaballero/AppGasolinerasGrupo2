@@ -31,17 +31,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.isunican.proyectobase.Model.ConDescuentoFiltro;
 import com.isunican.proyectobase.Model.DieselFiltro;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.IFiltro;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -53,11 +50,8 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.Posicion;
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
-import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
 import java.util.List;
@@ -78,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
     public PresenterGasolineras presenterGasolineras;
 
-    public PresenterVehiculos presenterVehiculos;
+    private PresenterVehiculos presenterVehiculos;
 
     // Vista de lista y adaptador para cargar datos en ella
-    public ListView listViewGasolineras;
+    private ListView listViewGasolineras;
     public ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
@@ -95,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    public static boolean flagYaEnsenada=false;
     /**
      * onCreate
      *
@@ -283,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
                 f.ordena(presenterGasolineras.getGasolineras());
 
 
-                //presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
 

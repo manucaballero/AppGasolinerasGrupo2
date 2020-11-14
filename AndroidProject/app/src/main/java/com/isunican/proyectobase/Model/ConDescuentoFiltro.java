@@ -1,8 +1,6 @@
 package com.isunican.proyectobase.Model;
 
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class ConDescuentoFiltro implements IDescuentoFiltro {
 
     @Override
     public void ordena(List<Gasolinera> listaGasolineras) {
-        Iterator i = listaGasolineras.iterator();
+        Iterator<Gasolinera> i = listaGasolineras.iterator();
 
         while(i.hasNext()){
             Gasolinera g = (Gasolinera) i.next();

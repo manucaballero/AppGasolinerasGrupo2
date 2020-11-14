@@ -1,28 +1,36 @@
 package com.isunican.proyectobase;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-/*
+
 @RunWith(AndroidJUnit4.class)
 public class CalcularGasolineraMasBarataUITest {
 
+    /*
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+     */
 
 
     /**
      * Metodo que comprueba que los datos mostrados en las listas de la vista principal
      * son los correctos
      */
-    /*
 
     @Test
     public void compruebaListaUITest(){
+        /*
+    }
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {}
@@ -60,7 +68,8 @@ public class CalcularGasolineraMasBarataUITest {
         Assert.assertTrue(g2.getGasoleoAConDescuento() < g3.getGasoleoAConDescuento());
 
 
-    }*/
+    */
+    }
 
     /*
     @Test
@@ -75,7 +84,7 @@ public class CalcularGasolineraMasBarataUITest {
         
         Assert.assertNotEquals(adapter.getCount(), 0);
     }
-
      */
-//}
+
+}
 

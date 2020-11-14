@@ -47,11 +47,11 @@ public class PresenterGasolinerasTest {
 
     @Test
     public void cargaDatosDummyTest(){
-        assertEquals(lista.get(0).getIdeess(), 1000);
-        assertEquals(lista.get(1).getIdeess(), 1053);
-        assertEquals(lista.get(2).getIdeess(), 420);
-        assertEquals(lista.get(3).getIdeess(), 9564);
-        assertEquals(lista.get(4).getIdeess(), 1025);
+        assertEquals(1000,lista.get(0).getIdeess());
+        assertEquals(1053, lista.get(1).getIdeess() );
+        assertEquals(420, lista.get(2).getIdeess());
+        assertEquals(9564, lista.get(3).getIdeess());
+        assertEquals(1025, lista.get(4).getIdeess());
     }
     
     @Test
@@ -60,25 +60,25 @@ public class PresenterGasolinerasTest {
         List<Gasolinera> lista = lista = sut.getGasolineras();
 
         //UTD.1a
-        assertTrue(lista.get(0).getGasoleoAConDescuento() <= lista.get(1).getGasoleoAConDescuento());
-        assertTrue(lista.get(1).getGasoleoAConDescuento() <= lista.get(2).getGasoleoAConDescuento());
-        assertTrue(lista.get(2).getGasoleoAConDescuento() <= lista.get(3).getGasoleoAConDescuento());
-        assertTrue(lista.get(3).getGasoleoAConDescuento() <= lista.get(4).getGasoleoAConDescuento());
+        assertEquals(true, lista.get(0).getGasoleoAConDescuento() <= lista.get(1).getGasoleoAConDescuento());
+        assertEquals(true, lista.get(1).getGasoleoAConDescuento() <= lista.get(2).getGasoleoAConDescuento());
+        assertEquals(true, lista.get(2).getGasoleoAConDescuento() <= lista.get(3).getGasoleoAConDescuento());
+        assertEquals(true, lista.get(3).getGasoleoAConDescuento() <= lista.get(4).getGasoleoAConDescuento());
 
         sut.setGasolineras(l);
         sut.ordenaLista();
 
         //UTD.1b
-        assertTrue(lista.get(0).getGasoleoAConDescuento() == l.get(0).getGasoleoAConDescuento());
-        assertTrue(lista.get(1).getGasoleoAConDescuento() == l.get(1).getGasoleoAConDescuento());
-        assertTrue(lista.get(2).getGasoleoAConDescuento() == l.get(2).getGasoleoAConDescuento());
-        assertTrue(lista.get(3).getGasoleoAConDescuento() == l.get(3).getGasoleoAConDescuento());
-        assertTrue(lista.get(4).getGasoleoAConDescuento() == l.get(4).getGasoleoAConDescuento());
+        assertEquals(lista.get(0).getGasoleoAConDescuento(), l.get(0).getGasoleoAConDescuento(), 0.0);
+        assertEquals(lista.get(1).getGasoleoAConDescuento(), l.get(1).getGasoleoAConDescuento(), 0.0);
+        assertEquals(lista.get(2).getGasoleoAConDescuento(), l.get(2).getGasoleoAConDescuento(), 0.0);
+        assertEquals(lista.get(3).getGasoleoAConDescuento(), l.get(3).getGasoleoAConDescuento(), 0.0);
+        assertEquals(lista.get(4).getGasoleoAConDescuento(), l.get(4).getGasoleoAConDescuento(), 0.0);
 
         l.clear();
 
         //UTD.1d
-        assertEquals(l.size(), 0);
+        assertEquals(0, l.size());
 
     }
 

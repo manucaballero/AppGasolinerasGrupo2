@@ -1,9 +1,6 @@
 package com.isunican.proyectobase.Model;
 
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

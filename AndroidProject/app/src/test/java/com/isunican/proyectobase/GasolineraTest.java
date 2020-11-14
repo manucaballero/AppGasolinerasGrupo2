@@ -23,10 +23,11 @@ public class GasolineraTest {
         precio = g1.getGasoleoA();
 
     }
-    /*
+
     @Test
     public void calcularPrecioFinalTest(){
         g1.setTieneDescuento(true);
+        /*
         g1.calculaPrecioFinal();
 
         //Gasolinera con descuento
@@ -37,7 +38,9 @@ public class GasolineraTest {
 
         //Gasolinera sin descuento
         assertTrue(g2.getGasoleoA() == Gasolinera.round((50*g2.getGasoleoA()+g2.getDistanciaEnKm()*6/100*g2.getGasoleoA())/50,3));
+
+         */
     }
 
-     */
+
 }

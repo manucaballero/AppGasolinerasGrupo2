@@ -32,11 +32,11 @@ import java.util.List;
 
 public class MisVehiculosActivity extends AppCompatActivity {
 
-    public PresenterVehiculos presenterVehiculos;
+    private PresenterVehiculos presenterVehiculos;
 
     // Vista de lista y adaptador para cargar datos en ella
-    public ListView listViewVehiculos;
-    public ArrayAdapter<Vehiculo> adapter;
+    private ListView listViewVehiculos;
+    private ArrayAdapter<Vehiculo> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -51,6 +51,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
      *
      * @param savedInstanceState
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_vehiculos);
@@ -302,12 +303,8 @@ public class MisVehiculosActivity extends AppCompatActivity {
                 params.setMargins(15, 0, 0, 0);
                 tv.setTextSize(11);
                 TextView tmp;
-                //tmp = view.findViewById(R.id.textViewGasolina95Label);
-                //tmp.setTextSize(11);
                 tmp = view.findViewById(R.id.textViewModelo);
                 tmp.setTextSize(11);
-                //tmp = view.findViewById(R.id.textViewGasolina95);
-                //tmp.setTextSize(11);
             }
 
             return view;

@@ -17,7 +17,6 @@ public class PresenterVehiculos {
         Vehiculo v1= new Vehiculo("Mercedes-Benz Clase A 180 CDI");
         Vehiculo v2=new Vehiculo("Tesla model S P100D");
         v1.setMatricula("1234ABC");
-        //v2.setMatricula("9876ZYX");
 
         v1.setAnotaciones("Familiar");
         v2.setAnotaciones("Trabajo");
