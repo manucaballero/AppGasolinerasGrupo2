@@ -283,9 +283,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
                 matriculaLabel.setVisibility(View.INVISIBLE);
                 matricula.setVisibility(View.INVISIBLE);
             }
-
-
-            ;
+            
             if(vehiculo.equals(PresenterVehiculos.getVehiculoSeleccionado())){
                 seleccionado.setVisibility(View.VISIBLE);
             }else{

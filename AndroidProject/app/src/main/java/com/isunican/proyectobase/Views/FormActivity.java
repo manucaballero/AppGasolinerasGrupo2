@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.isunican.proyectobase.Model.Vehiculo;
-import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 
 
@@ -29,15 +28,12 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     EditText campoAnotaciones;
     EditText campoConsumomedio;
     Button txtAceptar;
-    private PresenterVehiculos presenterVehiculos;
     private static final String CAMPO_REQUERIDO = "Campo Requerido";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nuevo_vehiculo_form);
-
-        this.presenterVehiculos = new PresenterVehiculos();
 
         // muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);

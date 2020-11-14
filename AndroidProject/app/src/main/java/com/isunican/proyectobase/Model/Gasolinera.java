@@ -3,12 +3,6 @@ package com.isunican.proyectobase.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
-
-
-import androidx.annotation.Nullable;
-
-
 /*
 ------------------------------------------------------------------
     Clase que almacena la informacion de una gasolinera
@@ -35,7 +29,7 @@ public class Gasolinera implements Parcelable {
 
     private double distanciaEnKm;
     private boolean tieneDescuento;
-    private final double DEPOSITO = 50;
+    private final static double DEPOSITO = 50;
 
 
     /**
