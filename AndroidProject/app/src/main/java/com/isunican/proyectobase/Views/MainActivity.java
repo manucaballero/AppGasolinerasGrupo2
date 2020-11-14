@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -112,12 +113,13 @@ public class MainActivity extends AppCompatActivity {
         //Desplegable
         spinner = findViewById(R.id.spinner);
 
+
         // Barra de progreso
         // https://materialdoc.com/components/progress/
         progressBar = new ProgressBar(MainActivity.this, null, android.R.attr.progressBarStyleLarge);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        RelativeLayout layout = findViewById(R.id.activity_precio_gasolina);
+        LinearLayout layout = findViewById(R.id.activity_precio_gasolina);
         layout.addView(progressBar, params);
 
         // Muestra el logo en el actionBar
@@ -136,10 +138,12 @@ public class MainActivity extends AppCompatActivity {
         if (!checkPermission()) {
             requestPermission();
         }
+        cargarSpinner();
         // Al terminar de inicializar todas las variables
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
         new CargaDatosGasolinerasTask(this).execute();
+
     }
 
 
@@ -171,6 +175,23 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    //===================================
+    // Carga las operaciones en el spiner
+    //===================================
+
+    private void cargarSpinner(){
+        // Crea un ArrayAdapter usando un array de strings con las operaciones (definido en string.xml)
+        // y un recurso spinner layout generico de android
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.filtros, android.R.layout.simple_spinner_item);
+        // Indica el layout a usar para las opciones, uno generico de android
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Aplica el adaptador creado a nuestro spinner
+        spinner.setAdapter(adapter);
+    }
+
+
 
 
     /**
@@ -327,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
+
 
 
                 // Cargamos los datos en la lista

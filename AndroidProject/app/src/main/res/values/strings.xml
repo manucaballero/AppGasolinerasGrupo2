@@ -17,4 +17,9 @@
     <string name="pasoDatosGasolinera">DatosGasolinera</string>
     <string name="volverAIntentar">Volver a intentar</string>
     <string name="datosConUbicacion">Datos con ubicación obtenidos correctamente</string>
+    <string-array name="filtros">
+        <item>GasoleoA</item>
+        <item>Gasolina95</item>
+    </string-array>
+
 </resources>
