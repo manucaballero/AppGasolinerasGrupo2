@@ -56,8 +56,4 @@ public class PresenterVehiculos {
         PresenterVehiculos.vehiculoSeleccionado = vehiculoSeleccionado;
     }
 
-    public void anhadeVehiculo(Vehiculo v){
-        listVehiculos.add(v);
-    }
-
 }
