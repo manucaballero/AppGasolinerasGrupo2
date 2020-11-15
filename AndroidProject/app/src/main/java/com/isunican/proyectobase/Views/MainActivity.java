@@ -31,6 +31,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.isunican.proyectobase.Model.DieselFiltro;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.IFiltro;
@@ -288,6 +289,16 @@ public class MainActivity extends AppCompatActivity {
                         Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     }
+
+                    //Boton flotante
+                    FloatingActionButton fab = findViewById(R.id.fab);
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(MainActivity.this, FormActivity.class);
+                            MainActivity.this.startActivity(intent);
+                        }
+                    });
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
                     // sucede en torno a las :00 y :30 de cada hora
