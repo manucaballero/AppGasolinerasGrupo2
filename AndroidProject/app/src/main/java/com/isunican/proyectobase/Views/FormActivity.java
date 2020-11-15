@@ -9,9 +9,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 /*
@@ -30,6 +35,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     EditText campoConsumomedio;
     Button txtAceptar;
     public PresenterVehiculos presenterVehiculos;
+    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,67 +62,77 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Toast toast = null;
 
+        if(v.getId()==R.id.txtAceptar)
+            anhadeVehiculo();
 
-        if(v.getId()==R.id.txtAceptar){
+        printPath();
+    }
 
-            String matricula = campoMatricula.getText().toString();
-            String modelo = campoModelo.getText().toString();
-            String anotacion = campoAnotaciones.getText().toString();
-            String capacidadtxt = campoCapacidad.getText().toString();
-            String consumoMediotxt = campoConsumomedio.getText().toString();
+    private void anhadeVehiculo() {
 
-            if(!modelo.equals("") && !capacidadtxt.equals("") && matricula.length()>5){
-                Vehiculo v1 = new Vehiculo(modelo);
-                v1.setDeposito(Double.parseDouble(capacidadtxt));
-                v1.setMatricula(matricula);
+        Toast toast;
 
-                if(anotacion.equals("")){
-                    v1.setAnotaciones("Coche nuevo");
-                }else{
-                    v1.setAnotaciones(anotacion);
-                }
+        String matricula = campoMatricula.getText().toString();
+        String modelo = campoModelo.getText().toString();
+        String anotacion = campoAnotaciones.getText().toString();
+        String capacidadtxt = campoCapacidad.getText().toString();
+        String consumoMediotxt = campoConsumomedio.getText().toString();
 
-                if(consumoMediotxt.equals("")){
-                    v1.setConsumoMedio(5);
-                }else{
-                    v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
-                }
+        if(!modelo.equals("") && !capacidadtxt.equals("") && matricula.length()>5){
+            Vehiculo v1 = new Vehiculo(modelo);
+            v1.setDeposito(Double.parseDouble(capacidadtxt));
+            v1.setMatricula(matricula);
 
-                toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
-                toast.show();
-                //TODO Algo aqui no funciona porque no se actualiza la lista
-                // Se deberá llamar a un método que guarde el vehículo en el fichero
-
-                Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
-                FormActivity.this.startActivity(myIntent);
-
-            }else {
-                toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
-                toast.show();
-                if(matricula.length()==0)
-                    campoMatricula.setError("Campo Requerido");
-                else if(matricula.length()<6)
-                    campoMatricula.setError("Mínimo 6 caracteres");
-                campoModelo.setError("Campo Requerido");
-                campoCapacidad.setError("Campo Requerido");
-
-
+            if(anotacion.equals("")){
+                v1.setAnotaciones("Coche nuevo");
+            }else{
+                v1.setAnotaciones(anotacion);
             }
 
-        }
-        //guardaDatos();
+            if(consumoMediotxt.equals("")){
+                v1.setConsumoMedio(5);
+            }else{
+                v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
+            }
 
+            toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
+            toast.show();
+
+            // Se deberá llamar a un método que guarde el vehículo en el fichero
+
+            String salida = gson.toJson(v1);
+            //Comentado de momento, NO QUITAR
+            /*
+            try {
+
+                PrintWriter out = new PrintWriter(new FileWriter());
+                out.append(salida);
+                out.close();
+            }
+            catch(IOException e) {
+                System.out.println("Error al escribir");
+            }
+            */
+            //Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
+            //FormActivity.this.startActivity(myIntent);
+
+        }else {
+            toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
+            toast.show();
+            if(matricula.length()==0)
+                campoMatricula.setError("Campo Requerido");
+            else if(matricula.length()<6)
+                campoMatricula.setError("Mínimo 6 caracteres");
+            campoModelo.setError("Campo Requerido");
+            campoCapacidad.setError("Campo Requerido");
+
+
+        }
     }
-/*
-    public void guardaDatos(){
 
-        String output="";
-
-        for (Vehiculo v: listaVehiculos) {
-            output = v1.getMatricula() + "/" + v1.getModelo() + "/" + v1.getDeposito() + "/" + v1.getConsumoMedio() + "/" + v1.getAnotaciones()+"\n";
-        }
-        //TODO AÑADIR EL VEHICULO A LA LISTA
-    }*/
+    public void printPath() {
+        String path = String.format("%s/%s", System.getProperty("user.dir"), this.getClass().getPackage().getName().replace(".", "/"));
+        System.out.println(path);
+    }
 }

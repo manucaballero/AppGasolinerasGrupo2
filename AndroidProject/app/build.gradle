@@ -60,7 +60,7 @@ sonarqube {
         property "sonar.login", "120537998e2c122476f30cade8d4a25865210fa6"
         property "sonar.projectKey", "AppGasolinerasGrupo2"
         property "sonar.projectName", "AppGasolinerasGrupo2"
-        
+
         // I need this property to avoid the error where sonarqube does not close some files and
         // prevents a clean afterwards
         property "sonar.scm.disabled", true
@@ -91,5 +91,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
-
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
+
