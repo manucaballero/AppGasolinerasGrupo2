@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this.startActivity(myIntent);
 
                     }
-
+                    //Boton flotante
                     FloatingActionButton fab = findViewById(R.id.fab);
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
