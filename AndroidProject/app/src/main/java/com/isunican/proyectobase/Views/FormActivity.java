@@ -92,13 +92,13 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             }else {
                 toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
                 toast.show();
-                if(matricula.length()<6)
-                    campoMatricula.setError("Mínimo 6 caracteres");
-                else
-                    campoMatricula.setError(CAMPO_REQUERIDO);
-                campoModelo.setError(CAMPO_REQUERIDO);
-                campoCapacidad.setError(CAMPO_REQUERIDO);
 
+                if(matricula.length()==0)
+                    campoMatricula.setError("Campo Requerido");
+                else if(matricula.length()<6)
+                    campoMatricula.setError("Mínimo 6 caracteres");
+                campoModelo.setError("Campo Requerido");
+                campoCapacidad.setError("Campo Requerido");
 
             }
 
