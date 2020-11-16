@@ -333,6 +333,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                 adapterFiltros = new AdapterFiltros(MainActivity.this, listaFiltros);
                 recyclerViewFiltros.setAdapter(adapterFiltros);
+                adapterFiltros.notifyDataSetChanged(); //Con esto puedo updatear
 
 
 
