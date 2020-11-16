@@ -50,6 +50,7 @@ import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
+import java.io.File;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -83,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
+    public static File vehiculos;
 
-    public static boolean flagYaEnsenada=false;
     /**
      * onCreate
      *
@@ -96,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        vehiculos = new File("vehiculos.txt");
 
         this.presenterGasolineras = new PresenterGasolineras();
         this.presenterVehiculos= new PresenterVehiculos();

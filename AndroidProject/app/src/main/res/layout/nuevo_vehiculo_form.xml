@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
-                android:text="Consumo medio: \n(L/Km)"
+                android:text="Consumo medio*: \n(L/Km)"
                 android:textAlignment="textStart"
                 android:textColor="#000000"
                 android:textSize="20sp" />
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
-                android:text="Matrícula*:"
+                android:text="Matrícula:"
                 android:textAlignment="textStart"
                 android:textColor="#000000"
                 android:textSize="20sp" />

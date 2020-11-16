@@ -1,14 +1,21 @@
 package com.isunican.proyectobase.Presenter;
 
-import com.google.gson.Gson;
+import android.content.Context;
+import android.util.Log;
+
 import com.isunican.proyectobase.Model.Vehiculo;
+import com.isunican.proyectobase.Views.FormActivity;
+import com.isunican.proyectobase.Views.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,27 +52,26 @@ public class PresenterVehiculos {
      * @return
      */
     public boolean cargaDatosVehiculos(){
+        try {
 
-        File file = new File("vehiculos.json");
-        boolean exists = file.exists();
+            BufferedReader in = new BufferedReader(new FileReader(MainActivity.vehiculos));
 
-        String data="";
-
-        if (exists){
-            try {
-                BufferedReader in = new BufferedReader(new FileReader(file));
-                String st;
-                while ((st = in.readLine()) != null)
-                    data+=st;
-
-                Gson gson= new Gson();
-                listVehiculos = gson.fromJson(data, List.class);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            String linea=in.readLine();
+            Vehiculo v = null;
+            while(linea.equals("---")){
+                new Vehiculo(linea); //modelo
+                v.setDeposito(Double.parseDouble(in.readLine()));//capacidad
+                v.setConsumoMedio(Double.parseDouble(in.readLine()));//c medio
+                v.setMatricula(in.readLine());//maticula
+                v.setAnotaciones(in.readLine());//nota
+                listVehiculos.add(v);
+                linea = in.readLine();
             }
+            Log.d("Veh", "Tras bucle");
+            in.close();
+
+        } catch(Exception e) {
+            e.printStackTrace();
         }
 
         return true;
@@ -82,6 +88,31 @@ public class PresenterVehiculos {
 
     public static void setVehiculoSeleccionado(Vehiculo vehiculoSeleccionado) {
         PresenterVehiculos.vehiculoSeleccionado = vehiculoSeleccionado;
+    }
+
+    public void guardaVehiculo(Vehiculo v){
+
+        listVehiculos.add(v);
+
+        String output ="";
+
+        for (Vehiculo v1:listVehiculos) {
+            output += "---\n" + v.getModelo()+ "\n"+ v.getDeposito() + "\n"+ v.getConsumoMedio() + "\n"+ v.getMatricula()
+                    + "\n"+ v.getAnotaciones()+ "\n";
+        }
+
+        try {
+            FileWriter fw = new FileWriter(MainActivity.vehiculos);
+            PrintWriter out = new PrintWriter(fw);
+            out.println(output);
+            out.close();
+            Log.d("Prueba", output);
+        }
+
+        catch(IOException e) {
+            System.out.println("Error al escribir");
+        }
+
     }
 
 }

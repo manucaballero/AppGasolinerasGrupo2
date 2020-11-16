@@ -2,6 +2,7 @@ package com.isunican.proyectobase.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
 import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
@@ -36,7 +36,6 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     EditText campoConsumomedio;
     Button txtAceptar;
     public PresenterVehiculos presenterVehiculos;
-    private Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,25 +78,25 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         String capacidadtxt = campoCapacidad.getText().toString();
         String consumoMediotxt = campoConsumomedio.getText().toString();
 
-        if(!modelo.equals("") && !capacidadtxt.equals("") && matricula.length()>5){
+        if(!modelo.equals("") && !capacidadtxt.equals("") && !consumoMediotxt.equals("")){
+
             Vehiculo v1 = new Vehiculo(modelo);
             v1.setDeposito(Double.parseDouble(capacidadtxt));
-            v1.setMatricula(matricula);
+            v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
 
+
+            //TODO cuando el modelo sea igual a otro existente usar matricula o anotacion
             if(anotacion.equals("")){
                 v1.setAnotaciones("Coche nuevo");
             }else{
                 v1.setAnotaciones(anotacion);
             }
-
-            if(consumoMediotxt.equals("")){
-                v1.setConsumoMedio(5);
-            }else{
-                v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
-            }
+            v1.setMatricula(matricula);
 
             // Se deberá llamar a un método que guarde el vehículo en el fichero
-            guardaEnFichero(v1);
+
+            presenterVehiculos.guardaVehiculo(v1);
+
 
             toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
             toast.show();
@@ -108,51 +107,16 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         }else {
             toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
             toast.show();
-            if(matricula.length()==0)
-                campoMatricula.setError("Campo Requerido");
-            else if(matricula.length()<6)
+
+            if(matricula.length()!=0 && matricula.length()<6)
                 campoMatricula.setError("Mínimo 6 caracteres");
             if(modelo.length()==0)
                 campoModelo.setError("Campo Requerido");
             if(capacidadtxt.length()==0)
                 campoCapacidad.setError("Campo Requerido");
-
+            if(consumoMediotxt.length()==0)
+                campoConsumomedio.setError("Campo Requerido");
         }
 
     }
-
-    public void guardaEnFichero(Vehiculo v){
-
-        presenterVehiculos.getVehiculos().add(v);
-        String vehs = gson.toJson(presenterVehiculos.getVehiculos());
-
-        try {
-            PrintWriter out = new PrintWriter(new FileWriter(new File("vehiculos.json")));
-            out.write(vehs);
-            out.close();
-        } catch(IOException e) {
-            System.out.println("Error al escribir");
-        }
-    }
-    /*
-    public void writeFileOnInternalStorage(Context mcoContext, String sFileName, String sBody){
-        File dir = new File(mcoContext.getFilesDir(), "mydir");
-        if(!dir.exists()){
-            dir.mkdir();
-        }
-
-        try {
-            File gpxfile = new File(dir, sFileName);
-            FileWriter writer = new FileWriter(gpxfile);
-            writer.append(sBody);
-            writer.flush();
-            writer.close();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    */
 }
