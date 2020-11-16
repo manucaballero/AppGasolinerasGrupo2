@@ -1,0 +1,7 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
+X	java:S110"<This class has 8 parents which is greater than 5 authorized.(úØ²ò8éØŸÌÜ.
+o
+java:S37767"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¡é††8éØŸÌÜ.
+T
+java:S1135V"2Complete the task associated to this TODO comment.(À™üÿÿÿÿ8éØŸÌÜ.

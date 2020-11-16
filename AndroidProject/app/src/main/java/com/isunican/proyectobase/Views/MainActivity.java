@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,13 +31,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.isunican.proyectobase.Model.ConDescuentoFiltro;
 import com.isunican.proyectobase.Model.DieselFiltro;
+import com.isunican.proyectobase.Model.Gasolina95Filtro;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.IFiltro;
+import com.isunican.proyectobase.Model.SinDescuentoFiltro;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 import androidx.annotation.NonNull;
@@ -79,6 +83,20 @@ public class MainActivity extends AppCompatActivity {
     public ListView listViewGasolineras;
     public ArrayAdapter<Gasolinera> adapter;
     private Spinner spinner;
+    private Button filter;
+    private Button reset;
+    private IFiltro filtroGasoleA;
+
+    private IFiltro filtroGasolina95;
+
+    private IFiltro descuentoSiFiltro;
+
+    private IFiltro descuentoNoFiltro;
+
+    boolean gasoleoA;
+    boolean gasolina95;
+    boolean descuentoSi;
+    boolean descuentoNo;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -110,9 +128,13 @@ public class MainActivity extends AppCompatActivity {
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
-        //Desplegable
-        spinner = findViewById(R.id.spinner);
+        filtroGasoleA = new DieselFiltro();
+        filtroGasolina95 = new Gasolina95Filtro();
+        descuentoSiFiltro = new ConDescuentoFiltro();
+        descuentoNoFiltro = new SinDescuentoFiltro();
 
+        filter = findViewById(R.id.button2);
+        reset = findViewById(R.id.buttonReset);
 
         // Barra de progreso
         // https://materialdoc.com/components/progress/
@@ -138,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         if (!checkPermission()) {
             requestPermission();
         }
-        cargarSpinner();
+        //cargarSpinner();
         // Al terminar de inicializar todas las variables
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
@@ -173,22 +195,8 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
         }
+
         return true;
-    }
-
-    //===================================
-    // Carga las operaciones en el spiner
-    //===================================
-
-    private void cargarSpinner(){
-        // Crea un ArrayAdapter usando un array de strings con las operaciones (definido en string.xml)
-        // y un recurso spinner layout generico de android
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.filtros, android.R.layout.simple_spinner_item);
-        // Indica el layout a usar para las opciones, uno generico de android
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Aplica el adaptador creado a nuestro spinner
-        spinner.setAdapter(adapter);
     }
 
 
@@ -301,7 +309,21 @@ public class MainActivity extends AppCompatActivity {
                                         }
 
                                     }
-                                    presenterGasolineras.ordenaLista();
+                                    if(gasoleoA){
+                                        filtroGasoleA.ordena(presenterGasolineras);
+                                    }
+
+                                    if(gasolina95){
+                                        filtroGasolina95.ordena(presenterGasolineras);
+                                    }
+
+                                    if(descuentoSi){
+                                        descuentoNoFiltro.ordena(presenterGasolineras);
+                                    }
+
+                                    if(descuentoNo){
+                                        descuentoNoFiltro.ordena(presenterGasolineras);
+                                    }
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
                                     Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
@@ -395,9 +417,35 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+
+            filter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+                    MainActivity.this.startActivityForResult(intent, 10);
+                }
+            });
+
+
+
+
         }
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 10 && resultCode == Activity.RESULT_OK){
+            gasoleoA = data.getBooleanExtra(FilterActivity.gasoleoA, false);
+            gasolina95 = data.getBooleanExtra(FilterActivity.gasolina95, false);
+            descuentoNo = data.getBooleanExtra(FilterActivity.descuentoSi, false);
+            descuentoSi = data.getBooleanExtra(FilterActivity.descuentoNo, false);
+            new CargaDatosGasolinerasTask(MainActivity.this).execute();
+        }
+    }
+
+
 
 
     /*

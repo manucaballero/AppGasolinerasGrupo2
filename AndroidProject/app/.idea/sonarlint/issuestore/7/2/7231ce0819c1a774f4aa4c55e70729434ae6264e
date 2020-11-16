@@ -1,0 +1,27 @@
+
+V	java:S110!"<This class has 8 parents which is greater than 5 authorized.(ÏÌ³”ùÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
+r
+java:S1104"^Make presenterVehiculos a static final constant or non-public and provide accessors if needed.(ã±ÿú
+v
+java:S1104"]Make listViewVehiculos a static final constant or non-public and provide accessors if needed.(Æ¡›èûÿÿÿÿ
+g
+java:S1104"SMake adapter a static final constant or non-public and provide accessors if needed.(ê¾º
+S
+java:S1161":Add the "@Override" annotation above this method signature(¨Œşÿÿÿÿ
+H
+java:S1874"/Remove this use of "execute"; it is deprecated.(ÆÈ§ûÿÿÿÿ
+C
+java:S1874"/Remove this use of "execute"; it is deprecated.(ş»«“
+C
+java:S1874"/Remove this use of "execute"; it is deprecated.(èŞÑ­
+J
+java:S1874"1Remove this use of "AsyncTask"; it is deprecated.(ëçÁäıÿÿÿÿ
+I
+java:S1133"5Do not forget to remove this deprecated code someday.(ËĞƒ
+N
+java:S1133"5Do not forget to remove this deprecated code someday.(É…Ê°üÿÿÿÿ
+5
+java:S1116"Remove this empty statement.(Åñ­õşÿÿÿÿ
+T	java:S125"<This block of commented-out lines of code should be removed.(Ğ‡­–şÿÿÿÿ
+T	java:S125"<This block of commented-out lines of code should be removed.(¬Ş¶¯ıÿÿÿÿ
