@@ -27,9 +27,6 @@ public class PresenterVehiculos {
 
         setVehiculoSeleccionado(v1);
 
-        listVehiculos.add(v1);
-        listVehiculos.add(v2);
-
     }
 
     /**
@@ -38,6 +35,15 @@ public class PresenterVehiculos {
      * @return
      */
     public boolean cargaDatosVehiculos(){
+
+
+        return true;
+
+    }
+
+    public boolean cargaDatosVehiculosDummy(){
+        this.listVehiculos.add(new Vehiculo("BMW m8"));
+        this.listVehiculos.add(new Vehiculo("BMW m3"));
 
 
         return true;

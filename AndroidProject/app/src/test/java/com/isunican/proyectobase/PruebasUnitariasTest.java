@@ -3,6 +3,7 @@ package com.isunican.proyectobase;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 //import com.isunican.proyectobase.Utilities.RemoteFetch;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.Views.MainActivity;
 
 import org.junit.Assert;
@@ -75,7 +76,7 @@ public class PruebasUnitariasTest {
      */
     @Test
     public void calcularPrecioFinalTest(){
-        g1.calculaPrecioFinal();
+        g1.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
         assertTrue(g1.getGasoleoA() == Gasolinera.round((g1.getDEPOSITO()*precio+g1.getDistanciaEnKm()*6/100*precio)/g1.getDEPOSITO(),3));
     }
 }
