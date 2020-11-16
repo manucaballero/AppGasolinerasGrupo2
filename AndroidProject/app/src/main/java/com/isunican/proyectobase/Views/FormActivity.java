@@ -14,6 +14,7 @@ import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,7 +67,6 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId()==R.id.txtAceptar)
             anhadeVehiculo();
 
-        printPath();
     }
 
     private void anhadeVehiculo() {
@@ -96,26 +96,14 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
             }
 
+            // Se deberá llamar a un método que guarde el vehículo en el fichero
+            guardaEnFichero(v1);
+
             toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
             toast.show();
 
-            // Se deberá llamar a un método que guarde el vehículo en el fichero
-
-            String salida = gson.toJson(v1);
-            //Comentado de momento, NO QUITAR
-            /*
-            try {
-
-                PrintWriter out = new PrintWriter(new FileWriter());
-                out.append(salida);
-                out.close();
-            }
-            catch(IOException e) {
-                System.out.println("Error al escribir");
-            }
-            */
-            //Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
-            //FormActivity.this.startActivity(myIntent);
+            Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
+            FormActivity.this.startActivity(myIntent);
 
         }else {
             toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
@@ -124,15 +112,47 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 campoMatricula.setError("Campo Requerido");
             else if(matricula.length()<6)
                 campoMatricula.setError("Mínimo 6 caracteres");
-            campoModelo.setError("Campo Requerido");
-            campoCapacidad.setError("Campo Requerido");
+            if(modelo.length()==0)
+                campoModelo.setError("Campo Requerido");
+            if(capacidadtxt.length()==0)
+                campoCapacidad.setError("Campo Requerido");
 
+        }
 
+    }
+
+    public void guardaEnFichero(Vehiculo v){
+
+        presenterVehiculos.getVehiculos().add(v);
+        String vehs = gson.toJson(presenterVehiculos.getVehiculos());
+
+        try {
+            PrintWriter out = new PrintWriter(new FileWriter(new File("vehiculos.json")));
+            out.write(vehs);
+            out.close();
+        } catch(IOException e) {
+            System.out.println("Error al escribir");
+        }
+    }
+    /*
+    public void writeFileOnInternalStorage(Context mcoContext, String sFileName, String sBody){
+        File dir = new File(mcoContext.getFilesDir(), "mydir");
+        if(!dir.exists()){
+            dir.mkdir();
+        }
+
+        try {
+            File gpxfile = new File(dir, sFileName);
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append(sBody);
+            writer.flush();
+            writer.close();
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
-    public void printPath() {
-        String path = String.format("%s/%s", System.getProperty("user.dir"), this.getClass().getPackage().getName().replace(".", "/"));
-        System.out.println(path);
-    }
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    */
 }
