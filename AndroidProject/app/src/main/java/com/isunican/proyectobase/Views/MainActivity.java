@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
-
+    public ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
 
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
         @Override @Deprecated
         protected void onPostExecute(Boolean res) {
             Toast toast = null;
-            ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
+            //ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
             listaFiltros.add(new AscendenteFiltro());
             listaFiltros.add(new DieselFiltro());
             listaFiltros.add(new ConDescuentoFiltro());
