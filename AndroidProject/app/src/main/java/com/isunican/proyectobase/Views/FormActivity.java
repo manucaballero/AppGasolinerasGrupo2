@@ -94,11 +94,11 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 toast.show();
 
                 if(matricula.length()==0)
-                    campoMatricula.setError("Campo Requerido");
+                    campoMatricula.setError(CAMPO_REQUERIDO);
                 else if(matricula.length()<6)
                     campoMatricula.setError("Mínimo 6 caracteres");
-                campoModelo.setError("Campo Requerido");
-                campoCapacidad.setError("Campo Requerido");
+                campoModelo.setError(CAMPO_REQUERIDO);
+                campoCapacidad.setError(CAMPO_REQUERIDO);
 
             }
 
