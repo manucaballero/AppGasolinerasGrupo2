@@ -1,0 +1,27 @@
+
+
+java:S1186C"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÿ¥ıI8ˆã¢õÜ.
+]	java:S125H"<This block of commented-out lines of code should be removed.(¯ÆÜÀüÿÿÿÿ8ˆã¢õÜ.
+u	java:S116"YRename this field "simple_adapter" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úŒ®Õ8ˆã¢õÜ.
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(íˆ
+]	java:S125c"<This block of commented-out lines of code should be removed.(˜æ²´øÿÿÿÿ8ˆã¢õÜ.
+{
+java:S2293 "YReplace the type specification in this constructor call with the diamond operator ("<>").(Ôí¥Öøÿÿÿÿ8ˆã¢õÜ.
+X	java:S125Û"<This block of commented-out lines of code should be removed.(ŠÊ‘?8ˆã¢õÜ.
+Y	java:S125Œ"<This block of commented-out lines of code should be removed.(œÄÏÓ8ˆã¢õÜ.
+]	java:S110"<This class has 7 parents which is greater than 5 authorized.(ùõà¼üÿÿÿÿ8ÄÂ£õÜ.
+{
+java:S2293("YReplace the type specification in this constructor call with the diamond operator ("<>").(Ôí¥Öøÿÿÿÿ8ˆã¢õÜ.
+b	java:S112R"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı8ˆã¢õÜ.
+y
+java:S1450"WRemove the "sbLength" field and declare it as a local variable in the relevant methods.(Å¥„¦üÿÿÿÿ8ˆã¢õÜ.
+Y	java:S125É"<This block of commented-out lines of code should be removed.(¬ÖÈÔ8ˆã¢õÜ.
+w
+java:S2293°"YReplace the type specification in this constructor call with the diamond operator ("<>").(îš¨8ˆã¢õÜ.
+r	java:S116"QRename this field "_items" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©¶€¯øÿÿÿÿ8ˆã¢õÜ.
+N
+java:S1068",Remove this unused "sbLength" private field.(Å¥„¦üÿÿÿÿ8ˆã¢õÜ.
+|
+java:S2293¦"YReplace the type specification in this constructor call with the diamond operator ("<>").(ıªŸ±ûÿÿÿÿ8ˆã¢õÜ.
+X
+java:S1161€":Add the "@Override" annotation above this method signature(õ¨å8ÄÂ£õÜ.

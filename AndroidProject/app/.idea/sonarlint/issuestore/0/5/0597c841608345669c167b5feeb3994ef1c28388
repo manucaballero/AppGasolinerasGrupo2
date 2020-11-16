@@ -1,0 +1,33 @@
+
+F
+java:S11287"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+L
+java:S1874£"/Remove this use of "execute"; it is deprecated.(Ø©¼a8ˆ”‰ÂÛ.
+M
+java:S1874"/Remove this use of "execute"; it is deprecated.(ÌÁÈ¬8ˆ”‰ÂÛ.
+z
+java:S1104J"_Make listViewGasolineras a static final constant or non-public and provide accessors if needed.(ì±ˆøøÿÿÿÿ
+u
+java:S3252…"WUse static access with "androidx.core.content.ContextCompat" for "checkSelfPermission".(Î„Ì8ˆ”‰ÂÛ.
+n
+java:S1104K"SMake adapter a static final constant or non-public and provide accessors if needed.(ò±ãˆøÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
+Q	java:S110E"<This class has 8 parents which is greater than 5 authorized.(²Ú±
+S
+java:S1133Ï"5Do not forget to remove this deprecated code someday.(ËĞƒ8ˆ”‰ÂÛ.
+X
+java:S1133î"5Do not forget to remove this deprecated code someday.(É…Ê°üÿÿÿÿ8ˆ”‰ÂÛ.
+u
+java:S3776î"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(É…Ê°üÿÿÿÿ8ˆ”‰ÂÛ.
+c
+java:S2147¬"ECombine this catch with the one at line 298, which has the same body.(ğıˆÒ8ˆ”‰ÂÛ.
+v
+java:S1104G"`Make presenterGasolineras a static final constant or non-public and provide accessors if needed.(…ıÅç
+O
+java:S1874»"1Remove this use of "AsyncTask"; it is deprecated.(óâø8ˆ”‰ÂÛ.
+Š
+java:S3252¡"gUse static access with "com.google.android.gms.common.api.CommonStatusCodes" for "RESOLUTION_REQUIRED".(Âş†²ûÿÿÿÿ8ˆ”‰ÂÛ.
+L
+java:S1874Š"/Remove this use of "execute"; it is deprecated.(Ø©¼a8ˆ”‰ÂÛ.
+r
+java:S1450L"VRemove the "spinner" field and declare it as a local variable in the relevant methods.(Ï‰¯8÷‚ÂÛ.

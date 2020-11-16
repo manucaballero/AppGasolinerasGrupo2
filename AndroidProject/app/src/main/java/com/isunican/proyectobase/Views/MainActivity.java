@@ -21,20 +21,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.isunican.proyectobase.Model.ConDescuentoFiltro;
 import com.isunican.proyectobase.Model.DieselFiltro;
+import com.isunican.proyectobase.Model.Gasolina95Filtro;
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.IFiltro;
+import com.isunican.proyectobase.Model.SinDescuentoFiltro;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 import androidx.annotation.NonNull;
@@ -76,6 +82,21 @@ public class MainActivity extends AppCompatActivity {
     // Vista de lista y adaptador para cargar datos en ella
     public ListView listViewGasolineras;
     public ArrayAdapter<Gasolinera> adapter;
+    private Spinner spinner;
+    private Button filter;
+    private Button reset;
+    private IFiltro filtroGasoleA;
+
+    private IFiltro filtroGasolina95;
+
+    private IFiltro descuentoSiFiltro;
+
+    private IFiltro descuentoNoFiltro;
+
+    boolean gasoleoA;
+    boolean gasolina95;
+    boolean descuentoSi;
+    boolean descuentoNo;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -107,13 +128,20 @@ public class MainActivity extends AppCompatActivity {
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
+        filtroGasoleA = new DieselFiltro();
+        filtroGasolina95 = new Gasolina95Filtro();
+        descuentoSiFiltro = new ConDescuentoFiltro();
+        descuentoNoFiltro = new SinDescuentoFiltro();
+
+        filter = findViewById(R.id.button2);
+        reset = findViewById(R.id.buttonReset);
 
         // Barra de progreso
         // https://materialdoc.com/components/progress/
         progressBar = new ProgressBar(MainActivity.this, null, android.R.attr.progressBarStyleLarge);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        RelativeLayout layout = findViewById(R.id.activity_precio_gasolina);
+        LinearLayout layout = findViewById(R.id.activity_precio_gasolina);
         layout.addView(progressBar, params);
 
         // Muestra el logo en el actionBar
@@ -132,10 +160,12 @@ public class MainActivity extends AppCompatActivity {
         if (!checkPermission()) {
             requestPermission();
         }
+        //cargarSpinner();
         // Al terminar de inicializar todas las variables
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
         new CargaDatosGasolinerasTask(this).execute();
+
     }
 
 
@@ -165,8 +195,11 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
         }
+
         return true;
     }
+
+
 
 
     /**
@@ -276,7 +309,21 @@ public class MainActivity extends AppCompatActivity {
                                         }
 
                                     }
-                                    presenterGasolineras.ordenaLista();
+                                    if(gasoleoA){
+                                        filtroGasoleA.ordena(presenterGasolineras);
+                                    }
+
+                                    if(gasolina95){
+                                        filtroGasolina95.ordena(presenterGasolineras);
+                                    }
+
+                                    if(descuentoSi){
+                                        descuentoNoFiltro.ordena(presenterGasolineras);
+                                    }
+
+                                    if(descuentoNo){
+                                        descuentoNoFiltro.ordena(presenterGasolineras);
+                                    }
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
                                     Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
@@ -325,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
 
+
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
                     // datos obtenidos con exito
@@ -369,9 +417,35 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+
+            filter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+                    MainActivity.this.startActivityForResult(intent, 10);
+                }
+            });
+
+
+
+
         }
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 10 && resultCode == Activity.RESULT_OK){
+            gasoleoA = data.getBooleanExtra(FilterActivity.gasoleoA, false);
+            gasolina95 = data.getBooleanExtra(FilterActivity.gasolina95, false);
+            descuentoNo = data.getBooleanExtra(FilterActivity.descuentoSi, false);
+            descuentoSi = data.getBooleanExtra(FilterActivity.descuentoNo, false);
+            new CargaDatosGasolinerasTask(MainActivity.this).execute();
+        }
+    }
+
+
 
 
     /*
