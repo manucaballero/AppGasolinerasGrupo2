@@ -278,9 +278,11 @@ public class MainActivity extends AppCompatActivity {
         @Override @Deprecated
         protected void onPostExecute(Boolean res) {
             Toast toast = null;
-            //ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
+            /*
+            ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
             listaFiltros.add(new DieselFiltro());
             listaFiltros.add(new ConDescuentoFiltro());
+            */
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
             listaGasolineras = presenterGasolineras.getGasolineras();
@@ -323,21 +325,27 @@ public class MainActivity extends AppCompatActivity {
 
                                     if(gasoleoA){
                                         filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
+                                        listaFiltros.add(filtroGasoleA);
                                     }
 
                                     if(gasolina95){
                                         filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
+                                        listaFiltros.add(filtroGasolina95);
                                     }
 
                                     if(descuentoSi){
                                         descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
+                                        listaFiltros.add(descuentoSiFiltro);
                                     }
 
                                     if(descuentoNo){
                                         descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
+                                        listaFiltros.add(descuentoNoFiltro);
+
                                     }
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
+                                    adapterFiltros.notifyDataSetChanged();
                                     Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
                                     toast.show();
                                     }
@@ -436,6 +444,21 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.startActivityForResult(intent, 10);
                 }
             });
+            /*
+                On click para el botón Reset en el cual se desactivan todos los filtros
+             */
+            reset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    gasoleoA = false;
+                    gasolina95 = false;
+                    descuentoSi = false;
+                    descuentoNo = false;
+                    listaFiltros.clear();
+                    adapterFiltros.notifyDataSetChanged();
+                }
+            });
+
 
 
 
