@@ -104,17 +104,17 @@ public class Vehiculo implements Parcelable {
     @Override
     public boolean equals(Object o){
         boolean aux = false;
-        if(o==null){
-            aux = false;
-        }
+
         if(o==this){
             aux = true;
         }
         if(!(o instanceof Vehiculo)){
             aux = false;
         }
-        if(((Vehiculo) o).modelo.equals(this.modelo) && ((Vehiculo) o).anotaciones.equals(this.anotaciones) || ((Vehiculo) o).matricula.equals(this.matricula)) {
-            aux = true;
+        if (o != null) {
+            if (((Vehiculo) o).modelo.equals(this.modelo) && ((Vehiculo) o).anotaciones.equals(this.anotaciones) || ((Vehiculo) o).matricula.equals(this.matricula)) {
+                aux = true;
+            }
         }
         return aux;
 
