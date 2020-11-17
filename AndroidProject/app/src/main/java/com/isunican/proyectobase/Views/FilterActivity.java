@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
+
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
+
 
 import com.isunican.proyectobase.R;
 
@@ -49,6 +49,14 @@ public class FilterActivity extends AppCompatActivity  {
         buttonApply = findViewById(R.id.buttonApply);
         buttonCancel = findViewById(R.id.buttonCancel);
 
+        DisplayMetrics medidasVentana = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
+
+        int ancho = medidasVentana.widthPixels;
+        int alto = medidasVentana.heightPixels;
+
+        getWindow().setLayout((int) (ancho * 0.8), (int) (alto * 0.5));
+
 
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +71,7 @@ public class FilterActivity extends AppCompatActivity  {
         buttonApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onCheckboxClicked();
                 Intent intent = new Intent();
                 intent.putExtra(gasoleoA, bgasoleoA);
                 intent.putExtra(gasolina95,bgasolina95);
@@ -76,29 +85,11 @@ public class FilterActivity extends AppCompatActivity  {
 
     }
 
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
+    public void onCheckboxClicked() {
+        bgasoleoA = checkBoxGasoleA.isChecked();
+        bgasolina95 = checkBoxGasolina95.isChecked();
+        bdescuentoSi = checkBoxDescuentoSi.isChecked();
+        bDescuentoNo = checkBoxDescuentoNo.isChecked();
 
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkBoxGasoleoA:
-                    bgasoleoA = true;
-                break;
-            case R.id.checkBoxGasolina95:
-                    bgasolina95 = true;
-                break;
-            case R.id.checkBoxDescuentoSi:
-                    bdescuentoSi = true;
-                break;
-            case R.id.checkBoxDescuentoNo:
-                bDescuentoNo = true;
-                break;
         }
     }
-
-
-
-
-
-}

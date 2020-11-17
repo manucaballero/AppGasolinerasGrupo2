@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
     public PresenterGasolineras presenterGasolineras;
 
+    private List<Gasolinera> listaGasolineras;
+
     // Vista de lista y adaptador para cargar datos en ella
     public ListView listViewGasolineras;
     public ArrayAdapter<Gasolinera> adapter;
@@ -86,17 +89,14 @@ public class MainActivity extends AppCompatActivity {
     private Button filter;
     private Button reset;
     private IFiltro filtroGasoleA;
-
     private IFiltro filtroGasolina95;
-
     private IFiltro descuentoSiFiltro;
-
     private IFiltro descuentoNoFiltro;
 
-    boolean gasoleoA;
-    boolean gasolina95;
-    boolean descuentoSi;
-    boolean descuentoNo;
+    private boolean gasoleoA;
+    private boolean gasolina95;
+    private boolean descuentoSi;
+    private boolean descuentoNo;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -125,13 +125,15 @@ public class MainActivity extends AppCompatActivity {
 
         this.presenterGasolineras = new PresenterGasolineras();
 
+
+
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
 
         filtroGasoleA = new DieselFiltro();
         filtroGasolina95 = new Gasolina95Filtro();
-        descuentoSiFiltro = new ConDescuentoFiltro();
-        descuentoNoFiltro = new SinDescuentoFiltro();
+        descuentoSiFiltro = new SinDescuentoFiltro();
+        descuentoNoFiltro = new ConDescuentoFiltro();
 
         filter = findViewById(R.id.button2);
         reset = findViewById(R.id.buttonReset);
@@ -273,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
-
+            listaGasolineras = presenterGasolineras.getGasolineras();
             mSwipeRefreshLayout.setRefreshing(false);
 
             // Si se ha obtenido resultado en la tarea en segundo plano
@@ -309,6 +311,8 @@ public class MainActivity extends AppCompatActivity {
                                         }
 
                                     }
+
+
                                     if(gasoleoA){
                                         filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
                                     }
@@ -318,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
                                     if(descuentoSi){
-                                        descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
+                                        descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
                                     }
 
                                     if(descuentoNo){
@@ -364,13 +368,8 @@ public class MainActivity extends AppCompatActivity {
                     g.calculaPrecioFinal();
                 }
 
-                IFiltro f = new DieselFiltro();
-                f.ordena(presenterGasolineras.getGasolineras());
 
-
-                //presenterGasolineras.ordenaLista();
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
-
 
 
                 // Cargamos los datos en la lista
