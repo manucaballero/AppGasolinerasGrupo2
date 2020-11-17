@@ -51,6 +51,4 @@ class ComparadorGasolinerasDiesel implements Comparator<Gasolinera>{
                 return 1;
             }
         }
-
-    }
 }

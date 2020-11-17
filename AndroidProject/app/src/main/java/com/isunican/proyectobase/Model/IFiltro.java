@@ -11,5 +11,4 @@ public interface IFiltro {
     String nombre=null;
     void ordena(List<Gasolinera> listaGasolineras);
     public String getNombre();
-
 }

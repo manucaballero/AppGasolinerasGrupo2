@@ -24,9 +24,8 @@ public class SinDescuentoFiltro implements IDescuentoFiltro {
         }
 
     }
-
     @Override
     public String getNombre() {
-        return null;
+        return nombre;
     }
 }
