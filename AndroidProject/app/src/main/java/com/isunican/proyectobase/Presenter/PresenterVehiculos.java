@@ -44,8 +44,6 @@ public class PresenterVehiculos {
         v1.setDeposito(60);
         v1.setConsumoMedio(6.4);
 
-        setVehiculoSeleccionado(v1);
-
         listVehiculos.add(v1);
         //listVehiculos.add(v2);
 
@@ -59,6 +57,7 @@ public class PresenterVehiculos {
     public boolean cargaDatosVehiculos(Context context){
 
         List<Vehiculo> aux = new ArrayList<Vehiculo>();
+
         try {
             File tempFile = new File(context.getFilesDir()+"/vehiculos.txt");
             boolean exists = tempFile.exists();
@@ -80,8 +79,8 @@ public class PresenterVehiculos {
                 }
                 listVehiculos = aux;
                 in.close();
-            }
 
+            }
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -105,12 +104,6 @@ public class PresenterVehiculos {
 
     public void guardaVehiculo(Vehiculo v, Context context){
 
-        File tempFile = new File(context.getFilesDir()+"/vehiculos.txt");
-        boolean exists = tempFile.exists();
-
-        if (exists)
-            tempFile.delete();
-
         listVehiculos.add(v);
 
         String output ="";
@@ -125,7 +118,7 @@ public class PresenterVehiculos {
         try {
             File f = new File(context.getFilesDir() + "/vehiculos.txt");
             FileWriter fw = new FileWriter(f);
-            fw.append(output);
+            fw.write(output);
             fw.close();
         }
 
@@ -135,4 +128,67 @@ public class PresenterVehiculos {
 
     }
 
+    public static void guardaVehiculoSeleccionado(Vehiculo v, Context context){
+
+        String output = v.getModelo() + "\n" + v.getMatricula() + "\n" + v.getAnotaciones();
+
+        try {
+            File f = new File(context.getFilesDir() + "/vehiculoSeleccionado.txt");
+            FileWriter fw = new FileWriter(f);
+            fw.write(output);
+            fw.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public boolean cargaVehiculoSeleccionado(Context context){
+        List<Vehiculo> aux = new ArrayList<Vehiculo>();
+
+        try {
+            File tempFile = new File(context.getFilesDir()+"/vehiculoSeleccionado.txt");
+            boolean exists = tempFile.exists();
+
+            if (exists){
+                BufferedReader in = new BufferedReader(new FileReader(context.getFilesDir()+"/vehiculoSeleccionado.txt"));
+
+                String modelo = in.readLine(); //modelo
+                String matricula = in.readLine();//maticula
+                String anotacion = in.readLine();//nota
+
+                for(Vehiculo v : listVehiculos){
+                    if(v.getModelo().equals(modelo)){
+                        aux.add(v);
+                    }
+                }
+                if(aux.size() == 1)
+                    setVehiculoSeleccionado(aux.get(0));
+                else {
+                    for(Vehiculo v : aux){
+                        if(v.getModelo().equals(modelo) && v.getMatricula().equals(matricula)){
+                            setVehiculoSeleccionado(v);
+                        }
+                    }
+                }
+
+                in.close();
+
+            }else{
+                setVehiculoSeleccionado(listVehiculos.get(0));
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public void borra(Context c){
+        File f = new File(c.getFilesDir()+"/vehiculoSeleccionado.txt");
+        File f1 = new File(c.getFilesDir()+"/vehiculos.txt");
+        f.delete();
+        f1.delete();
+    }
 }
