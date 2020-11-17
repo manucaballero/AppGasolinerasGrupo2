@@ -279,10 +279,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean res) {
             Toast toast = null;
             //ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
-            listaFiltros.add(new AscendenteFiltro());
-            listaFiltros.add(new DieselFiltro());
-            listaFiltros.add(new ConDescuentoFiltro());
-            listaFiltros.add(new AscendenteFiltro());
             listaFiltros.add(new DieselFiltro());
             listaFiltros.add(new ConDescuentoFiltro());
             // Si el progressDialog estaba activado, lo oculta
