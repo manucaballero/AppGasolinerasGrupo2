@@ -19,6 +19,10 @@
     <string name="datosConUbicacion">Datos con ubicación obtenidos correctamente</string>
     <string name="Combustible">Combustible</string>
     <string name="Descuento">Descuento</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="filtros_incompatibles">Filtros Incompatibles</string>
+    <string name="infoFiltrosIncompatibles">Los filtros seleccionados no son compatibles, si pulsa aceptar se aplicará el filtro por diésel</string>
     <string-array name="filtrosCombustible">
         <item>GasoleoA</item>
         <item>Gasolina95</item>

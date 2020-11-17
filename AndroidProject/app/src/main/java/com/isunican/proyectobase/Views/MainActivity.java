@@ -317,16 +317,18 @@ public class MainActivity extends AppCompatActivity {
                                         filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
                                     }
 
-                                    if(gasolina95){
+                                    else if(gasolina95){
                                         filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
                                     }
 
-                                    if(descuentoSi){
+                                    else if(descuentoSi){
                                         descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
                                     }
 
-                                    if(descuentoNo){
+                                    else if(descuentoNo){
                                         descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
+                                    }else {
+                                        filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
                                     }
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);

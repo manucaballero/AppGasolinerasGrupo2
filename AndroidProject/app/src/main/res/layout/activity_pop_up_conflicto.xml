@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#547980"
+    android:orientation="vertical"
+    android:backgroundTint="#547980"
+    tools:context=".Views.PopUpConflicto">
+
+    <TextView
+        android:id="@+id/texViewAnhadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif"
+        android:paddingTop="20dp"
+        android:text="@string/filtros_incompatibles"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/texViewAnhadir2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-thin"
+        android:paddingTop="20dp"
+        android:text="@string/infoFiltrosIncompatibles"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/roundedbutton"
+        android:backgroundTint="#FFFCFC"
+        android:fontFamily="sans-serif"
+        android:text="@string/aceptar"
+        android:textColor="#547980"
+        android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/roundedbutton"
+        android:backgroundTint="#FFFCFC"
+        android:fontFamily="sans-serif"
+        android:text="@string/cancelar"
+        android:textColor="#547980"
+        android:textSize="15dp" />
+</LinearLayout>

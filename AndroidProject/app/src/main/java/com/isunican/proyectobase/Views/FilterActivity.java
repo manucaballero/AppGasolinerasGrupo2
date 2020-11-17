@@ -10,6 +10,7 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 
 import com.isunican.proyectobase.R;
@@ -57,6 +58,10 @@ public class FilterActivity extends AppCompatActivity  {
 
         getWindow().setLayout((int) (ancho * 0.8), (int) (alto * 0.5));
 
+        if(checkBoxGasolina95.isChecked()){
+            Toast.makeText(this, "Funciona", Toast.LENGTH_SHORT).show();
+        }
+
 
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +91,10 @@ public class FilterActivity extends AppCompatActivity  {
     }
 
     public void onCheckboxClicked() {
+       if(checkBoxGasolina95.isChecked() && checkBoxGasoleA.isChecked()){
+            Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
+            FilterActivity.this.startActivity(myIntent);
+        }
         bgasoleoA = checkBoxGasoleA.isChecked();
         bgasolina95 = checkBoxGasolina95.isChecked();
         bdescuentoSi = checkBoxDescuentoSi.isChecked();
