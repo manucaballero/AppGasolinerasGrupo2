@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
-    public static File vehiculos;
 
     /**
      * onCreate
@@ -98,15 +98,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        vehiculos = new File("vehiculos.txt");
-
         this.presenterGasolineras = new PresenterGasolineras();
         this.presenterVehiculos= new PresenterVehiculos();
 
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
-
 
         // Barra de progreso
         // https://materialdoc.com/components/progress/

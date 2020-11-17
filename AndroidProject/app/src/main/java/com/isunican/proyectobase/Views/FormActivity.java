@@ -78,25 +78,30 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         String capacidadtxt = campoCapacidad.getText().toString();
         String consumoMediotxt = campoConsumomedio.getText().toString();
 
-        if(!modelo.equals("") && !capacidadtxt.equals("") && !consumoMediotxt.equals("")){
+        boolean coincideModelo=false;
+        for(Vehiculo veh:presenterVehiculos.getVehiculos()){
+            if (veh.getModelo().equals(modelo)){
+                coincideModelo=true;
+            }
+        }
+
+        if(!modelo.equals("") && !capacidadtxt.equals("") && !consumoMediotxt.equals("") && !coincideModelo){
 
             Vehiculo v1 = new Vehiculo(modelo);
             v1.setDeposito(Double.parseDouble(capacidadtxt));
             v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
 
-
-            //TODO cuando el modelo sea igual a otro existente usar matricula o anotacion
             if(anotacion.equals("")){
                 v1.setAnotaciones("Coche nuevo");
             }else{
                 v1.setAnotaciones(anotacion);
             }
+
             v1.setMatricula(matricula);
 
             // Se deberá llamar a un método que guarde el vehículo en el fichero
 
-            presenterVehiculos.guardaVehiculo(v1);
-
+            presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
 
             toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
             toast.show();
@@ -116,6 +121,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 campoCapacidad.setError("Campo Requerido");
             if(consumoMediotxt.length()==0)
                 campoConsumomedio.setError("Campo Requerido");
+
         }
 
     }

@@ -3,16 +3,21 @@ package com.isunican.proyectobase.Presenter;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.LongDef;
+
 import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Views.FormActivity;
 import com.isunican.proyectobase.Views.MainActivity;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.text.Normalizer;
@@ -42,7 +47,7 @@ public class PresenterVehiculos {
         setVehiculoSeleccionado(v1);
 
         listVehiculos.add(v1);
-        listVehiculos.add(v2);
+        //listVehiculos.add(v2);
 
     }
 
@@ -51,24 +56,32 @@ public class PresenterVehiculos {
      * Añadir los vehiculos almacenados en un fichero
      * @return
      */
-    public boolean cargaDatosVehiculos(){
+    public boolean cargaDatosVehiculos(Context context){
+
+        List<Vehiculo> aux = new ArrayList<Vehiculo>();
         try {
+            File tempFile = new File(context.getFilesDir()+"/vehiculos.txt");
+            boolean exists = tempFile.exists();
 
-            BufferedReader in = new BufferedReader(new FileReader(MainActivity.vehiculos));
+            if (exists){
+                BufferedReader in = new BufferedReader(new FileReader(context.getFilesDir()+"/vehiculos.txt"));
 
-            String linea=in.readLine();
-            Vehiculo v = null;
-            while(linea.equals("---")){
-                new Vehiculo(linea); //modelo
-                v.setDeposito(Double.parseDouble(in.readLine()));//capacidad
-                v.setConsumoMedio(Double.parseDouble(in.readLine()));//c medio
-                v.setMatricula(in.readLine());//maticula
-                v.setAnotaciones(in.readLine());//nota
-                listVehiculos.add(v);
-                linea = in.readLine();
+                String linea=in.readLine();
+                Vehiculo v;
+
+                while(linea.equals("---") && !linea.equals("-fin-")){
+                    v = new Vehiculo(in.readLine()); //modelo
+                    v.setDeposito(Double.parseDouble(in.readLine()));//capacidad
+                    v.setConsumoMedio(Double.parseDouble(in.readLine()));//c medio
+                    v.setMatricula(in.readLine());//maticula
+                    v.setAnotaciones(in.readLine());//nota
+                    aux.add(v);
+                    linea = in.readLine();
+                }
+                listVehiculos = aux;
+                in.close();
             }
-            Log.d("Veh", "Tras bucle");
-            in.close();
+
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -90,27 +103,34 @@ public class PresenterVehiculos {
         PresenterVehiculos.vehiculoSeleccionado = vehiculoSeleccionado;
     }
 
-    public void guardaVehiculo(Vehiculo v){
+    public void guardaVehiculo(Vehiculo v, Context context){
+
+        File tempFile = new File(context.getFilesDir()+"/vehiculos.txt");
+        boolean exists = tempFile.exists();
+
+        if (exists)
+            tempFile.delete();
 
         listVehiculos.add(v);
 
         String output ="";
 
         for (Vehiculo v1:listVehiculos) {
-            output += "---\n" + v.getModelo()+ "\n"+ v.getDeposito() + "\n"+ v.getConsumoMedio() + "\n"+ v.getMatricula()
-                    + "\n"+ v.getAnotaciones()+ "\n";
+            output += "---\n" + v1.getModelo()+ "\n"+ v1.getDeposito() + "\n"+ v1.getConsumoMedio() + "\n"+ v1.getMatricula()
+                    + "\n"+ v1.getAnotaciones()+ "\n";
         }
 
+        output+="-fin-";
+
         try {
-            FileWriter fw = new FileWriter(MainActivity.vehiculos);
-            PrintWriter out = new PrintWriter(fw);
-            out.println(output);
-            out.close();
-            Log.d("Prueba", output);
+            File f = new File(context.getFilesDir() + "/vehiculos.txt");
+            FileWriter fw = new FileWriter(f);
+            fw.append(output);
+            fw.close();
         }
 
         catch(IOException e) {
-            System.out.println("Error al escribir");
+            e.printStackTrace();
         }
 
     }

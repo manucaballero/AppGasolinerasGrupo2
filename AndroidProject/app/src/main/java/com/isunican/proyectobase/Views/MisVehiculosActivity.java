@@ -160,7 +160,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
          */
         @Override
         protected Boolean doInBackground(Void... params) {
-            return presenterVehiculos.cargaDatosVehiculos();
+            return presenterVehiculos.cargaDatosVehiculos(MisVehiculosActivity.this);
         }
 
 
