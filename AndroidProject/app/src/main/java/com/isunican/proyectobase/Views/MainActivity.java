@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
         this.presenterGasolineras = new PresenterGasolineras();
         this.presenterVehiculos= new PresenterVehiculos();
+        presenterVehiculos.cargaDatosVehiculos(MainActivity.this);
+
 
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
@@ -328,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
                     // datos obtenidos con exito
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
-                    if(!presenterVehiculos.getVehiculos().isEmpty()){
+                    if(presenterVehiculos.getVehiculos().size()<=1){
                         Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     }

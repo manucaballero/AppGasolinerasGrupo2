@@ -43,6 +43,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.nuevo_vehiculo_form);
 
         this.presenterVehiculos = new PresenterVehiculos();
+        presenterVehiculos.cargaDatosVehiculos(FormActivity.this);
 
         // muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
