@@ -31,7 +31,14 @@ class ComparadorGasolinerasGasolina implements Comparator<Gasolinera> {
     public int compare(Gasolinera g1, Gasolinera g2) {
         double resta = g1.getGasolina95ConDescuento() - g2.getGasolina95ConDescuento();
         if (resta == 0){
-            return 0;
+            if(!g1.getTieneDescuento() && !g2.getTieneDescuento()){
+                return 0;
+            }else if(g1.getTieneDescuento()){
+                return -1;
+            }else{
+                return 1;
+            }
+
         }else {
             if(resta < 0){
                 return -1;

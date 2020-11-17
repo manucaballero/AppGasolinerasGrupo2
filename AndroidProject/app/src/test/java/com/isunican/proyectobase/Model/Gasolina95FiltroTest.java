@@ -39,6 +39,7 @@ public class Gasolina95FiltroTest {
         g1 = listaGaso.get(0);
         g2 = listaGaso.get(1);
         g3 = listaGaso.get(2);
+
         Assert.assertTrue(g1.getGasolina95ConDescuento()<=g2.getGasolina95ConDescuento());
         Assert.assertTrue(g2.getGasolina95ConDescuento()<=g3.getGasolina95ConDescuento());
 
