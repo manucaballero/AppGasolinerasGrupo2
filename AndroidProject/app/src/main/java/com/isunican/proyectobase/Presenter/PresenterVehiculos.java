@@ -33,6 +33,7 @@ public class PresenterVehiculos {
 
         listVehiculos.add(v1);
         //listVehiculos.add(v2);
+        setVehiculoSeleccionado(v1);
 
     }
 
