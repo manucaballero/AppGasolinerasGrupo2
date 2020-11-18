@@ -20,7 +20,7 @@ public class PresenterVehiculos {
     private static Vehiculo vehiculoSeleccionado;
 
     public PresenterVehiculos(){
-        this.listVehiculos=new ArrayList<Vehiculo>();
+        this.listVehiculos=new ArrayList<>();
         Vehiculo v1= new Vehiculo("Mercedes-Benz Clase A 180 CDI");
         Vehiculo v2=new Vehiculo("Tesla model S P100D");
         v1.setMatricula("1234ABC");

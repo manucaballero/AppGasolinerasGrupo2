@@ -393,10 +393,8 @@ public class MainActivity extends AppCompatActivity {
                             // Show the dialog by calling startResolutionForResult(),
                             // and check the result in onActivityResult().
                             resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
-                        } catch (IntentSender.SendIntentException e) {
+                        } catch (IntentSender.SendIntentException | ClassCastException e) {
                             // Ignore the error.
-                        } catch (ClassCastException e) {
-                            // Ignore, should be an impossible error.
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:

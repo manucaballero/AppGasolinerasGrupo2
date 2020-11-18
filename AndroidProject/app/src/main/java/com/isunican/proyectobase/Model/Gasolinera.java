@@ -29,7 +29,7 @@ public class Gasolinera implements Parcelable {
 
     private double distanciaEnKm;
     private boolean tieneDescuento;
-    private final static double DEPOSITO = 50;
+    private static final double DEPOSITO = 50;
 
 
     /**
@@ -49,10 +49,7 @@ public class Gasolinera implements Parcelable {
 
         if(rotulo.equals("CEPSA")){
             setTieneDescuento(true);
-        }else{
-            setTieneDescuento(false);
         }
-
     }
 
     /**
@@ -177,12 +174,10 @@ public class Gasolinera implements Parcelable {
         gasolina95 = in.readDouble();
         rotulo = in.readString();
         posicion = new Posicion(Double.parseDouble(in.readString().replace(",",".")),Double.parseDouble(in.readString().replace(",",".")));
+        setTieneDescuento(false);
         if(rotulo.equals("CEPSA")){
             setTieneDescuento(true);
-        }else{
-            setTieneDescuento(false);
         }
-
     }
 
     @Override

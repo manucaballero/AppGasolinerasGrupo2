@@ -16,7 +16,7 @@ public class ConDescuentoFiltro implements IDescuentoFiltro {
         Iterator<Gasolinera> i = listaGasolineras.iterator();
 
         while(i.hasNext()){
-            Gasolinera g = (Gasolinera) i.next();
+            Gasolinera g = i.next();
             if(!g.getTieneDescuento()){
                 i.remove();
             }

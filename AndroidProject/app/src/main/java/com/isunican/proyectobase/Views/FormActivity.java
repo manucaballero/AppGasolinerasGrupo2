@@ -2,7 +2,6 @@ package com.isunican.proyectobase.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -111,7 +110,6 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                         aux.clear();
                     }else{
                         presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
-
                         toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
                         toast.show();
 
@@ -129,11 +127,11 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             if(matricula.length()!=0 && matricula.length()<6)
                 campoMatricula.setError("Mínimo 6 caracteres");
             if(modelo.length()==0)
-                campoModelo.setError("Campo Requerido");
+                campoModelo.setError(CAMPO_REQUERIDO);
             if(capacidadtxt.length()==0)
-                campoCapacidad.setError("Campo Requerido");
+                campoCapacidad.setError(CAMPO_REQUERIDO);
             if(consumoMediotxt.length()==0)
-                campoConsumomedio.setError("Campo Requerido");
+                campoConsumomedio.setError(CAMPO_REQUERIDO);
 
         }
 
