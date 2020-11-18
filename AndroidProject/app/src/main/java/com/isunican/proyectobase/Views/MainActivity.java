@@ -321,21 +321,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
 
-                                    if(gasoleoA){
-                                        filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
-                                    }
 
-                                    if(gasolina95){
-                                        filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
-                                    }
-
-                                    if(descuentoSi){
-                                        descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
-                                    }
-
-                                    if(descuentoNo){
-                                        descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
-                                    }
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
                                     Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
@@ -376,6 +362,22 @@ public class MainActivity extends AppCompatActivity {
                     g.calculaPrecioFinal();
                 }
 
+                if(gasoleoA){
+                    filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
+                }
+
+                if(gasolina95){
+                    filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
+                }
+
+                if(descuentoSi){
+                    descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
+                }
+
+                if(descuentoNo){
+                    descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
+                }
+                
 
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                 adapterFiltros = new AdapterFiltros(MainActivity.this, listaFiltros);

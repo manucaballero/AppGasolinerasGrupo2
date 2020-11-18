@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.FilterActivity"
-            android:theme="@style/AppTheme.TemasPopUps">
-        </activity>
+        <activity android:name=".Views.PopUpConflicto"></activity>
+        <activity
+            android:name=".Views.FilterActivity"
+            android:theme="@style/AppTheme.TemasPopUps"></activity>
         <activity android:name=".Views.NoDatosActivity" />
         <activity android:name=".Views.MainActivity">
             <intent-filter>
