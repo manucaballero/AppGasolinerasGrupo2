@@ -1,5 +1,6 @@
 package com.isunican.proyectobase.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -67,7 +68,11 @@ public class DetailVehiculoActivity extends AppCompatActivity {
         buttonSeleccionado.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 PresenterVehiculos.setVehiculoSeleccionado(vehiculo);
+                PresenterVehiculos.guardaVehiculoSeleccionado(vehiculo, DetailVehiculoActivity.this);
                 Toast.makeText(DetailVehiculoActivity.this, "Vehículo seleccionado", Toast.LENGTH_SHORT).show();
+
+                Intent myIntent = new Intent(DetailVehiculoActivity.this, MisVehiculosActivity.class);
+                DetailVehiculoActivity.this.startActivity(myIntent);
             }
         });
 
