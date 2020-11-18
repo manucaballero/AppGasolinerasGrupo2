@@ -111,10 +111,11 @@ public class Vehiculo implements Parcelable {
         if(!(o instanceof Vehiculo)){
             aux = false;
         }
-        if (o != null) {
-            if (((Vehiculo) o).modelo.equals(this.modelo) && ((Vehiculo) o).anotaciones.equals(this.anotaciones) && ((Vehiculo) o).matricula.equals(this.matricula)) {
-                aux = true;
-            }
+        if (o != null && ((Vehiculo) o).modelo.equals(this.modelo)
+                && ((Vehiculo) o).anotaciones.equals(this.anotaciones)
+                && ((Vehiculo) o).matricula.equals(this.matricula)) {
+
+            aux = true;
         }
         return aux;
 

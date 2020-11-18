@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,7 +55,6 @@ import com.isunican.proyectobase.Model.Posicion;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.Utilities.Distancia;
 
-import java.io.File;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;

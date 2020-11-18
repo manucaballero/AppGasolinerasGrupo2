@@ -94,7 +94,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
 
-            if(aux.size() == 0){
+            if(aux.isEmpty()){
                 presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
 
                 toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
