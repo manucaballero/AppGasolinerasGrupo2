@@ -31,8 +31,12 @@ public class PresenterVehiculos {
         v1.setDeposito(60);
         v1.setConsumoMedio(6.4);
 
+<<<<<<< HEAD
         listVehiculos.add(v1);
         //listVehiculos.add(v2);
+=======
+        setVehiculoSeleccionado(v1);
+>>>>>>> ddc67b05f586feeebc2cfafe3a7b9a5e47570944
 
     }
 
@@ -72,6 +76,15 @@ public class PresenterVehiculos {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        return true;
+
+    }
+
+    public boolean cargaDatosVehiculosDummy(){
+        this.listVehiculos.add(new Vehiculo("BMW m8"));
+        this.listVehiculos.add(new Vehiculo("BMW m3"));
+
 
         return true;
 
