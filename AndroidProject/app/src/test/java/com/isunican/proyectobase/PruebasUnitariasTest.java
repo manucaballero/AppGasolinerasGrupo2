@@ -2,18 +2,17 @@ package com.isunican.proyectobase;
 
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
-//import com.isunican.proyectobase.Utilities.RemoteFetch;
-import com.isunican.proyectobase.Views.MainActivity;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
-import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+//import com.isunican.proyectobase.Utilities.RemoteFetch;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -75,7 +74,7 @@ public class PruebasUnitariasTest {
      */
     @Test
     public void calcularPrecioFinalTest(){
-        g1.calculaPrecioFinal();
+        g1.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
         assertTrue(g1.getGasoleoA() == Gasolinera.round((g1.getDEPOSITO()*precio+g1.getDistanciaEnKm()*6/100*precio)/g1.getDEPOSITO(),3));
     }
 }
