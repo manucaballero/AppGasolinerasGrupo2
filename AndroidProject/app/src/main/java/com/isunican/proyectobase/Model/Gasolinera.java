@@ -50,6 +50,8 @@ public class Gasolinera implements Parcelable {
         this.gasolina95 = gasolina95;
         this.rotulo = rotulo;
         this.tieneDescuento=false;
+        this.gasolina95ConDescuento = gasolina95;
+        this.gasoleoAConDescuento = gasoleoA;
 
         this.posicion = new Posicion(Double.parseDouble(latitud.replace(",",".")),Double.parseDouble(longitud.replace(",",".")));
 
