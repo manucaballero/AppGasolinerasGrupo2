@@ -1,10 +1,19 @@
 package com.isunican.proyectobase;
 
+import android.widget.ListAdapter;
+
+import androidx.test.rule.ActivityTestRule;
+
 import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
+import com.isunican.proyectobase.Views.FormActivity;
+import com.isunican.proyectobase.Views.MisVehiculosActivity;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.util.List;
 
@@ -12,9 +21,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(JUnit4.class)
 public class AnhadirVehiculoITest {
 
+    @Rule
+    public ActivityTestRule<MisVehiculosActivity> mActivityTestRule = new ActivityTestRule<>(MisVehiculosActivity.class);
 
+    ListAdapter adapter = mActivityTestRule.getActivity().adapter;
     PresenterVehiculos pv;
     Vehiculo v1;
     Vehiculo v2;
@@ -48,10 +61,10 @@ public class AnhadirVehiculoITest {
 
     @Test
     public void anhadeVehiculoTest(){
-        assertTrue(pv.anhadeVehiculo(v1));
-        assertTrue(pv.anhadeVehiculo(v2));
-        assertFalse(pv.anhadeVehiculo(v3));
-        assertFalse(pv.anhadeVehiculo(v4));
+        assertTrue(pv.guardaVehiculo(v1));
+        assertTrue(pv.guardaVehiculo(v2));
+        assertFalse(pv.guardaVehiculo(v3));
+        assertFalse(pv.guardaVehiculo(v4));
 
         pv.cargaDatosVehiculos();
 
@@ -60,8 +73,8 @@ public class AnhadirVehiculoITest {
         Vehiculo vehiculo1;
         Vehiculo vehiculo2;
 
-        vehiculo1=vehiculos.get(2);
-        vehiculo2=vehiculos.get(3);
+        vehiculo1= (Vehiculo) adapter.getItem(1);
+        vehiculo2= (Vehiculo) adapter.getItem(2);
 
 
         assertEquals(vehiculo1.getModelo(),"BMW m8");
