@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.Manifest;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.icu.util.ICUUncheckedIOException;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.isunican.proyectobase.Model.ConDescuentoFiltro;
 import com.isunican.proyectobase.Model.Gasolina95Filtro;
+import com.isunican.proyectobase.Model.ICombustibleFiltro;
+import com.isunican.proyectobase.Model.IDescuentoFiltro;
 import com.isunican.proyectobase.Model.SinDescuentoFiltro;
 import com.isunican.proyectobase.Model.DieselFiltro;
 import com.isunican.proyectobase.Model.Gasolinera;
@@ -323,25 +326,40 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
 
-                                    if(gasoleoA){
-                                        filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
-                                        listaFiltros.add(filtroGasoleA);
+                                    if(gasoleoA) {
+                                        if (hayFiltro((ICombustibleFiltro.class) ) == -1){
+                                            listaFiltros.add(filtroGasoleA);
+                                            filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
+                                        }else{
+                                            gasoleoA=false;
+                                        }
                                     }
 
                                     if(gasolina95){
-                                        filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
-                                        listaFiltros.add(filtroGasolina95);
+                                        if (hayFiltro((ICombustibleFiltro.class) ) == -1){
+                                            listaFiltros.add(filtroGasolina95);
+                                            filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
+                                        }else{
+                                            gasolina95=false;
+                                        }
                                     }
 
                                     if(descuentoSi){
-                                        descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
-                                        listaFiltros.add(descuentoSiFiltro);
+                                        if (hayFiltro((IDescuentoFiltro.class) ) == -1){
+                                            listaFiltros.add(descuentoSiFiltro);
+                                            descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
+                                        }else{
+                                            descuentoSi=false;
+                                        }
                                     }
 
                                     if(descuentoNo){
-                                        descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
-                                        listaFiltros.add(descuentoNoFiltro);
-
+                                        if (hayFiltro((IDescuentoFiltro.class) ) == -1){
+                                            listaFiltros.add(descuentoNoFiltro);
+                                            descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
+                                        }else {
+                                            descuentoNo = false;
+                                        }
                                     }
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
@@ -456,6 +474,8 @@ public class MainActivity extends AppCompatActivity {
                     descuentoNo = false;
                     listaFiltros.clear();
                     adapterFiltros.notifyDataSetChanged();
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    new CargaDatosGasolinerasTask(MainActivity.this).execute();
                 }
             });
 
@@ -477,6 +497,18 @@ public class MainActivity extends AppCompatActivity {
             descuentoSi = data.getBooleanExtra(FilterActivity.descuentoNo, false);
             new CargaDatosGasolinerasTask(MainActivity.this).execute();
         }
+    }
+    /*
+        Método auxiliar que retorna -1 si no hay un filtro del tipo pasado como parámetro
+        en el ArrayList de listaFiltros
+     */
+    public int hayFiltro(Class<? extends IFiltro> tipo){
+        for(int i=0; i<listaFiltros.size();i++){
+            if(tipo.isAssignableFrom(listaFiltros.get(i).getClass())){
+                return i;
+            }
+        }
+        return -1;
     }
 
 
