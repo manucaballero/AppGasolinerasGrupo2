@@ -95,6 +95,10 @@ public class FilterActivity extends AppCompatActivity  {
             Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
             FilterActivity.this.startActivity(myIntent);
         }
+        else if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked()){
+            Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
+            FilterActivity.this.startActivity(myIntent);
+        }
         bgasoleoA = checkBoxGasoleA.isChecked();
         bgasolina95 = checkBoxGasolina95.isChecked();
         bdescuentoSi = checkBoxDescuentoSi.isChecked();

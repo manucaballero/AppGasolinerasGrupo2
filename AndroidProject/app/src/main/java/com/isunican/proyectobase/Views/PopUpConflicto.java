@@ -25,9 +25,9 @@ public class PopUpConflicto extends AppCompatActivity {
         boton = findViewById(R.id.button);
         boton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent1 = new Intent(PopUpConflicto.this, MainActivity.class);
-                myIntent1.putExtra("gasoleoA",true);
-                PopUpConflicto.this.startActivity(myIntent1);
+                finish();
+                Intent myIntent = new Intent(PopUpConflicto.this, FilterActivity.class);
+                PopUpConflicto.this.startActivity(myIntent);
             }
         });
 
@@ -37,8 +37,6 @@ public class PopUpConflicto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent myIntent = new Intent(PopUpConflicto.this, FilterActivity.class);
-                PopUpConflicto.this.startActivity(myIntent);
             }
         });
 
@@ -48,7 +46,7 @@ public class PopUpConflicto extends AppCompatActivity {
         int ancho = medidasVentana.widthPixels;
         int alto = medidasVentana.heightPixels;
 
-        getWindow().setLayout((int) (ancho * 0.9), (int) (alto * 0.5));
+        getWindow().setLayout((int) (ancho * 0.9), (int) (alto * 0.6));
 
 
     }
