@@ -89,5 +89,10 @@ public class Gasolina95FiltroTest {
         Assert.assertTrue(g3.getGasolina95ConDescuento()<=g4.getGasolina95ConDescuento());
         Assert.assertTrue(g4.getGasolina95ConDescuento()<=g5.getGasolina95ConDescuento());
 
+        //Comprobamos el caso con la lista vacía
+        listaGaso.clear();
+        sut.ordena(listaGaso);
+        Assert.assertTrue(listaGaso.size()==0);
+
     }
 }

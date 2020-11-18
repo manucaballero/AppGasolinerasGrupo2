@@ -62,6 +62,11 @@ public class ConDescuentoFiltroTest {
         sut.ordena(listaGaso0);
         Assert.assertTrue(listaGaso0.size()==0);
 
+        //Comprobamos el caso con la lista vacía
+        listaGaso.clear();
+        sut.ordena(listaGaso);
+        Assert.assertTrue(listaGaso.size()==0);
+
     }
 
 
