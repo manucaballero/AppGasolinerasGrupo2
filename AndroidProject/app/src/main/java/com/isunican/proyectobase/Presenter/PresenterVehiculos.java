@@ -1,26 +1,14 @@
 package com.isunican.proyectobase.Presenter;
 
 import android.content.Context;
-import android.util.Log;
-
-import androidx.annotation.LongDef;
 
 import com.isunican.proyectobase.Model.Vehiculo;
-import com.isunican.proyectobase.Views.FormActivity;
-import com.isunican.proyectobase.Views.MainActivity;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +90,7 @@ public class PresenterVehiculos {
         PresenterVehiculos.vehiculoSeleccionado = vehiculoSeleccionado;
     }
 
-    public void guardaVehiculo(Vehiculo v, Context context){
+    public boolean guardaVehiculo(Vehiculo v, Context context){
 
         listVehiculos.add(v);
 
@@ -120,10 +108,12 @@ public class PresenterVehiculos {
             FileWriter fw = new FileWriter(f);
             fw.write(output);
             fw.close();
+            return true;
         }
 
         catch(IOException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
