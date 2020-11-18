@@ -317,6 +317,21 @@ public class MainActivity extends AppCompatActivity {
                                             g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
                                             g.calculaPrecioFinal();
                                         }
+                                        if(descuentoSi){
+                                            descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
+                                        }
+
+                                        if(descuentoNo){
+                                            descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
+                                        }
+
+                                        if(gasoleoA){
+                                            filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
+                                        }
+
+                                        if(gasolina95){
+                                            filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
+                                        }
 
                                     }
 
