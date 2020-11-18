@@ -13,19 +13,18 @@ import java.util.List;
  */
 public class presenterVehiculosTest {
 
-    PresenterVehiculos presenterVehiculos;
+    PresenterVehiculos sut;
     Vehiculo v1;
     List<Vehiculo> listaVehiculos;
 
     /**
      * Inicializamos los atributos necesarios antes de la ejecución de cada método.
+     *
+     * @author Rubén Calleja
      */
     @Before
     public void setUp(){
-        presenterVehiculos = new PresenterVehiculos();
-        presenterVehiculos.cargaDatosVehiculosDummy();
-        listaVehiculos = presenterVehiculos.getVehiculos();
-        v1=listaVehiculos.get(0);
+        sut = new PresenterVehiculos();
     }
 
     /**
@@ -34,7 +33,12 @@ public class presenterVehiculosTest {
      */
     @Test
     public void getSetVehiculoSeleccionadoTest(){
-        presenterVehiculos.setVehiculoSeleccionado(v1);
+        String  v = sut.getVehiculoSeleccionado().getModelo();
+        Assert.assertTrue(sut.getVehiculoSeleccionado() == null);
+        sut.cargaDatosVehiculosDummy();
+        listaVehiculos = sut.getVehiculos();
+        v1=listaVehiculos.get(0);
+        sut.setVehiculoSeleccionado(v1);
         Assert.assertTrue(PresenterVehiculos.getVehiculoSeleccionado().getModelo()==v1.getModelo());
 
     }
