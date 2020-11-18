@@ -3,6 +3,7 @@ package com.isunican.proyectobase;
 import android.widget.ListAdapter;
 
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.rule.GrantPermissionRule;
 
 import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
@@ -22,6 +23,9 @@ public class GuardaVehiculoITest {
 
     @Rule
     public ActivityTestRule<MisVehiculosActivity> vehiculosActivityTestRule = new ActivityTestRule<>(MisVehiculosActivity.class);
+
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
     ListAdapter adapter;
     PresenterVehiculos pv;
