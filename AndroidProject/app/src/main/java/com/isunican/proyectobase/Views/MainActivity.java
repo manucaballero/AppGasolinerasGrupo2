@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.icu.util.ICUUncheckedIOException;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -163,11 +165,13 @@ public class MainActivity extends AppCompatActivity {
         // Al hacer swipe en la lista, lanza la tarea asíncrona de carga de datos
         mSwipeRefreshLayout = findViewById(R.id.swiperefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
             @Override
             public void onRefresh() {
                 new CargaDatosGasolinerasTask(MainActivity.this).execute();
             }
         });
+
         if (!checkPermission()) {
             requestPermission();
         }
@@ -418,31 +422,11 @@ public class MainActivity extends AppCompatActivity {
                     g.calculaPrecioFinal();
                 }
 
-                if(descuentoSi){
-                    descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
-                }
-
-                if(descuentoNo){
-                    descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
-                }
-
-                if(gasoleoA){
-                    filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
-                }
-
-                if(gasolina95){
-                    filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
-                }
-
-
-                
 
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                 adapterFiltros = new AdapterFiltros(MainActivity.this, listaFiltros);
                 recyclerViewFiltros.setAdapter(adapterFiltros);
-                adapterFiltros.notifyDataSetChanged(); //Con esto puedo updatear
-
-
+                adapterFiltros.notifyDataSetChanged();
 
                 // Cargamos los datos en la lista
                 if (!presenterGasolineras.getGasolineras().isEmpty()) {
