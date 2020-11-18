@@ -15,7 +15,7 @@ public class Gasolina95FiltroTest {
     Gasolinera g1;
     Gasolinera g2;
     Gasolinera g3;
-    IFiltro filtro;
+    IFiltro sut;
 
     /**
      * Inicializamos las variables necesarias
@@ -25,7 +25,7 @@ public class Gasolina95FiltroTest {
         presenterGasolineras = new PresenterGasolineras();
         presenterGasolineras.cargaDatosDummy();
         listaGaso = presenterGasolineras.getGasolineras();
-        filtro = new Gasolina95Filtro();
+        sut = new Gasolina95Filtro();
 
     }
 
@@ -35,7 +35,7 @@ public class Gasolina95FiltroTest {
      */
     @Test
     public void ordenaGasolina95Test(){
-        filtro.ordena(listaGaso);
+        sut.ordena(listaGaso);
         g1 = listaGaso.get(0);
         g2 = listaGaso.get(1);
         g3 = listaGaso.get(2);

@@ -1,11 +1,13 @@
 package com.isunican.proyectobase.Views;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 
 import android.widget.Button;
@@ -58,10 +60,6 @@ public class FilterActivity extends AppCompatActivity  {
 
         getWindow().setLayout((int) (ancho * 0.8), (int) (alto * 0.5));
 
-        if(checkBoxGasolina95.isChecked()){
-            Toast.makeText(this, "Funciona", Toast.LENGTH_SHORT).show();
-        }
-
 
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -87,22 +85,42 @@ public class FilterActivity extends AppCompatActivity  {
             }
         });
 
+                Intent data = getIntent();
+                bgasoleoA = data.getBooleanExtra("GasoleoA", false);
+                bgasolina95 = data.getBooleanExtra("Gasolina95", false);
+                bdescuentoSi = data.getBooleanExtra("DescuentoSI", false);
+                bDescuentoNo = data.getBooleanExtra("DescuentoNo", false);
 
     }
 
     public void onCheckboxClicked() {
-       if(checkBoxGasolina95.isChecked() && checkBoxGasoleA.isChecked()){
+
+        if(!bgasoleoA){
+            bgasoleoA = checkBoxGasoleA.isChecked();
+        }
+        if(!bgasolina95){
+            bgasolina95 = checkBoxGasolina95.isChecked();
+        }
+        if(!bDescuentoNo){
+            bDescuentoNo = checkBoxDescuentoNo.isChecked();
+        }
+        if(!bdescuentoSi){
+            bdescuentoSi = checkBoxDescuentoSi.isChecked();
+        }
+
+        if(checkBoxGasolina95.isChecked() && checkBoxGasoleA.isChecked() || bgasolina95 && bgasoleoA){
             Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
             FilterActivity.this.startActivity(myIntent);
         }
-        else if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked()){
+        if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked() || bdescuentoSi && bDescuentoNo){
             Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
             FilterActivity.this.startActivity(myIntent);
         }
-        bgasoleoA = checkBoxGasoleA.isChecked();
-        bgasolina95 = checkBoxGasolina95.isChecked();
-        bdescuentoSi = checkBoxDescuentoSi.isChecked();
-        bDescuentoNo = checkBoxDescuentoNo.isChecked();
 
         }
+
+
+
+
+
     }
