@@ -36,7 +36,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
 
     // Vista de lista y adaptador para cargar datos en ella
     private ListView listViewVehiculos;
-    private ArrayAdapter<Vehiculo> adapter;
+    public ArrayAdapter<Vehiculo> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -288,10 +288,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
                 matricula.setVisibility(View.INVISIBLE);
             }
 
-            if(vehiculo.getModelo().equals(PresenterVehiculos.getVehiculoSeleccionado().getModelo())
-                    && vehiculo.getAnotaciones().equals(PresenterVehiculos.getVehiculoSeleccionado().getAnotaciones())
-                    && vehiculo.getMatricula().equals(PresenterVehiculos.getVehiculoSeleccionado().getMatricula())){
-
+            if(vehiculo.equals(PresenterVehiculos.getVehiculoSeleccionado())){
                 seleccionado.setVisibility(View.VISIBLE);
             }else{
                 seleccionado.setVisibility(View.INVISIBLE);

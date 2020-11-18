@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         presenterVehiculos.cargaDatosVehiculos(MainActivity.this);
         presenterVehiculos.cargaVehiculoSeleccionado(MainActivity.this);
 
-
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
 

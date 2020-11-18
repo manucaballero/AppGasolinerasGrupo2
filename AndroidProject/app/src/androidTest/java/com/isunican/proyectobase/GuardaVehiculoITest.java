@@ -46,6 +46,7 @@ public class GuardaVehiculoITest {
         v2.setDeposito(50);
         v2.setMatricula("4321DEF");
         v2.setConsumoMedio(8);
+        v2.setAnotaciones("Nota");
 
     }
 
@@ -63,6 +64,7 @@ public class GuardaVehiculoITest {
 
         //Se cargan del fichero
         pv.cargaDatosVehiculos(vehiculosActivityTestRule.getActivity().getBaseContext());
+        pv.cargaVehiculoSeleccionado(vehiculosActivityTestRule.getActivity().getBaseContext());
 
         Vehiculo vehiculo1;
         Vehiculo vehiculo2;
@@ -73,6 +75,7 @@ public class GuardaVehiculoITest {
 
         //Se comprueba que los datos obtenidos corresponten con los esperados
         //Vehiculo 1
+
         assertEquals("BMW m8", vehiculo1.getModelo());
         assertEquals("1234ABC", vehiculo1.getMatricula());
         assertEquals(68, vehiculo1.getDeposito(),0);
@@ -83,6 +86,8 @@ public class GuardaVehiculoITest {
         assertEquals("4321DEF", vehiculo2.getMatricula());
         assertEquals(50, vehiculo2.getDeposito(),0);
         assertEquals(8, vehiculo2.getConsumoMedio(),0);
+
+
 
 
     }
