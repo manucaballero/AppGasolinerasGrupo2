@@ -119,6 +119,10 @@ public class MisVehiculosActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MisVehiculosActivity.this, InfoActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemFabrica) {
+            presenterVehiculos.borra(MisVehiculosActivity.this);
+            Intent myIntent = new Intent(MisVehiculosActivity.this, MainActivity.class);
+            MisVehiculosActivity.this.startActivity(myIntent);
         }
         return true;
     }
@@ -285,7 +289,9 @@ public class MisVehiculosActivity extends AppCompatActivity {
 
 
             ;
-            if(vehiculo.equals(PresenterVehiculos.getVehiculoSeleccionado())){
+            if(vehiculo.getModelo().equals(PresenterVehiculos.getVehiculoSeleccionado().getModelo())
+                    && vehiculo.getAnotaciones().equals(PresenterVehiculos.getVehiculoSeleccionado().getAnotaciones())
+                    && vehiculo.getMatricula().equals(PresenterVehiculos.getVehiculoSeleccionado().getMatricula())){
                 seleccionado.setVisibility(View.VISIBLE);
             }else{
                 seleccionado.setVisibility(View.INVISIBLE);

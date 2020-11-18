@@ -101,8 +101,10 @@ public class MainActivity extends AppCompatActivity {
         this.presenterGasolineras = new PresenterGasolineras();
 
         this.presenterVehiculos= new PresenterVehiculos();
+        //presenterVehiculos.borra(MainActivity.this);
         presenterVehiculos.cargaDatosVehiculos(MainActivity.this);
         presenterVehiculos.cargaVehiculoSeleccionado(MainActivity.this);
+
 
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
@@ -170,8 +172,12 @@ public class MainActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
-            //presenterVehiculos.borra(MainActivity.this); Descomentar para restaurar datos de fábrica
+        }else if (item.getItemId() == R.id.itemFabrica) {
+            presenterVehiculos.borra(MainActivity.this);
+            Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
+            MainActivity.this.startActivity(myIntent);
         }
+
         return true;
     }
 

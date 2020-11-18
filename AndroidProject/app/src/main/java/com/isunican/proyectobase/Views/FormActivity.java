@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /*
@@ -79,36 +81,48 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         String capacidadtxt = campoCapacidad.getText().toString();
         String consumoMediotxt = campoConsumomedio.getText().toString();
 
-        boolean coincideModelo=false;
-        for(Vehiculo veh:presenterVehiculos.getVehiculos()){
-            if (veh.getModelo().equals(modelo)){
-                coincideModelo=true;
-            }
-        }
 
-        if(!modelo.equals("") && !capacidadtxt.equals("") && !consumoMediotxt.equals("") && !coincideModelo){
+        if(!modelo.equals("") && !capacidadtxt.equals("") && !consumoMediotxt.equals("")){
 
             Vehiculo v1 = new Vehiculo(modelo);
             v1.setDeposito(Double.parseDouble(capacidadtxt));
             v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
-
-            if(anotacion.equals("")){
-                v1.setAnotaciones("Coche nuevo");
-            }else{
-                v1.setAnotaciones(anotacion);
-            }
-
+            v1.setAnotaciones(anotacion);
             v1.setMatricula(matricula);
 
-            // Se deberá llamar a un método que guarde el vehículo en el fichero
+            List<Vehiculo> aux = new ArrayList<Vehiculo>();
+            for(Vehiculo v : presenterVehiculos.getVehiculos()){
+                if(v.getModelo().equals(modelo)){
+                    aux.add(v);
+                }
+            }
 
-            presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
+            if(aux.size() == 0){
+                presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
 
-            toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
-            toast.show();
+                toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
+                toast.show();
 
-            Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
-            FormActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
+                FormActivity.this.startActivity(myIntent);
+            } else {
+                for(Vehiculo v : aux){
+
+                    if(v.getAnotaciones().equals(anotacion) && v.getMatricula().equals(matricula)){
+                        campoModelo.setError("Ya existe un vehiculo con estas características. Introduzca una nueva Matrícula o Anotación para diferenciarlos.");
+                        aux.clear();
+                    }else{
+                        presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
+
+                        toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
+                        toast.show();
+
+                        Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
+                        FormActivity.this.startActivity(myIntent);
+                    }
+                }
+            }
+
 
         }else {
             toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);

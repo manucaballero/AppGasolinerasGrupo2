@@ -166,7 +166,7 @@ public class PresenterVehiculos {
                     setVehiculoSeleccionado(aux.get(0));
                 else {
                     for(Vehiculo v : aux){
-                        if(v.getModelo().equals(modelo) && v.getMatricula().equals(matricula)){
+                        if(v.getAnotaciones().equals(anotacion) && v.getMatricula().equals(matricula)){
                             setVehiculoSeleccionado(v);
                         }
                     }
@@ -190,5 +190,6 @@ public class PresenterVehiculos {
         File f1 = new File(c.getFilesDir()+"/vehiculos.txt");
         f.delete();
         f1.delete();
+        setVehiculoSeleccionado(listVehiculos.get(0));
     }
 }
