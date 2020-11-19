@@ -32,7 +32,7 @@ import java.util.List;
 
 public class MisVehiculosActivity extends AppCompatActivity {
 
-    private PresenterVehiculos presenterVehiculos;
+    public PresenterVehiculos presenterVehiculos;
 
     // Vista de lista y adaptador para cargar datos en ella
     private ListView listViewVehiculos;
