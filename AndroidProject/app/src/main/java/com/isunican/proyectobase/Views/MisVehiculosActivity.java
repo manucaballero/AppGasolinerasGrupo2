@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -295,13 +296,12 @@ public class MisVehiculosActivity extends AppCompatActivity {
             }
 
 
-
             // Si las dimensiones de la pantalla son menores
             // reducimos el texto de las etiquetas para que se vea correctamente
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             if (displayMetrics.widthPixels < 720) {
                 TextView tv = view.findViewById(R.id.textViewModeloLabel);
-                RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) tv.getLayoutParams());
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tv.getLayoutParams();
                 params.setMargins(15, 0, 0, 0);
                 tv.setTextSize(11);
                 TextView tmp;
