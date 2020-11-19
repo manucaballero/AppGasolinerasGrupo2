@@ -8,96 +8,106 @@
     tools:context=".Views.FilterActivity">
 
 
-    <TextView
-        android:id="@+id/textViewCombustible"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Combustible"
-        android:textSize="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
-        android:textStyle="bold"
-        android:textColor="#547980" />
+        android:layout_height="match_parent">
 
-    <CheckBox
-        android:id="@+id/checkBoxGasoleoA"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Gasóleo A"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="30dp"
-        android:textColorHighlight="#547980"
-        android:textColorLink="#547980" />
-
-    <CheckBox
-        android:id="@+id/checkBoxGasolina95"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Gasolina 95"
-        android:layout_marginLeft="30dp"
-        android:textColorHighlight="#547980"
-        android:textColorLink="#547980" />
-
-    <TextView
-        android:id="@+id/textViewDescuento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Descuento"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:textColor="#547980"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        />
-
-    <CheckBox
-        android:id="@+id/checkBoxDescuentoSi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Si"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="30dp"
-        android:textColorHighlight="#547980"
-        android:textColorLink="#547980" />
-
-    <CheckBox
-        android:id="@+id/checkBoxDescuentoNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No"
-        android:layout_marginLeft="30dp"
-        android:textColorHighlight="#547980"
-        android:textColorLink="#547980" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        >
-
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:textColor="#ffffff"
-            android:backgroundTint="#547980"
-            android:layout_toLeftOf="@id/buttonApply"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/roundedbutton"/>
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/buttonApply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Apply"
-            android:layout_toRightOf="@id/buttonCancel"
-            android:layout_marginTop="40dp"
-            android:textColor="#ffffff"
-            android:backgroundTint="#547980"
-            android:background="@drawable/roundedbutton"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textViewCombustible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/Combustible"
+                android:textColor="#547980"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkBoxGasoleoA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:text="Gasóleo A"
+                android:textColorHighlight="#547980"
+                android:textColorLink="#547980" />
+
+            <CheckBox
+                android:id="@+id/checkBoxGasolina95"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Gasolina 95"
+                android:textColorHighlight="#547980"
+                android:textColorLink="#547980" />
+
+            <TextView
+                android:id="@+id/textViewDescuento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/Descuento"
+                android:textColor="#547980"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkBoxDescuentoSi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:text="Si"
+                android:textColorHighlight="#547980"
+                android:textColorLink="#547980" />
+
+            <CheckBox
+                android:id="@+id/checkBoxDescuentoNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="No"
+                android:textColorHighlight="#547980"
+                android:textColorLink="#547980" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_toLeftOf="@id/buttonApply"
+                    android:background="@drawable/roundedbutton"
+                    android:backgroundTint="#547980"
+                    android:text="Cancel"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/buttonApply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_toRightOf="@id/buttonCancel"
+                    android:background="@drawable/roundedbutton"
+                    android:backgroundTint="#547980"
+                    android:text="Apply"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
