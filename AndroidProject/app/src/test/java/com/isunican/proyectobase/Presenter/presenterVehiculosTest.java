@@ -6,10 +6,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Clase que compruba el funcionamiento de los métodos de la clase presenter.
+ *
+ * @author Rubén Calleja
  */
 public class presenterVehiculosTest {
 
@@ -19,12 +22,14 @@ public class presenterVehiculosTest {
 
     /**
      * Inicializamos los atributos necesarios antes de la ejecución de cada método.
-     *
-     * @author Rubén Calleja
      */
     @Before
     public void setUp(){
+
         sut = new PresenterVehiculos();
+        listaVehiculos = new ArrayList<Vehiculo>();
+        listaVehiculos.add(new Vehiculo("BMW m8"));
+        listaVehiculos.add(new Vehiculo("BMW m3"));
     }
 
     /**
@@ -33,13 +38,11 @@ public class presenterVehiculosTest {
      */
     @Test
     public void getSetVehiculoSeleccionadoTest(){
-        String  v = sut.getVehiculoSeleccionado().getModelo();
+        sut.setVehiculoSeleccionado(null);
         Assert.assertTrue(sut.getVehiculoSeleccionado() == null);
-        sut.cargaDatosVehiculosDummy();
-        listaVehiculos = sut.getVehiculos();
         v1=listaVehiculos.get(0);
         sut.setVehiculoSeleccionado(v1);
-        Assert.assertTrue(PresenterVehiculos.getVehiculoSeleccionado().getModelo()==v1.getModelo());
+        Assert.assertTrue(sut.getVehiculoSeleccionado().getModelo()==v1.getModelo());
 
     }
 
