@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     public PresenterGasolineras presenterGasolineras;
 
-    private PresenterVehiculos presenterVehiculos;
+    public PresenterVehiculos presenterVehiculos;
 
     // Vista de lista y adaptador para cargar datos en ella
     private ListView listViewGasolineras;
