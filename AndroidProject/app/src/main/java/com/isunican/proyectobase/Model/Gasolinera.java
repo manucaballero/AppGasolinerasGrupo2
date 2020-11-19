@@ -3,12 +3,6 @@ package com.isunican.proyectobase.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
-
-
-import androidx.annotation.Nullable;
-
-
 /*
 ------------------------------------------------------------------
     Clase que almacena la informacion de una gasolinera
@@ -33,9 +27,11 @@ public class Gasolinera implements Parcelable {
     private double gasoleoAConDescuento;
     private double gasolina95ConDescuento;
 
-    private double distanciaEnKm;
+    private double distanciaEnKm = 0;
     private boolean tieneDescuento;
-    private final double DEPOSITO = 50;
+    private static final double DEPOSITO = 50;
+    private double multiplicadorCostePorLitro;
+
 
 
     /**
@@ -55,10 +51,7 @@ public class Gasolinera implements Parcelable {
 
         if(rotulo.equals("CEPSA")){
             setTieneDescuento(true);
-        }else{
-            setTieneDescuento(false);
         }
-
     }
 
     /**
@@ -67,17 +60,23 @@ public class Gasolinera implements Parcelable {
      * hasta ella.
      */
     public void calculaPrecioFinal(Vehiculo v){
-
-        if(this.getTieneDescuento()){
-            this.gasoleoAConDescuento=round((v.getDeposito()*gasoleoA+distanciaEnKm*v.getConsumoMedio()*gasoleoA)/v.getDeposito()*0.9,3);
-            this.gasolina95ConDescuento=round((v.getDeposito()*gasolina95+distanciaEnKm*v.getConsumoMedio()*gasolina95)/v.getDeposito()*0.9,3);
+        double litrosExtra = (distanciaEnKm / 100.0 ) * v.getConsumoMedio();
+        double litrosTotales = v.getDeposito() + litrosExtra;
+        if(litrosExtra == 0){
+            //Si no tenemos ubicacion no hay litros extra
+            multiplicadorCostePorLitro = 1;
         }else{
-            this.gasoleoAConDescuento=round((v.getDeposito()*gasoleoA+distanciaEnKm*v.getConsumoMedio()*gasoleoA)/v.getDeposito(),3);
-            this.gasolina95ConDescuento=round((v.getDeposito()*gasolina95+distanciaEnKm*v.getConsumoMedio()*gasolina95)/v.getDeposito(),3);
+            multiplicadorCostePorLitro = litrosTotales / v.getDeposito();
         }
-        this.gasoleoA=round((v.getDeposito()*gasoleoA+distanciaEnKm*v.getConsumoMedio()*gasoleoA)/v.getDeposito(),3);
-        this.gasolina95=round((v.getDeposito()*gasolina95+distanciaEnKm*v.getConsumoMedio()*gasolina95)/v.getDeposito(),3);
-
+        if(this.getTieneDescuento()){
+            this.gasoleoAConDescuento=round(multiplicadorCostePorLitro * gasoleoA*0.9,3);
+            this.gasolina95ConDescuento=round(multiplicadorCostePorLitro * gasolina95*0.9,3);
+        }else{
+            this.gasoleoAConDescuento=round(multiplicadorCostePorLitro * gasoleoA,3);
+            this.gasolina95ConDescuento=round(multiplicadorCostePorLitro * gasolina95,3);
+        }
+        this.gasoleoA=round(multiplicadorCostePorLitro * gasoleoA,3);
+        this.gasolina95=round(multiplicadorCostePorLitro * gasolina95,3);
     }
 
     public boolean getTieneDescuento(){
@@ -140,6 +139,12 @@ public class Gasolinera implements Parcelable {
         this.distanciaEnKm = distanciaEnKm;
     }
     public double getDEPOSITO(){ return  DEPOSITO;}
+
+    public double getMultiplicadorCostePorLitro() {
+        return multiplicadorCostePorLitro;
+    }
+
+
     /**
      * toString
      *
@@ -183,12 +188,10 @@ public class Gasolinera implements Parcelable {
         gasolina95 = in.readDouble();
         rotulo = in.readString();
         posicion = new Posicion(Double.parseDouble(in.readString().replace(",",".")),Double.parseDouble(in.readString().replace(",",".")));
+        setTieneDescuento(false);
         if(rotulo.equals("CEPSA")){
             setTieneDescuento(true);
-        }else{
-            setTieneDescuento(false);
         }
-
     }
 
     @Override

@@ -35,7 +35,7 @@ public class PresenterVehiculos {
         v1.setConsumoMedio(6.4);
 
         listVehiculos.add(v1);
-        //listVehiculos.add(v2);
+
 
     }
 

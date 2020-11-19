@@ -1,15 +1,12 @@
 package com.isunican.proyectobase.Views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.isunican.proyectobase.R;
 

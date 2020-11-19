@@ -28,11 +28,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.isunican.proyectobase.Model.DieselFiltro;
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Model.IFiltro;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.R;
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -44,11 +52,8 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.Posicion;
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
-import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
 import java.io.File;
@@ -67,12 +72,13 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 */
 public class MainActivity extends AppCompatActivity {
 
+
     public PresenterGasolineras presenterGasolineras;
 
-    public PresenterVehiculos presenterVehiculos;
+    private PresenterVehiculos presenterVehiculos;
 
     // Vista de lista y adaptador para cargar datos en ella
-    public ListView listViewGasolineras;
+    private ListView listViewGasolineras;
     public ArrayAdapter<Gasolinera> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
@@ -267,61 +273,7 @@ public class MainActivity extends AppCompatActivity {
                 result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
                     @Override
                     public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
-                        try {
-                            task.getResult(ApiException.class);
-                            // All location settings are satisfied. The client can initialize location
-                            // requests here.
-                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                requestPermission();
-                            }
-                            mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Location> task)
-                                {
-                                    Location location = task.getResult();
-                                    //Cuando el usuario tiene la ubicacion activada
-                                    if (location != null) {
-                                        Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
-
-                                        for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                                            g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
-                                            g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
-                                        }
-
-                                    }
-                                    presenterGasolineras.ordenaLista();
-                                    adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
-                                    listViewGasolineras.setAdapter(adapter);
-                                    Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
-                                    toast.show();
-                                    }
-                            });
-
-                        } catch (ApiException exception) {
-                            switch (exception.getStatusCode()) {
-                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                    // Location settings are not satisfied. But could be fixed by showing the
-                                    // user a dialog.
-                                    try {
-                                        // Cast to a resolvable exception.
-                                        ResolvableApiException resolvable = (ResolvableApiException) exception;
-                                        // Show the dialog by calling startResolutionForResult(),
-                                        // and check the result in onActivityResult().
-                                        resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
-                                    } catch (IntentSender.SendIntentException e) {
-                                        // Ignore the error.
-                                    } catch (ClassCastException e) {
-                                        // Ignore, should be an impossible error.
-                                    }
-                                    break;
-                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                    // Location settings are not satisfied. However, we have no way to fix the
-                                    // settings so we won't show the dialog.
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
+                        exceptionApiLocation(task);
                     }
                 });
 
@@ -329,7 +281,11 @@ public class MainActivity extends AppCompatActivity {
                 for(Gasolinera g:presenterGasolineras.getGasolineras()){
                     g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
                 }
-                presenterGasolineras.ordenaLista();
+
+                IFiltro f = new DieselFiltro();
+                f.ordena(presenterGasolineras.getGasolineras());
+
+
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
 
@@ -342,6 +298,16 @@ public class MainActivity extends AppCompatActivity {
                         Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     }
+
+                    //Boton flotante
+                    FloatingActionButton fab = findViewById(R.id.fab);
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(MainActivity.this, FormActivity.class);
+                            MainActivity.this.startActivity(intent);
+                        }
+                    });
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
                     // sucede en torno a las :00 y :30 de cada hora
@@ -381,6 +347,62 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+        }
+
+        private void exceptionApiLocation(@NonNull Task<LocationSettingsResponse> task) {
+            try {
+                task.getResult(ApiException.class);
+                // All location settings are satisfied. The client can initialize location
+                // requests here.
+                if (androidx.core.content.ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermission();
+                }
+                mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task)
+                    {
+                        Location location = task.getResult();
+                        //Cuando el usuario tiene la ubicacion activada
+                        if (location != null) {
+                            Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
+
+                            for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                                g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
+                                g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
+                            }
+
+                        }
+                        presenterGasolineras.ordenaLista();
+                        adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
+                        listViewGasolineras.setAdapter(adapter);
+                        Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
+                        toast.show();
+                        }
+                });
+
+            } catch (ApiException exception) {
+                switch (exception.getStatusCode()) {
+                    case com.google.android.gms.common.api.CommonStatusCodes.RESOLUTION_REQUIRED:
+                        // Location settings are not satisfied. But could be fixed by showing the
+                        // user a dialog.
+                        try {
+                            // Cast to a resolvable exception.
+                            ResolvableApiException resolvable = (ResolvableApiException) exception;
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                        } catch (IntentSender.SendIntentException | ClassCastException e) {
+                            // Ignore the error.
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        // Location settings are not satisfied. However, we have no way to fix the
+                        // settings so we won't show the dialog.
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
     }
