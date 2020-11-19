@@ -14,7 +14,7 @@ import static java.util.Collections.*;
  */
 public class DieselFiltro implements ICombustibleFiltro{
 
-    String nombre = "diesel";
+    String nombre = "GasoleoA";
 
     @Override
     public void ordena(List<Gasolinera> listaGasolineras) {

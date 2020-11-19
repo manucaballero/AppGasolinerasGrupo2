@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class SinDescuentoFiltro implements IDescuentoFiltro {
 
-    String nombre = "sinDescuento";
+    String nombre = "Sin Descuento";
 
     @Override
     public void ordena(List<Gasolinera> listaGasolineras) {

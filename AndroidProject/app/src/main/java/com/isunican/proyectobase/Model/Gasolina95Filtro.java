@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Gasolina95Filtro implements ICombustibleFiltro{
 
-    String nombre = "gasolina";
+    String nombre = "Gasolina 95";
 
     @Override
     public void ordena(List<Gasolinera> listaGasolineras) {
