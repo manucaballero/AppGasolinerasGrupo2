@@ -1,6 +1,7 @@
 package com.isunican.proyectobase;
 
 import android.Manifest;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import androidx.test.espresso.DataInteraction;
@@ -10,6 +11,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import com.isunican.proyectobase.Model.Vehiculo;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.Views.MisVehiculosActivity;
 
 import org.junit.Rule;
@@ -33,27 +35,28 @@ public class InterfazVehiculosPropiosUITest {
     public void VehiculosPropiosUITest(){
 
         ArrayAdapter<Vehiculo> adapter = mVehiculosActivity.getActivity().adapter;
-
+        Vehiculo seleccionado = PresenterVehiculos.getVehiculoSeleccionado();
+        Vehiculo v;
+        DataInteraction d;
         for(int i=0; i<adapter.getCount(); i++){
-            DataInteraction d = onData(anything()).inAdapterView(withId(R.id.listViewVehiculos)).atPosition(i);
-            Vehiculo v = adapter.getItem(i);
-            //Revisamos que el modelo y las anotaciones concuerden con las de la lista de vehiculos
+            d = onData(anything()).inAdapterView(withId(R.id.listViewVehiculos)).atPosition(i);
+            v = adapter.getItem(i);
+
+            //Revisamos que el modelo, las anotaciones y la matricula concuerden con las de la lista de vehiculos
             d.onChildView(withId(R.id.textViewModelo)).check(matches(withText(v.getModelo())));
             d.onChildView(withId(R.id.textViewAnotacion)).check(matches(withText(v.getAnotaciones())));
-            //Consumo medio y deposito no aparecen en esta interfaz
+            if(v.getMatricula() == null){
+                d.onChildView(withId(R.id.textViewMatricula)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+            }else{
+                d.onChildView(withId(R.id.textViewMatricula)).check(matches(withText(v.getMatricula())));
+            }
+            
+            //Si el vehiculo actual es el seleccionado revisamos que este dato aparezca en la interfaz
+            if(v.equals(seleccionado)){
+                d.onChildView(withId(R.id.textViewSeleccionado)).check(matches(withText("Seleccionado")));
+            }else{
+                d.onChildView(withId(R.id.textViewSeleccionado)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+            }
         }
-        Vehiculo vehiculo1 = adapter.getItem(0);
-        //Revisamos la matricula y si esta seleccionado el primer vehiculo de la lista
-        DataInteraction d = onData(anything()).inAdapterView(withId(R.id.listViewVehiculos)).atPosition(0);
-        d.onChildView(withId(R.id.textViewMatricula)).check(matches(withText(vehiculo1.getMatricula())));
-        d.onChildView(withId(R.id.textViewSeleccionado)).check(matches(withText("Seleccionado")));
-
-        //Revisamos la matricula y si esta seleccionado el segundo vehiculo de la lista, ambos deben de estar invisible
-        //ya que no tiene rellenada la matricula y no esta seleccionado.
-        //Este vehiculo finalmente no aparece
-        //d = onData(anything()).inAdapterView(withId(R.id.listViewVehiculos)).atPosition(1);
-        //d.onChildView(withId(R.id.textViewMatricula)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
-        //d.onChildView(withId(R.id.textViewSeleccionado)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
-
 }
