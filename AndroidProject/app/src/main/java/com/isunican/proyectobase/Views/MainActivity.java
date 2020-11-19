@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
             mSwipeRefreshLayout.setRefreshing(false);
 
             // Si se ha obtenido resultado en la tarea en segundo plano
-            if (Boolean.TRUE.equals(res)) {
+            if (res) {
                 // Definimos el array adapter
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
                 LocationRequest mLocationRequest = new LocationRequest();
@@ -320,64 +320,38 @@ public class MainActivity extends AppCompatActivity {
                                     Location location = task.getResult();
                                     //Cuando el usuario tiene la ubicacion activada
                                     if (location != null) {
-                                        Posicion posUsuario = new Posicion(location.getLatitude(),location.getLongitude());
+                                        Posicion posUsuario = new Posicion(location.getLatitude(), location.getLongitude());
 
-                                        for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                                            g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
+                                        for (Gasolinera g : presenterGasolineras.getGasolineras()) {
+                                            g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario, g.getPosicion()));
                                             g.calculaPrecioFinal();
                                         }
-                                        if(descuentoSi){
+                                        if (descuentoSi) {
+                                            if (hayFiltro((IDescuentoFiltro.class)) == -1) {
+                                                listaFiltros.add(descuentoSiFiltro);
+                                            }
                                             descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
                                         }
 
-                                        if(descuentoNo){
+                                        if (descuentoNo) {
+                                            if (hayFiltro((IDescuentoFiltro.class)) == -1) {
+                                                listaFiltros.add(descuentoNoFiltro);
+                                            }
                                             descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
                                         }
 
-                                        if(gasoleoA){
+                                        if (gasoleoA) {
+                                            if (hayFiltro((ICombustibleFiltro.class)) == -1) {
+                                                listaFiltros.add(filtroGasoleA);
+                                            }
                                             filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
                                         }
 
-                                        if(gasolina95){
+                                        if (gasolina95) {
+                                            if (hayFiltro((ICombustibleFiltro.class)) == -1) {
+                                                listaFiltros.add(filtroGasolina95);
+                                            }
                                             filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
-                                        }
-
-                                    }
-
-
-                                    if(gasoleoA) {
-                                        if (hayFiltro((ICombustibleFiltro.class) ) == -1){
-                                            listaFiltros.add(filtroGasoleA);
-                                            filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
-                                        }else{
-                                            gasoleoA=false;
-                                        }
-                                    }
-
-                                    if(gasolina95){
-                                        if (hayFiltro((ICombustibleFiltro.class) ) == -1){
-                                            listaFiltros.add(filtroGasolina95);
-                                            filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
-                                        }else{
-                                            gasolina95=false;
-                                        }
-                                    }
-
-                                    if(descuentoSi){
-                                        if (hayFiltro((IDescuentoFiltro.class) ) == -1){
-                                            listaFiltros.add(descuentoSiFiltro);
-                                            descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
-                                        }else{
-                                            descuentoSi=false;
-                                        }
-                                    }
-
-                                    if(descuentoNo){
-                                        if (hayFiltro((IDescuentoFiltro.class) ) == -1){
-                                            listaFiltros.add(descuentoNoFiltro);
-                                            descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
-                                        }else {
-                                            descuentoNo = false;
                                         }
                                     }
                                     
@@ -420,6 +394,34 @@ public class MainActivity extends AppCompatActivity {
 
                 for(Gasolinera g:presenterGasolineras.getGasolineras()){
                     g.calculaPrecioFinal();
+                }
+
+                if(descuentoSi){
+                    if (hayFiltro((IDescuentoFiltro.class) ) == -1) {
+                        listaFiltros.add(descuentoSiFiltro);
+                    }
+                    descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
+                }
+
+                if(descuentoNo){
+                    if (hayFiltro((IDescuentoFiltro.class) ) == -1) {
+                        listaFiltros.add(descuentoNoFiltro);
+                    }
+                    descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
+                }
+
+                if(gasoleoA){
+                    if (hayFiltro((ICombustibleFiltro.class) ) == -1) {
+                        listaFiltros.add(filtroGasoleA);
+                    }
+                    filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
+                }
+
+                if(gasolina95){
+                    if (hayFiltro((ICombustibleFiltro.class) ) == -1) {
+                        listaFiltros.add(filtroGasolina95);
+                    }
+                    filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
                 }
 
 

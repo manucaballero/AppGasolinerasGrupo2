@@ -112,7 +112,7 @@ public class FilterActivity extends AppCompatActivity  {
             Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
             FilterActivity.this.startActivity(myIntent);
         }
-        if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked() || bdescuentoSi && bDescuentoNo){
+        else if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked() || bdescuentoSi && bDescuentoNo){
             Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
             FilterActivity.this.startActivity(myIntent);
         }
