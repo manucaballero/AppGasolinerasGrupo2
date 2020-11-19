@@ -95,6 +95,14 @@ public class FilterActivity extends AppCompatActivity  {
 
     public void onCheckboxClicked() {
 
+        boolean antiguoBGasoleoA = bgasoleoA;
+        boolean antiguoBGasolina95 = bgasolina95;
+        boolean antiguoBDescuentoNo = bDescuentoNo;
+        boolean antiguoBDescuentoSi = bdescuentoSi;
+
+        int cont=0;
+
+
         if(!bgasoleoA){
             bgasoleoA = checkBoxGasoleA.isChecked();
         }
@@ -109,12 +117,50 @@ public class FilterActivity extends AppCompatActivity  {
         }
 
         if(checkBoxGasolina95.isChecked() && checkBoxGasoleA.isChecked() || bgasolina95 && bgasoleoA){
+            if(checkBoxGasoleA.isChecked() && checkBoxGasolina95.isChecked()){
+                if(antiguoBGasoleoA){
+                    bgasolina95=false;
+                }else if (antiguoBGasolina95){
+                    bgasoleoA=false;
+                }else{
+                    bgasoleoA=false;
+                    bgasolina95=false;
+                }
+            }
+            else if(checkBoxGasoleA.isChecked()){
+                bgasoleoA=false;
+            }
+            else if(checkBoxGasolina95.isChecked()){
+                bgasolina95=false;
+            }
             Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
+            cont++;
             FilterActivity.this.startActivity(myIntent);
         }
-        else if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked() || bdescuentoSi && bDescuentoNo){
-            Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
-            FilterActivity.this.startActivity(myIntent);
+        if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked() || bdescuentoSi && bDescuentoNo){
+            if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked()){
+                if(antiguoBDescuentoNo){
+                    bdescuentoSi=false;
+                }else if (antiguoBDescuentoSi){
+                    bDescuentoNo=false;
+                }else{
+                    bDescuentoNo=false;
+                    bdescuentoSi=false;
+                }
+            }
+            else if(checkBoxDescuentoSi.isChecked()){
+                bdescuentoSi=false;
+            }
+            else if(checkBoxDescuentoNo.isChecked()){
+                bDescuentoNo=false;
+            }
+
+            if(cont==0){
+                Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
+                FilterActivity.this.startActivity(myIntent);
+            }
+            cont=0;
+
         }
 
         }

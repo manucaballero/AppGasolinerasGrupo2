@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ConDescuentoFiltro implements IDescuentoFiltro {
 
-    String nombre = "conDescuento";
+    String nombre = "Con Descuento";
 
     @Override
     public void ordena(List<Gasolinera> listaGasolineras) {
