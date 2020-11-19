@@ -1,7 +1,6 @@
 package com.isunican.proyectobase.Presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.isunican.proyectobase.Model.Vehiculo;
 

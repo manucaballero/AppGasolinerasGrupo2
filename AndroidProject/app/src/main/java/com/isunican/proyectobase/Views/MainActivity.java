@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +51,7 @@ import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
+import java.io.File;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    public static boolean flagYaEnsenada=false;
     /**
      * onCreate
      *
@@ -98,11 +99,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.presenterGasolineras = new PresenterGasolineras();
+
         this.presenterVehiculos= new PresenterVehiculos();
+        //presenterVehiculos.borra(MainActivity.this);
+        presenterVehiculos.cargaDatosVehiculos(MainActivity.this);
+        presenterVehiculos.cargaVehiculoSeleccionado(MainActivity.this);
+
 
         // Obtenemos la vista de la lista
         listViewGasolineras = findViewById(R.id.listViewGasolineras);
-
 
         // Barra de progreso
         // https://materialdoc.com/components/progress/
@@ -167,7 +172,12 @@ public class MainActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemFabrica) {
+            presenterVehiculos.borra(MainActivity.this);
+            Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
+            MainActivity.this.startActivity(myIntent);
         }
+
         return true;
     }
 
@@ -328,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
                     // datos obtenidos con exito
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
-                    if(!presenterVehiculos.getVehiculos().isEmpty()){
+                    if(presenterVehiculos.getVehiculos().size()<=1){
                         Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     }
