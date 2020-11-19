@@ -1,8 +1,10 @@
 package com.isunican.proyectobase;
 
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.rule.GrantPermissionRule;
 
 import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
@@ -22,11 +24,13 @@ public class GuardaVehiculoITest {
 
     @Rule
     public ActivityTestRule<MisVehiculosActivity> vehiculosActivityTestRule = new ActivityTestRule<>(MisVehiculosActivity.class);
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-    ListAdapter adapter;
-    PresenterVehiculos pv;
-    Vehiculo v1;
-    Vehiculo v2;
+    public ArrayAdapter<Vehiculo> adapter;
+    private PresenterVehiculos pv;
+    private Vehiculo v1;
+    private Vehiculo v2;
 
     /**
      * Se crean los objetos necesarios
@@ -34,7 +38,8 @@ public class GuardaVehiculoITest {
     @Before
     public void setUp(){
         adapter = vehiculosActivityTestRule.getActivity().adapter;
-        pv=new PresenterVehiculos();
+        //pv = new PresenterVehiculos();
+        pv = vehiculosActivityTestRule.getActivity().presenterVehiculos;
 
         v1=new Vehiculo("BMW m8");
         v1.setMatricula("1234ABC");
@@ -86,8 +91,6 @@ public class GuardaVehiculoITest {
         assertEquals("4321DEF", vehiculo2.getMatricula());
         assertEquals(50, vehiculo2.getDeposito(),0);
         assertEquals(8, vehiculo2.getConsumoMedio(),0);
-
-
 
 
     }
