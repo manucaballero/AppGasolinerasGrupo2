@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Comprobamos el correcto funcionamiento del filtro con descuento.
- * @author Ruben Calleja
+ * @author Rubén Calleja
  */
 public class ConDescuentoFiltroTest {
 
@@ -45,7 +45,7 @@ public class ConDescuentoFiltroTest {
     }
 
     /**
-     * Comprobamos el funcionamiento del metodo ordena del filtro con descuento,
+     * Comprobamos el funcionamiento del método ordena del filtro con descuento,
      * el cual solo muestra las gasolineras que tienen descuento
      */
     @Test

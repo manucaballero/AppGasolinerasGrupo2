@@ -2,6 +2,7 @@ package com.isunican.proyectobase.Model;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import java.util.List;
 
 /**
  * Comprobamos el correcto funcionamiento del filtro gasolina95
- * @author Ruben Calleja
+ * @author Rubén Calleja
  */
 
 public class Gasolina95FiltroTest {
@@ -60,8 +61,9 @@ public class Gasolina95FiltroTest {
     }
 
     /**
-     * Comprobamos el funcionamiento del metodo ordena del filtro gasolina95,
+     * Comprobamos el funcionamiento del método ordena del filtro gasolina95,
      * el cual ordena las gasolineras de menor a mayor precio de la gasolina 95
+     *
      */
     @Test
     public void ordenaGasolina95Test(){
@@ -91,10 +93,11 @@ public class Gasolina95FiltroTest {
 
         //Comprobamos que en caso de empate si una tiene descuento se pone primero, todas estan a 0, pero como una tiene descuento está la primera
         assertEquals(true, g1.getTieneDescuento());
-        assertEquals(true, g1.getGasolina95ConDescuento() <= g2.getGasolina95ConDescuento());
-        assertEquals(true, g2.getGasolina95ConDescuento() <= g3.getGasolina95ConDescuento());
-        assertEquals(true, g3.getGasolina95ConDescuento() <= g4.getGasolina95ConDescuento());
-        assertEquals(true, g4.getGasolina95ConDescuento() <= g5.getGasolina95ConDescuento());
+        assertTrue(g1.equals(listaGaso0.get(0)));
+        assertTrue(g2.equals(listaGaso0.get(1)));
+        assertTrue(g3.equals(listaGaso0.get(2)));
+        assertTrue(g4.equals(listaGaso0.get(3)));
+        assertTrue(g5.equals(listaGaso0.get(4)));
 
 
 
@@ -107,11 +110,11 @@ public class Gasolina95FiltroTest {
         sut.ordena(listaGasoNoDes);
 
 
-        assertEquals(true, g1.getIdeess() == listaGasoNoDes.get(0).getIdeess());
-        assertEquals(true, g2.getIdeess() == listaGasoNoDes.get(1).getIdeess());
-        assertEquals(true, g3.getIdeess() == listaGasoNoDes.get(2).getIdeess());
-        assertEquals(true, g4.getIdeess() == listaGasoNoDes.get(3).getIdeess());
-        assertEquals(true, g5.getIdeess() == listaGasoNoDes.get(4).getIdeess());
+        assertTrue(g1.equals(listaGasoNoDes.get(0)));
+        assertTrue(g2.equals(listaGasoNoDes.get(1)));
+        assertTrue(g3.equals(listaGasoNoDes.get(2)));
+        assertTrue(g4.equals(listaGasoNoDes.get(3)));
+        assertTrue(g5.equals(listaGasoNoDes.get(4)));
 
         //Comprobamos el caso con la lista vacía
         listaGaso.clear();

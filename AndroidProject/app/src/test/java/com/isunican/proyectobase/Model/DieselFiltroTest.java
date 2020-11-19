@@ -1,5 +1,8 @@
 package com.isunican.proyectobase.Model;
 
+import androidx.annotation.Nullable;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -7,7 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+/**
+ * @author Bárbara Martínez Carcedo
+ */
 public class DieselFiltroTest {
 
     IFiltro sut;
@@ -21,6 +28,7 @@ public class DieselFiltroTest {
     Gasolinera g3;
     Gasolinera g4;
     Gasolinera g5;
+
 
     /**
      * Inicialización de variables
@@ -47,19 +55,38 @@ public class DieselFiltroTest {
 
     /**
      * Método test que comprueba que el método ordena() de la clase DieselFiltro funciona
-     * adecuadamente, ordenando la lista de gasolineras según el precio del gasóleoA.
+     * adecuadamente.
+     *
      */
     @Test
     public void ordenaGasoleATest(){
 
-        //lista con gasolineras y gasoleoA!=null
+        //lista con gasolineras sin descuento, gasoleoA!=null y ninguna con el mismo precio del gasóleo A.
         sut.ordena(gasolineraList);
-        assertEquals(true, gasolineraList.get(0).getGasoleoAConDescuento() <= gasolineraList.get(1).getGasoleoAConDescuento());
-        assertEquals(true, gasolineraList.get(1).getGasoleoAConDescuento() <= gasolineraList.get(2).getGasoleoAConDescuento());
-        assertEquals(true, gasolineraList.get(2).getGasoleoAConDescuento() <= gasolineraList.get(3).getGasoleoAConDescuento());
-        assertEquals(true, gasolineraList.get(3).getGasoleoAConDescuento() <= gasolineraList.get(4).getGasoleoAConDescuento());
 
-        //lista con gasolineras y gasoleoA==0
+        g1 = gasolineraList.get(0);
+        g2 = gasolineraList.get(1);
+        g3 = gasolineraList.get(2);
+        g4 = gasolineraList.get(3);
+        g5 = gasolineraList.get(4);
+
+        assertEquals(true, g1.getGasoleoAConDescuento() <= g2.getGasoleoAConDescuento());
+        assertEquals(true, g2.getGasoleoAConDescuento() <= g3.getGasoleoAConDescuento());
+        assertEquals(true, g3.getGasoleoAConDescuento() <= g4.getGasoleoAConDescuento());
+        assertEquals(true, g4.getGasoleoAConDescuento() <= g5.getGasoleoAConDescuento());
+
+        //lista con gasolineras, y una de ellas con descuento, gasoleoA!=null y ninguna con los precios del gasóleo A igual.
+        gasolineraList.get(4).setTieneDescuento(true);
+        sut.ordena(gasolineraList);
+
+        assertTrue(g1.equals(gasolineraList.get(0)));
+        assertTrue(g2.equals(gasolineraList.get(1)));
+        assertTrue(g3.equals(gasolineraList.get(2)));
+        assertTrue(g4.equals(gasolineraList.get(3)));
+        assertTrue(g5.equals(gasolineraList.get(4)));
+
+
+        //lista con gasolineras sin descuento y gasoleoA==0
         g1 = l.get(0);
         g2 = l.get(1);
         g3 = l.get(2);
@@ -67,16 +94,31 @@ public class DieselFiltroTest {
         g5 = l.get(4);
 
         sut.ordena(l);
-        assertEquals(g1.getGasoleoAConDescuento(), l.get(0).getGasoleoAConDescuento(), 0.0);
-        assertEquals(g2.getGasoleoAConDescuento(), l.get(1).getGasoleoAConDescuento(), 0.0);
-        assertEquals(g3.getGasoleoAConDescuento(), l.get(2).getGasoleoAConDescuento(), 0.0);
-        assertEquals(g4.getGasoleoAConDescuento(), l.get(3).getGasoleoAConDescuento(), 0.0);
-        assertEquals(g5.getGasoleoAConDescuento(), l.get(4).getGasoleoAConDescuento(), 0.0);
+
+        assertTrue(g1.equals(l.get(0)));
+        assertTrue(g2.equals(l.get(1)));
+        assertTrue(g3.equals(l.get(2)));
+        assertTrue(g4.equals(l.get(3)));
+        assertTrue(g5.equals(l.get(4)));
+
+
+
+        //Lista de gasolineras con todos los precios iguales, y una de ellas con descuento.
+        g5.setTieneDescuento(true);
+        sut.ordena(l);
+        assertTrue(g5.equals(l.get(0)));
+        assertTrue(g1.equals(l.get(1)));
+        assertTrue(g2.equals(l.get(2)));
+        assertTrue(g3.equals(l.get(3)));
+        assertTrue(g4.equals(l.get(4)));
+
 
         //lista vacía
         l.clear();
         sut.ordena(l);
         assertEquals(0, l.size());
+
     }
+
 
 }
