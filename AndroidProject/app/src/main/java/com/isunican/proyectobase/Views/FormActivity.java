@@ -13,6 +13,9 @@ import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /*
 ------------------------------------------------------------------
@@ -29,7 +32,9 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     EditText campoAnotaciones;
     EditText campoConsumomedio;
     Button txtAceptar;
-    public PresenterVehiculos presenterVehiculos;
+    private static final String CAMPO_REQUERIDO = "Campo Requerido";
+
+    PresenterVehiculos presenterVehiculos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.nuevo_vehiculo_form);
 
         this.presenterVehiculos = new PresenterVehiculos();
+        presenterVehiculos.cargaDatosVehiculos(FormActivity.this);
 
         // muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -56,67 +62,78 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Toast toast = null;
+
+        if(v.getId()==R.id.txtAceptar)
+            anhadeVehiculo();
+
+    }
+
+    private void anhadeVehiculo() {
+
+        Toast toast;
+
+        String matricula = campoMatricula.getText().toString();
+        String modelo = campoModelo.getText().toString();
+        String anotacion = campoAnotaciones.getText().toString();
+        String capacidadtxt = campoCapacidad.getText().toString();
+        String consumoMediotxt = campoConsumomedio.getText().toString();
 
 
-        if(v.getId()==R.id.txtAceptar){
+        if(!modelo.equals("") && !capacidadtxt.equals("") && !consumoMediotxt.equals("")){
 
-            String matricula = campoMatricula.getText().toString();
-            String modelo = campoModelo.getText().toString();
-            String anotacion = campoAnotaciones.getText().toString();
-            String capacidadtxt = campoCapacidad.getText().toString();
-            String consumoMediotxt = campoConsumomedio.getText().toString();
+            Vehiculo v1 = new Vehiculo(modelo);
+            v1.setDeposito(Double.parseDouble(capacidadtxt));
+            v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
+            v1.setAnotaciones(anotacion);
+            v1.setMatricula(matricula);
 
-            if(!modelo.equals("") && !capacidadtxt.equals("") && matricula.length()>5){
-                Vehiculo v1 = new Vehiculo(modelo);
-                v1.setDeposito(Double.parseDouble(capacidadtxt));
-                v1.setMatricula(matricula);
-
-                if(anotacion.equals("")){
-                    v1.setAnotaciones("Coche nuevo");
-                }else{
-                    v1.setAnotaciones(anotacion);
+            List<Vehiculo> aux = new ArrayList<Vehiculo>();
+            for(Vehiculo v : presenterVehiculos.getVehiculos()){
+                if(v.getModelo().equals(modelo)){
+                    aux.add(v);
                 }
+            }
 
-                if(consumoMediotxt.equals("")){
-                    v1.setConsumoMedio(5);
-                }else{
-                    v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
-                }
+            if(aux.isEmpty()){
+                presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
 
                 toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
                 toast.show();
-                //TODO Algo aqui no funciona porque no se actualiza la lista
-                // Se deberá llamar a un método que guarde el vehículo en el fichero
 
                 Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
                 FormActivity.this.startActivity(myIntent);
+            } else {
+                for(Vehiculo v : aux){
 
-            }else {
-                toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
-                toast.show();
-                if(matricula.length()==0)
-                    campoMatricula.setError("Campo Requerido");
-                else if(matricula.length()<6)
-                    campoMatricula.setError("Mínimo 6 caracteres");
-                campoModelo.setError("Campo Requerido");
-                campoCapacidad.setError("Campo Requerido");
+                    if(v.getAnotaciones().equals(anotacion) && v.getMatricula().equals(matricula)){
+                        campoModelo.setError("Ya existe un vehiculo con estas características. Introduzca una nueva Matrícula o Anotación para diferenciarlos.");
+                        aux.clear();
+                    }else{
+                        presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
+                        toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
+                        toast.show();
 
-
+                        Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
+                        FormActivity.this.startActivity(myIntent);
+                    }
+                }
             }
 
+
+        }else {
+            toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
+            toast.show();
+
+            if(matricula.length()!=0 && matricula.length()<6)
+                campoMatricula.setError("Mínimo 6 caracteres");
+            if(modelo.length()==0)
+                campoModelo.setError(CAMPO_REQUERIDO);
+            if(capacidadtxt.length()==0)
+                campoCapacidad.setError(CAMPO_REQUERIDO);
+            if(consumoMediotxt.length()==0)
+                campoConsumomedio.setError(CAMPO_REQUERIDO);
+
         }
-        //guardaDatos();
 
     }
-/*
-    public void guardaDatos(){
-
-        String output="";
-
-        for (Vehiculo v: listaVehiculos) {
-            output = v1.getMatricula() + "/" + v1.getModelo() + "/" + v1.getDeposito() + "/" + v1.getConsumoMedio() + "/" + v1.getAnotaciones()+"\n";
-        }
-        //TODO AÑADIR EL VEHICULO A LA LISTA
-    }*/
 }

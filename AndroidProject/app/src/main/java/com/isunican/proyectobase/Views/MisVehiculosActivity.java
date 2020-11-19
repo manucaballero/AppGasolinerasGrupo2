@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -35,7 +36,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
     public PresenterVehiculos presenterVehiculos;
 
     // Vista de lista y adaptador para cargar datos en ella
-    public ListView listViewVehiculos;
+    private ListView listViewVehiculos;
     public ArrayAdapter<Vehiculo> adapter;
 
     // Barra de progreso circular para mostar progeso de carga
@@ -51,6 +52,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
      *
      * @param savedInstanceState
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_vehiculos);
@@ -119,6 +121,10 @@ public class MisVehiculosActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(MisVehiculosActivity.this, InfoActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemFabrica) {
+            presenterVehiculos.borra(MisVehiculosActivity.this);
+            Intent myIntent = new Intent(MisVehiculosActivity.this, MainActivity.class);
+            MisVehiculosActivity.this.startActivity(myIntent);
         }
         return true;
     }
@@ -160,7 +166,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
          */
         @Override
         protected Boolean doInBackground(Void... params) {
-            return presenterVehiculos.cargaDatosVehiculos();
+            return presenterVehiculos.cargaDatosVehiculos(MisVehiculosActivity.this);
         }
 
 
@@ -283,8 +289,6 @@ public class MisVehiculosActivity extends AppCompatActivity {
                 matricula.setVisibility(View.INVISIBLE);
             }
 
-
-            ;
             if(vehiculo.equals(PresenterVehiculos.getVehiculoSeleccionado())){
                 seleccionado.setVisibility(View.VISIBLE);
             }else{
@@ -292,22 +296,17 @@ public class MisVehiculosActivity extends AppCompatActivity {
             }
 
 
-
             // Si las dimensiones de la pantalla son menores
             // reducimos el texto de las etiquetas para que se vea correctamente
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             if (displayMetrics.widthPixels < 720) {
                 TextView tv = view.findViewById(R.id.textViewModeloLabel);
-                RelativeLayout.LayoutParams params = ((RelativeLayout.LayoutParams) tv.getLayoutParams());
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tv.getLayoutParams();
                 params.setMargins(15, 0, 0, 0);
                 tv.setTextSize(11);
                 TextView tmp;
-                //tmp = view.findViewById(R.id.textViewGasolina95Label);
-                //tmp.setTextSize(11);
                 tmp = view.findViewById(R.id.textViewModelo);
                 tmp.setTextSize(11);
-                //tmp = view.findViewById(R.id.textViewGasolina95);
-                //tmp.setTextSize(11);
             }
 
             return view;
