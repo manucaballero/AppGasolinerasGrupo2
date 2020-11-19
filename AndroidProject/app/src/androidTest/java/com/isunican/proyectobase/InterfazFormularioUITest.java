@@ -24,6 +24,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 
+/**
+ * @author Aarón rodríguez
+ */
 public class InterfazFormularioUITest {
 
     @Rule
