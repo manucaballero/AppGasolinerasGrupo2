@@ -26,15 +26,10 @@ public class GasolineraTest {
         g1 = new Gasolinera(1000,"SANTANDER","SANTANDER", "Av Valdecilla", 1.299,1.359,"AVIA","43.45741814","-3.82677519");
         g2 = new Gasolinera(1100,"SANTANDER","SANTANDER", "Av Valdecilla", 1.399,0.939,"AVIA","43.45741814","-3.82677519");
 
-        mockVehiculo = mock(Vehiculo.class);
-
         mockVehiculo = new Vehiculo("Mercedes CLK");
         mockVehiculo.setConsumoMedio(20.0);
         mockVehiculo.setDeposito(50.0);
 
-        //Mocks que simulan el comportamiento de los los métodos getDeposito() y getConsumoMedio de la clase Vehiculo
-        when(mockVehiculo.getDeposito()).thenReturn(50.0);
-        when(mockVehiculo.getConsumoMedio()).thenReturn(20.0);
 
     }
 
@@ -49,14 +44,15 @@ public class GasolineraTest {
         g1.calculaPrecioFinal(mockVehiculo);
 
         //Gasolinera con descuento
-        assertTrue(g1.getGasoleoAConDescuento() == Gasolinera.round((mockVehiculo.getDeposito() * g1.getGasoleoA() + g1.getDistanciaEnKm() * mockVehiculo.getConsumoMedio() * g1.getGasoleoA()) / mockVehiculo.getDeposito() * 0.9, 3));
-        assertTrue(g1.getGasolina95ConDescuento() == Gasolinera.round((mockVehiculo.getDeposito() * g1.getGasolina95() + g1.getDistanciaEnKm() * mockVehiculo.getConsumoMedio() * g1.getGasolina95()) / mockVehiculo.getDeposito() * 0.9, 3));
+        assertTrue(g1.getGasoleoAConDescuento() == Gasolinera.round(g1.getMultiplicadorCostePorLitro() * g1.getGasoleoA() * 0.9, 3));
+        assertTrue(g1.getGasolina95ConDescuento() == Gasolinera.round(g1.getMultiplicadorCostePorLitro() * g1.getGasolina95() * 0.9, 3));
 
         g2.calculaPrecioFinal(mockVehiculo);
 
         //Gasolinera sin descuento
-        assertTrue(g2.getGasoleoAConDescuento() == Gasolinera.round((mockVehiculo.getDeposito() * g2.getGasoleoA() + g2.getDistanciaEnKm() * mockVehiculo.getConsumoMedio() * g2.getGasoleoA()) / mockVehiculo.getDeposito(), 3));
-        assertTrue(g2.getGasolina95ConDescuento() == Gasolinera.round((mockVehiculo.getDeposito() * g2.getGasolina95() + g2.getDistanciaEnKm() * mockVehiculo.getConsumoMedio() * g2.getGasolina95()) / mockVehiculo.getDeposito(), 3));
+        assertTrue(g2.getGasolina95ConDescuento() == Gasolinera.round(g2.getMultiplicadorCostePorLitro()*g2.getGasolina95() , 3));
+        assertTrue(g2.getGasoleoAConDescuento() == Gasolinera.round(g2.getMultiplicadorCostePorLitro()*g2.getGasoleoA(), 3));
 
     }
+
 }

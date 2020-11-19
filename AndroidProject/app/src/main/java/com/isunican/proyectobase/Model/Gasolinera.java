@@ -30,6 +30,8 @@ public class Gasolinera implements Parcelable {
     private double distanciaEnKm = 0;
     private boolean tieneDescuento;
     private static final double DEPOSITO = 50;
+    private double multiplicadorCostePorLitro;
+
 
 
     /**
@@ -60,7 +62,6 @@ public class Gasolinera implements Parcelable {
     public void calculaPrecioFinal(Vehiculo v){
         double litrosExtra = (distanciaEnKm / 100.0 ) * v.getConsumoMedio();
         double litrosTotales = v.getDeposito() + litrosExtra;
-        double multiplicadorCostePorLitro;
         if(litrosExtra == 0){
             //Si no tenemos ubicacion no hay litros extra
             multiplicadorCostePorLitro = 1;
@@ -138,6 +139,12 @@ public class Gasolinera implements Parcelable {
         this.distanciaEnKm = distanciaEnKm;
     }
     public double getDEPOSITO(){ return  DEPOSITO;}
+
+    public double getMultiplicadorCostePorLitro() {
+        return multiplicadorCostePorLitro;
+    }
+
+
     /**
      * toString
      *
