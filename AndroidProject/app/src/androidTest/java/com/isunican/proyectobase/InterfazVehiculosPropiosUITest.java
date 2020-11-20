@@ -25,6 +25,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static org.hamcrest.CoreMatchers.anything;
 
+/**
+ * @author Manuel Caballero
+ */
 @RunWith(AndroidJUnit4.class)
 public class InterfazVehiculosPropiosUITest {
     @Rule
