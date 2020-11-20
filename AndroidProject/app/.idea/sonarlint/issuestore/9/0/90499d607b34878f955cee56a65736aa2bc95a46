@@ -1,7 +1,0 @@
-
-O
-java:S1874"2Remove this use of "getMetrics"; it is deprecated.(ÊÇÃ¼8‰ıè¾Û.
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
-]	java:S110"<This class has 8 parents which is greater than 5 authorized.(ÆèĞ‘ıÿÿÿÿ8…ŠÃ¼Û.
-V
-java:S1874"9Remove this use of "getDefaultDisplay"; it is deprecated.(ÊÇÃ¼8‰ıè¾Û.

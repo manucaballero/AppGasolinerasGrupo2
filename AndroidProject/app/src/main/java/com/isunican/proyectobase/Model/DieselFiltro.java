@@ -11,7 +11,7 @@ import static java.util.Collections.*;
  */
 public class DieselFiltro implements ICombustibleFiltro{
 
-    String nombre = "diesel";
+    String nombre = "GasóleoA";
 
     @Override
     public void ordena(List<Gasolinera> listaGasolineras) {
@@ -33,15 +33,20 @@ class ComparadorGasolinerasDiesel implements Comparator<Gasolinera>{
     @Override
     public int compare(Gasolinera g1, Gasolinera g2) {
         double resta = g1.getGasoleoAConDescuento() - g2.getGasoleoAConDescuento();
-        if (resta == 0){
-            return 0;
-        }else {
-            if(resta < 0){
+        if (resta == 0) {
+            if (!g1.getTieneDescuento() && !g2.getTieneDescuento()) {
+                return 0;
+            } else if (g1.getTieneDescuento()) {
                 return -1;
-            }else{
+            } else {
+                return 1;
+            }
+        } else {
+            if (resta < 0) {
+                return -1;
+            } else {
                 return 1;
             }
         }
-
     }
 }

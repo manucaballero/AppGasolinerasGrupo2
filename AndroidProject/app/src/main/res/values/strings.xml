@@ -31,4 +31,18 @@
     <string name="consumoMedio">Consumo medio(L/100Km):</string>
     <string name="seleccionado">Seleccionado</string>
     <string name="seleccionarVehiculo">Seleccionar Vehículo</string>
+    <string name="Combustible">Combustible</string>
+    <string name="Descuento">Descuento</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="filtros_incompatibles">Filtros Incompatibles</string>
+    <string name="infoFiltrosIncompatibles">Los filtros seleccionados son incompatibles, pulse aceptar para volver a la selección de filtros.</string>
+    <string name="nota">Nota: Los filtros de un mismo tipo, por ejemplo "Combustible" no se pueden seleccionar a la vez</string>
+    <string-array name="filtrosCombustible">
+        <item>GasoleoA</item>
+        <item>Gasolina95</item>
+        <item>Si</item>
+        <item>No</item>
+    </string-array>
+
 </resources>

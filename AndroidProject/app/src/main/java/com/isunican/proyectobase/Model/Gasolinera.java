@@ -51,6 +51,8 @@ public class Gasolinera implements Parcelable {
         this.gasolina95 = gasolina95;
         this.rotulo = rotulo;
         this.tieneDescuento=false;
+        this.gasolina95ConDescuento = gasolina95;
+        this.gasoleoAConDescuento = gasoleoA;
 
         this.posicion = new Posicion(Double.parseDouble(latitud.replace(",",".")),Double.parseDouble(longitud.replace(",",".")));
 
@@ -233,6 +235,22 @@ public class Gasolinera implements Parcelable {
         }
     };
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj instanceof Gasolinera){
+            Gasolinera g = (Gasolinera) obj;
+            if(this.ideess == g.ideess && this.localidad.equals(g.localidad) && this.provincia.equals(g.provincia)
+                    && this.localidad.equals(g.localidad) && this.direccion.equals(g.direccion) && this.gasoleoA == g.gasoleoA
+                    && this.gasolina95 == g.gasolina95 && this.rotulo.equals(g.rotulo) && this.posicion.getLatitud() == g.posicion.getLatitud()
+                    && this.posicion.getLongitud() == g.posicion.getLongitud()){
+                return true;
+            }else {
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
 
 
-}
+    }
