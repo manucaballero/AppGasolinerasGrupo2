@@ -24,11 +24,11 @@ public class PresenterVehiculos {
 
     public PresenterVehiculos(){
         this.listVehiculos=new ArrayList<>();
-        Vehiculo v1= new Vehiculo("Mercedes-Benz Clase A 180 CDI");
+        Vehiculo v1= new Vehiculo("Vehiculo por defecto");
         Vehiculo v2=new Vehiculo("Tesla model S P100D");
-        v1.setMatricula("1234ABC");
+        v1.setMatricula("");
 
-        v1.setAnotaciones("Familiar");
+        v1.setAnotaciones("Default");
         v2.setAnotaciones("Trabajo");
 
         v1.setDeposito(60);
@@ -39,11 +39,7 @@ public class PresenterVehiculos {
 
     }
 
-    /**
-     * TO DO
-     * Añadir los vehiculos almacenados en un fichero
-     * @return
-     */
+
     public boolean cargaDatosVehiculos(Context context) {
 
         List<Vehiculo> aux = new ArrayList<Vehiculo>();
