@@ -370,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
                                             filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
                                         }
                                     }
-                                    
+                                    presenterGasolineras.ordenaLista();
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
                                     adapterFiltros.notifyDataSetChanged();
