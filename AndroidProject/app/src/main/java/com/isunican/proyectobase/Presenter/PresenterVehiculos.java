@@ -39,7 +39,11 @@ public class PresenterVehiculos {
 
     }
 
-    
+    /**
+     * TO DO
+     * Añadir los vehiculos almacenados en un fichero
+     * @return
+     */
     public boolean cargaDatosVehiculos(Context context) {
 
         List<Vehiculo> aux = new ArrayList<Vehiculo>();
