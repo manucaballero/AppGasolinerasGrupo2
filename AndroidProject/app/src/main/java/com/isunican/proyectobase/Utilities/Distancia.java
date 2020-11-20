@@ -3,11 +3,10 @@ package com.isunican.proyectobase.Utilities;
 import com.isunican.proyectobase.Model.Posicion;
 
 public class Distancia {
-    private static final  double RADIO_TIERRA_KM = 6378.0F;
+    private static final  double radioTierraKm = 6378.0F;
+    public static double distanciaKm(Posicion posOrigen, Posicion posDestino)
 
-    private Distancia(){}
-
-    public static double distanciaKm(Posicion posOrigen, Posicion posDestino) {
+    {
         double difLatitud = Math.toRadians((posDestino.getLatitud() - posOrigen.getLatitud()));
         double difLongitud = Math.toRadians((posDestino.getLongitud() -posOrigen.getLongitud()));
 
@@ -19,6 +18,6 @@ public class Distancia {
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return RADIO_TIERRA_KM *c;
+        return radioTierraKm*c;
     }
 }

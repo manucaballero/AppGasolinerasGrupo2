@@ -1,55 +1,31 @@
 
-E
-java:S1874¢"/Remove this use of "execute"; it is deprecated.(Ø©¼a
-R
-java:S1066Ø"/Merge this if statement with the enclosing one.(ÎóÙôøÿÿÿÿ8¨ÁôçÛ.
-a
-java:S1874Î"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ËĞƒ
-f
-java:S1874í"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(É…Ê°üÿÿÿÿ
-c
-java:S2147«"ECombine this catch with the one at line 297, which has the same body.(ğıˆÒ8¨ÁôçÛ.
-Z
-java:S1854"<Remove this useless assignment to local variable "response".(­¯İØ8¨ÁôçÛ.
-z
-java:S1104G"_Make listViewGasolineras a static final constant or non-public and provide accessors if needed.(ì±ˆøøÿÿÿÿ
-I
-java:S1199¨"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
-Š
-java:S3252 "gUse static access with "com.google.android.gms.common.api.CommonStatusCodes" for "RESOLUTION_REQUIRED".(Âş†²ûÿÿÿÿ8¨ÁôçÛ.
-E
-java:S1874~"/Remove this use of "execute"; it is deprecated.(ÌÁÈ¬
-u
-java:S3776í"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(É…Ê°üÿÿÿÿ8¨ÁôçÛ.
 v
-java:S1104D"`Make presenterGasolineras a static final constant or non-public and provide accessors if needed.(…ıÅç
+java:S1104F"`Make presenterGasolineras a static final constant or non-public and provide accessors if needed.(…ıÅç
+L
+java:S1133Ê"5Do not forget to remove this deprecated code someday.(ËĞƒ
+H
+java:S1874¶"1Remove this use of "AsyncTask"; it is deprecated.(óâø
 E
-java:S1874‰"/Remove this use of "execute"; it is deprecated.(Ø©¼a
-H
-java:S1874º"1Remove this use of "AsyncTask"; it is deprecated.(óâø
-h
-java:S1301Ÿ"KReplace this "switch" statement by "if" statements to increase readability.(É¶Ü=8¨ÁôçÛ.
-F	java:S108")Either remove or fill this block of code.(ßçŒ8¨ÁôçÛ.
-X	java:S125U"<This block of commented-out lines of code should be removed.(ÈÓŠ8¨ÁôçÛ.
-u
-java:S1104H"SMake adapter a static final constant or non-public and provide accessors if needed.(ò±ãˆøÿÿÿÿ8‘‰ˆø×.
-C
-java:S1905—",Remove this unnecessary cast to "ArrayList".(ÍÄÓ
-u
-java:S3252„"WUse static access with "androidx.core.content.ContextCompat" for "checkSelfPermission".(Î„Ì8¨ÁôçÛ.
-W	java:S125â"<This block of commented-out lines of code should be removed.(€¬Ò´ıÿÿÿÿ
-J
-java:S1905½",Remove this unnecessary cast to "ArrayList".(ÍÄÓ8¨ÁôçÛ.
-F
-java:S5411ö"*Use the primitive boolean expression here.(Ì¡¡ƒúÿÿÿÿ
-f
-java:S3252"OUse static access with "android.content.Context" for "LAYOUT_INFLATER_SERVICE".(ìù•ª
-h
-java:S1128,"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8¨ÁôçÛ.
->	java:S131Ÿ""Add a default case to this switch.(É¶Ü=8¨ÁôçÛ.
-H
-java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ
-Q	java:S110B"<This class has 8 parents which is greater than 5 authorized.(²Ú±
-K
-java:S1481"-Remove this unused "response" local variable.(­¯İØ8¨ÁôçÛ.
+java:S1874…"/Remove this use of "execute"; it is deprecated.(Ø©¼a
+ƒ
+java:S3252œ"gUse static access with "com.google.android.gms.common.api.CommonStatusCodes" for "RESOLUTION_REQUIRED".(Âş†²ûÿÿÿÿ
+n
+java:S3776é"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(É…Ê°üÿÿÿÿ
+\
+java:S2147§"ECombine this catch with the one at line 293, which has the same body.(ğıˆÒ
+z
+java:S1104I"_Make listViewGasolineras a static final constant or non-public and provide accessors if needed.(ì±ˆøøÿÿÿÿ
+M
+java:S11286"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ŸÓİ÷Ú.
+L
+java:S1874|"/Remove this use of "execute"; it is deprecated.(ÌÁÈ¬8ŸÓİ÷Ú.
+E
+java:S1874"/Remove this use of "execute"; it is deprecated.(Ø©¼a
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“„Ú
+n
+java:S1104J"SMake adapter a static final constant or non-public and provide accessors if needed.(ò±ãˆøÿÿÿÿ
+Q
+java:S1133é"5Do not forget to remove this deprecated code someday.(É…Ê°üÿÿÿÿ
+n
+java:S3252€"WUse static access with "androidx.core.content.ContextCompat" for "checkSelfPermission".(Î„Ì
+Q	java:S110D"<This class has 8 parents which is greater than 5 authorized.(²Ú±

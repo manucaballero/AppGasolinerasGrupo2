@@ -33,12 +33,11 @@ import java.util.List;
 
 public class MisVehiculosActivity extends AppCompatActivity {
 
-    private PresenterVehiculos presenterVehiculos;
+    public PresenterVehiculos presenterVehiculos;
 
     // Vista de lista y adaptador para cargar datos en ella
     private ListView listViewVehiculos;
     public ArrayAdapter<Vehiculo> adapter;
-
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
@@ -290,9 +289,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
                 matricula.setVisibility(View.INVISIBLE);
             }
 
-
             if(vehiculo.equals(PresenterVehiculos.getVehiculoSeleccionado())){
-
                 seleccionado.setVisibility(View.VISIBLE);
             }else{
                 seleccionado.setVisibility(View.INVISIBLE);

@@ -1,29 +1,12 @@
 
+7
+java:S1170&"!Make this final field static too.(È‡çÍ
 O
-java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8éç’œÙ.
+java:S1128	"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš
+X
+java:S11268"BReplace this if-then-else statement by a single method invocation.(ü¿Ë›
 t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¸ğ¯ìıÿÿÿÿ
-Q	java:S125'"<This block of commented-out lines of code should be removed.(ü×¿ü
-V
-java:S1128
-"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš8å•«Ù.
-b	java:S1070"AConstructor has 9 parameters, which is greater than 7 authorized.(ºÏ–Ìşÿÿÿÿ8ÄÙôçÛ.
-k
-java:S1128"IRemove this unused import 'com.isunican.proyectobase.Views.MainActivity'.(—Š²Óúÿÿÿÿ8ÄÙôçÛ.
-S
-java:S1128"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8ÄÙôçÛ.
-o	java:S116*"SRename this field "DEPOSITO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È‡çÍ8ÄÙôçÛ.
->
-java:S1170*"!Make this final field static too.(È‡çÍ8ÄÙôçÛ.
-X	java:S125"<This block of commented-out lines of code should be removed.(ˆ¾ğè8ÄÙôçÛ.
-j
-java:S5361:"HReplace this call to "replaceAll()" by a call to the "replace()" method.( Ú€±ùÿÿÿÿ8ÄÙôçÛ.
-j
-java:S5361:"HReplace this call to "replaceAll()" by a call to the "replace()" method.( Ú€±ùÿÿÿÿ8ÄÙôçÛ.
-_
-java:S1126;"BReplace this if-then-else statement by a single method invocation.(ü¿Ë›8ÄÙôçÛ.
-k
-java:S5361¼"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ú§Ú°øÿÿÿÿ8ÄÙôçÛ.
-k
-java:S5361¼"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ú§Ú°øÿÿÿÿ8ÄÙôçÛ.
-`
-java:S1126½"BReplace this if-then-else statement by a single method invocation.(ü¿Ë›8ÄÙôçÛ.
+h	java:S116&"SRename this field "DEPOSITO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È‡çÍ
+Y
+java:S1126º"BReplace this if-then-else statement by a single method invocation.(ü¿Ë›
+[	java:S107,"AConstructor has 9 parameters, which is greater than 7 authorized.(ºÏ–Ìşÿÿÿÿ
