@@ -22,8 +22,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+/**
+ * @author Daniel Sánchez Díez
+ */
 @RunWith(AndroidJUnit4.class)
-
 public class InterfazFormularioUITest {
 
     @Rule
@@ -59,6 +61,7 @@ public class InterfazFormularioUITest {
         //Click en aceptar y se comprueba no hay errores. Además se comprueba que el texto introducido antes está presente
         onView(ViewMatchers.withId(R.id.txtAceptar)).perform(click());
         Assert.assertNull(matricula.getError());
+
         onView(ViewMatchers.withId(R.id.campoMatricula)).check(matches(withText("AABB11")));
 
     }

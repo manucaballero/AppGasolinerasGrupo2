@@ -23,9 +23,9 @@
     <string name="pasoDatosVehiculo">DatosVehiculo</string>
     <string name="volverAIntentar">Volver a intentar</string>
     <string name="datosConUbicacion">Datos con ubicación obtenidos correctamente</string>
-    <string name="botonAnhadir">Añadir</string>
     <string name="primerVehiculo">Hey!</string>
     <string name="frasePrimerVehiculo">Parece que no tienes ningún vehículo añadido</string>
+    <string name="botonAnhadir">Adelante</string>
     <string name="botonRechazar">No, gracias</string>
     <string name="deposito">Depósito(L):</string>
     <string name="consumoMedio">Consumo medio(L/100Km):</string>
