@@ -69,18 +69,7 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="500dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="#547980"
-        app:colorAccent="#547980"
-        app:srcCompat="@android:drawable/ic_input_add" />
+
 </LinearLayout>
 
 

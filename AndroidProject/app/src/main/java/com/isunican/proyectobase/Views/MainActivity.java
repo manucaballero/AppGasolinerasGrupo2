@@ -415,17 +415,6 @@ public class MainActivity extends AppCompatActivity {
 
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
-                //Boton flotante
-                FloatingActionButton fab = findViewById(R.id.fab);
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(MainActivity.this, FormActivity.class);
-                        MainActivity.this.startActivity(intent);
-                    }
-                });
-                fab.hide();
-
                 if(descuentoSi){
                     if (hayFiltro((IDescuentoFiltro.class) ) == -1) {
                         listaFiltros.add(descuentoSiFiltro);
@@ -466,7 +455,6 @@ public class MainActivity extends AppCompatActivity {
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
                     if(presenterVehiculos.getVehiculos().size()<=1){
-                        fab.show();
                         Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     }
