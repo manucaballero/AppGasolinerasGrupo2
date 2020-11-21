@@ -81,7 +81,9 @@ public class ManejoFiltrosITest {
     public void botonResetTest(){
         ArrayList<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
 
+        onView(withId(R.id.button2)).perform(click());
         onView(withId(R.id.buttonReset)).perform(click());
+        onView(withId(R.id.button2)).perform(click());
         Assert.assertTrue(lista.size()==0);
 
         lista.add(new SinDescuentoFiltro());
