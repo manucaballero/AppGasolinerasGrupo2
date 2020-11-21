@@ -22,7 +22,7 @@ public class PopUpConflicto extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop_up_conflicto);
-        boton = findViewById(R.id.button);
+        boton = findViewById(R.id.buttonAceptarConflicto);
         boton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
@@ -32,7 +32,7 @@ public class PopUpConflicto extends AppCompatActivity {
         });
 
 
-        cerrar= findViewById(R.id.button2);
+        cerrar= findViewById(R.id.buttonCancelarConflicto);
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
