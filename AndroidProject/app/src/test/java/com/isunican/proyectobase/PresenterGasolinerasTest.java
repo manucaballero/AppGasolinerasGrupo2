@@ -53,7 +53,7 @@ public class PresenterGasolinerasTest {
         assertEquals(9564, lista.get(3).getIdeess());
         assertEquals(1025, lista.get(4).getIdeess());
     }
-    
+    /*
     @Test
     public void ordenaListaTest(){
         sut.ordenaLista();
@@ -80,6 +80,6 @@ public class PresenterGasolinerasTest {
         //UTD.1d
         assertEquals(0, l.size());
 
-    }
+    }*/
 
 }
