@@ -75,7 +75,8 @@ public class ManejoFiltrosITest {
      *
      */
 
-    /*
+/*
+>>>>>>> 124c8e20efd2ef798376006956ab35e7c2e1323a
     @Test
     public void botonResetTest(){
         List<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
