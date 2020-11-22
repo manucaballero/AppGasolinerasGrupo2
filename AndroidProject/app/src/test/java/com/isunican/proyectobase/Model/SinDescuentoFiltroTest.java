@@ -56,19 +56,19 @@ public class SinDescuentoFiltroTest {
         g1 = listaGaso.get(0);
         g2 = listaGaso.get(1);
         g3 = listaGaso.get(2);
-        Assert.assertTrue(!g1.getTieneDescuento());
-        Assert.assertTrue(!g2.getTieneDescuento());
-        Assert.assertTrue(!g3.getTieneDescuento());
-        Assert.assertTrue(listaGaso.size()==3);
+        Assert.assertFalse(g1.getTieneDescuento());
+        Assert.assertFalse(g2.getTieneDescuento());
+        Assert.assertFalse(g3.getTieneDescuento());
+        Assert.assertEquals(3, listaGaso.size());
 
         //Comprobamos sin ninguna gasolinera sin descuento por tanto la lista estará vacía
         sut.ordena(listaGaso0);
-        Assert.assertTrue(listaGaso0.size()==0);
+        Assert.assertEquals(0, listaGaso0.size());
 
         //Comprobamos el caso con la lista vacía
         listaGaso.clear();
         sut.ordena(listaGaso);
-        Assert.assertTrue(listaGaso.size()==0);
+        Assert.assertEquals(0, listaGaso.size());
 
     }
 

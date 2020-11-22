@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,18 +50,8 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.isunican.proyectobase.Model.ConDescuentoFiltro;
-import com.isunican.proyectobase.Model.DieselFiltro;
-import com.isunican.proyectobase.Model.Gasolina95Filtro;
-import com.isunican.proyectobase.Model.Gasolinera;
-import com.isunican.proyectobase.Model.ICombustibleFiltro;
-import com.isunican.proyectobase.Model.IDescuentoFiltro;
-import com.isunican.proyectobase.Model.IFiltro;
-import com.isunican.proyectobase.Model.Posicion;
-import com.isunican.proyectobase.Model.SinDescuentoFiltro;
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
-import com.isunican.proyectobase.Presenter.PresenterVehiculos;
+import com.isunican.proyectobase.Model.*;
+import com.isunican.proyectobase.Presenter.*;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
@@ -82,19 +71,16 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 */
 public class MainActivity extends AppCompatActivity {
 
-    public PresenterGasolineras presenterGasolineras;
+    private PresenterGasolineras presenterGasolineras;
 
 
-    public PresenterVehiculos presenterVehiculos;
-
-    private List<Gasolinera> listaGasolineras;
+    private PresenterVehiculos presenterVehiculos;
 
 
     // Vista de lista y adaptador para cargar datos en ella
-    public ListView listViewGasolineras;
-    public RecyclerView recyclerViewFiltros;
+    private ListView listViewGasolineras;
+    private RecyclerView recyclerViewFiltros;
     public ArrayAdapter<Gasolinera> adapter;
-    private Spinner spinner;
     private Button filter;
     private Button reset;
     private IFiltro filtroGasoleA;
@@ -102,18 +88,18 @@ public class MainActivity extends AppCompatActivity {
     private IFiltro descuentoSiFiltro;
     private IFiltro descuentoNoFiltro;
 
-    public boolean gasoleoA = false;
-    public boolean gasolina95;
-    public boolean descuentoSi;
-    public boolean descuentoNo;
-    public AdapterFiltros adapterFiltros;
+    private boolean gasoleoA;
+    private boolean gasolina95;
+    private boolean descuentoSi;
+    private boolean descuentoNo;
+    private AdapterFiltros adapterFiltros;
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
 
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    public ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
+    public List<IFiltro> listaFiltros= new ArrayList<IFiltro>();
 
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
@@ -300,18 +286,13 @@ public class MainActivity extends AppCompatActivity {
         @Override @Deprecated
         protected void onPostExecute(Boolean res) {
             Toast toast = null;
-            /*
-            ArrayList<IFiltro> listaFiltros= new ArrayList<IFiltro>();
-            listaFiltros.add(new DieselFiltro());
-            listaFiltros.add(new ConDescuentoFiltro());
-            */
+
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
-            listaGasolineras = presenterGasolineras.getGasolineras();
             mSwipeRefreshLayout.setRefreshing(false);
 
             // Si se ha obtenido resultado en la tarea en segundo plano
-            if (res) {
+            if (Boolean.TRUE.equals(res)) {
                 // Definimos el array adapter
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
                 LocationRequest mLocationRequest = new LocationRequest();
@@ -370,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
                                             filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
                                         }
                                     }
-                                    presenterGasolineras.ordenaLista();
+
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
                                     adapterFiltros.notifyDataSetChanged();
@@ -390,10 +371,8 @@ public class MainActivity extends AppCompatActivity {
                                         // Show the dialog by calling startResolutionForResult(),
                                         // and check the result in onActivityResult().
                                         resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
-                                    } catch (IntentSender.SendIntentException e) {
+                                    } catch (IntentSender.SendIntentException|ClassCastException e) {
                                         // Ignore the error.
-                                    } catch (ClassCastException e) {
-                                        // Ignore, should be an impossible error.
                                     }
                                     break;
                                 case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
@@ -539,11 +518,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 10 && resultCode == Activity.RESULT_OK){
-            gasoleoA = data.getBooleanExtra(FilterActivity.gasoleoA, false);
-            gasolina95 = data.getBooleanExtra(FilterActivity.gasolina95, false);
-            descuentoNo = data.getBooleanExtra(FilterActivity.descuentoNo, false);
-            descuentoSi = data.getBooleanExtra(FilterActivity.descuentoSi, false);
+        if(requestCode == 10 && resultCode == Activity.RESULT_OK && data != null){
+            gasoleoA = data.getBooleanExtra(FilterActivity.getGasoleoA(), false);
+            gasolina95 = data.getBooleanExtra(FilterActivity.getGasolina95(), false);
+            descuentoNo = data.getBooleanExtra(FilterActivity.getDescuentoNo(), false);
+            descuentoSi = data.getBooleanExtra(FilterActivity.getDescuentoSi(), false);
             new CargaDatosGasolinerasTask(MainActivity.this).execute();
         }
     }
@@ -596,27 +575,27 @@ public class MainActivity extends AppCompatActivity {
             ImageView logo = view.findViewById(R.id.imageViewLogo);
             TextView rotulo = view.findViewById(R.id.textViewRotulo);
             TextView direccion = view.findViewById(R.id.textViewDireccion);
-            TextView gasoleoA = view.findViewById(R.id.textViewGasoleoA);
-            TextView gasolina95 = view.findViewById(R.id.textViewGasolina95);
+            TextView TextViewGasoleoA = view.findViewById(R.id.textViewGasoleoA);
+            TextView TextViewGasolina95 = view.findViewById(R.id.textViewGasolina95);
 
             view.setBackgroundColor(Color.WHITE);
-            gasoleoA.setTextColor(Color.BLACK);
-            gasolina95.setTextColor(Color.BLACK);
+            TextViewGasoleoA.setTextColor(Color.BLACK);
+            TextViewGasolina95.setTextColor(Color.BLACK);
 
             if (gasolinera.getTieneDescuento()) {
                 view.setBackgroundColor(0xfffffd82);
-                gasoleoA.setTextColor(Color.RED);
-                gasolina95.setTextColor(Color.RED);
+                TextViewGasoleoA.setTextColor(Color.RED);
+                TextViewGasolina95.setTextColor(Color.RED);
             }
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
             if (gasolinera.getTieneDescuento()) {
-                gasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
-                gasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
+                TextViewGasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
+                TextViewGasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
             } else {
-                gasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-                gasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+                TextViewGasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
+                TextViewGasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
             }
 
             // carga icono
@@ -679,17 +658,19 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-class ViewHolder extends RecyclerView.ViewHolder{
+class ViewHolderJr extends RecyclerView.ViewHolder{
 
-    public TextView nombreFiltro;
+    TextView nombreFiltro;
 
-    public ViewHolder(@NonNull View itemView) {
+    public ViewHolderJr(@NonNull View itemView) {
         super(itemView);
         nombreFiltro = itemView.findViewById(R.id.txtNombreFiltro);
     }
+
+
 }
 
-class AdapterFiltros extends RecyclerView.Adapter<ViewHolder>{
+class AdapterFiltros extends RecyclerView.Adapter<ViewHolderJr>{
     private List<IFiltro> lista;
     private LayoutInflater inflater;
 
@@ -700,13 +681,13 @@ class AdapterFiltros extends RecyclerView.Adapter<ViewHolder>{
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderJr onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_filtro_activo, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolderJr(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderJr holder, int position) {
         IFiltro filtro = lista.get(position);
         holder.nombreFiltro.setText(filtro.getNombre());
     }

@@ -6,6 +6,7 @@ import com.isunican.proyectobase.Model.Vehiculo;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -52,14 +53,14 @@ public class GasolineraTest {
         g1.calculaPrecioFinal(vehiculo);
 
         //Gasolinera con descuento
-        assertTrue(g1.getGasoleoAConDescuento() == Gasolinera.round(g1.getMultiplicadorCostePorLitro() * g1.getGasoleoA() * 0.9, 3));
-        assertTrue(g1.getGasolina95ConDescuento() == Gasolinera.round(g1.getMultiplicadorCostePorLitro() * g1.getGasolina95() * 0.9, 3));
+        assertEquals(g1.getGasoleoAConDescuento(), Gasolinera.round(g1.getMultiplicadorCostePorLitro() * g1.getGasoleoA() * 0.9, 3), 0.0);
+        assertEquals(g1.getGasolina95ConDescuento(), Gasolinera.round(g1.getMultiplicadorCostePorLitro() * g1.getGasolina95() * 0.9, 3), 0.0);
 
         g2.calculaPrecioFinal(vehiculo);
 
         //Gasolinera sin descuento
-        assertTrue(g2.getGasolina95ConDescuento() == Gasolinera.round(g2.getMultiplicadorCostePorLitro()*g2.getGasolina95() , 3));
-        assertTrue(g2.getGasoleoAConDescuento() == Gasolinera.round(g2.getMultiplicadorCostePorLitro()*g2.getGasoleoA(), 3));
+        assertEquals(g2.getGasolina95ConDescuento(), Gasolinera.round(g2.getMultiplicadorCostePorLitro() * g2.getGasolina95(), 3), 0.0);
+        assertEquals(g2.getGasoleoAConDescuento(), Gasolinera.round(g2.getMultiplicadorCostePorLitro() * g2.getGasoleoA(), 3), 0.0);
 
     }
 

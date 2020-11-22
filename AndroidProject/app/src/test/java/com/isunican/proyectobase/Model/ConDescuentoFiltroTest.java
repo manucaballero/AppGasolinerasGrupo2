@@ -56,16 +56,16 @@ public class ConDescuentoFiltroTest {
         g2 = listaGaso.get(1);
         Assert.assertTrue(g1.getTieneDescuento());
         Assert.assertTrue(g2.getTieneDescuento());
-        Assert.assertTrue(listaGaso.size()==2);
+        Assert.assertEquals(2, listaGaso.size());
 
         //Comprobamos sin ninguna gasolinera con descuento por tanto la lista estará vacía
         sut.ordena(listaGaso0);
-        Assert.assertTrue(listaGaso0.size()==0);
+        Assert.assertEquals(0, listaGaso0.size());
 
         //Comprobamos el caso con la lista vacía
         listaGaso.clear();
         sut.ordena(listaGaso);
-        Assert.assertTrue(listaGaso.size()==0);
+        Assert.assertEquals(0, listaGaso.size());
 
     }
 

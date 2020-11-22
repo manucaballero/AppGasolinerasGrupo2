@@ -33,6 +33,7 @@ class ComparadorGasolinerasDiesel implements Comparator<Gasolinera>{
     @Override
     public int compare(Gasolinera g1, Gasolinera g2) {
         double resta = g1.getGasoleoAConDescuento() - g2.getGasoleoAConDescuento();
+
         if (resta == 0) {
             if (!g1.getTieneDescuento() && !g2.getTieneDescuento()) {
                 return 0;

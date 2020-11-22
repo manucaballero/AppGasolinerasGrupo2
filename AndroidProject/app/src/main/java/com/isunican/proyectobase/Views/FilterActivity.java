@@ -1,25 +1,17 @@
 package com.isunican.proyectobase.Views;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Toast;
-
-
 import com.isunican.proyectobase.R;
 
 public class FilterActivity extends AppCompatActivity  {
-
-
 
     CheckBox checkBoxGasoleA;
     CheckBox checkBoxGasolina95;
@@ -30,15 +22,27 @@ public class FilterActivity extends AppCompatActivity  {
     Button buttonApply;
     Button buttonCancel;
 
-    public static String gasoleoA = "gasoleoA";
-    public static String gasolina95 = "gasolina95";
-    public static String descuentoSi = "descuentoSI";
-    public static String descuentoNo = "descuentoNo";
 
     boolean bgasoleoA = false;
     boolean bgasolina95 = false;
     boolean bdescuentoSi = false;
     boolean bDescuentoNo =false;
+
+
+
+    public static String getGasoleoA(){
+        return "gasoleoA";
+    }
+
+    public static String getGasolina95(){
+        return "gasolina95";
+    }
+    public static String getDescuentoSi(){
+        return "descuentoSI";
+    }
+    public static String getDescuentoNo(){
+        return "descuentoNo";
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +69,6 @@ public class FilterActivity extends AppCompatActivity  {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
                 setResult(Activity.RESULT_CANCELED);
                 finish();
             }
@@ -76,10 +79,10 @@ public class FilterActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 onCheckboxClicked();
                 Intent intent = new Intent();
-                intent.putExtra(gasoleoA, bgasoleoA);
-                intent.putExtra(gasolina95,bgasolina95);
-                intent.putExtra(descuentoSi,bdescuentoSi);
-                intent.putExtra(descuentoNo,bDescuentoNo);
+                intent.putExtra(getGasoleoA(), bgasoleoA);
+                intent.putExtra(getGasolina95(),bgasolina95);
+                intent.putExtra(getDescuentoSi(),bdescuentoSi);
+                intent.putExtra(getDescuentoNo(),bDescuentoNo);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
@@ -102,19 +105,20 @@ public class FilterActivity extends AppCompatActivity  {
 
         int cont=0;
 
-
-        if(!bgasoleoA){
+        if(!bgasoleoA) {
             bgasoleoA = checkBoxGasoleA.isChecked();
         }
-        if(!bgasolina95){
+        if(!bgasolina95) {
             bgasolina95 = checkBoxGasolina95.isChecked();
         }
-        if(!bDescuentoNo){
+        if(!bDescuentoNo) {
             bDescuentoNo = checkBoxDescuentoNo.isChecked();
         }
-        if(!bdescuentoSi){
+        if(!bdescuentoSi) {
             bdescuentoSi = checkBoxDescuentoSi.isChecked();
         }
+
+
 
         if(checkBoxGasolina95.isChecked() && checkBoxGasoleA.isChecked() || bgasolina95 && bgasoleoA){
             if(checkBoxGasoleA.isChecked() && checkBoxGasolina95.isChecked()){
@@ -159,7 +163,6 @@ public class FilterActivity extends AppCompatActivity  {
                 Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
                 FilterActivity.this.startActivity(myIntent);
             }
-            cont=0;
 
         }
 

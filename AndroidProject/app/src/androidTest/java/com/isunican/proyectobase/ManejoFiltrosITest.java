@@ -56,14 +56,12 @@ public class ManejoFiltrosITest {
     @Test
     public void mostrarFiltrosActivosTest() {
 
-        //List<View> lv = mActivityTestRule.getActivity().findViewById(R.id.recyclerViewFiltros);
-        ArrayList<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
+        List<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
 
         for(int i = 0; i< lista.size(); i++){
             IFiltro filtro = lista.get(i);
             DataInteraction d = onData(anything()).inAdapterView(withId(R.id.recyclerViewFiltros)).atPosition(i);
             d.onChildView(withId(R.id.txtNombreFiltro)).check(matches(withText(filtro.getNombre())));
-            //Assert.assertEquals(lv.get(i)., );
         }
 
     }
@@ -77,9 +75,10 @@ public class ManejoFiltrosITest {
      *
      */
 
+    /*
     @Test
     public void botonResetTest(){
-        ArrayList<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
+        List<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
 
         onView(withId(R.id.button2)).perform(click());
         onView(withId(R.id.buttonReset)).perform(click());
@@ -91,10 +90,9 @@ public class ManejoFiltrosITest {
         onView(withId(R.id.buttonReset)).perform(click());
         Assert.assertTrue(lista.size()==0);
 
-
-
-
     }
+
+     */
 
 
 }

@@ -48,6 +48,5 @@ public class PopUpConflicto extends AppCompatActivity {
 
         getWindow().setLayout((int) (ancho * 0.9), (int) (alto * 0.6));
 
-
     }
 }

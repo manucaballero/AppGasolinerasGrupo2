@@ -35,7 +35,7 @@ public class Gasolinera implements Parcelable {
 
     private double distanciaEnKm;
     private boolean tieneDescuento;
-    private final double DEPOSITO = 50;
+    private static final double DEPOSITO = 50;
     private double multiplicadorCostePorLitro;
 
 
@@ -240,7 +240,7 @@ public class Gasolinera implements Parcelable {
         if(obj instanceof Gasolinera){
             Gasolinera g = (Gasolinera) obj;
             if(this.ideess == g.ideess && this.localidad.equals(g.localidad) && this.provincia.equals(g.provincia)
-                    && this.localidad.equals(g.localidad) && this.direccion.equals(g.direccion) && this.gasoleoA == g.gasoleoA
+                    && this.direccion.equals(g.direccion) && this.gasoleoA == g.gasoleoA
                     && this.gasolina95 == g.gasolina95 && this.rotulo.equals(g.rotulo) && this.posicion.getLatitud() == g.posicion.getLatitud()
                     && this.posicion.getLongitud() == g.posicion.getLongitud()){
                 return true;
@@ -252,5 +252,8 @@ public class Gasolinera implements Parcelable {
         }
     }
 
-
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
+}

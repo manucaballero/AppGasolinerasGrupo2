@@ -39,10 +39,10 @@ public class presenterVehiculosTest {
     @Test
     public void getSetVehiculoSeleccionadoTest(){
         sut.setVehiculoSeleccionado(null);
-        Assert.assertTrue(sut.getVehiculoSeleccionado() == null);
+        Assert.assertNull(sut.getVehiculoSeleccionado());
         v1=listaVehiculos.get(0);
         sut.setVehiculoSeleccionado(v1);
-        Assert.assertTrue(sut.getVehiculoSeleccionado().getModelo()==v1.getModelo());
+        Assert.assertSame(sut.getVehiculoSeleccionado().getModelo(), v1.getModelo());
 
     }
 
@@ -51,7 +51,7 @@ public class presenterVehiculosTest {
      */
     @Test
     public void getVehiculosTest(){
-        Assert.assertTrue(listaVehiculos.size() == 2);
+        Assert.assertEquals(2, listaVehiculos.size());
     }
 
 }
