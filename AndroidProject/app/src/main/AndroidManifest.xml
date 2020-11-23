@@ -4,8 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.NoDatosActivity"></activity>
+
+        <activity android:name=".Views.PopUpPrimerVehiculoActivity"
+            android:theme="@style/AppTheme.TemasPopUps"/>
+        
+        <activity android:name=".Views.PopUpConflicto" android:theme="@style/AppTheme.TemasPopUps"></activity>
+        <activity
+            android:name=".Views.FilterActivity"
+            android:theme="@style/AppTheme.TemasPopUps"></activity>
+
+        <activity android:name=".Views.NoDatosActivity" />
         <activity android:name=".Views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +30,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Views.MisVehiculosActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".Views.InfoActivity" />
         <activity android:name=".Views.DetailActivity" />
+        <activity android:name=".Views.FormActivity"/>
+        <activity android:name=".Views.DetailVehiculoActivity"/>
+
     </application>
 
 </manifest>
