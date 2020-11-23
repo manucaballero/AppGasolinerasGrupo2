@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         descuentoSiFiltro = new ConDescuentoFiltro();
         descuentoNoFiltro = new SinDescuentoFiltro();
 
-        filter = findViewById(R.id.button2);
+        filter = findViewById(R.id.buttonFiltrar);
         reset = findViewById(R.id.buttonReset);
 
         // Barra de progreso

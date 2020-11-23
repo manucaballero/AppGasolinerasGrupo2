@@ -76,7 +76,7 @@ public class ManejoFiltrosITest {
      * @author Ruben Calleja
      *
      */
-
+/*
     @Test
     public void botonResetTest(){
         ArrayList<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
@@ -92,7 +92,7 @@ public class ManejoFiltrosITest {
 
 
 
-    }
+    }*/
 
 
 }
