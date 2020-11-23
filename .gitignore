@@ -43,6 +43,8 @@ AndroidProject/.idea/libraries
 AndroidProject/.idea/caches
 AndroidProject/.idea/lint
 AndroidProject/.idea/sonarlint/
+AndroidProject/app/.idea/sonarlint/
+AndroidProject/app/.idea/caches/
 
 # Keystore files
 
@@ -70,3 +72,4 @@ AndroidProject/fastlane/readme.md
 
 #commit message
 mensaje.txt
+mensajeBarbara.txt

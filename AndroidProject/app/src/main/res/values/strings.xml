@@ -10,11 +10,39 @@
     <string name="gasolina95">Gasolina:</string>
     <string name="pordefecto">por_defecto</string>
     <string name="moneda">€</string>
-    <string name="infoTexto">App desarrollada por los magníficos docentes de Ingeniería del Software de la UC</string>
+    <string name="infoTexto">App desarrollada por: Aarón Rodríguez Solar, Bárbara Martínez Carcedo, Daniel Sánchez Díez, Manuel Caballero Rabago, Miguel Casamichana Bolado y Rubén Calleja Reigadas</string>
     <string name="menuActualizar">Actualizar</string>
     <string name="menuInfo">Info</string>
+    <string name="menuMisVehiculos">Mis Vehículos</string>
+    <string name="menuGasolineras">Gasolineras</string>
+    <string name="modelo">Modelo:</string>
+    <string name="matricula">Matrícula:</string>
+    <string name="anotacion">Nota:</string>
     <string name="pasoDatosInfo">DatosInfo</string>
     <string name="pasoDatosGasolinera">DatosGasolinera</string>
+    <string name="pasoDatosVehiculo">DatosVehiculo</string>
     <string name="volverAIntentar">Volver a intentar</string>
     <string name="datosConUbicacion">Datos con ubicación obtenidos correctamente</string>
+    <string name="primerVehiculo">Hey!</string>
+    <string name="frasePrimerVehiculo">Parece que no tienes ningún vehículo añadido</string>
+    <string name="botonAnhadir">Adelante</string>
+    <string name="botonRechazar">No, gracias</string>
+    <string name="deposito">Depósito(L):</string>
+    <string name="consumoMedio">Consumo medio(L/100Km):</string>
+    <string name="seleccionado">Seleccionado</string>
+    <string name="seleccionarVehiculo">Seleccionar Vehículo</string>
+    <string name="Combustible">Combustible</string>
+    <string name="Descuento">Descuento</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="filtros_incompatibles">Filtros Incompatibles</string>
+    <string name="infoFiltrosIncompatibles">Los filtros seleccionados son incompatibles, pulse aceptar para volver a la selección de filtros.</string>
+    <string name="nota">Nota: Los filtros de un mismo tipo, por ejemplo "Combustible" no se pueden seleccionar a la vez</string>
+    <string-array name="filtrosCombustible">
+        <item>GasoleoA</item>
+        <item>Gasolina95</item>
+        <item>Si</item>
+        <item>No</item>
+    </string-array>
+
 </resources>
