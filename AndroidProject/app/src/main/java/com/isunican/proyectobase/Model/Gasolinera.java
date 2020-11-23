@@ -36,7 +36,6 @@ public class Gasolinera implements Parcelable {
     private double distanciaEnKm;
     private boolean tieneDescuento;
     private final double DEPOSITO = 50;
-    private double multiplicadorCostePorLitro;
 
 
     /**
@@ -51,8 +50,6 @@ public class Gasolinera implements Parcelable {
         this.gasolina95 = gasolina95;
         this.rotulo = rotulo;
         this.tieneDescuento=false;
-        this.gasolina95ConDescuento = gasolina95;
-        this.gasoleoAConDescuento = gasoleoA;
 
         this.posicion = new Posicion(Double.parseDouble(latitud.replace(",",".")),Double.parseDouble(longitud.replace(",",".")));
 
@@ -69,25 +66,18 @@ public class Gasolinera implements Parcelable {
      * teniendo en cuenta el descuento disponible en la gasolinera y el consumo de conducir
      * hasta ella.
      */
-    public void calculaPrecioFinal(Vehiculo v){
-        double litrosExtra = (distanciaEnKm / 100.0 ) * v.getConsumoMedio();
-        double litrosTotales = v.getDeposito() + litrosExtra;
-        if(litrosExtra == 0){
-            //Si no tenemos ubicacion no hay litros extra
-            multiplicadorCostePorLitro = 1;
-        }else{
-            multiplicadorCostePorLitro = litrosTotales / v.getDeposito();
-        }
-        if(this.getTieneDescuento()){
+    public void calculaPrecioFinal(){
 
-            this.gasoleoAConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasoleoA*0.9,3));
-            this.gasolina95ConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasolina95*0.9,3));
+        if(this.getTieneDescuento()){
+            this.gasoleoAConDescuento=round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO*0.9,3);
+            this.gasolina95ConDescuento=round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO*0.9,3);
         }else{
-            this.gasoleoAConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasoleoA,3));
-            this.gasolina95ConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasolina95,3));
+            this.gasoleoAConDescuento=round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO,3);
+            this.gasolina95ConDescuento=round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO,3);
         }
-        this.gasoleoA=Math.abs(round(multiplicadorCostePorLitro * gasoleoA,3));
-        this.gasolina95=Math.abs(round(multiplicadorCostePorLitro * gasolina95,3));
+        this.gasoleoA=round((DEPOSITO*gasoleoA+distanciaEnKm*6/100*gasoleoA)/DEPOSITO,3);
+        this.gasolina95=round((DEPOSITO*gasolina95+distanciaEnKm*6/100*gasolina95)/DEPOSITO,3);
+
     }
 
     public boolean getTieneDescuento(){
@@ -150,9 +140,6 @@ public class Gasolinera implements Parcelable {
         this.distanciaEnKm = distanciaEnKm;
     }
     public double getDEPOSITO(){ return  DEPOSITO;}
-    public double getMultiplicadorCostePorLitro(){
-        return multiplicadorCostePorLitro;
-    }
     /**
      * toString
      *
@@ -235,22 +222,6 @@ public class Gasolinera implements Parcelable {
         }
     };
 
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if(obj instanceof Gasolinera){
-            Gasolinera g = (Gasolinera) obj;
-            if(this.ideess == g.ideess && this.localidad.equals(g.localidad) && this.provincia.equals(g.provincia)
-                    && this.localidad.equals(g.localidad) && this.direccion.equals(g.direccion) && this.gasoleoA == g.gasoleoA
-                    && this.gasolina95 == g.gasolina95 && this.rotulo.equals(g.rotulo) && this.posicion.getLatitud() == g.posicion.getLatitud()
-                    && this.posicion.getLongitud() == g.posicion.getLongitud()){
-                return true;
-            }else {
-                return false;
-            }
-        }else{
-            return false;
-        }
-    }
 
 
-    }
+}
