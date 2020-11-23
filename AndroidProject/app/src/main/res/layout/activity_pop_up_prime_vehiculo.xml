@@ -37,7 +37,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonAnhadir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -52,7 +52,7 @@
         android:textSize="15dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonMasTarde"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

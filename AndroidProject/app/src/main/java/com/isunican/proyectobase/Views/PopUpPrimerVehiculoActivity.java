@@ -23,7 +23,7 @@ public class PopUpPrimerVehiculoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop_up_prime_vehiculo);
-        boton = findViewById(R.id.button);
+        boton = findViewById(R.id.buttonAnhadir);
         boton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent1 = new Intent(PopUpPrimerVehiculoActivity.this, FormActivity.class);
@@ -33,7 +33,7 @@ public class PopUpPrimerVehiculoActivity extends AppCompatActivity {
         });
 
 
-        cerrar= findViewById(R.id.button2);
+        cerrar= findViewById(R.id.buttonMasTarde);
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
