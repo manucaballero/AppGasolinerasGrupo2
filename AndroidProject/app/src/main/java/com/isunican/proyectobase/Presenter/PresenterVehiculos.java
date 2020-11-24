@@ -1,9 +1,8 @@
 package com.isunican.proyectobase.Presenter;
 
 import android.content.Context;
-import android.content.SyncStatusObserver;
 import android.util.Log;
-import android.widget.Toast;
+
 
 import com.isunican.proyectobase.Model.Vehiculo;
 
@@ -74,13 +73,13 @@ public class PresenterVehiculos {
             }
 
         } catch(Exception e) {
-            System.out.println("Error al cargar datos vehículo");
+            Log.d("Error","Error al cargar datos vehículo");
         } finally {
             if(in!=null) {
                 try {
                     in.close();
                 } catch (IOException e) {
-                    System.out.println(ERROR_CERRAR_FICHERO);
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
                 }
             }
         }
@@ -129,7 +128,7 @@ public class PresenterVehiculos {
                 try {
                     fw.close();
                 } catch (IOException e) {
-                    System.out.println(ERROR_CERRAR_FICHERO);
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
                 }
             }
         }
@@ -148,13 +147,13 @@ public class PresenterVehiculos {
             fw = new FileWriter(f);
             fw.write(output);
         } catch(IOException e) {
-            System.out.println(ERROR_CERRAR_FICHERO);
+            Log.d("Error",ERROR_CERRAR_FICHERO);
         } finally {
             if(fw!=null){
                 try {
                     fw.close();
                 } catch (IOException e) {
-                    System.out.println(ERROR_CERRAR_FICHERO);
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
                 }
             }
         }
@@ -193,13 +192,13 @@ public class PresenterVehiculos {
             }
 
         } catch(Exception e) {
-            System.out.println("Error al cargar el vehículo seleccionado");
+            Log.d("Error","Error al cargar el vehículo seleccionado");
         } finally {
             if(in!=null) {
                 try {
                     in.close();
                 } catch (IOException e) {
-                    System.out.println(ERROR_CERRAR_FICHERO);
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
                 }
             }
         }
