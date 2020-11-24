@@ -8,9 +8,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
-import com.isunican.proyectobase.Model.Gasolina95Filtro;
-import com.isunican.proyectobase.Model.IFiltro;
-import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.R;
 
 public class PopUpConflicto extends AppCompatActivity {
