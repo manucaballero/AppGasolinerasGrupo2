@@ -38,11 +38,5 @@
     <string name="filtros_incompatibles">Filtros Incompatibles</string>
     <string name="infoFiltrosIncompatibles">Los filtros seleccionados son incompatibles, pulse aceptar para volver a la selección de filtros.</string>
     <string name="nota">Nota: Los filtros de un mismo tipo, por ejemplo "Combustible" no se pueden seleccionar a la vez</string>
-    <string-array name="filtrosCombustible">
-        <item>GasoleoA</item>
-        <item>Gasolina95</item>
-        <item>Si</item>
-        <item>No</item>
-    </string-array>
 
 </resources>

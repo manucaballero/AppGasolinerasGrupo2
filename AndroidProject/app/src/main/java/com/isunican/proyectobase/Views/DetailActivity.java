@@ -1,13 +1,18 @@
 package com.isunican.proyectobase.Views;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
@@ -36,6 +41,10 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtDieselConDescuento;
     TextView txtGasolina95ConDescuento;
     TextView txtPrecioGasolina95ConDescuento;
+    Button buttonVerDescuento;
+    TextView txtDiesel;
+    TextView txtGasolina95;
+
 
     ImageView imgLogo;
     //logo
@@ -69,7 +78,9 @@ public class DetailActivity extends AppCompatActivity {
         txtMaps = findViewById(R.id.txtMaps);
         txtDieselPrecio = findViewById(R.id.txtPrecioDiesel);
         txtGasolina95Precio = findViewById(R.id.txtPrecioGasolina95);
-
+        buttonVerDescuento = findViewById(R.id.buttonVerDescuento);
+        txtDiesel = findViewById(R.id.txtDiesel);
+        txtGasolina95 = findViewById(R.id.txtGasolina95);
 
         txtDieselPrecioConDescuento=findViewById(R.id.txtPrecioDieselConDescuento);
         txtDieselConDescuento=findViewById(R.id.textDieselConDescuento);
@@ -117,10 +128,16 @@ public class DetailActivity extends AppCompatActivity {
 
         //Si no tiene descuento se oculta esa línea
         if(!g.getTieneDescuento()) {
-            txtDieselPrecioConDescuento.setVisibility(View.INVISIBLE);
-            txtDieselConDescuento.setVisibility(View.INVISIBLE);
-            txtPrecioGasolina95ConDescuento.setVisibility(View.INVISIBLE);
-            txtGasolina95ConDescuento.setVisibility(View.INVISIBLE);
+            txtDieselPrecioConDescuento.setVisibility(View.GONE);
+            txtDiesel.setTextSize(20);
+            txtDieselPrecio.setTextSize(25);
+            txtDieselConDescuento.setVisibility(View.GONE);
+            txtPrecioGasolina95ConDescuento.setVisibility(View.GONE);
+
+            txtGasolina95ConDescuento.setVisibility(View.GONE);
+            txtGasolina95.setTextSize(20);
+            txtGasolina95Precio.setTextSize(25);
+            buttonVerDescuento.setVisibility(View.GONE);
         }
 
 
@@ -134,5 +151,31 @@ public class DetailActivity extends AppCompatActivity {
         }
         imgLogo.setImageResource(imageID);
 
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
+
+        builder.setMessage("hola")
+                .setTitle("Descuento proporcionado");
+
+        builder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        final AlertDialog dialog = builder.create();
+        Button buttonAceptarDialog = dialog.getButton(Dialog.BUTTON_NEUTRAL);
+
+                buttonVerDescuento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
     }
+
+
+
+
 }
