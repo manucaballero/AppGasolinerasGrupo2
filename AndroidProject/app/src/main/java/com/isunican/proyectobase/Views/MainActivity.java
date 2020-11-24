@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         this.presenterGasolineras = new PresenterGasolineras();
 
         this.presenterVehiculos= new PresenterVehiculos();
-        //presenterVehiculos.borra(MainActivity.this);
         presenterVehiculos.cargaDatosVehiculos(MainActivity.this);
         presenterVehiculos.cargaVehiculoSeleccionado(MainActivity.this);
 
@@ -166,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
         if (!checkPermissionLocation()) {
             requestPermission();
         }
-        //cargarSpinner();
         // Al terminar de inicializar todas las variables
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
@@ -323,33 +321,7 @@ public class MainActivity extends AppCompatActivity {
                                             g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
 
                                         }
-                                        if (descuentoSi) {
-                                            if (hayFiltro((IDescuentoFiltro.class)) == -1) {
-                                                listaFiltros.add(descuentoSiFiltro);
-                                            }
-                                            descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
-                                        }
-
-                                        if (descuentoNo) {
-                                            if (hayFiltro((IDescuentoFiltro.class)) == -1) {
-                                                listaFiltros.add(descuentoNoFiltro);
-                                            }
-                                            descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
-                                        }
-
-                                        if (gasoleoA) {
-                                            if (hayFiltro((ICombustibleFiltro.class)) == -1) {
-                                                listaFiltros.add(filtroGasoleA);
-                                            }
-                                            filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
-                                        }
-
-                                        if (gasolina95) {
-                                            if (hayFiltro((ICombustibleFiltro.class)) == -1) {
-                                                listaFiltros.add(filtroGasolina95);
-                                            }
-                                            filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
-                                        }
+                                        comprobarFiltros();
                                     }
 
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
@@ -394,33 +366,7 @@ public class MainActivity extends AppCompatActivity {
 
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
-                if(descuentoSi){
-                    if (hayFiltro((IDescuentoFiltro.class) ) == -1) {
-                        listaFiltros.add(descuentoSiFiltro);
-                    }
-                    descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
-                }
-
-                if(descuentoNo){
-                    if (hayFiltro((IDescuentoFiltro.class) ) == -1) {
-                        listaFiltros.add(descuentoNoFiltro);
-                    }
-                    descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
-                }
-
-                if(gasoleoA){
-                    if (hayFiltro((ICombustibleFiltro.class) ) == -1) {
-                        listaFiltros.add(filtroGasoleA);
-                    }
-                    filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
-                }
-
-                if(gasolina95){
-                    if (hayFiltro((ICombustibleFiltro.class) ) == -1) {
-                        listaFiltros.add(filtroGasolina95);
-                    }
-                    filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
-                }
+                comprobarFiltros();
 
 
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
@@ -510,6 +456,35 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        }
+        private void comprobarFiltros(){
+            if (descuentoSi) {
+                if (hayFiltro((IDescuentoFiltro.class)) == -1) {
+                    listaFiltros.add(descuentoSiFiltro);
+                }
+                descuentoSiFiltro.ordena(presenterGasolineras.getGasolineras());
+            }
+
+            if (descuentoNo) {
+                if (hayFiltro((IDescuentoFiltro.class)) == -1) {
+                    listaFiltros.add(descuentoNoFiltro);
+                }
+                descuentoNoFiltro.ordena(presenterGasolineras.getGasolineras());
+            }
+
+            if (gasoleoA) {
+                if (hayFiltro((ICombustibleFiltro.class)) == -1) {
+                    listaFiltros.add(filtroGasoleA);
+                }
+                filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
+            }
+
+            if (gasolina95) {
+                if (hayFiltro((ICombustibleFiltro.class)) == -1) {
+                    listaFiltros.add(filtroGasolina95);
+                }
+                filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
+            }
         }
 
     }
@@ -656,6 +631,8 @@ public class MainActivity extends AppCompatActivity {
                 }
         }
     }
+
+
 }
 
 class ViewHolderJr extends RecyclerView.ViewHolder{
