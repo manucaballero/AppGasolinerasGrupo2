@@ -18,6 +18,7 @@ public class presenterVehiculosTest {
 
     PresenterVehiculos sut;
     Vehiculo v1;
+    Vehiculo v2;
     List<Vehiculo> listaVehiculos;
 
     /**
@@ -25,11 +26,10 @@ public class presenterVehiculosTest {
      */
     @Before
     public void setUp(){
-
         sut = new PresenterVehiculos();
         listaVehiculos = new ArrayList<Vehiculo>();
-        listaVehiculos.add(new Vehiculo("BMW m8"));
         listaVehiculos.add(new Vehiculo("BMW m3"));
+        listaVehiculos.add(new Vehiculo("Tesla model S"));
     }
 
     /**
@@ -38,12 +38,19 @@ public class presenterVehiculosTest {
      */
     @Test
     public void getSetVehiculoSeleccionadoTest(){
+        //Comprobamos con el vehiculo seleccionado a null
         sut.setVehiculoSeleccionado(null);
         Assert.assertNull(sut.getVehiculoSeleccionado());
+
+        //Comprobamos con el primer vehículo
         v1=listaVehiculos.get(0);
         sut.setVehiculoSeleccionado(v1);
-
         Assert.assertEquals(sut.getVehiculoSeleccionado().getModelo(), v1.getModelo());
+
+        //Comprobamos con el segundo vehículo
+        v2=listaVehiculos.get(1);
+        sut.setVehiculoSeleccionado(v2);
+        Assert.assertEquals(sut.getVehiculoSeleccionado().getModelo(), v2.getModelo());
 
 
     }
@@ -54,7 +61,23 @@ public class presenterVehiculosTest {
     @Test
     public void getVehiculosTest(){
 
+        //Porque al crear el presenter siemre tiene uno por defecto
+        Assert.assertEquals(1, sut.getVehiculos().size());
+
+        //Comprobamos a añadir uno más
+        sut.getVehiculos().add(new Vehiculo("BMW m3"));
         Assert.assertEquals(2, sut.getVehiculos().size());
+
+        //Comprobamos añadir varios a la vez
+        sut.getVehiculos().add(new Vehiculo("BMW m4"));
+        sut.getVehiculos().add(new Vehiculo("BMW x5"));
+        sut.getVehiculos().add(new Vehiculo("BMW m8"));
+        Assert.assertEquals(5, sut.getVehiculos().size());
+
+        //Comprobamos a eliminar todos
+        sut.getVehiculos().clear();
+        Assert.assertEquals(0, sut.getVehiculos().size());
+
     }
 
 }
