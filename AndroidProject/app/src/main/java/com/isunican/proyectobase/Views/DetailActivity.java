@@ -1,13 +1,21 @@
 package com.isunican.proyectobase.Views;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
@@ -36,6 +44,14 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtDieselConDescuento;
     TextView txtGasolina95ConDescuento;
     TextView txtPrecioGasolina95ConDescuento;
+    Button buttonVerDescuento;
+    TextView txtDiesel;
+    TextView txtGasolina95;
+    TextView txtDialog;
+    TextView buttonDialog;
+    LinearLayout layout1;
+    LinearLayout layout2;
+
 
     ImageView imgLogo;
     //logo
@@ -69,13 +85,18 @@ public class DetailActivity extends AppCompatActivity {
         txtMaps = findViewById(R.id.txtMaps);
         txtDieselPrecio = findViewById(R.id.txtPrecioDiesel);
         txtGasolina95Precio = findViewById(R.id.txtPrecioGasolina95);
-
+        buttonVerDescuento = findViewById(R.id.buttonVerDescuento);
+        txtDiesel = findViewById(R.id.txtDiesel);
+        txtGasolina95 = findViewById(R.id.txtGasolina95);
 
         txtDieselPrecioConDescuento=findViewById(R.id.txtPrecioDieselConDescuento);
         txtDieselConDescuento=findViewById(R.id.textDieselConDescuento);
 
         txtGasolina95ConDescuento=findViewById(R.id.txtGasolina95ConDescuento);
         txtPrecioGasolina95ConDescuento=findViewById(R.id.txtPrecioGasolina95ConDescuento);
+
+        layout1 = findViewById(R.id.layout1);
+        layout2 = findViewById(R.id.layout2);
 
 
 
@@ -115,12 +136,19 @@ public class DetailActivity extends AppCompatActivity {
         txtPrecioGasolina95ConDescuento.setTextSize(20);
         txtGasolina95ConDescuento.setTextSize(20);
 
-        //Si no tiene descuento se oculta esa línea
+        //Si no tiene descuento se eliminan los elementos del xml que tengan descuento
         if(!g.getTieneDescuento()) {
-            txtDieselPrecioConDescuento.setVisibility(View.INVISIBLE);
-            txtDieselConDescuento.setVisibility(View.INVISIBLE);
-            txtPrecioGasolina95ConDescuento.setVisibility(View.INVISIBLE);
-            txtGasolina95ConDescuento.setVisibility(View.INVISIBLE);
+            txtDieselPrecioConDescuento.setVisibility(View.GONE);
+            txtDiesel.setTextSize(20);
+            txtDieselPrecio.setTextSize(25);
+            txtDieselConDescuento.setVisibility(View.GONE);
+            txtPrecioGasolina95ConDescuento.setVisibility(View.GONE);
+            txtGasolina95ConDescuento.setVisibility(View.GONE);
+            txtGasolina95.setTextSize(20);
+            txtGasolina95Precio.setTextSize(25);
+            buttonVerDescuento.setVisibility(View.GONE);
+            layout1.setVisibility(View.GONE);
+            layout2.setVisibility(View.GONE);
         }
 
 
@@ -134,5 +162,40 @@ public class DetailActivity extends AppCompatActivity {
         }
         imgLogo.setImageResource(imageID);
 
+
+        //Se crear un nuevo DialogAlert
+        final AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
+        final AlertDialog dialog = builder.create();
+
+        //Se carga el diseño para el dialog alert creado en el xml dialog_descuentos_design
+        View viewDialog = View.inflate(this, R.layout.dialog_descuentos_design, null);
+        dialog.setView(viewDialog);
+        txtDialog = viewDialog.findViewById(R.id.textoDialog);
+        buttonDialog = viewDialog.findViewById(R.id.buttonAceptarDialog);
+        //Se define el comportamiento del botón del dialog
+        buttonDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+
+
+        buttonVerDescuento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+
+
     }
+
+
+
+
+
+
 }
