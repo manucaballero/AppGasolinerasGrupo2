@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -55,6 +56,7 @@ import com.isunican.proyectobase.Presenter.*;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.itemActualizar) {
@@ -209,7 +212,11 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemFabrica) {
-            presenterVehiculos.borra(MainActivity.this);
+            try {
+                presenterVehiculos.borra(MainActivity.this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
             MainActivity.this.startActivity(myIntent);
         }
@@ -326,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
                             task.getResult(ApiException.class);
                             // All location settings are satisfied. The client can initialize location
                             // requests here.
-                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                                 requestPermission();
                             }
                             mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -356,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } catch (ApiException exception) {
                             switch (exception.getStatusCode()) {
-                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                case CommonStatusCodes.RESOLUTION_REQUIRED:
                                     // Location settings are not satisfied. But could be fixed by showing the
                                     // user a dialog.
                                     try {
@@ -516,10 +523,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 10 && resultCode == Activity.RESULT_OK && data != null){
-            gasoleoA = data.getBooleanExtra(FilterActivity.getGasoleoA(), false);
-            gasolina95 = data.getBooleanExtra(FilterActivity.getGasolina95(), false);
-            descuentoNo = data.getBooleanExtra(FilterActivity.getDescuentoNo(), false);
-            descuentoSi = data.getBooleanExtra(FilterActivity.getDescuentoSi(), false);
+            gasoleoA = data.getBooleanExtra(FilterActivity.GASOLEOA, false);
+            gasolina95 = data.getBooleanExtra(FilterActivity.GASOLINA95, false);
+            descuentoNo = data.getBooleanExtra(FilterActivity.DESCUENTONO, false);
+            descuentoSi = data.getBooleanExtra(FilterActivity.DESCUENTOSI, false);
             new CargaDatosGasolinerasTask(MainActivity.this).execute();
         }
     }

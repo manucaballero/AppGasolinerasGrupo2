@@ -2,7 +2,6 @@ package com.isunican.proyectobase.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,8 +17,6 @@ import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 /*
@@ -141,6 +138,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        //No hay nada implementado
+        throw new UnsupportedOperationException();
     }
 }
