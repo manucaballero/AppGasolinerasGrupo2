@@ -208,6 +208,9 @@ public class MainActivity extends AppCompatActivity {
             presenterVehiculos.borra(MainActivity.this);
             Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
             MainActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemDescuentos){
+            Intent myIntent = new Intent(MainActivity.this, ListaDescuentosActivity.class);
+            MainActivity.this.startActivity(myIntent);
         }
 
         return true;

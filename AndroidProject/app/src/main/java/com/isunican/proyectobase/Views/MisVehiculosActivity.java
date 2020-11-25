@@ -125,6 +125,9 @@ public class MisVehiculosActivity extends AppCompatActivity {
             presenterVehiculos.borra(MisVehiculosActivity.this);
             Intent myIntent = new Intent(MisVehiculosActivity.this, MainActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemDescuentos){
+            Intent myIntent = new Intent(MisVehiculosActivity.this, ListaDescuentosActivity.class);
+            MisVehiculosActivity.this.startActivity(myIntent);
         }
         return true;
     }

@@ -28,5 +28,8 @@
     <item
         android:id="@+id/itemFabrica"
         android:title="Restaurar vehículos de fábrica" />
+    <item
+        android:id="@+id/itemDescuentos"
+        android:title="@string/menuDescuentos" />
 
 </menu>
