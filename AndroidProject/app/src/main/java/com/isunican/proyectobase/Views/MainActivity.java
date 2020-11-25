@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,12 +51,30 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.Presenter.*;
+import com.isunican.proyectobase.Model.ConDescuentoFiltro;
+import com.isunican.proyectobase.Model.DieselFiltro;
+import com.isunican.proyectobase.Model.Gasolina95Filtro;
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Model.ICombustibleFiltro;
+import com.isunican.proyectobase.Model.IDescuentoFiltro;
+import com.isunican.proyectobase.Model.IFiltro;
+import com.isunican.proyectobase.Model.Posicion;
+import com.isunican.proyectobase.Model.SinDescuentoFiltro;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -104,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
+
 
     /**
      * onCreate
@@ -379,10 +399,8 @@ public class MainActivity extends AppCompatActivity {
                     // datos obtenidos con exito
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
-                    if(presenterVehiculos.getVehiculos().size()<=1){
-                        Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-                        MainActivity.this.startActivity(myIntent);
-                    }
+                    //El siguiente metodo mostrará el Pop-Up solo si es necesario
+                    mostrarPopUpPrimerVehiculo();
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
                     // sucede en torno a las :00 y :30 de cada hora
@@ -487,6 +505,111 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
+    private static final String ERROR_CERRAR_FICHERO = "Error al cerrar el fichero";
+
+    private void mostrarPopUpPrimerVehiculo() {
+
+
+
+        int tiempoTranscurrido=0;
+
+        Date ultimaFecha=cargarFechaPopUp();
+
+        Log.d("prueba2", "mostrarPopUpPrimerVehiculo. ultimaFecha: " + ultimaFecha);
+
+        if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
+
+            guardarFechaPopUp();
+            Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+            MainActivity.this.startActivity(myIntent);
+
+            Log.d("prueba2", "primer if ");
+
+        }
+        if(ultimaFecha!=null){
+            tiempoTranscurrido =ultimaFecha.getSeconds();
+
+            if(tiempoTranscurrido>=10 && presenterVehiculos.getVehiculos().size()<=1){
+
+                guardarFechaPopUp();
+                Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                MainActivity.this.startActivity(myIntent);
+                Log.d("prueba2", "segundo if ");
+            }
+        }
+
+
+
+    }
+
+    private Date cargarFechaPopUp(){
+        Log.d("prueba2", "carga fecha ");
+
+        BufferedReader in = null;
+
+        Date lastDate=null;
+
+        try {
+            File tempFile = new File(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT);
+            boolean exists = tempFile.exists();
+
+
+            if (exists){
+                in = new BufferedReader(new FileReader(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT));
+
+                String linea=in.readLine();
+
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                lastDate = df.parse(linea);
+
+                in.close();
+
+            }
+
+        } catch(Exception e) {
+            Log.d("Error","Error al cargar datos vehículo");
+        } finally {
+            if(in!=null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
+                }
+            }
+        }
+
+        return lastDate;
+
+    }
+
+
+    private void guardarFechaPopUp(){
+        Log.d("prueba2", "guarda fecha");
+
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date today = Calendar.getInstance().getTime();
+        String reportDate = df.format(today);
+
+        FileWriter fw = null;
+        try {
+            File f = new File(this.getBaseContext().getFilesDir() + POPUPPRIMERVEHICULO_TXT);
+            fw = new FileWriter(f);
+            fw.write(reportDate);
+        }
+        catch(IOException e) {
+            Log.d("Error","Error al guardar fecha");
+        } finally {
+            if(fw!=null){
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
+                }
+            }
+        }
     }
 
 
