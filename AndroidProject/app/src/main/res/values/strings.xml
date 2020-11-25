@@ -16,7 +16,7 @@
     <string name="menuMisVehiculos">Mis Vehículos</string>
     <string name="menuGasolineras">Gasolineras</string>
     <string name="modelo">Modelo:</string>
-    <string name="matricula">Matrícula:</string>
+    <string name="combustible">Combustible:</string>
     <string name="anotacion">Nota:</string>
     <string name="pasoDatosInfo">DatosInfo</string>
     <string name="pasoDatosGasolinera">DatosGasolinera</string>
@@ -43,6 +43,10 @@
         <item>Gasolina95</item>
         <item>Si</item>
         <item>No</item>
+    </string-array>
+    <string-array name="tipos_combustible">
+        <item>GasoleoA</item>
+        <item>Gasolina95</item>
     </string-array>
 
 </resources>

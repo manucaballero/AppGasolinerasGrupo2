@@ -30,7 +30,7 @@ public class PresenterVehiculos {
         this.listVehiculos=new ArrayList<>();
         Vehiculo v1= new Vehiculo("Vehiculo por defecto");
         Vehiculo v2=new Vehiculo("Tesla model S P100D");
-        v1.setMatricula("");
+        v1.setCombustible("GasoleoA");
 
         v1.setAnotaciones("Default");
         v2.setAnotaciones("Trabajo");
@@ -42,6 +42,51 @@ public class PresenterVehiculos {
 
     }
 
+    public List<Vehiculo> getVehiculos(){
+        return listVehiculos;
+    }
+
+    public static Vehiculo getVehiculoSeleccionado() {
+        return vehiculoSeleccionado;
+    }
+
+    public static void setVehiculoSeleccionado(Vehiculo vehiculoSeleccionado) {
+        PresenterVehiculos.vehiculoSeleccionado = vehiculoSeleccionado;
+    }
+
+    public boolean guardaVehiculo(Vehiculo v, Context context) {
+
+        listVehiculos.add(v);
+        StringBuilder bld = new StringBuilder();
+        String output ="";
+
+        for (Vehiculo v1:listVehiculos) {
+            bld.append( "---\n" + v1.getModelo()+ "\n"+ v1.getDeposito() + "\n"+ v1.getConsumoMedio() + "\n"+ v1.getCombustible()
+                    + "\n"+ v1.getAnotaciones()+ "\n");
+        }
+
+        bld.append("-fin-");
+        FileWriter fw = null;
+        output = bld.toString();
+        try {
+            File f = new File(context.getFilesDir() + VEHICULO_TXT);
+            fw = new FileWriter(f);
+            fw.write(output);
+            return true;
+        }
+
+        catch(IOException e) {
+            return false;
+        } finally {
+            if(fw!=null){
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
+                }
+            }
+        }
+    }
 
     public boolean cargaDatosVehiculos(Context context) {
 
@@ -62,7 +107,7 @@ public class PresenterVehiculos {
                     v = new Vehiculo(in.readLine()); //modelo
                     v.setDeposito(Double.parseDouble(in.readLine()));//capacidad
                     v.setConsumoMedio(Double.parseDouble(in.readLine()));//c medio
-                    v.setMatricula(in.readLine());//matricula
+                    v.setCombustible(in.readLine());//combust
                     v.setAnotaciones(in.readLine());//nota
                     aux.add(v);
                     linea = in.readLine();
@@ -88,58 +133,9 @@ public class PresenterVehiculos {
 
     }
 
-    public List<Vehiculo> getVehiculos(){
-        return listVehiculos;
-    }
-
-    public static Vehiculo getVehiculoSeleccionado() {
-        return vehiculoSeleccionado;
-    }
-
-    public static void setVehiculoSeleccionado(Vehiculo vehiculoSeleccionado) {
-        PresenterVehiculos.vehiculoSeleccionado = vehiculoSeleccionado;
-    }
-
-    public boolean guardaVehiculo(Vehiculo v, Context context) {
-
-        listVehiculos.add(v);
-        StringBuilder bld = new StringBuilder();
-        String output ="";
-
-        for (Vehiculo v1:listVehiculos) {
-            bld.append( "---\n" + v1.getModelo()+ "\n"+ v1.getDeposito() + "\n"+ v1.getConsumoMedio() + "\n"+ v1.getMatricula()
-                    + "\n"+ v1.getAnotaciones()+ "\n");
-        }
-
-        bld.append("-fin-");
-        FileWriter fw = null;
-        output = bld.toString();
-        try {
-            File f = new File(context.getFilesDir() + VEHICULO_TXT);
-            fw = new FileWriter(f);
-            fw.write(output);
-            return true;
-        }
-
-        catch(IOException e) {
-            return false;
-        } finally {
-            if(fw!=null){
-                try {
-                    fw.close();
-                } catch (IOException e) {
-                    Log.d("Error",ERROR_CERRAR_FICHERO);
-                }
-            }
-        }
-
-
-
-    }
-
     public static void guardaVehiculoSeleccionado(Vehiculo v, Context context) {
 
-        String output = v.getModelo() + "\n" + v.getMatricula() + "\n" + v.getAnotaciones();
+        String output = v.getModelo() + "\n" + v.getAnotaciones();
         FileWriter fw = null;
 
         try {
@@ -170,7 +166,6 @@ public class PresenterVehiculos {
                 in = new BufferedReader(new FileReader(context.getFilesDir()+VEHICULO_SELECCIONADO_TXT ));
 
                 String modelo = in.readLine(); //modelo
-                String matricula = in.readLine();//maticula
                 String anotacion = in.readLine();//nota
 
                 for(Vehiculo v : listVehiculos){
@@ -182,7 +177,7 @@ public class PresenterVehiculos {
                     setVehiculoSeleccionado(aux.get(0));
                 else {
                     for(Vehiculo v : aux){
-                        if(v.getAnotaciones().equals(anotacion) && v.getMatricula().equals(matricula)){
+                        if(v.getAnotaciones().equals(anotacion)){
                             setVehiculoSeleccionado(v);
                         }
                     }

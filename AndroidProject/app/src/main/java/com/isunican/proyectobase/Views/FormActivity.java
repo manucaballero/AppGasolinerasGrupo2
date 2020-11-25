@@ -2,9 +2,14 @@ package com.isunican.proyectobase.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +29,9 @@ import java.util.List;
 
 ------------------------------------------------------------------
 */
-public class FormActivity extends AppCompatActivity implements View.OnClickListener{
+public class FormActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    EditText campoMatricula;
+    Spinner campoCombustible;
     EditText campoModelo;
     EditText campoCapacidad;
     EditText campoAnotaciones;
@@ -50,13 +55,19 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
 
 
         txtAceptar = findViewById(R.id.txtAceptar);
-        campoMatricula = findViewById(R.id.campoMatricula);
+        campoCombustible = (Spinner) findViewById(R.id.campoCombustible);
         campoModelo = findViewById(R.id.campoModelo);
         campoCapacidad = findViewById(R.id.campoCapacidad);
         campoConsumomedio = findViewById(R.id.campoConsumoMedio);
         campoAnotaciones= findViewById(R.id.campoAnotaciones);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.tipos_combustible, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        campoCombustible.setAdapter(adapter);
+
         txtAceptar.setOnClickListener(this);
+        campoCombustible.setOnItemSelectedListener(this);
 
     }
 
@@ -72,7 +83,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
 
         Toast toast;
 
-        String matricula = campoMatricula.getText().toString();
+        String combustible = campoCombustible.getSelectedItem().toString();
         String modelo = campoModelo.getText().toString();
         String anotacion = campoAnotaciones.getText().toString();
         String capacidadtxt = campoCapacidad.getText().toString();
@@ -85,47 +96,33 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             v1.setDeposito(Double.parseDouble(capacidadtxt));
             v1.setConsumoMedio(Double.parseDouble(consumoMediotxt));
             v1.setAnotaciones(anotacion);
-            v1.setMatricula(matricula);
+            v1.setCombustible(combustible);
 
-            List<Vehiculo> aux = new ArrayList<Vehiculo>();
+            boolean igual=false;
+
             for(Vehiculo v : presenterVehiculos.getVehiculos()){
-                if(v.getModelo().equals(modelo)){
-                    aux.add(v);
-                }
+                if(v.getModelo().equals(modelo) && v.getAnotaciones().equals(anotacion))
+                    igual=true;
             }
 
-            if(aux.isEmpty()){
+            if(igual)
+                campoModelo.setError("Ya existe un vehiculo con estas características. Introduzca una nueva Anotación para diferenciarlos.");
+            else{
                 presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
 
                 toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
                 toast.show();
 
-                Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
+                Intent myIntent = new Intent(FormActivity.this, MainActivity.class);
                 FormActivity.this.startActivity(myIntent);
-            } else {
-                for(Vehiculo v : aux){
-
-                    if(v.getAnotaciones().equals(anotacion) && v.getMatricula().equals(matricula)){
-                        campoModelo.setError("Ya existe un vehiculo con estas características. Introduzca una nueva Matrícula o Anotación para diferenciarlos.");
-                        aux.clear();
-                    }else{
-                        presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
-                        toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
-                        toast.show();
-
-                        Intent myIntent = new Intent(FormActivity.this, MisVehiculosActivity.class);
-                        FormActivity.this.startActivity(myIntent);
-                    }
-                }
             }
-
 
         }else {
             toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
             toast.show();
 
-            if(matricula.length()!=0 && matricula.length()<6)
-                campoMatricula.setError("Mínimo 6 caracteres");
+            if(combustible.length()==0)
+                ((TextView)campoCombustible.getSelectedView()).setError(CAMPO_REQUERIDO);
             if(modelo.length()==0)
                 campoModelo.setError(CAMPO_REQUERIDO);
             if(capacidadtxt.length()==0)
@@ -134,6 +131,16 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
                 campoConsumomedio.setError(CAMPO_REQUERIDO);
 
         }
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        parent.getItemAtPosition(position);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }

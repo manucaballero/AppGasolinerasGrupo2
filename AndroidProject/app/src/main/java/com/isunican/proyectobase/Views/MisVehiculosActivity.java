@@ -270,23 +270,23 @@ public class MisVehiculosActivity extends AppCompatActivity {
             // Asocia las variables de dicho layout
             TextView modelo = view.findViewById(R.id.textViewModelo);
             TextView anotacion = view.findViewById(R.id.textViewAnotacion);
-            TextView matricula = view.findViewById(R.id.textViewMatricula);
-            TextView matriculaLabel=view.findViewById(R.id.textViewMatriculaLabel);
+            TextView combustible = view.findViewById(R.id.textViewCombustible);
+            TextView combustibleLabel=view.findViewById(R.id.textViewCombustibleLabel);
             TextView seleccionado=view.findViewById(R.id.textViewSeleccionado);
 
             view.setBackgroundColor(Color.WHITE);
             modelo.setTextColor(Color.BLACK);
             anotacion.setTextColor(Color.BLACK);
-            matricula.setTextColor(Color.BLACK);
+            combustible.setTextColor(Color.BLACK);
 
             // Y carga los datos del item
             modelo.setText(vehiculo.getModelo());
             anotacion.setText(vehiculo.getAnotaciones());
-            matricula.setText(vehiculo.getMatricula());
+            combustible.setText(vehiculo.getCombustible());
 
-            if(matricula.getText().equals("")){
-                matriculaLabel.setVisibility(View.INVISIBLE);
-                matricula.setVisibility(View.INVISIBLE);
+            if(combustible.getText().equals("")){
+                combustibleLabel.setVisibility(View.INVISIBLE);
+                combustible.setVisibility(View.INVISIBLE);
             }
 
             if(vehiculo.equals(PresenterVehiculos.getVehiculoSeleccionado())){

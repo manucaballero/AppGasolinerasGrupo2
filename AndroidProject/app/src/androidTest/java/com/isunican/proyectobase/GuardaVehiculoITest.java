@@ -42,18 +42,17 @@ public class GuardaVehiculoITest {
     @Before
     public void setUp(){
         adapter = vehiculosActivityTestRule.getActivity().adapter;
-        //pv = new PresenterVehiculos();
         pv = vehiculosActivityTestRule.getActivity().presenterVehiculos;
 
         v1=new Vehiculo("BMW m8");
-        v1.setMatricula("1234ABC");
+        v1.setCombustible("Gasolina95");
         v1.setDeposito(68);
         v1.setConsumoMedio(11);
         v1.setAnotaciones("625cv");
 
         v2=new Vehiculo("BMW m3");
         v2.setDeposito(50);
-        v2.setMatricula("4321DEF");
+        v2.setCombustible("GasoleoA");
         v2.setConsumoMedio(8);
         v2.setAnotaciones("Nota");
 
@@ -86,13 +85,13 @@ public class GuardaVehiculoITest {
         //Vehiculo 1
 
         assertEquals("BMW m8", vehiculo1.getModelo());
-        assertEquals("1234ABC", vehiculo1.getMatricula());
+        assertEquals("Gasolina95", vehiculo1.getCombustible());
         assertEquals(68, vehiculo1.getDeposito(),0);
         assertEquals(11, vehiculo1.getConsumoMedio(), 0);
         assertEquals("625cv", vehiculo1.getAnotaciones());
         //Vehiculo 2
         assertEquals("BMW m3", vehiculo2.getModelo());
-        assertEquals("4321DEF", vehiculo2.getMatricula());
+        assertEquals("GasoleoA", vehiculo2.getCombustible());
         assertEquals(50, vehiculo2.getDeposito(),0);
         assertEquals(8, vehiculo2.getConsumoMedio(),0);
 

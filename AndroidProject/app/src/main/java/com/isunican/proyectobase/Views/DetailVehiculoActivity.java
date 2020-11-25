@@ -18,11 +18,11 @@ public class DetailVehiculoActivity extends AppCompatActivity {
     Vehiculo vehiculo;
 
     TextView textViewModelo;
-    TextView textViewMatricula;
+    TextView textViewCombustible;
     TextView textViewAnotacion;
     TextView textViewDeposito;
     TextView textViewConsumoMedio;
-    TextView textViewMatriculaLabel;
+    TextView textViewCombustibleLabel;
 
     /**
      * onCreate
@@ -46,24 +46,20 @@ public class DetailVehiculoActivity extends AppCompatActivity {
         // y lo introduce en el TextView convertido a cadena de texto
         textViewModelo = findViewById(R.id.textViewModelo);
         textViewAnotacion = findViewById(R.id.textViewAnotacion);
-        textViewMatricula = findViewById(R.id.textViewMatricula);
+        textViewCombustible = findViewById(R.id.textViewCombustible);
         textViewDeposito = findViewById(R.id.textViewDeposito);
         textViewConsumoMedio = findViewById(R.id.textViewConsumoMedio);
-        textViewMatriculaLabel= findViewById(R.id.textViewMatriculaLabel);
+        textViewCombustibleLabel= findViewById(R.id.textViewCombustibleLabel);
 
         vehiculo = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosVehiculo));
 
         textViewModelo.setText(vehiculo.getModelo());
-        textViewMatricula.setText(vehiculo.getMatricula());
+        textViewCombustible.setText(vehiculo.getCombustible());
         textViewAnotacion.setText(vehiculo.getAnotaciones());
         textViewDeposito.setText(Double.toString(vehiculo.getDeposito()));
         textViewConsumoMedio.setText(Double.toString(vehiculo.getConsumoMedio()));
 
         Button buttonSeleccionado=findViewById(R.id.buttonSeleccionado);
-
-        if(vehiculo.getMatricula()==null){
-            textViewMatriculaLabel.setVisibility(View.INVISIBLE);
-        }
 
         buttonSeleccionado.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
