@@ -10,7 +10,8 @@
     <string name="gasolina95">Gasolina:</string>
     <string name="pordefecto">por_defecto</string>
     <string name="moneda">€</string>
-    <string name="infoTexto">App desarrollada por: Aarón Rodríguez Solar, Bárbara Martínez Carcedo, Daniel Sánchez Díez, Manuel Caballero Rabago, Miguel Casamichana Bolado y Rubén Calleja Reigadas</string>
+    <string name="AppDesarrollada">App desarrollada por:</string>
+    <string name="Desarrolladores"> Aarón Rodríguez Solar, Bárbara Martínez Carcedo, Daniel Sánchez Díez, Manuel Caballero Rabago, Miguel Casamichana Bolado y Rubén Calleja Reigadas</string>
     <string name="menuActualizar">Actualizar</string>
     <string name="menuInfo">Info</string>
     <string name="menuMisVehiculos">Mis Vehículos</string>
@@ -38,5 +39,7 @@
     <string name="filtros_incompatibles">Filtros Incompatibles</string>
     <string name="infoFiltrosIncompatibles">Los filtros seleccionados son incompatibles, pulse aceptar para volver a la selección de filtros.</string>
     <string name="nota">Nota: Los filtros de un mismo tipo, por ejemplo "Combustible" no se pueden seleccionar a la vez</string>
-
+    <string name="AceptarDescuento">Aceptar</string>
+    <string name="TituloDialogDescuento">Descuento disponible</string>
+    <string name="TextoDialgoDescuento">Esta gasolinera dispone del siguiente código aplicado</string>
 </resources>
