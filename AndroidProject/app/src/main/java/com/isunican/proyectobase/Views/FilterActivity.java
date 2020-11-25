@@ -28,21 +28,10 @@ public class FilterActivity extends AppCompatActivity  {
     boolean bdescuentoSi = false;
     boolean bDescuentoNo =false;
 
-
-
-    public static String getGasoleoA(){
-        return "gasoleoA";
-    }
-
-    public static String getGasolina95(){
-        return "gasolina95";
-    }
-    public static String getDescuentoSi(){
-        return "descuentoSI";
-    }
-    public static String getDescuentoNo(){
-        return "descuentoNo";
-    }
+    public static String GASOLEOA = "gasoleoA";
+    public static String GASOLINA95 = "gasolina95";
+    public static String DESCUENTOSI = "descuentoSI";
+    public static String DESCUENTONO = "descuentoNo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +68,10 @@ public class FilterActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 onCheckboxClicked();
                 Intent intent = new Intent();
-                intent.putExtra(getGasoleoA(), bgasoleoA);
-                intent.putExtra(getGasolina95(),bgasolina95);
-                intent.putExtra(getDescuentoSi(),bdescuentoSi);
-                intent.putExtra(getDescuentoNo(),bDescuentoNo);
+                intent.putExtra(GASOLEOA, bgasoleoA);
+                intent.putExtra(GASOLINA95,bgasolina95);
+                intent.putExtra(DESCUENTOSI,bdescuentoSi);
+                intent.putExtra(DESCUENTONO,bDescuentoNo);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

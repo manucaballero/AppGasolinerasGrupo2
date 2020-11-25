@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -29,6 +31,7 @@ import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MisVehiculosActivity extends AppCompatActivity {
@@ -107,6 +110,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.itemActualizar) {
@@ -122,7 +126,11 @@ public class MisVehiculosActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MisVehiculosActivity.this, InfoActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemFabrica) {
-            presenterVehiculos.borra(MisVehiculosActivity.this);
+            try {
+                presenterVehiculos.borra(MisVehiculosActivity.this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Intent myIntent = new Intent(MisVehiculosActivity.this, MainActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
         }
