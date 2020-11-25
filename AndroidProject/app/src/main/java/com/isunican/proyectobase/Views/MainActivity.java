@@ -71,11 +71,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -123,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
+
+    // Variables necesarias para mostrar el pop-up de añadir vehiculo
+    private final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
+    private static final String ERROR_CERRAR_FICHERO = "Error al cerrar el fichero";
 
 
     /**
@@ -399,8 +405,14 @@ public class MainActivity extends AppCompatActivity {
                     // datos obtenidos con exito
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
+
                     //El siguiente metodo mostrará el Pop-Up solo si es necesario
-                    mostrarPopUpPrimerVehiculo();
+                    try {
+                        mostrarPopUpPrimerVehiculo();
+                    } catch (ParseException e) {
+                        Log.d("Error", "Error al intentar mostrar el pop-up de añadir vehiculo.");
+                    }
+
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
                     // sucede en torno a las :00 y :30 de cada hora
@@ -507,47 +519,53 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
-    private static final String ERROR_CERRAR_FICHERO = "Error al cerrar el fichero";
-
-    private void mostrarPopUpPrimerVehiculo() {
 
 
+    /**
+     * Método que muestra el pop-up de añadir vehiculo pop primera vez
+     * solo si es necesario.
+     * @throws ParseException
+     */
+    private void mostrarPopUpPrimerVehiculo() throws ParseException {
 
-        int tiempoTranscurrido=0;
+        //Tiempo transcurrido desde que se mostró anteriormente
+        long tiempoTranscurrido=0;
 
+        //Se carga la fecha de la última vez que se mostró
         Date ultimaFecha=cargarFechaPopUp();
 
-        Log.d("prueba2", "mostrarPopUpPrimerVehiculo. ultimaFecha: " + ultimaFecha);
-
+        //Si no hay fecha guardada y solo está el vehiculo por defecto, se muestra el pop-up y se guarda la fecha
         if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
-
             guardarFechaPopUp();
             Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
             MainActivity.this.startActivity(myIntent);
-
-            Log.d("prueba2", "primer if ");
-
         }
+
+        //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
         if(ultimaFecha!=null){
-            tiempoTranscurrido =ultimaFecha.getSeconds();
 
-            if(tiempoTranscurrido>=10 && presenterVehiculos.getVehiculos().size()<=1){
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date today=Calendar.getInstance().getTime();
 
+            //Diferencia de tiempo entre la ultima vez que se mostró el pop up y la hora actual.
+            long diffInMillies = Math.abs(today.getTime() - ultimaFecha.getTime());
+            tiempoTranscurrido = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+            //Si pasan mas de 24h se debe volver a mostrar el pop-up.
+            if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
                 guardarFechaPopUp();
                 Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                 MainActivity.this.startActivity(myIntent);
-                Log.d("prueba2", "segundo if ");
             }
         }
-
-
-
     }
 
+    /**
+     * Método que carga de un archivo la última fecha en la
+     * que se mostró el pop-up.
+     * @return lastDate fecha en la que se mostró el pop-up por última vez
+     */
     private Date cargarFechaPopUp(){
-        Log.d("prueba2", "carga fecha ");
-
         BufferedReader in = null;
 
         Date lastDate=null;
@@ -556,12 +574,11 @@ public class MainActivity extends AppCompatActivity {
             File tempFile = new File(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT);
             boolean exists = tempFile.exists();
 
-
             if (exists){
                 in = new BufferedReader(new FileReader(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT));
 
+                //Se lee la fecha con el formato adecuado y se cierra el fichero
                 String linea=in.readLine();
-
                 DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 lastDate = df.parse(linea);
 
@@ -570,7 +587,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         } catch(Exception e) {
-            Log.d("Error","Error al cargar datos vehículo");
+            Log.d("Error","Error al cargar fecha pop-up");
         } finally {
             if(in!=null) {
                 try {
@@ -580,15 +597,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
         return lastDate;
-
     }
 
 
+    /**
+     * Método que guarda en el fichero la fecha actual
+     */
     private void guardarFechaPopUp(){
-        Log.d("prueba2", "guarda fecha");
-
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date today = Calendar.getInstance().getTime();
         String reportDate = df.format(today);
@@ -600,7 +616,7 @@ public class MainActivity extends AppCompatActivity {
             fw.write(reportDate);
         }
         catch(IOException e) {
-            Log.d("Error","Error al guardar fecha");
+            Log.d("Error","Error al guardar fecha en el fichero");
         } finally {
             if(fw!=null){
                 try {
