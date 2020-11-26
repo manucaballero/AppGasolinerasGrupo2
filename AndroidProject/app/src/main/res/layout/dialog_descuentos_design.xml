@@ -1,44 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#547980"
-    android:orientation="vertical">
+    android:background="@drawable/descuento_dialog_shape"
+    android:backgroundTint="#547980"
+    android:orientation="vertical"
+    >
 
-    <TextView
-        android:id="@+id/tituloDialog"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
+        android:layout_height="match_parent"
         android:layout_weight="2"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:text="@string/TituloDialogDescuento" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textoDialog"
+        <TextView
+            android:id="@+id/tituloDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2"
+            android:text="@string/TituloDialogDescuento"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textoDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2"
+            android:text="@string/TextoDialgoDescuento"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:layout_weight="2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/TextoDialgoDescuento" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp">
 
-    <TextView
-        android:id="@+id/txtDescuento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/avia"
-        android:layout_gravity="center"
-        android:textSize="15dp"
-        android:text="@string/TextoDialgoDescuento" />
+        <TextView
+            android:id="@+id/txtDescuento"
+            android:layout_width="wrap_content"
+            android:layout_height="77dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/diseno_descuento"
+            android:elegantTextHeight="true"
+            android:fontFamily="@font/rubik_mono_one"
+            android:freezesText="false"
+            android:gravity="center"
+            android:text="bldkflsks"
+            android:textColor="#FFFEFE"
+            android:textStyle="bold" />
+    </FrameLayout>
 
     <Button
         android:id="@+id/buttonAceptarDialog"
@@ -46,9 +66,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/roundedbutton"
         android:backgroundTint="#FFFFFF"
-        android:layout_gravity="center"
-        android:text="Aceptar"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="end"
+        android:text="Okay"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"

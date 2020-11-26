@@ -49,7 +49,7 @@ public class GasolineraTest {
      */
     @Test
     public void calcularPrecioFinalTest() {
-        g1.setTieneDescuento(true);
+        g1.setDescuento(new Descuento("cod", "descripcion", 10.0));
         g1.calculaPrecioFinal(vehiculo);
 
         //Gasolinera con descuento
