@@ -34,9 +34,5 @@ public class InfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
 
-        // captura el TextView
-        // y muestra en él un texto de información predefinido
-        textView = findViewById(R.id.textView);
-        textView.setText(getResources().getString(R.string.infoTexto));
     }
 }
