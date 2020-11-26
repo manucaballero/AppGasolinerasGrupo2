@@ -68,13 +68,6 @@ public class Gasolinera implements Parcelable {
         this.gasoleoAConDescuento = gasoleoA;
 
         this.posicion = new Posicion(Double.parseDouble(latitud.replace(",",".")),Double.parseDouble(longitud.replace(",",".")));
-        /*
-        if(rotulo.equals("CEPSA")){
-            setTieneDescuento(true);
-        }else{
-            setTieneDescuento(false);
-        }*/
-
     }
 
     /**
