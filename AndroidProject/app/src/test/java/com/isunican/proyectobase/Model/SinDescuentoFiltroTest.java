@@ -42,7 +42,19 @@ public class SinDescuentoFiltroTest {
         listaGaso0.add(new Gasolinera(411,"SANTANDER","SANTANDER", "Area Arrabal Puerto de Raos", 0.977,0,"CEPSA","43.45741814","-3.82677519"));
         listaGaso0.add(new Gasolinera(9144,"SANTANDER","SANTANDER", "Av Parayas", 1.543,0,"CEPSA","43.40741814","-3.92677519"));
         listaGaso0.add(new Gasolinera(1115,"SANTANDER","SANTANDER", "Calle el Empalme", 1.254,0,"CEPSA","43.42741814","-3.02677519"));
-
+        //Descuento por defecto del 10%
+        Descuento descuento = new Descuento("codigo", "Descripción", 10.0);
+        //Introducimos el descuento en las gasolineras que sean de CEPSA
+        for(Gasolinera g:listaGaso){
+            if(g.getRotulo().equals("CEPSA")){
+                g.setDescuento(descuento);
+            }
+        }
+        for(Gasolinera g:listaGaso0){
+            if(g.getRotulo().equals("CEPSA")){
+                g.setDescuento(descuento);
+            }
+        }
     }
 
     /**
