@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -170,6 +171,7 @@ public class DetailActivity extends AppCompatActivity {
         //Se carga el diseño para el dialog alert creado en el xml dialog_descuentos_design
         View viewDialog = View.inflate(this, R.layout.dialog_descuentos_design, null);
         dialog.setView(viewDialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         txtDialog = viewDialog.findViewById(R.id.textoDialog);
         buttonDialog = viewDialog.findViewById(R.id.buttonAceptarDialog);
         //Se define el comportamiento del botón del dialog
@@ -179,8 +181,6 @@ public class DetailActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-
-
 
         buttonVerDescuento.setOnClickListener(new View.OnClickListener() {
             @Override
