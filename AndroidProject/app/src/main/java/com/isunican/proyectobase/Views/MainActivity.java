@@ -50,8 +50,17 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.Presenter.*;
+import com.isunican.proyectobase.Model.ConDescuentoFiltro;
+import com.isunican.proyectobase.Model.DieselFiltro;
+import com.isunican.proyectobase.Model.Gasolina95Filtro;
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Model.ICombustibleFiltro;
+import com.isunican.proyectobase.Model.IDescuentoFiltro;
+import com.isunican.proyectobase.Model.IFiltro;
+import com.isunican.proyectobase.Model.Posicion;
+import com.isunican.proyectobase.Model.SinDescuentoFiltro;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
@@ -71,8 +80,9 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 */
 public class MainActivity extends AppCompatActivity {
 
-    private PresenterGasolineras presenterGasolineras;
+    private static PresenterGasolineras presenterGasolineras;
 
+    public static PresenterGasolineras getPresenterGasolineras(){return presenterGasolineras;}
 
     private PresenterVehiculos presenterVehiculos;
 
@@ -83,23 +93,39 @@ public class MainActivity extends AppCompatActivity {
     public ArrayAdapter<Gasolinera> adapter;
     private Button filter;
     private Button reset;
-    private IFiltro filtroGasoleA;
-    private IFiltro filtroGasolina95;
-    private IFiltro descuentoSiFiltro;
-    private IFiltro descuentoNoFiltro;
 
-    private boolean gasoleoA;
-    private boolean gasolina95;
-    private boolean descuentoSi;
-    private boolean descuentoNo;
-    private AdapterFiltros adapterFiltros;
+    public static Context mContext;
+
+    private static IFiltro filtroGasoleA;
+    //public static IFiltro getFiltroGasoleA(){return filtroGasoleA;}
+    private static IFiltro filtroGasolina95;
+    //public static IFiltro getFiltroGasolina95(){return filtroGasolina95;}
+    private static IFiltro descuentoSiFiltro;
+    //public static IFiltro getDescuentoSiFiltro(){return descuentoSiFiltro;}
+    private static IFiltro descuentoNoFiltro;
+    //public static IFiltro getDescuentoNoFiltro(){return descuentoNoFiltro;}
+
+    private static boolean gasoleoA;
+    //public static void setGasoleoA(boolean bool){gasoleoA=bool;}
+    private static boolean gasolina95;
+    //public static void setGasolina95(boolean bool){gasolina95=bool;}
+    private static boolean descuentoSi;
+    //public static void setDescuentoSi(boolean bool){descuentoSi=bool;}
+    private static boolean descuentoNo;
+    //public static void setDescuentoNo(boolean bool){descuentoNo=bool;}
+    private static AdapterFiltros adapterFiltros;
+    //public static AdapterFiltros getAdapterFiltros(){return adapterFiltros;}
+
+    private static TextView filtroMarcado;
+    public static TextView getFiltroMarcado(){return filtroMarcado;}
+    public static void setFiltroMarcado(TextView nombreFiltro){filtroMarcado=nombreFiltro;}
 
     // Barra de progreso circular para mostar progeso de carga
     ProgressBar progressBar;
 
     // Swipe and refresh (para recargar la lista con un swipe)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    public List<IFiltro> listaFiltros= new ArrayList<IFiltro>();
+    public static SwipeRefreshLayout mSwipeRefreshLayout;
+    public static List<IFiltro> listaFiltros= new ArrayList<IFiltro>();
 
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
@@ -116,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mContext = MainActivity.this;
         this.presenterGasolineras = new PresenterGasolineras();
 
         this.presenterVehiculos= new PresenterVehiculos();
@@ -500,6 +526,38 @@ public class MainActivity extends AppCompatActivity {
             descuentoSi = data.getBooleanExtra(FilterActivity.getDescuentoSi(), false);
             new CargaDatosGasolinerasTask(MainActivity.this).execute();
         }
+
+        if(requestCode == 20 && resultCode == Activity.RESULT_OK){
+            String filtro = getFiltroMarcado().getText().toString();
+
+            switch (filtro) {
+                case "Con Descuento":
+                    descuentoSi=false;
+                    listaFiltros.remove(descuentoSiFiltro);
+                    adapterFiltros.notifyDataSetChanged();
+                    break;
+
+                case "GasóleoA":
+                    gasoleoA=false;
+                    listaFiltros.remove(filtroGasoleA);
+                    adapterFiltros.notifyDataSetChanged();
+                    break;
+                case "Sin Descuento":
+                    descuentoNo=false;
+                    listaFiltros.remove(descuentoNoFiltro);
+                    adapterFiltros.notifyDataSetChanged();
+                    break;
+                case "Gasolina 95":
+                    gasolina95=false;
+                    listaFiltros.remove(filtroGasolina95);
+                    adapterFiltros.notifyDataSetChanged();
+                    break;
+            }
+
+
+        }
+
+
     }
     /*
         Método auxiliar que retorna -1 si no hay un filtro del tipo pasado como parámetro
@@ -633,7 +691,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Método que es llamado al pulsar sobre un filtro en la lista
+     * @param nombreFiltro TextView filtro pulsado
+     */
+    public static void eliminaFiltro(TextView nombreFiltro){
+        setFiltroMarcado(nombreFiltro);
+        Intent myIntent = new Intent(MainActivity.mContext, PopUpBorrarFiltroActivity.class);
+
+        MainActivity.mContext.startActivity(myIntent);
+    }
+
+    /**
+     * Método que elimina el filtro de la lista
+     */
+    public static void eliminaFiltroLista(){
+
+        String filtro = getFiltroMarcado().getText().toString();
+
+        switch (filtro) {
+            case "Con Descuento":
+                descuentoSi=false;
+                listaFiltros.remove(descuentoSiFiltro);
+                adapterFiltros.notifyDataSetChanged();
+                break;
+
+            case "GasóleoA":
+                gasoleoA=false;
+                listaFiltros.remove(filtroGasoleA);
+                adapterFiltros.notifyDataSetChanged();
+                break;
+            case "Sin Descuento":
+                descuentoNo=false;
+                listaFiltros.remove(descuentoNoFiltro);
+                adapterFiltros.notifyDataSetChanged();
+                break;
+            case "Gasolina 95":
+                gasolina95=false;
+                listaFiltros.remove(filtroGasolina95);
+                adapterFiltros.notifyDataSetChanged();
+                break;
+        }
+
+    }
+
 }
+
+
+
 
 class ViewHolderJr extends RecyclerView.ViewHolder{
 
@@ -642,13 +747,23 @@ class ViewHolderJr extends RecyclerView.ViewHolder{
     public ViewHolderJr(@NonNull View itemView) {
         super(itemView);
         nombreFiltro = itemView.findViewById(R.id.txtNombreFiltro);
+
+        nombreFiltro.setOnClickListener(filtroOnClickListener);
     }
 
+    private View.OnClickListener filtroOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            MainActivity.eliminaFiltro(nombreFiltro);
+            MainActivity.setFiltroMarcado(nombreFiltro);
+            Intent myIntent = new Intent(MainActivity.mContext, PopUpBorrarFiltroActivity.class);
+        }
+    };
 
 }
 
 class AdapterFiltros extends RecyclerView.Adapter<ViewHolderJr>{
-    private List<IFiltro> lista;
+    private static List<IFiltro> lista;
     private LayoutInflater inflater;
 
     public AdapterFiltros(Context context, List<IFiltro> lista){
@@ -673,4 +788,6 @@ class AdapterFiltros extends RecyclerView.Adapter<ViewHolderJr>{
     public int getItemCount() {
         return lista.size();
     }
+
+
 }
