@@ -35,6 +35,8 @@
     <string name="seleccionarVehiculo">Seleccionar Vehículo</string>
     <string name="Combustible">Combustible</string>
     <string name="Descuento">Descuento</string>
+    <string name="codigoDescuento">Código descuento:</string>
+    <string name="descripcion">Descripción:</string>
     <string name="cancelar">Cancelar</string>
     <string name="aceptar">Aceptar</string>
     <string name="filtros_incompatibles">Filtros Incompatibles</string>

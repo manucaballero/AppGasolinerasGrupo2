@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.ListaDescuentosActivity"></activity>
+        <activity android:name=".Views.ListaDescuentosActivity" android:label="Lista de descuentos"></activity>
         <activity
             android:name=".Views.PopUpPrimerVehiculoActivity"
             android:theme="@style/AppTheme.TemasPopUps" />
@@ -47,7 +47,7 @@
             android:label="Añade tu vehículo"/>
         <activity android:name=".Views.DetailVehiculoActivity"
             android:label="Información mi vehículo"/>
-        
+
     </application>
 
 </manifest>

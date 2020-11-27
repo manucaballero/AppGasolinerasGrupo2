@@ -14,6 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.isunican.proyectobase.Model.Descuento;
+import com.isunican.proyectobase.Presenter.PresenterDescuentos;
 import com.isunican.proyectobase.R;
 
 import java.util.ArrayList;
@@ -21,28 +24,25 @@ import java.util.List;
 
 public class ListaDescuentosActivity extends AppCompatActivity {
 
-    List listaDescuentos;
     RecyclerView recyclerViewDescuentos;
     AdapterDescuentos adapterDescuentos;
+    PresenterDescuentos presenterDescuentos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_descuentos);
 
-        listaDescuentos = new ArrayList<String>();
-        listaDescuentos.add("Descuento 1");
-
-
         recyclerViewDescuentos = findViewById(R.id.recyclerViewDescuentos);
+        recyclerViewDescuentos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        recyclerViewDescuentos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        presenterDescuentos = new PresenterDescuentos();
+        presenterDescuentos.cargaDatosDummy();
 
 
-        adapterDescuentos = new AdapterDescuentos(ListaDescuentosActivity.this,listaDescuentos);
+        adapterDescuentos = new AdapterDescuentos(ListaDescuentosActivity.this,presenterDescuentos.getDescuentos());
         recyclerViewDescuentos.setAdapter(adapterDescuentos);
         adapterDescuentos.notifyDataSetChanged();
-        int i = adapterDescuentos.getItemCount();
 
     }
 
@@ -80,21 +80,23 @@ public class ListaDescuentosActivity extends AppCompatActivity {
 
 class ViewHolderDesc extends RecyclerView.ViewHolder{
 
-    TextView nombreDescuento;
+    TextView codigoDescuento;
+    TextView descripcionDescuento;
 
     public ViewHolderDesc(@NonNull View itemView) {
         super(itemView);
-        nombreDescuento = itemView.findViewById(R.id.textViewNombreDescuento);
+        codigoDescuento = itemView.findViewById(R.id.textViewCodDescuento);
+        descripcionDescuento = itemView.findViewById(R.id.textViewDescripcionDescuento);
     }
 
 
 }
 
 class AdapterDescuentos extends RecyclerView.Adapter<ViewHolderDesc> {
-    private List<String> lista;
+    private List<Descuento> lista;
     private LayoutInflater inflater;
 
-    public AdapterDescuentos(Context context, List<String> lista) {
+    public AdapterDescuentos(Context context, List<Descuento> lista) {
         this.lista = lista;
         this.inflater = LayoutInflater.from(context);
     }
@@ -108,8 +110,10 @@ class AdapterDescuentos extends RecyclerView.Adapter<ViewHolderDesc> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDesc holder, int position) {
-        String des = lista.get(position);
-        holder.nombreDescuento.setText(des);
+        String codigo = lista.get(position).getCodigo();
+        holder.codigoDescuento.setText(codigo);
+        String des = lista.get(position).getDescripcion();
+        holder.descripcionDescuento.setText(des);
     }
 
     @Override
