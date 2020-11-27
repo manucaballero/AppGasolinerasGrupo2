@@ -14,30 +14,13 @@ import com.isunican.proyectobase.R;
 public class PopUpBorrarFiltroActivity extends AppCompatActivity {
     Button borrarFiltro;
     Button cerrar;
-    boolean bgasoleoA = false;
-    boolean bgasolina95 = false;
-    boolean bdescuentoSi = false;
-    boolean bDescuentoNo =false;
-    //Filtro marcado
 
-    public static String getGasoleoA(){
-        return "gasoleoA";
-    }
-    public static String getGasolina95(){
-        return "gasolina95";
-    }
-    public static String getDescuentoSi(){
-        return "descuentoSI";
-    }
-    public static String getDescuentoNo(){
-        return "descuentoNo";
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop_up_borrar_filtro);
         borrarFiltro = findViewById(R.id.buttonSiBorrarFiltro);
-        cerrar= findViewById(R.id.buttonNoBorrarFiltro);
+        cerrar = findViewById(R.id.buttonNoBorrarFiltro);
 
         DisplayMetrics medidasVentana = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
@@ -47,13 +30,10 @@ public class PopUpBorrarFiltroActivity extends AppCompatActivity {
 
         borrarFiltro.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Aqui va el codigo para eliminar el filtro
-                borraFiltro();
+                //Codigo para eliminar el filtro
+                MainActivity.eliminaFiltroLista();
+
                 Intent intent = new Intent();
-                intent.putExtra(getGasoleoA(), bgasoleoA);
-                intent.putExtra(getGasolina95(),bgasolina95);
-                intent.putExtra(getDescuentoSi(),bdescuentoSi);
-                intent.putExtra(getDescuentoNo(),bDescuentoNo);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
@@ -67,11 +47,6 @@ public class PopUpBorrarFiltroActivity extends AppCompatActivity {
             }
         });
 
-        Intent data = getIntent();
-        bgasoleoA = data.getBooleanExtra("GasoleoA", false);
-        bgasolina95 = data.getBooleanExtra("Gasolina95", false);
-        bdescuentoSi = data.getBooleanExtra("DescuentoSI", false);
-        bDescuentoNo = data.getBooleanExtra("DescuentoNo", false);
 
         //Filtro marcado = getFiltroMarcado
         //El requestCode tiene que ser distinto a 10 para asi en el onActivityResult meter en el if
@@ -79,7 +54,6 @@ public class PopUpBorrarFiltroActivity extends AppCompatActivity {
         //y asi evitamos codigo duplicado
 
     }
-    public void borraFiltro(){
-        //if infernal que busca el filtro marcado y lo cambia de true a false;
-    }
+
 }
+
