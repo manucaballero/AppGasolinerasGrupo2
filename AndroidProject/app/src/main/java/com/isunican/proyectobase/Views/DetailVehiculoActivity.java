@@ -67,7 +67,7 @@ public class DetailVehiculoActivity extends AppCompatActivity {
                 PresenterVehiculos.guardaVehiculoSeleccionado(vehiculo, DetailVehiculoActivity.this);
                 Toast.makeText(DetailVehiculoActivity.this, "Vehículo seleccionado", Toast.LENGTH_SHORT).show();
 
-                Intent myIntent = new Intent(DetailVehiculoActivity.this, MisVehiculosActivity.class);
+                Intent myIntent = new Intent(DetailVehiculoActivity.this, MainActivity.class);
                 DetailVehiculoActivity.this.startActivity(myIntent);
             }
         });
