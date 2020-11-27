@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PresenterGasolineras presenterGasolineras;
 
+    private PresenterDescuentos presenterDescuentos;
 
     private PresenterVehiculos presenterVehiculos;
 
@@ -118,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.presenterGasolineras = new PresenterGasolineras();
+
+        this.presenterDescuentos = new PresenterDescuentos();
+        presenterDescuentos.cargaDatosDummy();
 
         this.presenterVehiculos= new PresenterVehiculos();
         presenterVehiculos.cargaDatosVehiculos(MainActivity.this);
@@ -268,7 +272,17 @@ public class MainActivity extends AppCompatActivity {
          */
         @Override
         protected Boolean doInBackground(Void... params) {
-            return presenterGasolineras.cargaDatosGasolineras();
+            presenterGasolineras.cargaDatosGasolineras();
+            for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                if(g.getRotulo().equals("CEPSA")){
+                    g.setDescuento(presenterDescuentos.getDescuentos().get(0)); //Descuento del 10%
+                }
+            }
+            //Aplicamos 3 descuentos del 30% a 3 gasolineras al azar
+            presenterGasolineras.getGasolineras().get(5).setDescuento(presenterDescuentos.getDescuentos().get(4));
+            presenterGasolineras.getGasolineras().get(8).setDescuento(presenterDescuentos.getDescuentos().get(4));
+            presenterGasolineras.getGasolineras().get(10).setDescuento(presenterDescuentos.getDescuentos().get(4));
+            return true;
         }
 
         /**
@@ -287,7 +301,15 @@ public class MainActivity extends AppCompatActivity {
         @Override @Deprecated
         protected void onPostExecute(Boolean res) {
             Toast toast = null;
-
+            for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                if(g.getRotulo().equals("CEPSA")){
+                    g.setDescuento(presenterDescuentos.getDescuentos().get(0)); //Descuento del 10%
+                }
+            }
+            //Aplicamos 3 descuentos del 30% a 3 gasolineras al azar
+            presenterGasolineras.getGasolineras().get(5).setDescuento(presenterDescuentos.getDescuentos().get(4));
+            presenterGasolineras.getGasolineras().get(8).setDescuento(presenterDescuentos.getDescuentos().get(4));
+            presenterGasolineras.getGasolineras().get(10).setDescuento(presenterDescuentos.getDescuentos().get(4));
             // Si el progressDialog estaba activado, lo oculta
             progressBar.setVisibility(View.GONE);     // To Hide ProgressBar
             mSwipeRefreshLayout.setRefreshing(false);
