@@ -365,12 +365,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-                for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                    g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
-                }
-
-
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
                 comprobarFiltros();
@@ -459,12 +453,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
-
-
-
         }
         private void comprobarFiltros(){
+
+            if(PresenterVehiculos.getVehiculoSeleccionado().getCombustible().equals("GasoleoA"))
+                filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
+            else if(PresenterVehiculos.getVehiculoSeleccionado().getCombustible().equals("Gasolina95"))
+                    filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
+
             if (descuentoSi) {
                 if (hayFiltro((IDescuentoFiltro.class)) == -1) {
                     listaFiltros.add(descuentoSiFiltro);
