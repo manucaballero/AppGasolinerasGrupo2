@@ -59,18 +59,18 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewMatriculaLabel"
+                android:id="@+id/textViewCombustibleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_vertical"
                 android:layout_weight="1"
                 android:gravity="bottom"
                 android:paddingLeft="20sp"
-                android:text="@string/matricula"
+                android:text="@string/combustible"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textViewMatricula"
+                android:id="@+id/textViewCombustible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_vertical"

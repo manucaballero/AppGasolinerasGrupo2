@@ -26,7 +26,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static org.hamcrest.CoreMatchers.anything;
 
 /**
- * @author Manuel Caballero
+ * @author Manuel Caballero, modificado por Daniel Sánchez
  */
 @RunWith(AndroidJUnit4.class)
 public class InterfazVehiculosPropiosUITest {
@@ -48,11 +48,8 @@ public class InterfazVehiculosPropiosUITest {
             //Revisamos que el modelo, las anotaciones y la matricula concuerden con las de la lista de vehiculos
             d.onChildView(withId(R.id.textViewModelo)).check(matches(withText(v.getModelo())));
             d.onChildView(withId(R.id.textViewAnotacion)).check(matches(withText(v.getAnotaciones())));
-            if(v.getMatricula() == null){
-                d.onChildView(withId(R.id.textViewMatricula)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
-            }else{
-                d.onChildView(withId(R.id.textViewMatricula)).check(matches(withText(v.getMatricula())));
-            }
+            d.onChildView(withId(R.id.textViewCombustible)).check(matches(withText(v.getCombustible())));
+
             
             //Si el vehiculo actual es el seleccionado revisamos que este dato aparezca en la interfaz
             if(v.equals(seleccionado)){

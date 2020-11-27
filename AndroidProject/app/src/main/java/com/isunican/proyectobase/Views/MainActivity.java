@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +42,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -50,13 +52,34 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.isunican.proyectobase.Model.*;
-import com.isunican.proyectobase.Presenter.*;
+import com.isunican.proyectobase.Model.ConDescuentoFiltro;
+import com.isunican.proyectobase.Model.DieselFiltro;
+import com.isunican.proyectobase.Model.Gasolina95Filtro;
+import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Model.ICombustibleFiltro;
+import com.isunican.proyectobase.Model.IDescuentoFiltro;
+import com.isunican.proyectobase.Model.IFiltro;
+import com.isunican.proyectobase.Model.Posicion;
+import com.isunican.proyectobase.Model.SinDescuentoFiltro;
+import com.isunican.proyectobase.Presenter.PresenterDescuentos;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 import com.isunican.proyectobase.Utilities.Distancia;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -105,6 +128,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
+
+    // Variables necesarias para mostrar el pop-up de añadir vehiculo
+    private final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
+    private static final String ERROR_CERRAR_FICHERO = "Error al cerrar el fichero";
+
 
     /**
      * onCreate
@@ -194,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.itemActualizar) {
@@ -209,7 +238,11 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MainActivity.this, InfoActivity.class);
             MainActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemFabrica) {
-            presenterVehiculos.borra(MainActivity.this);
+            try {
+                presenterVehiculos.borra(MainActivity.this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
             MainActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemDescuentos){
@@ -329,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
                             task.getResult(ApiException.class);
                             // All location settings are satisfied. The client can initialize location
                             // requests here.
-                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                                 requestPermission();
                             }
                             mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -359,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } catch (ApiException exception) {
                             switch (exception.getStatusCode()) {
-                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                case CommonStatusCodes.RESOLUTION_REQUIRED:
                                     // Location settings are not satisfied. But could be fixed by showing the
                                     // user a dialog.
                                     try {
@@ -383,12 +416,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-                for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                    g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
-                }
-
-
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
 
                 comprobarFiltros();
@@ -404,10 +431,14 @@ public class MainActivity extends AppCompatActivity {
                     // datos obtenidos con exito
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
-                    if(presenterVehiculos.getVehiculos().size()<=1){
-                        Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-                        MainActivity.this.startActivity(myIntent);
+
+                    //El siguiente metodo mostrará el Pop-Up solo si es necesario
+                    try {
+                        mostrarPopUpPrimerVehiculo();
+                    } catch (ParseException e) {
+                        Log.d("Error", "Error al intentar mostrar el pop-up de añadir vehiculo.");
                     }
+
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
                     // sucede en torno a las :00 y :30 de cada hora
@@ -477,12 +508,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
-
-
-
         }
         private void comprobarFiltros(){
+
+            if(PresenterVehiculos.getVehiculoSeleccionado().getCombustible().equals("GasoleoA"))
+                filtroGasoleA.ordena(presenterGasolineras.getGasolineras());
+            else if(PresenterVehiculos.getVehiculoSeleccionado().getCombustible().equals("Gasolina95"))
+                    filtroGasolina95.ordena(presenterGasolineras.getGasolineras());
+
             if (descuentoSi) {
                 if (hayFiltro((IDescuentoFiltro.class)) == -1) {
                     listaFiltros.add(descuentoSiFiltro);
@@ -515,14 +548,123 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    /**
+     * Método que muestra el pop-up de añadir vehiculo pop primera vez
+     * solo si es necesario.
+     * @throws ParseException
+     */
+    private void mostrarPopUpPrimerVehiculo() throws ParseException {
+
+        //Tiempo transcurrido desde que se mostró anteriormente
+        long tiempoTranscurrido=0;
+
+        //Se carga la fecha de la última vez que se mostró
+        Date ultimaFecha=cargarFechaPopUp();
+
+        //Si no hay fecha guardada y solo está el vehiculo por defecto, se muestra el pop-up y se guarda la fecha
+        if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
+            guardarFechaPopUp();
+            Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+            MainActivity.this.startActivity(myIntent);
+        }
+
+        //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
+        if(ultimaFecha!=null){
+
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date today=Calendar.getInstance().getTime();
+
+            //Diferencia de tiempo entre la ultima vez que se mostró el pop up y la hora actual.
+            long diffInMillies = Math.abs(today.getTime() - ultimaFecha.getTime());
+            tiempoTranscurrido = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+            //Si pasan mas de 24h se debe volver a mostrar el pop-up.
+            if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
+                guardarFechaPopUp();
+                Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                MainActivity.this.startActivity(myIntent);
+            }
+        }
+    }
+
+    /**
+     * Método que carga de un archivo la última fecha en la
+     * que se mostró el pop-up.
+     * @return lastDate fecha en la que se mostró el pop-up por última vez
+     */
+    private Date cargarFechaPopUp(){
+        BufferedReader in = null;
+
+        Date lastDate=null;
+
+        try {
+            File tempFile = new File(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT);
+            boolean exists = tempFile.exists();
+
+            if (exists){
+                in = new BufferedReader(new FileReader(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT));
+
+                //Se lee la fecha con el formato adecuado y se cierra el fichero
+                String linea=in.readLine();
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                lastDate = df.parse(linea);
+
+                in.close();
+
+            }
+
+        } catch(Exception e) {
+            Log.d("Error","Error al cargar fecha pop-up");
+        } finally {
+            if(in!=null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
+                }
+            }
+        }
+        return lastDate;
+    }
+
+
+    /**
+     * Método que guarda en el fichero la fecha actual
+     */
+    private void guardarFechaPopUp(){
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date today = Calendar.getInstance().getTime();
+        String reportDate = df.format(today);
+
+        FileWriter fw = null;
+        try {
+            File f = new File(this.getBaseContext().getFilesDir() + POPUPPRIMERVEHICULO_TXT);
+            fw = new FileWriter(f);
+            fw.write(reportDate);
+        }
+        catch(IOException e) {
+            Log.d("Error","Error al guardar fecha en el fichero");
+        } finally {
+            if(fw!=null){
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    Log.d("Error",ERROR_CERRAR_FICHERO);
+                }
+            }
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 10 && resultCode == Activity.RESULT_OK && data != null){
-            gasoleoA = data.getBooleanExtra(FilterActivity.getGasoleoA(), false);
-            gasolina95 = data.getBooleanExtra(FilterActivity.getGasolina95(), false);
-            descuentoNo = data.getBooleanExtra(FilterActivity.getDescuentoNo(), false);
-            descuentoSi = data.getBooleanExtra(FilterActivity.getDescuentoSi(), false);
+            gasoleoA = data.getBooleanExtra(FilterActivity.GASOLEOA, false);
+            gasolina95 = data.getBooleanExtra(FilterActivity.GASOLINA95, false);
+            descuentoNo = data.getBooleanExtra(FilterActivity.DESCUENTONO, false);
+            descuentoSi = data.getBooleanExtra(FilterActivity.DESCUENTOSI, false);
             new CargaDatosGasolinerasTask(MainActivity.this).execute();
         }
     }

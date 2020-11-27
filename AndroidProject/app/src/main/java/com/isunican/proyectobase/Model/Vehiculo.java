@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public class Vehiculo implements Parcelable {
     private String modelo;
     private String anotaciones;
-    private String matricula;
+    private String combustible;
 
     private double deposito;        //En litros
     private double consumoMedio;    //En L/Km
@@ -31,12 +31,12 @@ public class Vehiculo implements Parcelable {
         this.anotaciones = anotaciones;
     }
 
-    public String getMatricula() {
-        return matricula;
+    public String getCombustible() {
+        return combustible;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setCombustible(String combustible) {
+        this.combustible = combustible;
     }
 
     public double getDeposito() {
@@ -68,7 +68,7 @@ public class Vehiculo implements Parcelable {
      */
     protected Vehiculo(Parcel in) {
         modelo = in.readString();
-        matricula = in.readString();
+        combustible = in.readString();
         anotaciones = in.readString();
         deposito = in.readDouble();
         consumoMedio = in.readDouble();
@@ -83,7 +83,7 @@ public class Vehiculo implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(modelo);
-        dest.writeString(matricula);
+        dest.writeString(combustible);
         dest.writeString(anotaciones);
         dest.writeDouble(deposito);
         dest.writeDouble(consumoMedio);
@@ -112,8 +112,7 @@ public class Vehiculo implements Parcelable {
             aux = false;
         }
         if (o != null && ((Vehiculo) o).modelo.equals(this.modelo)
-                && ((Vehiculo) o).anotaciones.equals(this.anotaciones)
-                && ((Vehiculo) o).matricula.equals(this.matricula)) {
+                && ((Vehiculo) o).anotaciones.equals(this.anotaciones)) {
 
             aux = true;
         }
