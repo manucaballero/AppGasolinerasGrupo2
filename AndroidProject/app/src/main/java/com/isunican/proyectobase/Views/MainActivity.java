@@ -123,16 +123,16 @@ public class MainActivity extends AppCompatActivity {
 
     // Swipe and refresh (para recargar la lista con un swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    public List<IFiltro> listaFiltros= new ArrayList<IFiltro>();
+    public List<IFiltro> listaFiltros= new ArrayList<>();
 
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
     // Variables necesarias para mostrar el pop-up de añadir vehiculo
-    private final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
-    private static final String ERROR_CERRAR_FICHERO = "Error al cerrar el fichero";
-
+    private static final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
+    private static final String ERROR_TAG = "Error";
+    private static final String DATE = "Error";
 
     /**
      * onCreate
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 presenterVehiculos.borra(MainActivity.this);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d("Borra", "No se ha podido borrar");
             }
             Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
             MainActivity.this.startActivity(myIntent);
@@ -307,9 +307,7 @@ public class MainActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             presenterGasolineras.cargaDatosGasolineras();
             for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                if(g.getRotulo().equals("CEPSA")){
-                    g.setDescuento(presenterDescuentos.getDescuentos().get(0)); //Descuento del 10%
-                }
+                comparaRotulos(g);
             }
             //Aplicamos 3 descuentos del 30% a 3 gasolineras al azar
             presenterGasolineras.getGasolineras().get(5).setDescuento(presenterDescuentos.getDescuentos().get(4));
@@ -335,9 +333,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean res) {
             Toast toast = null;
             for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                if(g.getRotulo().equals("CEPSA")){
-                    g.setDescuento(presenterDescuentos.getDescuentos().get(0)); //Descuento del 10%
-                }
+                comparaRotulos(g);
             }
             //Aplicamos 3 descuentos del 30% a 3 gasolineras al azar
             presenterGasolineras.getGasolineras().get(5).setDescuento(presenterDescuentos.getDescuentos().get(4));
@@ -371,16 +367,7 @@ public class MainActivity extends AppCompatActivity {
                                 {
                                     Location location = task.getResult();
                                     //Cuando el usuario tiene la ubicacion activada
-                                    if (location != null) {
-                                        Posicion posUsuario = new Posicion(location.getLatitude(), location.getLongitude());
-
-                                        for(Gasolinera g:presenterGasolineras.getGasolineras()){
-                                            g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
-                                            g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
-
-                                        }
-                                        comprobarFiltros();
-                                    }
+                                    usaPosicion(location);
 
                                     adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                                     listViewGasolineras.setAdapter(adapter);
@@ -391,27 +378,7 @@ public class MainActivity extends AppCompatActivity {
                             });
 
                         } catch (ApiException exception) {
-                            switch (exception.getStatusCode()) {
-                                case CommonStatusCodes.RESOLUTION_REQUIRED:
-                                    // Location settings are not satisfied. But could be fixed by showing the
-                                    // user a dialog.
-                                    try {
-                                        // Cast to a resolvable exception.
-                                        ResolvableApiException resolvable = (ResolvableApiException) exception;
-                                        // Show the dialog by calling startResolutionForResult(),
-                                        // and check the result in onActivityResult().
-                                        resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
-                                    } catch (IntentSender.SendIntentException|ClassCastException e) {
-                                        // Ignore the error.
-                                    }
-                                    break;
-                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                    // Location settings are not satisfied. However, we have no way to fix the
-                                    // settings so we won't show the dialog.
-                                    break;
-                                default:
-                                    break;
-                            }
+                            switchExcapcionLocation(exception);
                         }
                     }
                 });
@@ -436,7 +403,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         mostrarPopUpPrimerVehiculo();
                     } catch (ParseException e) {
-                        Log.d("Error", "Error al intentar mostrar el pop-up de añadir vehiculo.");
+                        Log.d(ERROR_TAG, "Error al intentar mostrar el pop-up de añadir vehiculo.");
                     }
 
                 } else {
@@ -509,6 +476,20 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
+
+        private void usaPosicion(Location location) {
+            if (location != null) {
+                Posicion posUsuario = new Posicion(location.getLatitude(), location.getLongitude());
+
+                for(Gasolinera g:presenterGasolineras.getGasolineras()){
+                    g.setDistanciaEnKm(Distancia.distanciaKm(posUsuario,g.getPosicion()));
+                    g.calculaPrecioFinal(PresenterVehiculos.getVehiculoSeleccionado());
+
+                }
+                comprobarFiltros();
+            }
+        }
+
         private void comprobarFiltros(){
 
             if(PresenterVehiculos.getVehiculoSeleccionado().getCombustible().equals("GasoleoA"))
@@ -547,6 +528,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void switchExcapcionLocation(ApiException exception) {
+        switch (exception.getStatusCode()) {
+            case CommonStatusCodes.RESOLUTION_REQUIRED:
+                // Location settings are not satisfied. But could be fixed by showing the
+                // user a dialog.
+                try {
+                    // Cast to a resolvable exception.
+                    ResolvableApiException resolvable = (ResolvableApiException) exception;
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                } catch (IntentSender.SendIntentException|ClassCastException e) {
+                    // Ignore the error.
+                }
+                break;
+            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                // Location settings are not satisfied. However, we have no way to fix the
+                // settings so we won't show the dialog.
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void comparaRotulos(Gasolinera g) {
+        if (g.getRotulo().equals("CEPSA")) {
+            g.setDescuento(presenterDescuentos.getDescuentos().get(0)); //Descuento del 10%
+        }
+    }
 
 
     /**
@@ -572,7 +582,7 @@ public class MainActivity extends AppCompatActivity {
         //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
         if(ultimaFecha!=null){
 
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            DateFormat df = new SimpleDateFormat(DATE);
             Date today=Calendar.getInstance().getTime();
 
             //Diferencia de tiempo entre la ultima vez que se mostró el pop up y la hora actual.
@@ -594,35 +604,22 @@ public class MainActivity extends AppCompatActivity {
      * @return lastDate fecha en la que se mostró el pop-up por última vez
      */
     private Date cargarFechaPopUp(){
-        BufferedReader in = null;
 
         Date lastDate=null;
 
-        try {
-            File tempFile = new File(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT);
-            boolean exists = tempFile.exists();
+        File tempFile = new File(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT);
+        boolean exists = tempFile.exists();
 
-            if (exists){
-                in = new BufferedReader(new FileReader(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT));
+        if (exists){
+            try (BufferedReader in = new BufferedReader(new FileReader(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT))){
 
                 //Se lee la fecha con el formato adecuado y se cierra el fichero
                 String linea=in.readLine();
-                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                DateFormat df = new SimpleDateFormat(DATE);
                 lastDate = df.parse(linea);
 
-                in.close();
-
-            }
-
-        } catch(Exception e) {
-            Log.d("Error","Error al cargar fecha pop-up");
-        } finally {
-            if(in!=null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log.d("Error",ERROR_CERRAR_FICHERO);
-                }
+            } catch(Exception e) {
+                Log.d(ERROR_TAG,"Error al cargar fecha pop-up");
             }
         }
         return lastDate;
@@ -633,26 +630,15 @@ public class MainActivity extends AppCompatActivity {
      * Método que guarda en el fichero la fecha actual
      */
     private void guardarFechaPopUp(){
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat df = new SimpleDateFormat(DATE);
         Date today = Calendar.getInstance().getTime();
         String reportDate = df.format(today);
 
-        FileWriter fw = null;
-        try {
-            File f = new File(this.getBaseContext().getFilesDir() + POPUPPRIMERVEHICULO_TXT);
-            fw = new FileWriter(f);
+        try (FileWriter fw = new FileWriter(new File(this.getBaseContext().getFilesDir() + POPUPPRIMERVEHICULO_TXT))){
             fw.write(reportDate);
         }
         catch(IOException e) {
-            Log.d("Error","Error al guardar fecha en el fichero");
-        } finally {
-            if(fw!=null){
-                try {
-                    fw.close();
-                } catch (IOException e) {
-                    Log.d("Error",ERROR_CERRAR_FICHERO);
-                }
-            }
+            Log.d(ERROR_TAG,"Error al guardar fecha en el fichero");
         }
     }
 

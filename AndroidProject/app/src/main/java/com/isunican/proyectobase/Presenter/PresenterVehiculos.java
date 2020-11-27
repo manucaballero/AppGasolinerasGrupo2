@@ -72,24 +72,13 @@ public class PresenterVehiculos {
         }
 
         bld.append("-fin-");
-        FileWriter fw = null;
         output = bld.toString();
-        try {
-            fw = new FileWriter(new File(context.getFilesDir() + VEHICULO_TXT));
+
+        try (FileWriter fw = new FileWriter(new File(context.getFilesDir() + VEHICULO_TXT))){
             fw.write(output);
             return true;
-        }
-
-        catch(IOException e) {
+        } catch(IOException e) {
             return false;
-        } finally {
-            if(fw!=null){
-                try {
-                    fw.close();
-                } catch (IOException e) {
-                    Log.d(ERROR_TAG,ERROR_CERRAR_FICHERO);
-                }
-            }
         }
     }
 
@@ -127,21 +116,11 @@ public class PresenterVehiculos {
     public static void guardaVehiculoSeleccionado(Vehiculo v, Context context) {
 
         String output = v.getModelo() + "\n" + v.getAnotaciones();
-        FileWriter fw = null;
 
-        try {
-            fw = new FileWriter(new File(context.getFilesDir() + VEHICULO_SELECCIONADO_TXT ));
+        try (FileWriter fw = new FileWriter(new File(context.getFilesDir() + VEHICULO_SELECCIONADO_TXT ))){
             fw.write(output);
         } catch(IOException e) {
             Log.d(ERROR_TAG,ERROR_CERRAR_FICHERO);
-        } finally {
-            if(fw!=null){
-                try {
-                    fw.close();
-                } catch (IOException e) {
-                    Log.d(ERROR_TAG,ERROR_CERRAR_FICHERO);
-                }
-            }
         }
 
     }

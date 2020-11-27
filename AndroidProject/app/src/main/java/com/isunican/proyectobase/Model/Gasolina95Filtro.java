@@ -14,36 +14,11 @@ public class Gasolina95Filtro implements ICombustibleFiltro{
 
     @Override
     public void ordena(List<Gasolinera> listaGasolineras) {
-        Collections.sort(listaGasolineras, new ComparadorGasolinerasGasolina());
+        Collections.sort(listaGasolineras, new Comparador("Gasolina95"));
     }
 
     @Override
     public String getNombre() {
         return nombre;
-    }
-}
-/**
- * Clase para comparar dos gasolineras en función del precio de la gasolina95
- */
-class ComparadorGasolinerasGasolina implements Comparator<Gasolinera> {
-    @Override
-    public int compare(Gasolinera g1, Gasolinera g2) {
-        double resta = g1.getGasolina95ConDescuento() - g2.getGasolina95ConDescuento();
-        if (resta == 0){
-            if(!g1.getTieneDescuento() && !g2.getTieneDescuento()){
-                return 0;
-            }else if(g1.getTieneDescuento()){
-                return -1;
-            }else{
-                return 1;
-            }
-
-        }else {
-            if(resta < 0){
-                return -1;
-            }else{
-                return 1;
-            }
-        }
     }
 }

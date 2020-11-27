@@ -129,7 +129,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
             try {
                 presenterVehiculos.borra(MisVehiculosActivity.this);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d("Borra", "No se ha podido borrar");
             }
             Intent myIntent = new Intent(MisVehiculosActivity.this, MainActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
