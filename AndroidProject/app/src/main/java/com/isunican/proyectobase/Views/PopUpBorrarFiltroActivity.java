@@ -36,6 +36,7 @@ public class PopUpBorrarFiltroActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
                 finish();
+
             }
         });
 
@@ -47,11 +48,6 @@ public class PopUpBorrarFiltroActivity extends AppCompatActivity {
             }
         });
 
-
-        //Filtro marcado = getFiltroMarcado
-        //El requestCode tiene que ser distinto a 10 para asi en el onActivityResult meter en el if
-        //un || aprovechando que los data que devuelve la actividad FilterActivity son los mismos que la nuestra
-        //y asi evitamos codigo duplicado
 
     }
 

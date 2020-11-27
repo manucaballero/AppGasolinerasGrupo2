@@ -80,9 +80,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 */
 public class MainActivity extends AppCompatActivity {
 
-    private static PresenterGasolineras presenterGasolineras;
-
-    public static PresenterGasolineras getPresenterGasolineras(){return presenterGasolineras;}
+    private PresenterGasolineras presenterGasolineras;
 
     private PresenterVehiculos presenterVehiculos;
 
@@ -97,35 +95,26 @@ public class MainActivity extends AppCompatActivity {
     public static Context mContext;
 
     private static IFiltro filtroGasoleA;
-    //public static IFiltro getFiltroGasoleA(){return filtroGasoleA;}
     private static IFiltro filtroGasolina95;
-    //public static IFiltro getFiltroGasolina95(){return filtroGasolina95;}
     private static IFiltro descuentoSiFiltro;
-    //public static IFiltro getDescuentoSiFiltro(){return descuentoSiFiltro;}
     private static IFiltro descuentoNoFiltro;
-    //public static IFiltro getDescuentoNoFiltro(){return descuentoNoFiltro;}
 
     private static boolean gasoleoA;
-    //public static void setGasoleoA(boolean bool){gasoleoA=bool;}
     private static boolean gasolina95;
-    //public static void setGasolina95(boolean bool){gasolina95=bool;}
     private static boolean descuentoSi;
-    //public static void setDescuentoSi(boolean bool){descuentoSi=bool;}
     private static boolean descuentoNo;
-    //public static void setDescuentoNo(boolean bool){descuentoNo=bool;}
     private static AdapterFiltros adapterFiltros;
-    //public static AdapterFiltros getAdapterFiltros(){return adapterFiltros;}
 
     private static TextView filtroMarcado;
     public static TextView getFiltroMarcado(){return filtroMarcado;}
     public static void setFiltroMarcado(TextView nombreFiltro){filtroMarcado=nombreFiltro;}
 
     // Barra de progreso circular para mostar progeso de carga
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     // Swipe and refresh (para recargar la lista con un swipe)
-    public static SwipeRefreshLayout mSwipeRefreshLayout;
-    public static List<IFiltro> listaFiltros= new ArrayList<IFiltro>();
+    public SwipeRefreshLayout mSwipeRefreshLayout;
+    private static List<IFiltro> listaFiltros= new ArrayList<IFiltro>();
 
     private static final int PERMISSION_REQUEST = 100;
     private static final int REQUEST_CHECK_SETTINGS = 101;
@@ -526,38 +515,6 @@ public class MainActivity extends AppCompatActivity {
             descuentoSi = data.getBooleanExtra(FilterActivity.getDescuentoSi(), false);
             new CargaDatosGasolinerasTask(MainActivity.this).execute();
         }
-
-        if(requestCode == 20 && resultCode == Activity.RESULT_OK){
-            String filtro = getFiltroMarcado().getText().toString();
-
-            switch (filtro) {
-                case "Con Descuento":
-                    descuentoSi=false;
-                    listaFiltros.remove(descuentoSiFiltro);
-                    adapterFiltros.notifyDataSetChanged();
-                    break;
-
-                case "GasóleoA":
-                    gasoleoA=false;
-                    listaFiltros.remove(filtroGasoleA);
-                    adapterFiltros.notifyDataSetChanged();
-                    break;
-                case "Sin Descuento":
-                    descuentoNo=false;
-                    listaFiltros.remove(descuentoNoFiltro);
-                    adapterFiltros.notifyDataSetChanged();
-                    break;
-                case "Gasolina 95":
-                    gasolina95=false;
-                    listaFiltros.remove(filtroGasolina95);
-                    adapterFiltros.notifyDataSetChanged();
-                    break;
-            }
-
-
-        }
-
-
     }
     /*
         Método auxiliar que retorna -1 si no hay un filtro del tipo pasado como parámetro
@@ -690,18 +647,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    /**
-     * Método que es llamado al pulsar sobre un filtro en la lista
-     * @param nombreFiltro TextView filtro pulsado
-     */
-    public static void eliminaFiltro(TextView nombreFiltro){
-        setFiltroMarcado(nombreFiltro);
-        Intent myIntent = new Intent(MainActivity.mContext, PopUpBorrarFiltroActivity.class);
-
-        MainActivity.mContext.startActivity(myIntent);
-    }
-
     /**
      * Método que elimina el filtro de la lista
      */
@@ -732,7 +677,15 @@ public class MainActivity extends AppCompatActivity {
                 adapterFiltros.notifyDataSetChanged();
                 break;
         }
+    }
 
+    /**
+     * Método que se ejecuta cada vez que se vuelve a esta actividad
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        new CargaDatosGasolinerasTask(MainActivity.this).execute();
     }
 
 }
@@ -754,9 +707,9 @@ class ViewHolderJr extends RecyclerView.ViewHolder{
     private View.OnClickListener filtroOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            MainActivity.eliminaFiltro(nombreFiltro);
             MainActivity.setFiltroMarcado(nombreFiltro);
             Intent myIntent = new Intent(MainActivity.mContext, PopUpBorrarFiltroActivity.class);
+            MainActivity.mContext.startActivity(myIntent);
         }
     };
 
