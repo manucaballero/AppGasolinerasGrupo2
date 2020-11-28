@@ -44,7 +44,7 @@
             android:layout_marginTop="4dp"
             android:background="#667761"
             android:fontFamily="@font/archivo_black"
-            android:text="EN TU GASOLINA"
+            android:text="EN TU REPOSTAJE"
             android:textAlignment="textStart"
             android:textColor="#161032"
             android:textSize="15sp" />
@@ -59,14 +59,15 @@
             android:layout_toRightOf="@id/PorcentajeDescuento"
             android:fontFamily="@font/archivo_black"
             android:text="@string/TextoDialgoDescuento"
-            android:textColor="#161032" />
+            android:textColor="#161032"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textViewCodDescuento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/descripcionCupon"
-            android:layout_marginLeft="86dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@id/enTuGasolina"
@@ -74,7 +75,7 @@
             android:fontFamily="@font/holtwood_one_sc"
             android:text="BF2020"
             android:textColor="#161032"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
 </RelativeLayout>

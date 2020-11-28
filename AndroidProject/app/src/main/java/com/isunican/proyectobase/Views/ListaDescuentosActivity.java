@@ -63,10 +63,9 @@ public class ListaDescuentosActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.itemInfo) {
             Intent myIntent = new Intent(ListaDescuentosActivity.this, InfoActivity.class);
             ListaDescuentosActivity.this.startActivity(myIntent);
-        /*}else if (item.getItemId() == R.id.itemFabrica) {
-            presenterVehiculos.borra(ListaDescuentosActivity.this);
+        }else if(item.getItemId()==R.id.itemGasolineras) {
             Intent myIntent = new Intent(ListaDescuentosActivity.this, MainActivity.class);
-            ListaDescuentosActivity.this.startActivity(myIntent);*/
+            ListaDescuentosActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemDescuentos){
             Intent myIntent = new Intent(ListaDescuentosActivity.this, ListaDescuentosActivity.class);
             ListaDescuentosActivity.this.startActivity(myIntent);
