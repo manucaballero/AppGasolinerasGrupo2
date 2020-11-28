@@ -48,5 +48,5 @@
     </string-array>
     <string name="AceptarDescuento">Aceptar</string>
     <string name="TituloDialogDescuento">Descuento disponible</string>
-    <string name="TextoDialgoDescuento">Esta gasolinera dispone del siguiente código aplicado</string>
+    <string name="TextoDialgoDescuento">El siguiente código se encuentra aplicado en la lista de gasolineras.</string>
 </resources>
