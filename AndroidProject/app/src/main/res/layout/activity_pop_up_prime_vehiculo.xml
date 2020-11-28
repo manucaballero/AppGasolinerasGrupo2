@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#547980"
     android:orientation="vertical"
-    android:backgroundTint="#547980"
     tools:context=".Views.PopUpPrimerVehiculoActivity">
 
     <TextView
@@ -18,7 +16,7 @@
         android:paddingTop="20dp"
         android:text="@string/primerVehiculo"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -31,7 +29,7 @@
         android:paddingTop="20dp"
         android:text="@string/frasePrimerVehiculo"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -45,11 +43,12 @@
         android:layout_marginTop="40dp"
         android:layout_marginRight="60dp"
         android:background="@drawable/roundedbutton"
-        android:backgroundTint="#FFFCFC"
+        android:backgroundTint="@color/colorAccent"
         android:fontFamily="sans-serif"
         android:text="@string/botonAnhadir"
-        android:textColor="#547980"
-        android:textSize="15dp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="15dp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonMasTarde"
@@ -60,9 +59,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="60dp"
         android:background="@drawable/roundedbutton"
-        android:backgroundTint="#FFFCFC"
+        android:backgroundTint="@color/colorAccent"
         android:fontFamily="sans-serif"
         android:text="@string/botonRechazar"
-        android:textColor="#547980"
-        android:textSize="15dp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="15dp"
+        android:textStyle="bold" />
 </LinearLayout>

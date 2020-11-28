@@ -7,9 +7,9 @@ public class Descuento implements Parcelable {
 
     private String codigo;
     private String descripcion;
-    private double porcentaje;
+    private int porcentaje;
 
-    public Descuento(String codigo, String descripcion, double porcentaje){
+    public Descuento(String codigo, String descripcion, int porcentaje){
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.porcentaje = porcentaje;
@@ -18,8 +18,8 @@ public class Descuento implements Parcelable {
     public String getDescripcion() { return this.descripcion; }
     public void setDescripcion(String descripcion)  { this.descripcion = descripcion; }
 
-    public double getPorcentaje() { return porcentaje; }
-    public void setPorcentaje(double porcentaje) { this.porcentaje = porcentaje; }
+    public int getPorcentaje() { return porcentaje; }
+    public void setPorcentaje(int porcentaje) { this.porcentaje = porcentaje; }
 
     public String getCodigo() { return this.codigo; }
     public void setCodigo(String codigo) { this.codigo = codigo; }
@@ -38,7 +38,7 @@ public class Descuento implements Parcelable {
     protected Descuento(Parcel in) {
         codigo = in.readString();
         descripcion = in.readString();
-        porcentaje = in.readDouble();
+        porcentaje = in.readInt();
     }
 
     @Override

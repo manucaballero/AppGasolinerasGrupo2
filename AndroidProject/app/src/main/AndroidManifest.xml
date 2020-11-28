@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.ListaDescuentosActivity" android:label="Lista de descuentos"></activity>
+        <activity android:name=".Views.ListaDescuentosActivity" android:label="Lista de descuentos"
+            android:theme="@style/AppTheme.DescuentoList">
+        </activity>
         <activity
             android:name=".Views.PopUpPrimerVehiculoActivity"
             android:theme="@style/AppTheme.TemasPopUps" />

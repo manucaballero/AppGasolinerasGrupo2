@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#547980"
     android:orientation="vertical"
-    android:backgroundTint="#547980"
     tools:context=".Views.PopUpConflicto">
 
     <ScrollView
@@ -16,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/texViewAnhadir"
@@ -27,7 +25,7 @@
                 android:paddingTop="20dp"
                 android:text="@string/filtros_incompatibles"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorPrimary"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
@@ -40,7 +38,7 @@
                 android:paddingTop="20dp"
                 android:text="@string/infoFiltrosIncompatibles"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -53,7 +51,7 @@
                 android:paddingTop="20dp"
                 android:text="@string/nota"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15sp"
                 android:textStyle="normal" />
 
@@ -66,10 +64,10 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginRight="60dp"
                 android:background="@drawable/roundedbutton"
-                android:backgroundTint="#FFFCFC"
+                android:backgroundTint="@color/colorAccent"
                 android:fontFamily="sans-serif"
                 android:text="@string/aceptar"
-                android:textColor="#547980"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15dp" />
 
             <Button
@@ -81,10 +79,10 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="60dp"
                 android:background="@drawable/roundedbutton"
-                android:backgroundTint="#FFFCFC"
+                android:backgroundTint="@color/colorAccent"
                 android:fontFamily="sans-serif"
                 android:text="@string/cancelar"
-                android:textColor="#547980"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15dp" />
         </LinearLayout>
     </ScrollView>

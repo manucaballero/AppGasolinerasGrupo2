@@ -2,73 +2,79 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="0dp"
-    android:layout_marginEnd="10dp"
-    android:background="#BA0000"
-    android:backgroundTintMode="add"
-    android:paddingBottom="30dp">
+    android:layout_width="wrap_content"
+    android:layout_height="200dp"
+    android:background="@drawable/fondo_descuento_dos"
+    android:scrollbarSize="10dp">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="351dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textViewCod"
+            android:id="@+id/descuentoText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/codigoDescuento"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/archivo_black"
+            android:text="DESCUENTO"
+            android:textColor="#667761" />
+
+        <TextView
+            android:id="@+id/PorcentajeDescuento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descuentoText"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/krona_one"
+            android:text="-50%"
+            android:textColor="#161032"
+            android:textSize="60sp" />
+
+        <TextView
+            android:id="@+id/enTuGasolina"
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/PorcentajeDescuento"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="4dp"
+            android:background="#667761"
+            android:fontFamily="@font/archivo_black"
+            android:text="EN TU GASOLINA"
+            android:textAlignment="textStart"
+            android:textColor="#161032"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/descripcionCupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_toRightOf="@id/PorcentajeDescuento"
+            android:fontFamily="@font/archivo_black"
+            android:text="@string/TextoDialgoDescuento"
+            android:textColor="#161032" />
 
         <TextView
             android:id="@+id/textViewCodDescuento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:paddingRight="5dp"
-            android:text="@string/descripcion"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textViewDescripcionDescuento"
-            android:layout_width="36dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-    </LinearLayout>
+            android:layout_below="@id/descripcionCupon"
+            android:layout_marginLeft="86dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/enTuGasolina"
+            android:background="#667761"
+            android:fontFamily="@font/holtwood_one_sc"
+            android:text="BF2020"
+            android:textColor="#161032"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
