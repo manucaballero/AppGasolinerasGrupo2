@@ -57,7 +57,7 @@ public class Gasolina95FiltroTest {
         listaGasoNoDes.add(new Gasolinera(1115,"SANTANDER","SANTANDER", "Calle el Empalme", 1.254,0,"CARREFOUR","43.42741814","-3.02677519"));
 
         //Descuento por defecto del 10%
-        Descuento descuento = new Descuento("codigo", "Descripción", 10.0);
+        Descuento descuento = new Descuento("codigo", "Descripción", 10);
         //Introducimos el descuento en las gasolineras que sean de CEPSA
         for(Gasolinera g:listaGaso){
             if(g.getRotulo().equals("CEPSA")){

@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         if (!checkPermissionLocation()) {
             requestPermission();
         }
+        invalidateOptionsMenu();
         // Al terminar de inicializar todas las variables
         // se lanza una tarea para cargar los datos de las gasolineras
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
@@ -219,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        menu.findItem(R.id.itemGasolineras).setVisible(false);
         return true;
     }
 

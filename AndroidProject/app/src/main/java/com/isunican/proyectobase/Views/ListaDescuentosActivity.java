@@ -42,6 +42,7 @@ public class ListaDescuentosActivity extends AppCompatActivity {
         adapterDescuentos = new AdapterDescuentos(ListaDescuentosActivity.this,presenterDescuentos.getDescuentos());
         recyclerViewDescuentos.setAdapter(adapterDescuentos);
         adapterDescuentos.notifyDataSetChanged();
+        invalidateOptionsMenu();
 
     }
 
@@ -49,6 +50,12 @@ public class ListaDescuentosActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu, menu);
+
+        menu.findItem(R.id.itemActualizar).setVisible(false);
+        menu.findItem(R.id.itemFabrica).setVisible(false);
+        menu.findItem(R.id.itemDescuentos).setVisible(false);
+
+
         return true;
     }
 
@@ -65,9 +72,6 @@ public class ListaDescuentosActivity extends AppCompatActivity {
             ListaDescuentosActivity.this.startActivity(myIntent);
         }else if(item.getItemId()==R.id.itemGasolineras) {
             Intent myIntent = new Intent(ListaDescuentosActivity.this, MainActivity.class);
-            ListaDescuentosActivity.this.startActivity(myIntent);
-        }else if (item.getItemId() == R.id.itemDescuentos){
-            Intent myIntent = new Intent(ListaDescuentosActivity.this, ListaDescuentosActivity.class);
             ListaDescuentosActivity.this.startActivity(myIntent);
         }
 
