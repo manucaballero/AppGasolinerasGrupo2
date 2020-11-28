@@ -172,8 +172,9 @@ public class DetailActivity extends AppCompatActivity {
         View viewDialog = View.inflate(this, R.layout.dialog_descuentos_design, null);
         dialog.setView(viewDialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        txtDialog = viewDialog.findViewById(R.id.textoDialog);
+        txtDialog = viewDialog.findViewById(R.id.txtDescuento);
         buttonDialog = viewDialog.findViewById(R.id.buttonAceptarDialog);
+        txtDialog.setText(g.getDescuento().getCodigo());
         //Se define el comportamiento del botón del dialog
         buttonDialog.setOnClickListener(new View.OnClickListener() {
             @Override

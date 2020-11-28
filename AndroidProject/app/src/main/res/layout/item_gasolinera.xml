@@ -9,10 +9,10 @@
         android:id="@+id/imageViewLogo"
         android:layout_width="@dimen/logo"
         android:layout_height="@dimen/logo"
-        android:layout_marginBottom="@dimen/marginLogo"
         android:layout_marginLeft="@dimen/marginLogo"
+        android:layout_marginTop="@dimen/marginLogo"
         android:layout_marginRight="@dimen/marginLogo"
-        android:layout_marginTop="@dimen/marginLogo" />
+        android:layout_marginBottom="@dimen/marginLogo" />
 
     <TextView
         android:id="@+id/textViewRotulo"
@@ -21,6 +21,7 @@
         android:layout_marginLeft="@dimen/marginTextView"
         android:layout_marginTop="@dimen/marginTextView"
         android:layout_toRightOf="@+id/imageViewLogo"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold" />
 
     <TextView
@@ -30,7 +31,8 @@
         android:layout_below="@+id/textViewRotulo"
         android:layout_marginLeft="@dimen/marginTextView"
         android:layout_marginTop="@dimen/marginTopLayoutPrecios"
-        android:layout_toRightOf="@+id/imageViewLogo" />
+        android:layout_toRightOf="@+id/imageViewLogo"
+        android:textColor="@color/colorAccent" />
 
     <RelativeLayout
         android:id="@+id/relativeLayoutPrecios"
@@ -46,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/marginLeftPrecios"
             android:text="@string/gasoleoa"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
 
         <TextView
@@ -53,7 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/marginLabelsPrecio"
-            android:layout_toRightOf="@+id/textViewGasoleoALabel" />
+            android:layout_toRightOf="@+id/textViewGasoleoALabel"
+            android:textColor="@color/colorAccent" />
 
         <TextView
             android:id="@+id/textViewGasolina95Label"
@@ -62,6 +66,7 @@
             android:layout_marginLeft="@dimen/marginTextView"
             android:layout_toRightOf="@+id/textViewGasoleoA"
             android:text="@string/gasolina95"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold" />
 
         <TextView
@@ -69,7 +74,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/marginLabelsPrecio"
-            android:layout_toRightOf="@+id/textViewGasolina95Label" />
+            android:layout_toRightOf="@+id/textViewGasolina95Label"
+            android:textColor="@color/colorAccent" />
 
     </RelativeLayout>
 </RelativeLayout>

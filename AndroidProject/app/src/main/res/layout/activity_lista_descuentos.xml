@@ -5,11 +5,13 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2F4F4F"
     tools:context=".Views.ListaDescuentosActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDescuentos"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+         />
 
 </RelativeLayout>

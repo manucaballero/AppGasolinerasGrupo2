@@ -81,12 +81,12 @@ public class ListaDescuentosActivity extends AppCompatActivity {
 class ViewHolderDesc extends RecyclerView.ViewHolder{
 
     TextView codigoDescuento;
-    TextView descripcionDescuento;
+    TextView porcentajeDescuento;
 
     public ViewHolderDesc(@NonNull View itemView) {
         super(itemView);
         codigoDescuento = itemView.findViewById(R.id.textViewCodDescuento);
-        descripcionDescuento = itemView.findViewById(R.id.textViewDescripcionDescuento);
+        porcentajeDescuento = itemView.findViewById(R.id.PorcentajeDescuento);
     }
 
 
@@ -112,8 +112,8 @@ class AdapterDescuentos extends RecyclerView.Adapter<ViewHolderDesc> {
     public void onBindViewHolder(@NonNull ViewHolderDesc holder, int position) {
         String codigo = lista.get(position).getCodigo();
         holder.codigoDescuento.setText(codigo);
-        String des = lista.get(position).getDescripcion();
-        holder.descripcionDescuento.setText(des);
+        int descuento = lista.get(position).getPorcentaje();
+        holder.porcentajeDescuento.setText("-"+Integer.toString(descuento)+"%");
     }
 
     @Override
