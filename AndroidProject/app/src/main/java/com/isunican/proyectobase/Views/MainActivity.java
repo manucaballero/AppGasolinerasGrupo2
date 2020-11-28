@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     // Variables necesarias para mostrar el pop-up de añadir vehiculo
     private static final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
     private static final String ERROR_TAG = "Error";
-    private static final String DATE = "Error";
+    private static final String DATE = "dd/MM/yyyy HH:mm:ss";
 
     /**
      * onCreate
@@ -387,7 +387,6 @@ public class MainActivity extends AppCompatActivity {
 
                 comprobarFiltros();
 
-
                 adapter = new GasolineraArrayAdapter(activity, 0, presenterGasolineras.getGasolineras());
                 adapterFiltros = new AdapterFiltros(MainActivity.this, listaFiltros);
                 recyclerViewFiltros.setAdapter(adapterFiltros);
@@ -400,11 +399,7 @@ public class MainActivity extends AppCompatActivity {
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
 
                     //El siguiente metodo mostrará el Pop-Up solo si es necesario
-                    try {
-                        mostrarPopUpPrimerVehiculo();
-                    } catch (ParseException e) {
-                        Log.d(ERROR_TAG, "Error al intentar mostrar el pop-up de añadir vehiculo.");
-                    }
+                    mostrarPopUpPrimerVehiculo();
 
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
@@ -562,9 +557,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Método que muestra el pop-up de añadir vehiculo pop primera vez
      * solo si es necesario.
-     * @throws ParseException
      */
-    private void mostrarPopUpPrimerVehiculo() throws ParseException {
+    private void mostrarPopUpPrimerVehiculo() {
 
         //Tiempo transcurrido desde que se mostró anteriormente
         long tiempoTranscurrido=0;
@@ -582,7 +576,6 @@ public class MainActivity extends AppCompatActivity {
         //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
         if(ultimaFecha!=null){
 
-            DateFormat df = new SimpleDateFormat(DATE);
             Date today=Calendar.getInstance().getTime();
 
             //Diferencia de tiempo entre la ultima vez que se mostró el pop up y la hora actual.
@@ -680,8 +673,8 @@ public class MainActivity extends AppCompatActivity {
     */
     public class GasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 
-        private Context context;
-        private List<Gasolinera> listaGasolineras;
+        private final Context context;
+        private final List<Gasolinera> listaGasolineras;
 
         // Constructor
         public GasolineraArrayAdapter(Context context, int resource, List<Gasolinera> objects) {

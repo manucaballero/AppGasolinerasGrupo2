@@ -4,8 +4,12 @@ import com.isunican.proyectobase.Model.Posicion;
 
 public class Distancia {
     private static final  double RADIO_TIERRA_KM = 6378.0F;
-    public static double distanciaKm(Posicion posOrigen, Posicion posDestino)
 
+    private Distancia() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static double distanciaKm(Posicion posOrigen, Posicion posDestino)
     {
         double difLatitud = Math.toRadians((posDestino.getLatitud() - posOrigen.getLatitud()));
         double difLongitud = Math.toRadians((posDestino.getLongitud() -posOrigen.getLongitud()));

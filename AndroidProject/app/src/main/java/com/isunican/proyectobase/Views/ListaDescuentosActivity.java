@@ -19,7 +19,6 @@ import com.isunican.proyectobase.Model.Descuento;
 import com.isunican.proyectobase.Presenter.PresenterDescuentos;
 import com.isunican.proyectobase.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListaDescuentosActivity extends AppCompatActivity {

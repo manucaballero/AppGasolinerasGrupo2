@@ -28,10 +28,10 @@ public class FilterActivity extends AppCompatActivity  {
     boolean bdescuentoSi = false;
     boolean bDescuentoNo =false;
 
-    public static String GASOLEOA = "gasoleoA";
-    public static String GASOLINA95 = "gasolina95";
-    public static String DESCUENTOSI = "descuentoSI";
-    public static String DESCUENTONO = "descuentoNo";
+    public static final String GASOLEOA = "gasoleoA";
+    public static final String GASOLINA95 = "gasolina95";
+    public static final String DESCUENTOSI = "descuentoSI";
+    public static final String DESCUENTONO = "descuentoNo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,39 +107,16 @@ public class FilterActivity extends AppCompatActivity  {
             bdescuentoSi = checkBoxDescuentoSi.isChecked();
         }
 
+        cont = checkCombustibles(antiguoBGasoleoA, antiguoBGasolina95, cont);
 
+        checkDescuento(antiguoBDescuentoNo, antiguoBDescuentoSi, cont);
 
-        if(checkBoxGasolina95.isChecked() && checkBoxGasoleA.isChecked() || bgasolina95 && bgasoleoA){
-            if(checkBoxGasoleA.isChecked() && checkBoxGasolina95.isChecked()){
-                if(antiguoBGasoleoA){
-                    bgasolina95=false;
-                }else if (antiguoBGasolina95){
-                    bgasoleoA=false;
-                }else{
-                    bgasoleoA=false;
-                    bgasolina95=false;
-                }
-            }
-            else if(checkBoxGasoleA.isChecked()){
-                bgasoleoA=false;
-            }
-            else if(checkBoxGasolina95.isChecked()){
-                bgasolina95=false;
-            }
-            Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
-            cont++;
-            FilterActivity.this.startActivity(myIntent);
-        }
+    }
+
+    private void checkDescuento(boolean antiguoBDescuentoNo, boolean antiguoBDescuentoSi, int cont) {
         if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked() || bdescuentoSi && bDescuentoNo){
             if(checkBoxDescuentoNo.isChecked() && checkBoxDescuentoSi.isChecked()){
-                if(antiguoBDescuentoNo){
-                    bdescuentoSi=false;
-                }else if (antiguoBDescuentoSi){
-                    bDescuentoNo=false;
-                }else{
-                    bDescuentoNo=false;
-                    bdescuentoSi=false;
-                }
+                estableceBooleanosDescuento(antiguoBDescuentoNo, antiguoBDescuentoSi);
             }
             else if(checkBoxDescuentoSi.isChecked()){
                 bdescuentoSi=false;
@@ -154,11 +131,47 @@ public class FilterActivity extends AppCompatActivity  {
             }
 
         }
-
-        }
-
-
-
-
-
     }
+
+    private int checkCombustibles(boolean antiguoBGasoleoA, boolean antiguoBGasolina95, int cont) {
+        if(checkBoxGasolina95.isChecked() && checkBoxGasoleA.isChecked() || bgasolina95 && bgasoleoA){
+            if(checkBoxGasoleA.isChecked() && checkBoxGasolina95.isChecked()){
+                estableceBooleanosCombustible(antiguoBGasoleoA, antiguoBGasolina95);
+            }
+            else if(checkBoxGasoleA.isChecked()){
+                bgasoleoA=false;
+            }
+            else if(checkBoxGasolina95.isChecked()){
+                bgasolina95=false;
+            }
+            Intent myIntent = new Intent(FilterActivity.this, PopUpConflicto.class);
+            cont++;
+            FilterActivity.this.startActivity(myIntent);
+        }
+        return cont;
+    }
+
+    private void estableceBooleanosDescuento(boolean antiguoBDescuentoNo, boolean antiguoBDescuentoSi) {
+        if(antiguoBDescuentoNo){
+            bdescuentoSi=false;
+        }else if (antiguoBDescuentoSi){
+            bDescuentoNo=false;
+        }else{
+            bDescuentoNo=false;
+            bdescuentoSi=false;
+        }
+    }
+
+    private void estableceBooleanosCombustible(boolean antiguoBGasoleoA, boolean antiguoBGasolina95) {
+        if(antiguoBGasoleoA){
+            bgasolina95=false;
+        }else if (antiguoBGasolina95){
+            bgasoleoA=false;
+        }else{
+            bgasoleoA=false;
+            bgasolina95=false;
+        }
+    }
+
+
+}
