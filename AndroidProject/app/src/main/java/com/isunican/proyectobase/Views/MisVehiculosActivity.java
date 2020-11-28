@@ -77,6 +77,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
 
+        invalidateOptionsMenu();
 
         // Swipe and refresh
         // Al hacer swipe en la lista, lanza la tarea asíncrona de carga de datos
@@ -91,6 +92,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
         // se lanza una tarea para cargar los datos de los vehiculos
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
         new CargaDatosVehiculosTask(this).execute();
+
     }
 
     /**
@@ -107,6 +109,8 @@ public class MisVehiculosActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+
+        menu.findItem(R.id.itemMisVehiculos).setVisible(false);
         return true;
     }
 

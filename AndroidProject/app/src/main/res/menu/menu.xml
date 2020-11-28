@@ -23,13 +23,13 @@
         android:id="@+id/itemNuevoVehiculo"
         android:title="Nuevo Vehículo" />
     <item
-        android:id="@+id/itemInfo"
-        android:title="@string/menuInfo" />
+        android:id="@+id/itemDescuentos"
+        android:title="@string/menuDescuentos" />
     <item
         android:id="@+id/itemFabrica"
         android:title="Restaurar vehículos de fábrica" />
     <item
-        android:id="@+id/itemDescuentos"
-        android:title="@string/menuDescuentos" />
+        android:id="@+id/itemInfo"
+        android:title="@string/menuInfo" />
 
 </menu>
