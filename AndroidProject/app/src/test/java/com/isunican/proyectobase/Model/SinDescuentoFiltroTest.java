@@ -43,7 +43,7 @@ public class SinDescuentoFiltroTest {
         listaGaso0.add(new Gasolinera(9144,"SANTANDER","SANTANDER", "Av Parayas", 1.543,0,"CEPSA","43.40741814","-3.92677519"));
         listaGaso0.add(new Gasolinera(1115,"SANTANDER","SANTANDER", "Calle el Empalme", 1.254,0,"CEPSA","43.42741814","-3.02677519"));
         //Descuento por defecto del 10%
-        Descuento descuento = new Descuento("codigo", "Descripción", 10.0);
+        Descuento descuento = new Descuento("codigo", "Descripción", 10);
         //Introducimos el descuento en las gasolineras que sean de CEPSA
         for(Gasolinera g:listaGaso){
             if(g.getRotulo().equals("CEPSA")){
