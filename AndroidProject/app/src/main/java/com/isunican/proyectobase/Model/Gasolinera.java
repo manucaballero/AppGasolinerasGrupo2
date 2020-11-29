@@ -237,7 +237,7 @@ public class Gasolinera implements Parcelable {
         if(tieneDescuento){
             dest.writeString(this.descuento.getCodigo());
             dest.writeString(this.descuento.getDescripcion());
-            dest.writeDouble(this.descuento.getPorcentaje());
+            dest.writeInt(this.descuento.getPorcentaje());
         }
 
     }
