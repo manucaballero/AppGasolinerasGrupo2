@@ -50,7 +50,7 @@ public class Descuento implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(codigo);
         dest.writeString(descripcion);
-        dest.writeDouble(porcentaje);
+        dest.writeInt(porcentaje);
     }
 
     public static final Parcelable.Creator<Descuento> CREATOR = new Parcelable.Creator<Descuento>() {
