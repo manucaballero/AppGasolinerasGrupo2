@@ -42,6 +42,10 @@
     <string name="filtros_incompatibles">Filtros Incompatibles</string>
     <string name="infoFiltrosIncompatibles">Los filtros seleccionados son incompatibles, pulse aceptar para volver a la selección de filtros.</string>
     <string name="nota">Nota: Los filtros de un mismo tipo, por ejemplo "Combustible" no se pueden seleccionar a la vez</string>
+    <string name="borrarFiltro">Borrar Filtro</string>
+    <string name="fraseBorrarFiltro">Si desea borrar el filtro seleccionado pulse sí.</string>
+    <string name="btnSiBorrarFiltro">Si, borrar filtro</string>
+    <string name="btnNoBorrarFiltro">No</string>
     <string-array name="tipos_combustible">
         <item>GasoleoA</item>
         <item>Gasolina95</item>
