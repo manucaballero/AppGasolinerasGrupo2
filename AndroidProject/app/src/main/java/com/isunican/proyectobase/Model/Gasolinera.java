@@ -212,7 +212,7 @@ public class Gasolinera implements Parcelable {
         posicion = new Posicion(Double.parseDouble(in.readString().replace(",",".")),Double.parseDouble(in.readString().replace(",",".")));
         tieneDescuento = in.readBoolean();
         if(tieneDescuento){
-            descuento = new Descuento(in.readString(), in.readString(), in.readDouble());
+            descuento = new Descuento(in.readString(), in.readString(), in.readInt());
         }
     }
 

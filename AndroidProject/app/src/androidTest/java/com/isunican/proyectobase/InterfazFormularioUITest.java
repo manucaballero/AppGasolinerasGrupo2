@@ -20,7 +20,12 @@ import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 
 /**
  * @author Daniel Sánchez Díez
@@ -41,28 +46,22 @@ public class InterfazFormularioUITest {
 
         //Se crea un objeto referente al campo de la matricula para poder comprobar si tiene error o no
         EditText modelo = mActivityTestRule.getActivity().findViewById(R.id.campoModelo);
-        EditText matricula = mActivityTestRule.getActivity().findViewById(R.id.campoMatricula);
+        EditText nota = mActivityTestRule.getActivity().findViewById(R.id.campoAnotaciones);
 
         //Se comprueba si sale el error esperado
         onView(ViewMatchers.withId(R.id.txtAceptar)).perform(click());
         Assert.assertEquals("Campo Requerido", modelo.getError());
 
-        //En el campo de la matricula se escribe un valor erroneo y se cierra el teclado del movil (si no da error)
-        onView(withId(R.id.campoMatricula)).perform(typeText("ASD"));
+        //En el campo de las anotaciones se escribe un valor erroneo y se cierra el teclado del movil (si no da error)
+        onView(withId(R.id.campoAnotaciones)).perform(typeText("ASD"));
         Espresso.closeSoftKeyboard();
-        //Click en aceptar y se comprueba si sale el error esperado. Además se comprueba que el texto introducido antes está presente
+        //Click en aceptar y se comprueba que el texto introducido antes está presente
         onView(ViewMatchers.withId(R.id.txtAceptar)).perform(click());
-        Assert.assertEquals("Mínimo 6 caracteres", matricula.getError());
-        onView(ViewMatchers.withId(R.id.campoMatricula)).check(matches(withText("ASD")));
+        onView(ViewMatchers.withId(R.id.campoAnotaciones)).check(matches(withText("ASD")));
 
-        //En el campo de la matricula se escribe un valor correcto (tras dejarlo en blanco) y se cierra el teclado del movil
-        onView(withId(R.id.campoMatricula)).perform(clearText(), typeText("AABB11"));
-        Espresso.closeSoftKeyboard();
-        //Click en aceptar y se comprueba no hay errores. Además se comprueba que el texto introducido antes está presente
-        onView(ViewMatchers.withId(R.id.txtAceptar)).perform(click());
-        Assert.assertNull(matricula.getError());
-
-        onView(ViewMatchers.withId(R.id.campoMatricula)).check(matches(withText("AABB11")));
+        onView(withId(R.id.campoCombustible)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("GasoleoA"))).perform(click());
+        onView(withId(R.id.campoCombustible)).check(matches(withSpinnerText(containsString("GasoleoA"))));
 
     }
 }

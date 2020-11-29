@@ -96,6 +96,8 @@ public class DetailActivity extends AppCompatActivity {
         txtGasolina95ConDescuento=findViewById(R.id.txtGasolina95ConDescuento);
         txtPrecioGasolina95ConDescuento=findViewById(R.id.txtPrecioGasolina95ConDescuento);
 
+
+
         layout1 = findViewById(R.id.layout1);
         layout2 = findViewById(R.id.layout2);
 
@@ -137,21 +139,6 @@ public class DetailActivity extends AppCompatActivity {
         txtPrecioGasolina95ConDescuento.setTextSize(20);
         txtGasolina95ConDescuento.setTextSize(20);
 
-        //Si no tiene descuento se eliminan los elementos del xml que tengan descuento
-        if(!g.getTieneDescuento()) {
-            txtDieselPrecioConDescuento.setVisibility(View.GONE);
-            txtDiesel.setTextSize(20);
-            txtDieselPrecio.setTextSize(25);
-            txtDieselConDescuento.setVisibility(View.GONE);
-            txtPrecioGasolina95ConDescuento.setVisibility(View.GONE);
-            txtGasolina95ConDescuento.setVisibility(View.GONE);
-            txtGasolina95.setTextSize(20);
-            txtGasolina95Precio.setTextSize(25);
-            buttonVerDescuento.setVisibility(View.GONE);
-            layout1.setVisibility(View.GONE);
-            layout2.setVisibility(View.GONE);
-        }
-
 
 
         int imageID = getResources().getIdentifier(g.getRotulo().toLowerCase(),
@@ -172,8 +159,11 @@ public class DetailActivity extends AppCompatActivity {
         View viewDialog = View.inflate(this, R.layout.dialog_descuentos_design, null);
         dialog.setView(viewDialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        txtDialog = viewDialog.findViewById(R.id.textoDialog);
+        txtDialog = viewDialog.findViewById(R.id.txtDescuento);
         buttonDialog = viewDialog.findViewById(R.id.buttonAceptarDialog);
+        if(g.getTieneDescuento()) {
+            txtDialog.setText(g.getDescuento().getCodigo());
+        }
         //Se define el comportamiento del botón del dialog
         buttonDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +178,22 @@ public class DetailActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+
+        //Si no tiene descuento se eliminan los elementos del xml que tengan descuento
+        if(!g.getTieneDescuento()) {
+            txtDieselPrecioConDescuento.setVisibility(View.GONE);
+            txtDiesel.setTextSize(20);
+            txtDieselPrecio.setTextSize(25);
+            txtDieselConDescuento.setVisibility(View.GONE);
+            txtPrecioGasolina95ConDescuento.setVisibility(View.GONE);
+            txtGasolina95ConDescuento.setVisibility(View.GONE);
+            txtGasolina95.setTextSize(20);
+            txtGasolina95Precio.setTextSize(25);
+            buttonVerDescuento.setVisibility(View.GONE);
+            layout1.setVisibility(View.GONE);
+            layout2.setVisibility(View.GONE);
+        }
 
 
 

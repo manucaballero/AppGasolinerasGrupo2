@@ -5,10 +5,11 @@
     android:id="@+id/activity_intent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:visibility="visible"
     tools:context="com.isunican.proyectobase.Views.DetailActivity">
 
     <LinearLayout
@@ -30,8 +31,9 @@
                 android:layout_weight="2"
                 android:text="Introduzca los datos del nuevo vehículo:"
                 android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="30sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,7 +50,7 @@
                 android:paddingLeft="20sp"
                 android:text="Modelo*:"
                 android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <EditText
@@ -74,7 +76,7 @@
                 android:paddingLeft="20sp"
                 android:text="Capacidad (Litros)*:"
                 android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <EditText
@@ -101,7 +103,7 @@
                 android:paddingLeft="20sp"
                 android:text="Consumo medio*: \n(L/100Km)"
                 android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <EditText
@@ -121,23 +123,24 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtMatricula"
+                android:id="@+id/txtTipoCombustible"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="20sp"
-                android:text="Matrícula:"
+                android:text="Combustible:"
                 android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/campoMatricula"
-                android:layout_width="30sp"
+            <Spinner
+                android:id="@+id/campoCombustible"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textCapCharacters"
-                android:textSize="20sp" />
+                android:backgroundTint="@color/colorSecondary"
+                tools:visibility="visible" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -159,7 +162,7 @@
                     android:paddingLeft="20sp"
                     android:text="@string/anotacion"
                     android:textAlignment="textStart"
-                    android:textColor="#000000"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -194,13 +197,14 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/roundedbutton"
-                android:backgroundTint="#547980"
+                android:backgroundTint="@color/colorPrimary"
                 android:gravity="center"
                 android:text="Añadir"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/colorSecondary"
                 android:textSize="28dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -214,6 +218,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="* Campo obligatorio"
+                android:textColor="@color/colorAccent"
                 android:textSize="15dp" />
         </LinearLayout>
 

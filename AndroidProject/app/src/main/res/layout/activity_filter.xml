@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewCombustible"
@@ -24,7 +24,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/Combustible"
-                android:textColor="#547980"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -35,8 +35,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="5dp"
                 android:text="Gasóleo A"
-                android:textColorHighlight="#547980"
-                android:textColorLink="#547980" />
+                android:textColorHighlight="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary" />
 
             <CheckBox
                 android:id="@+id/checkBoxGasolina95"
@@ -44,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="Gasolina 95"
-                android:textColorHighlight="#547980"
-                android:textColorLink="#547980" />
+                android:textColorHighlight="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textViewDescuento"
@@ -54,7 +54,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/Descuento"
-                android:textColor="#547980"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -65,8 +65,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="5dp"
                 android:text="Si"
-                android:textColorHighlight="#547980"
-                android:textColorLink="#547980" />
+                android:textColorHighlight="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary" />
 
             <CheckBox
                 android:id="@+id/checkBoxDescuentoNo"
@@ -74,8 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="No"
-                android:textColorHighlight="#547980"
-                android:textColorLink="#547980" />
+                android:textColorHighlight="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -92,9 +92,9 @@
                     android:layout_marginRight="20dp"
                     android:layout_toLeftOf="@id/buttonApply"
                     android:background="@drawable/roundedbutton"
-                    android:backgroundTint="#547980"
+                    android:backgroundTint="@color/colorAccent"
                     android:text="Cancel"
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/colorPrimary" />
 
                 <Button
                     android:id="@+id/buttonApply"
@@ -103,9 +103,9 @@
                     android:layout_marginTop="40dp"
                     android:layout_toRightOf="@id/buttonCancel"
                     android:background="@drawable/roundedbutton"
-                    android:backgroundTint="#547980"
+                    android:backgroundTint="@color/colorAccent"
                     android:text="Apply"
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

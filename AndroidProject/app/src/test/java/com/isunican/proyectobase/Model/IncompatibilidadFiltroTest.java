@@ -33,6 +33,12 @@ public class IncompatibilidadFiltroTest {
         listaGasolineras.add(new Gasolinera(411,"SANTANDER","SANTANDER", "Area Arrabal Puerto de Raos", 0.977,1.279,"CEPSA","43.45741814","-3.82677519"));
         listaGasolineras.add(new Gasolinera(9144,"SANTANDER","SANTANDER", "Av Parayas", 1.543,1.269,"EASYGAS","43.40741814","-3.92677519"));
         listaGasolineras.add(new Gasolinera(1115,"SANTANDER","SANTANDER", "Calle el Empalme", 1.254,1.319,"CEPSA","43.42741814","-3.02677519"));
+        Descuento desAux = new Descuento("codigo", "Descripción", 10);
+        for(Gasolinera g:listaGasolineras){
+            if(g.getRotulo().equals("CEPSA")){
+                g.setDescuento(desAux); //Descuento del 10%
+            }
+        }
     }
 
     /**

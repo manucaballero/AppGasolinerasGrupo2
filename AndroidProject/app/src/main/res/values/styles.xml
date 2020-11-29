@@ -10,6 +10,12 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
+    <style name="AppTheme.DescuentoList" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorDescuentoList</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
 
 
 </resources>

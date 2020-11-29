@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="30dp"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.isunican.proyectobase.Views.InfoActivity">
 
 
@@ -14,17 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
+
         <TextView
             android:id="@+id/appInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/AppDesarrollada"
             android:textAlignment="center"
-            android:textColor="#547980"
+            android:textColor="@color/colorPrimary"
             android:textSize="25dp"
-            android:layout_marginBottom="5dp"
             android:textStyle="bold" />
 
 
@@ -36,7 +37,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Casamichana Bolado, Miguel"
-            android:textColor="#547980"
+            android:textColor="@color/colorPrimary"
             android:textSize="13dp"
             tools:layout_editor_absoluteY="684dp" />
 
@@ -48,7 +49,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Caballero Rábago, Manuel"
-            android:textColor="#547980"
+            android:textColor="@color/colorPrimary"
             android:textSize="13dp" />
 
         <TextView
@@ -59,7 +60,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Calleja Reigadas, Rubén"
-            android:textColor="#547980"
+            android:textColor="@color/colorPrimary"
             android:textSize="13dp" />
 
         <TextView
@@ -70,7 +71,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Martínez Carcedo, Bárbara"
-            android:textColor="#547980"
+            android:textColor="@color/colorPrimary"
             android:textSize="13dp" />
 
         <TextView
@@ -81,7 +82,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Sánchez Díez, Daniel"
-            android:textColor="#547980"
+            android:textColor="@color/colorPrimary"
             android:textSize="13dp" />
 
         <TextView
@@ -92,7 +93,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Rodríguez Solar, Aarón"
-            android:textColor="#547980"
+            android:textColor="@color/colorPrimary"
             android:textSize="13dp" />
     </RelativeLayout>
 

@@ -12,15 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Views.PopUpPrimerVehiculoActivity"
-            android:theme="@style/AppTheme.TemasPopUps"/>
-        
-        <activity android:name=".Views.PopUpConflicto" android:theme="@style/AppTheme.TemasPopUps"></activity>
+        <activity android:name=".Views.ListaDescuentosActivity" android:label="Lista de descuentos"
+            android:theme="@style/AppTheme.DescuentoList">
+        </activity>
+        <activity
+            android:name=".Views.PopUpPrimerVehiculoActivity"
+            android:theme="@style/AppTheme.TemasPopUps" />
+        <activity
+            android:name=".Views.PopUpConflicto"
+            android:theme="@style/AppTheme.TemasPopUps" />
         <activity
             android:name=".Views.FilterActivity"
-            android:theme="@style/AppTheme.TemasPopUps"></activity>
-
+            android:theme="@style/AppTheme.TemasPopUps" />
         <activity android:name=".Views.NoDatosActivity" />
         <activity android:name=".Views.MainActivity"
             android:label="@string/app_name">
@@ -33,10 +36,11 @@
         <activity android:name=".Views.MisVehiculosActivity"
             android:label="Mis vehículos">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Views.InfoActivity"
             android:label="Desarrolladores"/>
         <activity android:name=".Views.DetailActivity"
@@ -45,7 +49,6 @@
             android:label="Añade tu vehículo"/>
         <activity android:name=".Views.DetailVehiculoActivity"
             android:label="Información mi vehículo"/>
-
 
     </application>
 

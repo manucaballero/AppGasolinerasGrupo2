@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -29,6 +31,7 @@ import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MisVehiculosActivity extends AppCompatActivity {
@@ -74,6 +77,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.por_defecto_mod);
 
+        invalidateOptionsMenu();
 
         // Swipe and refresh
         // Al hacer swipe en la lista, lanza la tarea asíncrona de carga de datos
@@ -88,6 +92,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
         // se lanza una tarea para cargar los datos de los vehiculos
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
         new CargaDatosVehiculosTask(this).execute();
+
     }
 
     /**
@@ -104,9 +109,12 @@ public class MisVehiculosActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+
+        menu.findItem(R.id.itemMisVehiculos).setVisible(false);
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.itemActualizar) {
@@ -122,8 +130,15 @@ public class MisVehiculosActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MisVehiculosActivity.this, InfoActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemFabrica) {
-            presenterVehiculos.borra(MisVehiculosActivity.this);
+            try {
+                presenterVehiculos.borra(MisVehiculosActivity.this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Intent myIntent = new Intent(MisVehiculosActivity.this, MainActivity.class);
+            MisVehiculosActivity.this.startActivity(myIntent);
+        }else if (item.getItemId() == R.id.itemDescuentos){
+            Intent myIntent = new Intent(MisVehiculosActivity.this, ListaDescuentosActivity.class);
             MisVehiculosActivity.this.startActivity(myIntent);
         }
         return true;
@@ -270,23 +285,23 @@ public class MisVehiculosActivity extends AppCompatActivity {
             // Asocia las variables de dicho layout
             TextView modelo = view.findViewById(R.id.textViewModelo);
             TextView anotacion = view.findViewById(R.id.textViewAnotacion);
-            TextView matricula = view.findViewById(R.id.textViewMatricula);
-            TextView matriculaLabel=view.findViewById(R.id.textViewMatriculaLabel);
+            TextView combustible = view.findViewById(R.id.textViewCombustible);
+            TextView combustibleLabel=view.findViewById(R.id.textViewCombustibleLabel);
             TextView seleccionado=view.findViewById(R.id.textViewSeleccionado);
 
             view.setBackgroundColor(Color.WHITE);
             modelo.setTextColor(Color.BLACK);
             anotacion.setTextColor(Color.BLACK);
-            matricula.setTextColor(Color.BLACK);
+            combustible.setTextColor(Color.BLACK);
 
             // Y carga los datos del item
             modelo.setText(vehiculo.getModelo());
             anotacion.setText(vehiculo.getAnotaciones());
-            matricula.setText(vehiculo.getMatricula());
+            combustible.setText(vehiculo.getCombustible());
 
-            if(matricula.getText().equals("")){
-                matriculaLabel.setVisibility(View.INVISIBLE);
-                matricula.setVisibility(View.INVISIBLE);
+            if(combustible.getText().equals("")){
+                combustibleLabel.setVisibility(View.INVISIBLE);
+                combustible.setVisibility(View.INVISIBLE);
             }
 
             if(vehiculo.equals(PresenterVehiculos.getVehiculoSeleccionado())){
