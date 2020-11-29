@@ -36,7 +36,9 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     Button txtAceptar;
     private static final String CAMPO_REQUERIDO = "Campo Requerido";
 
-    PresenterVehiculos presenterVehiculos;
+    public PresenterVehiculos presenterVehiculos;
+
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,20 +73,48 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        if(v.getId()==R.id.txtAceptar)
-            anhadeVehiculo();
-
-    }
-
-    private void anhadeVehiculo() {
-
-        Toast toast;
-
         String combustible = campoCombustible.getSelectedItem().toString();
         String modelo = campoModelo.getText().toString();
         String anotacion = campoAnotaciones.getText().toString();
         String capacidadtxt = campoCapacidad.getText().toString();
         String consumoMediotxt = campoConsumomedio.getText().toString();
+        int exitCode=0;
+
+        if(v.getId()==R.id.txtAceptar)
+            exitCode = anhadeVehiculo(modelo, combustible, anotacion, capacidadtxt, consumoMediotxt);
+
+        switch (exitCode){
+            case 0:
+                toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
+                toast.show();
+
+                Intent myIntent = new Intent(FormActivity.this, MainActivity.class);
+                FormActivity.this.startActivity(myIntent);
+                break;
+            case 1:
+                campoModelo.setError("Ya existe un vehiculo con estas características. Introduzca una nueva Anotación para diferenciarlos.");
+                break;
+            case 2:
+                if(combustible.length()==0)
+                    ((TextView)campoCombustible.getSelectedView()).setError(CAMPO_REQUERIDO);
+                if(modelo.length()==0)
+                    campoModelo.setError(CAMPO_REQUERIDO);
+                if(capacidadtxt.length()==0)
+                    campoCapacidad.setError(CAMPO_REQUERIDO);
+                if(consumoMediotxt.length()==0)
+                    campoConsumomedio.setError(CAMPO_REQUERIDO);
+
+                toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
+                toast.show();
+                break;
+            default:
+                break;
+
+        }
+
+    }
+
+    public int anhadeVehiculo(String modelo, String combustible, String anotacion, String capacidadtxt, String consumoMediotxt) {
 
 
         if(!modelo.equals("") && !capacidadtxt.equals("") && !consumoMediotxt.equals("")){
@@ -103,32 +133,13 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if(igual)
-                campoModelo.setError("Ya existe un vehiculo con estas características. Introduzca una nueva Anotación para diferenciarlos.");
+                return 1;
             else{
                 presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
-
-                toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
-                toast.show();
-
-                Intent myIntent = new Intent(FormActivity.this, MainActivity.class);
-                FormActivity.this.startActivity(myIntent);
+                return 0;
             }
-
-        }else {
-            toast = Toast.makeText(getApplicationContext(), "No se ha podido crear el vehiculo", Toast.LENGTH_LONG);
-            toast.show();
-
-            if(combustible.length()==0)
-                ((TextView)campoCombustible.getSelectedView()).setError(CAMPO_REQUERIDO);
-            if(modelo.length()==0)
-                campoModelo.setError(CAMPO_REQUERIDO);
-            if(capacidadtxt.length()==0)
-                campoCapacidad.setError(CAMPO_REQUERIDO);
-            if(consumoMediotxt.length()==0)
-                campoConsumomedio.setError(CAMPO_REQUERIDO);
-
-        }
-
+        }else
+            return 2;
     }
 
     @Override
