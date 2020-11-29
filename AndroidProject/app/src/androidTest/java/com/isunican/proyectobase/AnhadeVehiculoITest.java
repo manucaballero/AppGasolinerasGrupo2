@@ -81,12 +81,4 @@ public class AnhadeVehiculoITest {
 
     }
 
-    @After
-    public void finaliza(){
-        try {
-            pv.borra(formularioActivityTestRule.getActivity());
-        } catch (IOException e) {
-        }
-    }
-
 }
