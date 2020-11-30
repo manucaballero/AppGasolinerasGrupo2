@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -18,6 +19,8 @@ public class GasolineraTest {
     Gasolinera g2;
     private Vehiculo vehiculo;
     private Vehiculo mockVehiculo;
+    private Descuento mockDescuento1;
+    private Descuento mockDescuento2;
 
     /**
      * Inicialización de variables
@@ -37,6 +40,12 @@ public class GasolineraTest {
         when(mockVehiculo.getDeposito()).thenReturn(50.0);
         when(mockVehiculo.getConsumoMedio()).thenReturn(20.0);
 
+        mockDescuento1 = mock(Descuento.class);
+        mockDescuento2 = mock(Descuento.class);
+
+        //Comportamiento de los mock de la clase Descuento
+        when(mockDescuento1.getPorcentaje()).thenReturn(10);
+        when(mockDescuento2.getPorcentaje()).thenReturn(15);
 
     }
 
@@ -61,6 +70,27 @@ public class GasolineraTest {
         //Gasolinera sin descuento
         assertEquals(g2.getGasolina95ConDescuento(), Gasolinera.round(g2.getMultiplicadorCostePorLitro() * g2.getGasolina95(), 3), 0.0);
         assertEquals(g2.getGasoleoAConDescuento(), Gasolinera.round(g2.getMultiplicadorCostePorLitro() * g2.getGasoleoA(), 3), 0.0);
+
+    }
+
+    /*
+        Método que comprueba que al añadir un descuento a una gasolinera se añade correctamente, teniendo en cuenta que
+        o bien la gasolinera no tiene descuentos, o bien el descuento nuevo a introducir es mayor que el que ya existía
+        previamente.
+
+        @author Miguel Casamichana Bolado
+     */
+    @Test
+    public void setDescuentoTest(){
+        g1.setDescuento(mockDescuento1);
+        assertEquals(10, g1.getDescuento().getPorcentaje());
+        //Se comprueba ahora que al añadir un descuento superior se cambia adecuadamente
+        g1.setDescuento(mockDescuento2);
+        assertEquals(15, g1.getDescuento().getPorcentaje());
+        //Se comprueba ahora que al añadir un descuento inferior no se cambia el descuento actual
+        g1.setDescuento(mockDescuento1);
+        assertNotEquals(10, g1.getDescuento().getPorcentaje());
+        assertEquals(15, g1.getDescuento().getPorcentaje());
 
     }
 
