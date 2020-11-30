@@ -16,7 +16,6 @@ public class GasolineraTest {
 
     Gasolinera g1;
     Gasolinera g2;
-    private Vehiculo vehiculo;
     private Vehiculo mockVehiculo;
 
     /**
@@ -29,9 +28,6 @@ public class GasolineraTest {
         g2 = new Gasolinera(1100,"SANTANDER","SANTANDER", "Av Valdecilla", 1.399,0.939,"AVIA","43.45741814","-3.82677519");
 
         mockVehiculo = mock(Vehiculo.class);
-        vehiculo = new Vehiculo("Mercedes CLK");
-        vehiculo.setConsumoMedio(20.0);
-        vehiculo.setDeposito(50.0);
 
         //Comportamiento del mock
         when(mockVehiculo.getDeposito()).thenReturn(50.0);
@@ -50,13 +46,13 @@ public class GasolineraTest {
     @Test
     public void calcularPrecioFinalTest() {
         g1.setDescuento(new Descuento("cod", "descripcion", 10.0));
-        g1.calculaPrecioFinal(vehiculo);
+        g1.calculaPrecioFinal(mockVehiculo);
 
         //Gasolinera con descuento
         assertEquals(g1.getGasoleoAConDescuento(), Gasolinera.round(g1.getMultiplicadorCostePorLitro() * g1.getGasoleoA() * 0.9, 3), 0.0);
         assertEquals(g1.getGasolina95ConDescuento(), Gasolinera.round(g1.getMultiplicadorCostePorLitro() * g1.getGasolina95() * 0.9, 3), 0.0);
 
-        g2.calculaPrecioFinal(vehiculo);
+        g2.calculaPrecioFinal(mockVehiculo);
 
         //Gasolinera sin descuento
         assertEquals(g2.getGasolina95ConDescuento(), Gasolinera.round(g2.getMultiplicadorCostePorLitro() * g2.getGasolina95(), 3), 0.0);
