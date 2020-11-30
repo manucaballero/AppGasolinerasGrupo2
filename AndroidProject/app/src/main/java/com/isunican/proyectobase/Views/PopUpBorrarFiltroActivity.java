@@ -1,6 +1,7 @@
 package com.isunican.proyectobase.Views;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -9,6 +10,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.isunican.proyectobase.Presenter.PresenterFiltros;
 import com.isunican.proyectobase.R;
 
 public class PopUpBorrarFiltroActivity extends AppCompatActivity {
@@ -30,8 +32,6 @@ public class PopUpBorrarFiltroActivity extends AppCompatActivity {
 
         borrarFiltro.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Codigo para eliminar el filtro
-                MainActivity.eliminaFiltroLista();
 
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
