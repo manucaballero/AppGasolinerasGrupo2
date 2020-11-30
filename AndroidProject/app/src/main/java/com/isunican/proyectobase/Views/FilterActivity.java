@@ -77,11 +77,11 @@ public class FilterActivity extends AppCompatActivity  {
             }
         });
 
-                Intent data = getIntent();
-                bgasoleoA = data.getBooleanExtra("GasoleoA", false);
-                bgasolina95 = data.getBooleanExtra("Gasolina95", false);
-                bdescuentoSi = data.getBooleanExtra("DescuentoSI", false);
-                bDescuentoNo = data.getBooleanExtra("DescuentoNo", false);
+        Intent data = getIntent();
+        bgasoleoA = data.getBooleanExtra("GasoleoA", false);
+        bgasolina95 = data.getBooleanExtra("Gasolina95", false);
+        bdescuentoSi = data.getBooleanExtra("DescuentoSI", false);
+        bDescuentoNo = data.getBooleanExtra("DescuentoNo", false);
 
     }
 

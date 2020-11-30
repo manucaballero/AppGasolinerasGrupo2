@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
                                     adapterFiltros.notifyDataSetChanged();
                                     Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datosConUbicacion), Toast.LENGTH_LONG);
                                     toast.show();
-                                    }
+                                }
                             });
 
                         } catch (ApiException exception) {
@@ -767,12 +767,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode == PERMISSION_REQUEST && grantResults.length > 0){
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    Toast.makeText(MainActivity.this, "Permisos concedidos, reinicie la app", Toast.LENGTH_SHORT).show();
-                else {
-                    Toast.makeText(MainActivity.this, "Permisos no concedidos, la app no funcionara correctamente", Toast.LENGTH_SHORT).show();
-                    requestPermission();
-                }
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                Toast.makeText(MainActivity.this, "Permisos concedidos, reinicie la app", Toast.LENGTH_SHORT).show();
+            else {
+                Toast.makeText(MainActivity.this, "Permisos no concedidos, la app no funcionara correctamente", Toast.LENGTH_SHORT).show();
+                requestPermission();
+            }
         }
     }
 
