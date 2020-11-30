@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,7 +22,7 @@ public class GasolineraTest {
     private Vehiculo mockVehiculo;
     private Descuento mockDescuento1;
     private Descuento mockDescuento2;
-
+    private Descuento mockDescuento3;
     /**
      * Inicialización de variables
      */
@@ -42,10 +43,11 @@ public class GasolineraTest {
 
         mockDescuento1 = mock(Descuento.class);
         mockDescuento2 = mock(Descuento.class);
-
+        mockDescuento3 = mock(Descuento.class);
         //Comportamiento de los mock de la clase Descuento
         when(mockDescuento1.getPorcentaje()).thenReturn(10);
         when(mockDescuento2.getPorcentaje()).thenReturn(15);
+        when(mockDescuento3.getPorcentaje()).thenReturn(25);
 
     }
 
@@ -93,7 +95,16 @@ public class GasolineraTest {
         assertEquals(15, g1.getDescuento().getPorcentaje());
 
     }
-
-
+    /**
+     *  Método que comprueba que al eliminar el descuento de una gasolinera, esta se queda sin descuentos activos
+     *  @author Manuel Caballero Rabago
+     */
+    @Test
+    public void removeDescuentoTest(){
+        g1.setDescuento(mockDescuento3);
+        assertEquals(25,g1.getDescuento().getPorcentaje());
+        g1.removeDescuento();
+        assertNull(g1.getDescuento());
+    }
 
 }
