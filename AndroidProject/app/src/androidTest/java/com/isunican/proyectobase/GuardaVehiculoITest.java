@@ -79,10 +79,10 @@ public class GuardaVehiculoITest {
         Vehiculo vehiculo2;
 
         //Se obtienen los vehiculos del adapter (en la posicion 0 se encuentra un vehiculo introducido de ejemplo)
-        vehiculo1= (Vehiculo) adapter.getItem(1);
-        vehiculo2= (Vehiculo) adapter.getItem(2);
+        vehiculo1= (Vehiculo) adapter.getItem(pv.getVehiculos().size()-2);
+        vehiculo2= (Vehiculo) adapter.getItem(pv.getVehiculos().size()-1);
 
-        //Se comprueba que los datos obtenidos corresponten con los esperados
+        //Se comprueba que los datos obtenidAVos corresponten con los esperados
         //Vehiculo 1
 
         assertEquals("BMW m8", vehiculo1.getModelo());

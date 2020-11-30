@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -17,9 +18,14 @@ import androidx.test.rule.GrantPermissionRule;
 import com.isunican.proyectobase.Model.Gasolina95Filtro;
 import com.isunican.proyectobase.Model.IFiltro;
 import com.isunican.proyectobase.Model.SinDescuentoFiltro;
+import com.isunican.proyectobase.Model.Vehiculo;
+import com.isunican.proyectobase.Presenter.PresenterFiltros;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
+import com.isunican.proyectobase.Views.AdapterFiltros;
 import com.isunican.proyectobase.Views.MainActivity;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,16 +53,25 @@ public class ManejoFiltrosITest {
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
+    public AdapterFiltros adapter;
+    private PresenterFiltros pf;
+
     /*
         @author Miguel Casamichana Bolado
 
         Prueba de interfaz en la que se comprueba que se muestran correctamente por pantalla
         el nombre de los filtros activos deseados.
      */
+    @Before
+    public void setUp(){
+        pf = new PresenterFiltros();
+        adapter = new AdapterFiltros(mActivityTestRule.getActivity(), pf.getListaFiltros());
+    }
+
     @Test
     public void mostrarFiltrosActivosTest() {
 
-        List<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
+        List<IFiltro> lista = pf.getListaFiltros();
 
         for(int i = 0; i< lista.size(); i++){
             IFiltro filtro = lista.get(i);
