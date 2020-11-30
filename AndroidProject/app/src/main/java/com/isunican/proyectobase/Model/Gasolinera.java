@@ -37,6 +37,9 @@ public class Gasolinera implements Parcelable {
             tieneDescuento = true;
         }
     }
+    public void removeDescuento(){
+        this.descuento = null;
+    }
 
     //Guardarán el precio con descuento y consumo.
     private double gasoleoA;
