@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
     private static final String ERROR_TAG = "Error";
     private static final String DATE = "dd/MM/yyyy HH:mm:ss";
+    public Intent myIntentPop;
 
     /**
      * onCreate
@@ -141,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
         presenterDescuentos.cargaDatosDummy();
 
         this.presenterVehiculos= new PresenterVehiculos();
-        presenterVehiculos.cargaDatosVehiculos(MainActivity.this);
-        presenterVehiculos.cargaVehiculoSeleccionado(MainActivity.this);
+        presenterVehiculos.cargaDatosVehiculos(PresenterVehiculos.getPath(MainActivity.this) + "/vehiculos.txt");
+        presenterVehiculos.cargaVehiculoSeleccionado(PresenterVehiculos.getPath(MainActivity.this) + "/vehiculoSeleccionado.txt");
 
         this.presenterFiltros = new PresenterFiltros();
 
@@ -225,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemFabrica) {
             try {
-                presenterVehiculos.borra(MainActivity.this);
+                presenterVehiculos.borra(PresenterVehiculos.getPath(MainActivity.this));
             } catch (IOException e) {
                 Log.d("Borra", "No se ha podido borrar");
             }
@@ -446,9 +447,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     presenterFiltros.setGasoleoA(false);
-                    presenterFiltros.setGasoleoA(false);
-                    presenterFiltros.setGasoleoA(false);
-                    presenterFiltros.setGasoleoA(false);
+                    presenterFiltros.setGasolina95(false);
+                    presenterFiltros.setDescuentoSi(false);
+                    presenterFiltros.setDescuentoNo(false);
                     presenterFiltros.getListaFiltros().clear();
                     adapterFiltros.notifyDataSetChanged();
                     mSwipeRefreshLayout.setRefreshing(true);
@@ -553,8 +554,8 @@ public class MainActivity extends AppCompatActivity {
             //Si no hay fecha guardada y solo está el vehiculo por defecto, se muestra el pop-up y se guarda la fecha
             if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
                 guardarFechaPopUp();
-                Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-                MainActivity.this.startActivity(myIntent);
+                myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                MainActivity.this.startActivity(myIntentPop);
             }
 
             //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
@@ -569,8 +570,8 @@ public class MainActivity extends AppCompatActivity {
                 //Si pasan mas de 24h se debe volver a mostrar el pop-up.
                 if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
                     guardarFechaPopUp();
-                    Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-                    MainActivity.this.startActivity(myIntent);
+                    myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                    MainActivity.this.startActivity(myIntentPop);
                 }
             }
         }

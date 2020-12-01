@@ -131,7 +131,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
             MisVehiculosActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemFabrica) {
             try {
-                presenterVehiculos.borra(MisVehiculosActivity.this);
+                presenterVehiculos.borra(PresenterVehiculos.getPath(MisVehiculosActivity.this));
             } catch (IOException e) {
                 Log.d("Borra", "No se ha podido borrar");
             }
@@ -181,7 +181,7 @@ public class MisVehiculosActivity extends AppCompatActivity {
          */
         @Override
         protected Boolean doInBackground(Void... params) {
-            return presenterVehiculos.cargaDatosVehiculos(MisVehiculosActivity.this);
+            return presenterVehiculos.cargaDatosVehiculos(PresenterVehiculos.getPath(MisVehiculosActivity.this) + "/vehiculos.txt");
         }
 
 

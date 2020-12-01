@@ -39,6 +39,8 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     public PresenterVehiculos presenterVehiculos;
 
     Toast toast;
+    private static final String VEHICULO_TXT = "/vehiculos.txt";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.nuevo_vehiculo_form);
 
         this.presenterVehiculos = new PresenterVehiculos();
-        presenterVehiculos.cargaDatosVehiculos(FormActivity.this);
+        presenterVehiculos.cargaDatosVehiculos(PresenterVehiculos.getPath(FormActivity.this) + VEHICULO_TXT);
 
         // muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -135,7 +137,8 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             if(igual)
                 return 1;
             else{
-                presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
+
+                presenterVehiculos.guardaVehiculo(v1, PresenterVehiculos.getPath(FormActivity.this) + VEHICULO_TXT);
                 return 0;
             }
         }else

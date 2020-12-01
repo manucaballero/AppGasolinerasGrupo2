@@ -22,9 +22,6 @@ import java.util.List;
 public class PresenterVehiculos {
 
     private List<Vehiculo> listVehiculos;
-    private static final String VEHICULO_TXT = "/vehiculos.txt";
-
-    private static final String VEHICULO_SELECCIONADO_TXT = "/vehiculoSeleccionado.txt";
 
     private static final String ERROR_TAG = "Error";
     private static final String ERROR_CERRAR_FICHERO = "Error al cerrar el fichero";
@@ -60,7 +57,11 @@ public class PresenterVehiculos {
         PresenterVehiculos.vehiculoSeleccionado = vehiculoSeleccionado;
     }
 
-    public boolean guardaVehiculo(Vehiculo v, Context context) {
+    public static String getPath(Context context){
+        return context.getFilesDir().toString();
+    }
+
+    public boolean guardaVehiculo(Vehiculo v, String path) {
 
         listVehiculos.add(v);
         StringBuilder bld = new StringBuilder();
@@ -74,7 +75,7 @@ public class PresenterVehiculos {
         bld.append("-fin-");
         output = bld.toString();
 
-        try (FileWriter fw = new FileWriter(new File(context.getFilesDir() + VEHICULO_TXT))){
+        try (FileWriter fw = new FileWriter(new File(path))){
             fw.write(output);
             return true;
         } catch(IOException e) {
@@ -82,14 +83,14 @@ public class PresenterVehiculos {
         }
     }
 
-    public boolean cargaDatosVehiculos(Context context) {
+    public boolean cargaDatosVehiculos(String path) {
 
         List<Vehiculo> aux = new ArrayList<>();
-        File tempFile = new File(context.getFilesDir()+VEHICULO_TXT);
+        File tempFile = new File(path);
         boolean exists = tempFile.exists();
 
         if (exists){
-            try (BufferedReader in =new BufferedReader(new FileReader(context.getFilesDir()+VEHICULO_TXT))){
+            try (BufferedReader in =new BufferedReader(new FileReader(path))){
 
                 String linea=in.readLine();
                 Vehiculo v;
@@ -113,11 +114,11 @@ public class PresenterVehiculos {
 
     }
 
-    public static void guardaVehiculoSeleccionado(Vehiculo v, Context context) {
+    public static void guardaVehiculoSeleccionado(Vehiculo v, String path) {
 
         String output = v.getModelo() + "\n" + v.getAnotaciones();
 
-        try (FileWriter fw = new FileWriter(new File(context.getFilesDir() + VEHICULO_SELECCIONADO_TXT ))){
+        try (FileWriter fw = new FileWriter(new File(path))){
             fw.write(output);
         } catch(IOException e) {
             Log.d(ERROR_TAG,ERROR_CERRAR_FICHERO);
@@ -125,14 +126,14 @@ public class PresenterVehiculos {
 
     }
 
-    public boolean cargaVehiculoSeleccionado(Context context) {
+    public boolean cargaVehiculoSeleccionado(String path) {
 
         List<Vehiculo> aux = new ArrayList<>();
 
-        File tempFile = new File(context.getFilesDir()+VEHICULO_SELECCIONADO_TXT );
+        File tempFile = new File(path);
         boolean exists = tempFile.exists();
         if (exists){
-            try (BufferedReader in = new BufferedReader(new FileReader(context.getFilesDir()+VEHICULO_SELECCIONADO_TXT ))){
+            try (BufferedReader in = new BufferedReader(new FileReader(path ))){
 
                 String modelo = in.readLine(); //modelo
                 String anotacion = in.readLine();//nota
@@ -163,9 +164,9 @@ public class PresenterVehiculos {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void borra(Context c) throws IOException {
-        Files.delete(Paths.get(c.getFilesDir() + VEHICULO_TXT));
-        Files.delete(Paths.get(c.getFilesDir() + VEHICULO_SELECCIONADO_TXT));
+    public void borra(String path) throws IOException {
+        Files.delete(Paths.get(path + "/vehiculos.txt"));
+        Files.delete(Paths.get(path + "/vehiculoSeleccionado.txt"));
         setVehiculoSeleccionado(listVehiculos.get(0));
 
     }

@@ -8,6 +8,7 @@ import androidx.test.rule.GrantPermissionRule;
 
 import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
+import com.isunican.proyectobase.Views.MainActivity;
 import com.isunican.proyectobase.Views.MisVehiculosActivity;
 
 import org.junit.Before;
@@ -66,13 +67,15 @@ public class GuardaVehiculoITest {
     @Test
     public void guardaVehiculoTest(){
 
+        String path = PresenterVehiculos.getPath(vehiculosActivityTestRule.getActivity().getBaseContext()) + "/vehiculosPrueba.txt";
+
         //Se guardan en el fichero los vehiculos creados.
-        assertTrue(pv.guardaVehiculo(v1, vehiculosActivityTestRule.getActivity().getBaseContext()));
-        assertTrue(pv.guardaVehiculo(v2, vehiculosActivityTestRule.getActivity().getBaseContext()));
+        assertTrue(pv.guardaVehiculo(v1, path));
+        assertTrue(pv.guardaVehiculo(v2, path));
 
         //Se cargan del fichero
-        pv.cargaDatosVehiculos(vehiculosActivityTestRule.getActivity().getBaseContext());
-        pv.cargaVehiculoSeleccionado(vehiculosActivityTestRule.getActivity().getBaseContext());
+        pv.cargaDatosVehiculos(path);
+        pv.cargaVehiculoSeleccionado(path);
 
         Vehiculo vehiculo1;
         Vehiculo vehiculo2;

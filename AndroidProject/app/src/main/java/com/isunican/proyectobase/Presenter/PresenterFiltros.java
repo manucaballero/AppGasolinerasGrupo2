@@ -91,6 +91,10 @@ public class PresenterFiltros {
         return listaFiltros;
     }
 
+    public void vaciaListaFiltros(){
+        listaFiltros.clear();
+    }
+
     public void setListaFiltros(List<IFiltro> listaFiltros) {
         this.listaFiltros = listaFiltros;
     }
