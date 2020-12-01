@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Rubén Calleja
  */
-public class presenterVehiculosTest {
+public class PresenterVehiculosTest {
 
     PresenterVehiculos sut;
     Vehiculo v1;
