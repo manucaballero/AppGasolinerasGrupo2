@@ -93,8 +93,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class MainActivity extends AppCompatActivity {
 
     private PresenterGasolineras presenterGasolineras;
-    private Intent myIntentPop;
-    public Intent getMyIntentPop() { return this.myIntentPop;}
+    public Intent myIntentPop;
     private PresenterVehiculos presenterVehiculos;
 
 
@@ -552,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
             tiempoTranscurrido = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
             //Si pasan mas de 24h se debe volver a mostrar el pop-up.
-            if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
+            if(tiempoTranscurrido>=15 && presenterVehiculos.getVehiculos().size()<=1){
                 guardarFechaPopUp();
                 myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                 MainActivity.this.startActivity(myIntentPop);

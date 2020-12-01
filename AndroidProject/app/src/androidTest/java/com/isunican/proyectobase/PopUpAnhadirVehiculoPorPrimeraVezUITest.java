@@ -40,19 +40,15 @@ public class PopUpAnhadirVehiculoPorPrimeraVezUITest {
         //onView(ViewMatchers.withId(R.id.txtAceptar)).perform(click());
         /*Button aux = view.findViewById(R.id.buttonMasTarde);
         if(aux.isClickable()) aux.performClick();*/
-        if(mActivityTestRule.getActivity().getMyIntentPop()!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+        try {
+            Thread.sleep(16000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+
         openActionBarOverflowOrOptionsMenu(mActivityTestRule.getActivity().getApplicationContext());
-        try {
-            Thread.sleep(121000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         onView(withText("Actualizar")).perform(click());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         onView(withId(R.id.texViewAnhadir)).check(matches(isDisplayed()));
     }
 }
