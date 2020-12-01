@@ -17,6 +17,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.junit.Assert.assertTrue;
 
 public class PopUpAnhadirVehiculoPorPrimeraVezUITest {
 
@@ -40,21 +41,10 @@ public class PopUpAnhadirVehiculoPorPrimeraVezUITest {
         }
         onView(withText("Actualizar")).perform(click());
         try {
-            Thread.sleep(4000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //onView(withId(R.id.texViewAnhadir)).check(matches(isDisplayed()));
-
-
+        onView(withId(R.id.texViewAnhadir)).check(matches(isDisplayed()));
     }
-    /*@Test
-    public void testDoTheThing(){
-
-        MyClass myClass = new MyClass();
-        myClass.doTheThing();
-
-        await().atMost(2, Duration.SECONDS).until(didTheThing());  // Compliant
-        // assertions...
-    }*/
 }
