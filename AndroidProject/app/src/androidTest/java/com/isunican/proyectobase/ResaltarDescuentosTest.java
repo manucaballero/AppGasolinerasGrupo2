@@ -33,9 +33,9 @@ public class ResaltarDescuentosTest {
     @Test
     public void listaCargadaTest(){
 
-        try{
+        /*try{
             Thread.sleep(4000);
-        }catch(Exception e){}
+        }catch(Exception e){}*/
 
         ListAdapter adapter = mActivityTestRule.getActivity().adapter;
         Assert.assertNotEquals(adapter.getCount(), 0);
@@ -49,11 +49,11 @@ public class ResaltarDescuentosTest {
     @Test
     public void resaltarTest() {
 
-        try {
+        /*try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
 
-        }
+        }*/
         //Obtenemos la lista de vistas
         ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
 
