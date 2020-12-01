@@ -449,7 +449,6 @@ public class MainActivity extends AppCompatActivity {
                     presenterFiltros.setGasoleoA(false);
                     presenterFiltros.setGasoleoA(false);
                     presenterFiltros.setGasoleoA(false);
-                    //TODO IGUAL ESTO FALLA
                     presenterFiltros.getListaFiltros().clear();
                     adapterFiltros.notifyDataSetChanged();
                     mSwipeRefreshLayout.setRefreshing(true);
@@ -508,118 +507,118 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-    private void switchExcapcionLocation(ApiException exception) {
-        switch (exception.getStatusCode()) {
-            case CommonStatusCodes.RESOLUTION_REQUIRED:
-                // Location settings are not satisfied. But could be fixed by showing the
-                // user a dialog.
-                try {
-                    // Cast to a resolvable exception.
-                    ResolvableApiException resolvable = (ResolvableApiException) exception;
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
-                } catch (IntentSender.SendIntentException|ClassCastException e) {
-                    // Ignore the error.
-                }
-                break;
-            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                // Location settings are not satisfied. However, we have no way to fix the
-                // settings so we won't show the dialog.
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void comparaRotulos(Gasolinera g) {
-        if (g.getRotulo().equals("CEPSA")) {
-            g.setDescuento(presenterDescuentos.getDescuentos().get(0)); //Descuento del 10%
-        }
-    }
-
-
-    /**
-     * Método que muestra el pop-up de añadir vehiculo pop primera vez
-     * solo si es necesario.
-     */
-    private void mostrarPopUpPrimerVehiculo() {
-
-        //Tiempo transcurrido desde que se mostró anteriormente
-        long tiempoTranscurrido=0;
-
-        //Se carga la fecha de la última vez que se mostró
-        Date ultimaFecha=cargarFechaPopUp();
-
-        //Si no hay fecha guardada y solo está el vehiculo por defecto, se muestra el pop-up y se guarda la fecha
-        if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
-            guardarFechaPopUp();
-            Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-            MainActivity.this.startActivity(myIntent);
+        private void switchExcapcionLocation(ApiException exception) {
+            switch (exception.getStatusCode()) {
+                case CommonStatusCodes.RESOLUTION_REQUIRED:
+                    // Location settings are not satisfied. But could be fixed by showing the
+                    // user a dialog.
+                    try {
+                        // Cast to a resolvable exception.
+                        ResolvableApiException resolvable = (ResolvableApiException) exception;
+                        // Show the dialog by calling startResolutionForResult(),
+                        // and check the result in onActivityResult().
+                        resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                    } catch (IntentSender.SendIntentException|ClassCastException e) {
+                        // Ignore the error.
+                    }
+                    break;
+                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                    // Location settings are not satisfied. However, we have no way to fix the
+                    // settings so we won't show the dialog.
+                    break;
+                default:
+                    break;
+            }
         }
 
-        //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
-        if(ultimaFecha!=null){
+        private void comparaRotulos(Gasolinera g) {
+            if (g.getRotulo().equals("CEPSA")) {
+                g.setDescuento(presenterDescuentos.getDescuentos().get(0)); //Descuento del 10%
+            }
+        }
 
-            Date today=Calendar.getInstance().getTime();
 
-            //Diferencia de tiempo entre la ultima vez que se mostró el pop up y la hora actual.
-            long diffInMillies = Math.abs(today.getTime() - ultimaFecha.getTime());
-            tiempoTranscurrido = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        /**
+         * Método que muestra el pop-up de añadir vehiculo pop primera vez
+         * solo si es necesario.
+         */
+        private void mostrarPopUpPrimerVehiculo() {
 
-            //Si pasan mas de 24h se debe volver a mostrar el pop-up.
-            if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
+            //Tiempo transcurrido desde que se mostró anteriormente
+            long tiempoTranscurrido=0;
+
+            //Se carga la fecha de la última vez que se mostró
+            Date ultimaFecha=cargarFechaPopUp();
+
+            //Si no hay fecha guardada y solo está el vehiculo por defecto, se muestra el pop-up y se guarda la fecha
+            if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
                 guardarFechaPopUp();
                 Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                 MainActivity.this.startActivity(myIntent);
             }
-        }
-    }
 
-    /**
-     * Método que carga de un archivo la última fecha en la
-     * que se mostró el pop-up.
-     * @return lastDate fecha en la que se mostró el pop-up por última vez
-     */
-    private Date cargarFechaPopUp(){
+            //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
+            if(ultimaFecha!=null){
 
-        Date lastDate=null;
+                Date today=Calendar.getInstance().getTime();
 
-        File tempFile = new File(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT);
-        boolean exists = tempFile.exists();
+                //Diferencia de tiempo entre la ultima vez que se mostró el pop up y la hora actual.
+                long diffInMillies = Math.abs(today.getTime() - ultimaFecha.getTime());
+                tiempoTranscurrido = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
-        if (exists){
-            try (BufferedReader in = new BufferedReader(new FileReader(this.getBaseContext().getFilesDir()+POPUPPRIMERVEHICULO_TXT))){
-
-                //Se lee la fecha con el formato adecuado y se cierra el fichero
-                String linea=in.readLine();
-                DateFormat df = new SimpleDateFormat(DATE);
-                lastDate = df.parse(linea);
-
-            } catch(Exception e) {
-                Log.d(ERROR_TAG,"Error al cargar fecha pop-up");
+                //Si pasan mas de 24h se debe volver a mostrar el pop-up.
+                if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
+                    guardarFechaPopUp();
+                    Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                    MainActivity.this.startActivity(myIntent);
+                }
             }
         }
-        return lastDate;
-    }
 
+        /**
+         * Método que carga de un archivo la última fecha en la
+         * que se mostró el pop-up.
+         * @return lastDate fecha en la que se mostró el pop-up por última vez
+         */
+        private Date cargarFechaPopUp(){
 
-    /**
-     * Método que guarda en el fichero la fecha actual
-     */
-    private void guardarFechaPopUp(){
-        DateFormat df = new SimpleDateFormat(DATE);
-        Date today = Calendar.getInstance().getTime();
-        String reportDate = df.format(today);
+            Date lastDate=null;
 
-        try (FileWriter fw = new FileWriter(new File(this.getBaseContext().getFilesDir() + POPUPPRIMERVEHICULO_TXT))){
-            fw.write(reportDate);
+            File tempFile = new File(MainActivity.this.getFilesDir()+POPUPPRIMERVEHICULO_TXT);
+            boolean exists = tempFile.exists();
+
+            if (exists){
+                try (BufferedReader in = new BufferedReader(new FileReader(MainActivity.this.getFilesDir()+POPUPPRIMERVEHICULO_TXT))){
+
+                    //Se lee la fecha con el formato adecuado y se cierra el fichero
+                    String linea=in.readLine();
+                    DateFormat df = new SimpleDateFormat(DATE);
+                    lastDate = df.parse(linea);
+
+                } catch(Exception e) {
+                    Log.d(ERROR_TAG,"Error al cargar fecha pop-up");
+                }
+            }
+            return lastDate;
         }
-        catch(IOException e) {
-            Log.d(ERROR_TAG,"Error al guardar fecha en el fichero");
+
+
+        /**
+         * Método que guarda en el fichero la fecha actual
+         */
+        private void guardarFechaPopUp(){
+            DateFormat df = new SimpleDateFormat(DATE);
+            Date today = Calendar.getInstance().getTime();
+            String reportDate = df.format(today);
+
+            try (FileWriter fw = new FileWriter(new File(MainActivity.this.getFilesDir() + POPUPPRIMERVEHICULO_TXT))){
+                fw.write(reportDate);
+            }
+            catch(IOException e) {
+                Log.d(ERROR_TAG,"Error al guardar fecha en el fichero");
+            }
         }
+
     }
 
 
@@ -634,7 +633,6 @@ public class MainActivity extends AppCompatActivity {
 
             new CargaDatosGasolinerasTask(MainActivity.this).execute();
         }
-//TODO
         if(requestCode == 20 && resultCode == Activity.RESULT_OK && data != null){
             //Codigo para eliminar el filtro
             Log.d("ASD", PresenterFiltros.getFiltroMarcado().getText().toString());
@@ -694,27 +692,27 @@ public class MainActivity extends AppCompatActivity {
             ImageView logo = view.findViewById(R.id.imageViewLogo);
             TextView rotulo = view.findViewById(R.id.textViewRotulo);
             TextView direccion = view.findViewById(R.id.textViewDireccion);
-            TextView TextViewGasoleoA = view.findViewById(R.id.textViewGasoleoA);
-            TextView TextViewGasolina95 = view.findViewById(R.id.textViewGasolina95);
+            TextView textViewGasoleoA = view.findViewById(R.id.textViewGasoleoA);
+            TextView textViewGasolina95 = view.findViewById(R.id.textViewGasolina95);
 
             view.setBackgroundColor(Color.WHITE);
-            TextViewGasoleoA.setTextColor(Color.BLACK);
-            TextViewGasolina95.setTextColor(Color.BLACK);
+            textViewGasoleoA.setTextColor(Color.BLACK);
+            textViewGasolina95.setTextColor(Color.BLACK);
 
             if (gasolinera.getTieneDescuento()) {
                 view.setBackgroundColor(0xfffffd82);
-                TextViewGasoleoA.setTextColor(Color.RED);
-                TextViewGasolina95.setTextColor(Color.RED);
+                textViewGasoleoA.setTextColor(Color.RED);
+                textViewGasolina95.setTextColor(Color.RED);
             }
             // Y carga los datos del item
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
             if (gasolinera.getTieneDescuento()) {
-                TextViewGasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
-                TextViewGasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
+                textViewGasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
+                textViewGasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
             } else {
-                TextViewGasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-                TextViewGasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+                textViewGasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
+                textViewGasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
             }
 
             // carga icono
