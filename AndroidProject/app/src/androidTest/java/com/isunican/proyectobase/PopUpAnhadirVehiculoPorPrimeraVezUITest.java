@@ -1,5 +1,9 @@
 package com.isunican.proyectobase;
 
+import android.content.Intent;
+import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -33,6 +37,10 @@ public class PopUpAnhadirVehiculoPorPrimeraVezUITest {
      */
     @Test
     public void mostrarPopUpTest(){
+        //onView(ViewMatchers.withId(R.id.txtAceptar)).perform(click());
+        /*Button aux = view.findViewById(R.id.buttonMasTarde);
+        if(aux.isClickable()) aux.performClick();*/
+        if(mActivityTestRule.getActivity().getMyIntentPop()!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
         openActionBarOverflowOrOptionsMenu(mActivityTestRule.getActivity().getApplicationContext());
         try {
             Thread.sleep(121000);

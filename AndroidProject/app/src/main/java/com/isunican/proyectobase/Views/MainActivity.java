@@ -93,8 +93,8 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class MainActivity extends AppCompatActivity {
 
     private PresenterGasolineras presenterGasolineras;
-
-
+    private Intent myIntentPop;
+    public Intent getMyIntentPop() { return this.myIntentPop;}
     private PresenterVehiculos presenterVehiculos;
 
 
@@ -537,8 +537,8 @@ public class MainActivity extends AppCompatActivity {
         //Si no hay fecha guardada y solo está el vehiculo por defecto, se muestra el pop-up y se guarda la fecha
         if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
             guardarFechaPopUp();
-            Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-            MainActivity.this.startActivity(myIntent);
+            myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+            MainActivity.this.startActivity(myIntentPop);
         }
 
         //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
@@ -554,8 +554,8 @@ public class MainActivity extends AppCompatActivity {
             //Si pasan mas de 24h se debe volver a mostrar el pop-up.
             if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
                 guardarFechaPopUp();
-                Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-                MainActivity.this.startActivity(myIntent);
+                myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                MainActivity.this.startActivity(myIntentPop);
             }
         }
     }
