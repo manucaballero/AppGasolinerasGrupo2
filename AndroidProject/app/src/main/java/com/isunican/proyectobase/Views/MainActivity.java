@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
         this.presenterGasolineras = new PresenterGasolineras();
 
         this.presenterVehiculos= new PresenterVehiculos();
-        presenterVehiculos.cargaDatosVehiculos(MainActivity.this);
-        presenterVehiculos.cargaVehiculoSeleccionado(MainActivity.this);
+        presenterVehiculos.cargaDatosVehiculos(PresenterVehiculos.getPath(MainActivity.this) + "/vehiculos.txt");
+        presenterVehiculos.cargaVehiculoSeleccionado(PresenterVehiculos.getPath(MainActivity.this) + "/vehiculoSeleccionado.txt");
 
 
         // Obtenemos la vista de la lista
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.startActivity(myIntent);
         }else if (item.getItemId() == R.id.itemFabrica) {
             try {
-                presenterVehiculos.borra(MainActivity.this);
+                presenterVehiculos.borra(PresenterVehiculos.getPath(MainActivity.this));
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -64,7 +64,7 @@ public class DetailVehiculoActivity extends AppCompatActivity {
         buttonSeleccionado.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 PresenterVehiculos.setVehiculoSeleccionado(vehiculo);
-                PresenterVehiculos.guardaVehiculoSeleccionado(vehiculo, DetailVehiculoActivity.this);
+                PresenterVehiculos.guardaVehiculoSeleccionado(vehiculo, PresenterVehiculos.getPath(DetailVehiculoActivity.this) + "/vehiculoSeleccionado.txt");
                 Toast.makeText(DetailVehiculoActivity.this, "Vehículo seleccionado", Toast.LENGTH_SHORT).show();
 
                 Intent myIntent = new Intent(DetailVehiculoActivity.this, MainActivity.class);

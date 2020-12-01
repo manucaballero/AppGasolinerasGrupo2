@@ -36,6 +36,8 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     Button txtAceptar;
     private static final String CAMPO_REQUERIDO = "Campo Requerido";
 
+    private static final String VEHICULO_TXT = "/vehiculos.txt";
+
     PresenterVehiculos presenterVehiculos;
 
     @Override
@@ -44,7 +46,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.nuevo_vehiculo_form);
 
         this.presenterVehiculos = new PresenterVehiculos();
-        presenterVehiculos.cargaDatosVehiculos(FormActivity.this);
+        presenterVehiculos.cargaDatosVehiculos(PresenterVehiculos.getPath(FormActivity.this) + VEHICULO_TXT);
 
         // muestra el logo en el actionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -105,7 +107,7 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
             if(igual)
                 campoModelo.setError("Ya existe un vehiculo con estas características. Introduzca una nueva Anotación para diferenciarlos.");
             else{
-                presenterVehiculos.guardaVehiculo(v1, FormActivity.this);
+                presenterVehiculos.guardaVehiculo(v1, PresenterVehiculos.getPath(FormActivity.this) + VEHICULO_TXT);
 
                 toast = Toast.makeText(getApplicationContext(), "Vehiculo añadido con exito", Toast.LENGTH_LONG);
                 toast.show();

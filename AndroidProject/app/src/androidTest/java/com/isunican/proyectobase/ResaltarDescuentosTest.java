@@ -12,6 +12,8 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
 import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Model.Vehiculo;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.Views.MainActivity;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -48,6 +50,9 @@ public class ResaltarDescuentosTest {
      */
     @Test
     public void resaltarTest() {
+
+        PresenterVehiculos pv = new PresenterVehiculos();
+        pv.getVehiculos().add(new Vehiculo("ASD"));
 
         try {
             Thread.sleep(4000);
