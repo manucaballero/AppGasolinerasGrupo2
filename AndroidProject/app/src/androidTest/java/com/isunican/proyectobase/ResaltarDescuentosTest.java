@@ -15,10 +15,17 @@ import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.Views.MainActivity;
+import com.isunican.proyectobase.Views.MisVehiculosActivity;
+
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -26,19 +33,23 @@ public class ResaltarDescuentosTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+    @Before
+    public void setUp(){
+
+        try{
+            Thread.sleep(2000);
+        }catch(Exception e){}
+    }
 
     /*
         Se comprueba que la lista se cargue correctamente en la interfaz
      */
     @Test
     public void listaCargadaTest(){
-
-        try{
-            Thread.sleep(4000);
-        }catch(Exception e){}
-
         ListAdapter adapter = mActivityTestRule.getActivity().adapter;
         Assert.assertNotEquals(adapter.getCount(), 0);
     }
@@ -51,35 +62,30 @@ public class ResaltarDescuentosTest {
     @Test
     public void resaltarTest() {
 
-        PresenterVehiculos pv = new PresenterVehiculos();
-        pv.getVehiculos().add(new Vehiculo("ASD"));
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
 
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-
-        }
         //Obtenemos la lista de vistas
         ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
 
-        ListAdapter adapter = mActivityTestRule.getActivity().adapter;
-        int i = 0;
-        int j = 0;
+        onView(withId(R.id.buttonFiltrar)).perform(click());
+        onView(withId(R.id.checkBoxDescuentoSi)).perform(click());
 
-        Gasolinera gDesc=(Gasolinera)adapter.getItem(0);
-        while(!gDesc.getTieneDescuento()){
-            i++;
-            gDesc=(Gasolinera)adapter.getItem(i);
-        }
-        Gasolinera gSin=(Gasolinera)adapter.getItem(0);
-        while(gSin.getTieneDescuento()){
-            j++;
-            gSin=(Gasolinera)adapter.getItem(j);
-        }
+        onView(withId(R.id.buttonApply)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
 
-        //Cogemos las vistas que queremos (correspondientes a cada elemento de la listview de la interfaz principal
-        View v1 = lv.getChildAt(i);
-        View v2 = lv.getChildAt(j);
+        View v1 = lv.getChildAt(0);
+
+        onView(withId(R.id.buttonReset)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+
+        onView(withId(R.id.buttonFiltrar)).perform(click());
+        onView(withId(R.id.checkBoxDescuentoNo)).perform(click());
+
+        onView(withId(R.id.buttonApply)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+
+
+        View v2 = lv.getChildAt(0);
         
         //Obtenemos los colores de background
         ColorDrawable cBck1 = (ColorDrawable) v1.getBackground();

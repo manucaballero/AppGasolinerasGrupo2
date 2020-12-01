@@ -107,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
+    public Intent myIntentPop;
+
     /**
      * onCreate
      *
@@ -381,8 +383,8 @@ public class MainActivity extends AppCompatActivity {
                     listViewGasolineras.setAdapter(adapter);
                     toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_exito), Toast.LENGTH_LONG);
                     if(presenterVehiculos.getVehiculos().size()<=1){
-                        Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-                        MainActivity.this.startActivity(myIntent);
+                        myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                        MainActivity.this.startActivity(myIntentPop);
                     }
                 } else {
                     // los datos estan siendo actualizados en el servidor, por lo que no son actualmente accesibles
