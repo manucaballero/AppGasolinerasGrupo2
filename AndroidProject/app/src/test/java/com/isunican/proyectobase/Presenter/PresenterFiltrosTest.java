@@ -1,18 +1,11 @@
 package com.isunican.proyectobase.Presenter;
 
-import com.isunican.proyectobase.Model.ConDescuentoFiltro;
-import com.isunican.proyectobase.Model.DieselFiltro;
 import com.isunican.proyectobase.Model.Gasolina95Filtro;
-import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Model.IFiltro;
-import com.isunican.proyectobase.Model.Vehiculo;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Clase que compruba el funcionamiento de los métodos de la clase PresenterFiltros.
@@ -44,12 +37,16 @@ public class PresenterFiltrosTest {
     public void eliminaFiltrosTest(){
 
         Assert.assertEquals(2, sut.getListaFiltros().size());
+        Assert.assertEquals(sut.getListaFiltros().get(0), f1);
+        Assert.assertEquals(sut.getListaFiltros().get(1), f2);
 
         sut.eliminaFiltroLista(f2.getNombre());
         Assert.assertEquals(1, sut.getListaFiltros().size());
+        Assert.assertEquals(sut.getListaFiltros().get(0), f1);
 
         sut.eliminaFiltroLista(new Gasolina95Filtro().getNombre());
         Assert.assertEquals(1, sut.getListaFiltros().size());
+        Assert.assertEquals(sut.getListaFiltros().get(0), f1);
 
         sut.eliminaFiltroLista(f1.getNombre());
         Assert.assertEquals(0, sut.getListaFiltros().size());
