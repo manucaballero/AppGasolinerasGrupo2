@@ -31,7 +31,6 @@ public class GuardaVehiculoITest {
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-    public ArrayAdapter<Vehiculo> adapter;
     private PresenterVehiculos pv;
     private Vehiculo v1;
     private Vehiculo v2;
@@ -42,8 +41,7 @@ public class GuardaVehiculoITest {
      */
     @Before
     public void setUp(){
-        adapter = vehiculosActivityTestRule.getActivity().adapter;
-        pv = vehiculosActivityTestRule.getActivity().presenterVehiculos;
+        pv = new PresenterVehiculos();
 
         v1=new Vehiculo("BMW m8");
         v1.setCombustible("Gasolina95");
@@ -77,12 +75,9 @@ public class GuardaVehiculoITest {
         pv.cargaDatosVehiculos(path);
         pv.cargaVehiculoSeleccionado(path);
 
-        Vehiculo vehiculo1;
-        Vehiculo vehiculo2;
-
         //Se obtienen los vehiculos del adapter (en la posicion 0 se encuentra un vehiculo introducido de ejemplo)
-        vehiculo1= (Vehiculo) adapter.getItem(pv.getVehiculos().size()-2);
-        vehiculo2= (Vehiculo) adapter.getItem(pv.getVehiculos().size()-1);
+        Vehiculo vehiculo1= pv.getVehiculos().get(pv.getVehiculos().size()-2);
+        Vehiculo vehiculo2= pv.getVehiculos().get(pv.getVehiculos().size()-1);
 
         //Se comprueba que los datos obtenidAVos corresponten con los esperados
         //Vehiculo 1
