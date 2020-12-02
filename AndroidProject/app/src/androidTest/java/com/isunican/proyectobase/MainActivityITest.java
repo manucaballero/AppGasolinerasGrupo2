@@ -85,22 +85,27 @@ public class MainActivityITest {
      * @author Ruben Calleja
      *
      */
-/*
+
     @Test
     public void botonResetTest(){
 
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+
         onView(withId(R.id.buttonReset)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
         Assert.assertTrue(pf.getListaFiltros().size()==0);
 
         onView(withId(R.id.buttonFiltrar)).perform(click());
         onView(withId(R.id.checkBoxDescuentoSi)).perform(click());
         onView(withId(R.id.checkBoxGasoleoA)).perform(click());
         onView(withId(R.id.buttonApply)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
         onView(withId(R.id.buttonReset)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
         Assert.assertTrue(pf.getListaFiltros().size()==0);
 
     }
-*/
+
     /*
         Se comprueba que la lista se cargue correctamente en la interfaz
      */
@@ -115,9 +120,11 @@ public class MainActivityITest {
     de letra esperado de los precios de cada una de las views que correspondan a las gasolineras con
     descuentos.
     */
-    /*
+
     @Test
     public void resaltarTest() {
+
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
 
         //Obtenemos la lista de vistas
         ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
@@ -126,15 +133,18 @@ public class MainActivityITest {
         onView(withId(R.id.checkBoxDescuentoSi)).perform(click());
 
         onView(withId(R.id.buttonApply)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
 
         View v1 = lv.getChildAt(0);
 
         onView(withId(R.id.buttonReset)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
 
         onView(withId(R.id.buttonFiltrar)).perform(click());
         onView(withId(R.id.checkBoxDescuentoNo)).perform(click());
 
         onView(withId(R.id.buttonApply)).perform(click());
+        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
 
         View v2 = lv.getChildAt(0);
 
@@ -156,6 +166,6 @@ public class MainActivityITest {
         Assert.assertEquals(Color.BLACK,gasoleoSin.getCurrentTextColor());
 
     }
-    */
+
 
 }
