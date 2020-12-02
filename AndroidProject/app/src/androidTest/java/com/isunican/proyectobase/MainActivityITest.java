@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.test.espresso.DataInteraction;
+import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -15,6 +16,7 @@ import com.isunican.proyectobase.Model.Gasolina95Filtro;
 import com.isunican.proyectobase.Model.IFiltro;
 import com.isunican.proyectobase.Model.SinDescuentoFiltro;
 import com.isunican.proyectobase.Presenter.PresenterFiltros;
+import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.Views.AdapterFiltros;
 import com.isunican.proyectobase.Views.MainActivity;
 
@@ -61,7 +63,6 @@ public class MainActivityITest {
         pf = new PresenterFiltros();
         adapter = new AdapterFiltros(mActivityTestRule.getActivity(), pf.getListaFiltros());
 
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
     }
 
     @Test
@@ -89,21 +90,24 @@ public class MainActivityITest {
     @Test
     public void botonResetTest(){
 
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+        boolean salir = true;
 
-        onView(withId(R.id.buttonReset)).perform(click());
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
-        Assert.assertTrue(pf.getListaFiltros().size()==0);
+        while (salir){
+            try{
+                Assert.assertTrue(pf.getListaFiltros().size()==0);
 
-        onView(withId(R.id.buttonFiltrar)).perform(click());
-        onView(withId(R.id.checkBoxDescuentoSi)).perform(click());
-        onView(withId(R.id.checkBoxGasoleoA)).perform(click());
-        onView(withId(R.id.buttonApply)).perform(click());
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
-        onView(withId(R.id.buttonReset)).perform(click());
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
-        Assert.assertTrue(pf.getListaFiltros().size()==0);
+                onView(withId(R.id.buttonFiltrar)).perform(click());
+                onView(withId(R.id.checkBoxDescuentoSi)).perform(click());
+                onView(withId(R.id.checkBoxGasoleoA)).perform(click());
+                onView(withId(R.id.buttonApply)).perform(click());
+                onView(withId(R.id.buttonReset)).perform(click());
+                Assert.assertTrue(pf.getListaFiltros().size()==0);
+                salir = false;
 
+            }catch(NoMatchingViewException e){
+                onView(withId(R.id.buttonReset)).perform(click());
+            }
+        }
     }
 
     /*
@@ -124,46 +128,51 @@ public class MainActivityITest {
     @Test
     public void resaltarTest() {
 
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+        boolean salir = true;
+        while(salir){
+            try {
+                //Obtenemos la lista de vistas
+                ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
 
-        //Obtenemos la lista de vistas
-        ListView lv = mActivityTestRule.getActivity().findViewById(R.id.listViewGasolineras);
+                onView(withId(R.id.buttonFiltrar)).perform(click());
+                onView(withId(R.id.checkBoxDescuentoSi)).perform(click());
 
-        onView(withId(R.id.buttonFiltrar)).perform(click());
-        onView(withId(R.id.checkBoxDescuentoSi)).perform(click());
+                onView(withId(R.id.buttonApply)).perform(click());
 
-        onView(withId(R.id.buttonApply)).perform(click());
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+                View v1 = lv.getChildAt(0);
 
-        View v1 = lv.getChildAt(0);
+                onView(withId(R.id.buttonReset)).perform(click());
 
-        onView(withId(R.id.buttonReset)).perform(click());
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+                onView(withId(R.id.buttonFiltrar)).perform(click());
+                onView(withId(R.id.checkBoxDescuentoNo)).perform(click());
 
-        onView(withId(R.id.buttonFiltrar)).perform(click());
-        onView(withId(R.id.checkBoxDescuentoNo)).perform(click());
+                onView(withId(R.id.buttonApply)).perform(click());
 
-        onView(withId(R.id.buttonApply)).perform(click());
-        if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
+                View v2 = lv.getChildAt(0);
 
-        View v2 = lv.getChildAt(0);
+                //Obtenemos los colores de background
+                ColorDrawable cBck1 = (ColorDrawable) v1.getBackground();
+                ColorDrawable cBck2 = (ColorDrawable) v2.getBackground();
+                //Comparamos con los valores esperados
+                Assert.assertEquals(0xfffffd82, cBck1.getColor());
+                Assert.assertEquals(Color.WHITE, cBck2.getColor());
+                //Obtenemos las textview que queremos observar
+                TextView gasolinaCon = v1.findViewById(R.id.textViewGasolina95);
+                TextView gasoleoCon = v1.findViewById(R.id.textViewGasoleoA);
+                TextView gasolinaSin = v2.findViewById(R.id.textViewGasolina95);
+                TextView gasoleoSin = v2.findViewById(R.id.textViewGasoleoA);
+                //Comparamos con los valores esperados
+                Assert.assertEquals(Color.RED,gasolinaCon.getCurrentTextColor());
+                Assert.assertEquals(Color.RED,gasoleoCon.getCurrentTextColor());
+                Assert.assertEquals(Color.BLACK,gasolinaSin.getCurrentTextColor());
+                Assert.assertEquals(Color.BLACK,gasoleoSin.getCurrentTextColor());
+                salir = false;
 
-        //Obtenemos los colores de background
-        ColorDrawable cBck1 = (ColorDrawable) v1.getBackground();
-        ColorDrawable cBck2 = (ColorDrawable) v2.getBackground();
-        //Comparamos con los valores esperados
-        Assert.assertEquals(0xfffffd82, cBck1.getColor());
-        Assert.assertEquals(Color.WHITE, cBck2.getColor());
-        //Obtenemos las textview que queremos observar
-        TextView gasolinaCon = v1.findViewById(R.id.textViewGasolina95);
-        TextView gasoleoCon = v1.findViewById(R.id.textViewGasoleoA);
-        TextView gasolinaSin = v2.findViewById(R.id.textViewGasolina95);
-        TextView gasoleoSin = v2.findViewById(R.id.textViewGasoleoA);
-        //Comparamos con los valores esperados
-        Assert.assertEquals(Color.RED,gasolinaCon.getCurrentTextColor());
-        Assert.assertEquals(Color.RED,gasoleoCon.getCurrentTextColor());
-        Assert.assertEquals(Color.BLACK,gasolinaSin.getCurrentTextColor());
-        Assert.assertEquals(Color.BLACK,gasoleoSin.getCurrentTextColor());
+            }catch(NoMatchingViewException e) {
+                onView(withId(R.id.buttonMasTarde)).perform(click());
+            }
+        }
+
 
     }
 

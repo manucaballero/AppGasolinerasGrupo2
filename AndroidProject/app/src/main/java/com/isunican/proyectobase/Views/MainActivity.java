@@ -57,6 +57,7 @@ import com.isunican.proyectobase.Model.ICombustibleFiltro;
 import com.isunican.proyectobase.Model.IDescuentoFiltro;
 import com.isunican.proyectobase.Model.IFiltro;
 import com.isunican.proyectobase.Model.Posicion;
+import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterDescuentos;
 import com.isunican.proyectobase.Presenter.PresenterFiltros;
 import com.isunican.proyectobase.Presenter.PresenterGasolineras;
@@ -123,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
     private static final String ERROR_TAG = "Error";
     private static final String DATE = "dd/MM/yyyy HH:mm:ss";
-    public Intent myIntentPop;
 
     /**
      * onCreate
@@ -188,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
         // Esto se ha de hacer en segundo plano definiendo una tarea asíncrona
         new CargaDatosGasolinerasTask(this).execute();
 
+    }
+
+    public void creaVehiculosParaTest(){
+        presenterVehiculos.getVehiculos().add(new Vehiculo("Veh1"));
     }
 
 
@@ -554,8 +558,8 @@ public class MainActivity extends AppCompatActivity {
             //Si no hay fecha guardada y solo está el vehiculo por defecto, se muestra el pop-up y se guarda la fecha
             if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
                 guardarFechaPopUp();
-                myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-                MainActivity.this.startActivity(myIntentPop);
+                Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                MainActivity.this.startActivity(myIntent);
             }
 
             //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
@@ -570,8 +574,8 @@ public class MainActivity extends AppCompatActivity {
                 //Si pasan mas de 24h se debe volver a mostrar el pop-up.
                 if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
                     guardarFechaPopUp();
-                    myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
-                    MainActivity.this.startActivity(myIntentPop);
+                    Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
+                    MainActivity.this.startActivity(myIntent);
                 }
             }
         }
