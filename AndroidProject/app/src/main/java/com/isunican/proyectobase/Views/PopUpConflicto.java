@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.isunican.proyectobase.R;
@@ -37,13 +38,10 @@ public class PopUpConflicto extends AppCompatActivity {
             }
         });
 
-        DisplayMetrics medidasVentana = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
-
-        int ancho = medidasVentana.widthPixels;
-        int alto = medidasVentana.heightPixels;
-
-        getWindow().setLayout((int) (ancho * 0.9), (int) (alto * 0.6));
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.height = 1300;
+        params.width = 800;
+        this.getWindow().setAttributes(params);
 
     }
 }
