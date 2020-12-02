@@ -37,6 +37,9 @@ public class Gasolinera implements Parcelable {
             tieneDescuento = true;
         }
     }
+    public void removeDescuento(){
+        this.descuento = null;
+    }
 
     //Guardarán el precio con descuento y consumo.
     private double gasoleoA;
@@ -68,13 +71,6 @@ public class Gasolinera implements Parcelable {
         this.gasoleoAConDescuento = gasoleoA;
 
         this.posicion = new Posicion(Double.parseDouble(latitud.replace(",",".")),Double.parseDouble(longitud.replace(",",".")));
-        /*
-        if(rotulo.equals("CEPSA")){
-            setTieneDescuento(true);
-        }else{
-            setTieneDescuento(false);
-        }*/
-
     }
 
     /**
@@ -93,8 +89,8 @@ public class Gasolinera implements Parcelable {
         }
         if(this.getTieneDescuento()){
 
-            this.gasoleoAConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasoleoA*((100-descuento.getPorcentaje())/100),3));
-            this.gasolina95ConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasolina95*((100-descuento.getPorcentaje())/100),3));
+            this.gasoleoAConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasoleoA*((double)(100-descuento.getPorcentaje())/100),3));
+            this.gasolina95ConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasolina95*((double)(100-descuento.getPorcentaje())/100),3));
         }else{
             this.gasoleoAConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasoleoA,3));
             this.gasolina95ConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasolina95,3));
@@ -237,13 +233,14 @@ public class Gasolinera implements Parcelable {
         if(tieneDescuento){
             dest.writeString(this.descuento.getCodigo());
             dest.writeString(this.descuento.getDescripcion());
-            dest.writeDouble(this.descuento.getPorcentaje());
+            dest.writeInt(this.descuento.getPorcentaje());
         }
 
     }
 
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<Gasolinera> CREATOR = new Parcelable.Creator<Gasolinera>() {
+        @RequiresApi(api = Build.VERSION_CODES.Q)
         @Override
         public Gasolinera createFromParcel(Parcel in) {
             return new Gasolinera(in);
