@@ -95,9 +95,9 @@ public class DesaplicarFiltrosUITest {
                 onView(withId(R.id.recyclerViewFiltros)).check(matches(isDisplayed()));
 
 
-        /*
-        Ahora compruebo si al pulsar No Borrar en el pop-up, se mantiene el filtro
-         */
+                /*
+                Ahora compruebo si al pulsar No Borrar en el pop-up, se mantiene el filtro
+                 */
 
                 //Se pulsa el primero, el que se quiere eliminar
                 onView(withId(R.id.recyclerViewFiltros))
@@ -121,7 +121,11 @@ public class DesaplicarFiltrosUITest {
                 salir = false;
 
             } catch (NoMatchingViewException e) {
-                onView(withId(R.id.buttonReset)).perform(click());
+                try{
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                }
+                onView(withId(R.id.buttonMasTarde)).perform(click());
             }
         }
     }
