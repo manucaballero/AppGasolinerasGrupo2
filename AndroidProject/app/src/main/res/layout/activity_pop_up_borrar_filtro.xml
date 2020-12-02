@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#547980"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
     android:orientation="vertical"
-    android:backgroundTint="#547980"
     tools:context=".Views.PopUpBorrarFiltroActivity">
 
     <TextView
@@ -48,7 +48,7 @@
         android:backgroundTint="#FFFCFC"
         android:fontFamily="sans-serif"
         android:text="@string/btnSiBorrarFiltro"
-        android:textColor="#547980"
+        android:textColor="@color/colorPrimary"
         android:textSize="15dp" />
 
     <Button
@@ -63,6 +63,6 @@
         android:backgroundTint="#FFFCFC"
         android:fontFamily="sans-serif"
         android:text="@string/btnNoBorrarFiltro"
-        android:textColor="#547980"
+        android:textColor="@color/colorPrimary"
         android:textSize="15dp" />
 </LinearLayout>
