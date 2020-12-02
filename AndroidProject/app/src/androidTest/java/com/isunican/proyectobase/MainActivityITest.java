@@ -114,7 +114,7 @@ public class MainActivityITest {
     Se comprueba que se muestre por la interfaz el color esperado de background de cada view y el color
     de letra esperado de los precios de cada una de las views que correspondan a las gasolineras con
     descuentos.
- */
+    */
     /*
     @Test
     public void resaltarTest() {
@@ -157,6 +157,5 @@ public class MainActivityITest {
 
     }
     */
-     */
 
 }

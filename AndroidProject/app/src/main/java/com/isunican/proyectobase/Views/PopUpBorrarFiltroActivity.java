@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,11 +23,10 @@ public class PopUpBorrarFiltroActivity extends AppCompatActivity {
         borrarFiltro = findViewById(R.id.buttonSiBorrarFiltro);
         cerrar = findViewById(R.id.buttonNoBorrarFiltro);
 
-        DisplayMetrics medidasVentana = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
-        int ancho = medidasVentana.widthPixels;
-        int alto = medidasVentana.heightPixels;
-        getWindow().setLayout((int) (ancho * 0.9), (int) (alto * 0.5));
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.height = 1000;
+        params.width = 700;
+        this.getWindow().setAttributes(params);
 
         borrarFiltro.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

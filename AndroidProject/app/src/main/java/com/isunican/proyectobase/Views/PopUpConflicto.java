@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.isunican.proyectobase.R;
@@ -22,9 +22,6 @@ public class PopUpConflicto extends AppCompatActivity {
         setContentView(R.layout.activity_pop_up_conflicto);
         boton = findViewById(R.id.buttonAceptarConflicto);
 
-        DisplayMetrics medidasVentana = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
-        getWindow().setLayout((int) (medidasVentana.widthPixels * 0.9), (int) (medidasVentana.heightPixels * 0.6));
 
         boton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -42,6 +39,11 @@ public class PopUpConflicto extends AppCompatActivity {
                 finish();
             }
         });
+
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.height = 1300;
+        params.width = 800;
+        this.getWindow().setAttributes(params);
 
     }
 }
