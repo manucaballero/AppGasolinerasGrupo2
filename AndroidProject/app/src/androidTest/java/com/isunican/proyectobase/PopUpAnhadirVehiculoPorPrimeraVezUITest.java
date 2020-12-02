@@ -37,18 +37,18 @@ public class PopUpAnhadirVehiculoPorPrimeraVezUITest {
      */
     @Test
     public void mostrarPopUpTest(){
-        //onView(ViewMatchers.withId(R.id.txtAceptar)).perform(click());
-        /*Button aux = view.findViewById(R.id.buttonMasTarde);
-        if(aux.isClickable()) aux.performClick();*/
+        //Se espera 121 segundos para que de tiempo a que aparezca el pop up (cada 2 min. aparece)
         try {
-            Thread.sleep(16000);
+            Thread.sleep(121000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //Si ya había saltado el pop up al iniciar se cierra
         if(mActivityTestRule.getActivity().myIntentPop!=null) onView(withId(R.id.buttonMasTarde)).perform(click());
-
+        //Se actualiza la lista tras los 2 mimutos
         openActionBarOverflowOrOptionsMenu(mActivityTestRule.getActivity().getApplicationContext());
         onView(withText("Actualizar")).perform(click());
+        //Se comprueba que el pop up ha saltado como era de esperar
         onView(withId(R.id.texViewAnhadir)).check(matches(isDisplayed()));
     }
 }

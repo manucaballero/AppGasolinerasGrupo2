@@ -551,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
             tiempoTranscurrido = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
             //Si pasan mas de 24h se debe volver a mostrar el pop-up.
-            if(tiempoTranscurrido>=15 && presenterVehiculos.getVehiculos().size()<=1){
+            if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
                 guardarFechaPopUp();
                 myIntentPop = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                 MainActivity.this.startActivity(myIntentPop);
