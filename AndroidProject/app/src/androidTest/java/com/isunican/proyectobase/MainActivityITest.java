@@ -105,7 +105,11 @@ public class MainActivityITest {
                 salir = false;
 
             }catch(NoMatchingViewException e){
-                onView(withId(R.id.buttonReset)).perform(click());
+                try{
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                }
+                onView(withId(R.id.buttonMasTarde)).perform(click());
             }
         }
     }
@@ -169,6 +173,10 @@ public class MainActivityITest {
                 salir = false;
 
             }catch(NoMatchingViewException e) {
+                try{
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                }
                 onView(withId(R.id.buttonMasTarde)).perform(click());
             }
         }
