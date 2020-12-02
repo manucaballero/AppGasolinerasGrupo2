@@ -85,7 +85,7 @@ public class MainActivityITest {
      * @author Ruben Calleja
      *
      */
-
+/*
     @Test
     public void botonResetTest(){
 
@@ -100,7 +100,7 @@ public class MainActivityITest {
         Assert.assertTrue(pf.getListaFiltros().size()==0);
 
     }
-
+*/
     /*
         Se comprueba que la lista se cargue correctamente en la interfaz
      */
@@ -115,6 +115,7 @@ public class MainActivityITest {
     de letra esperado de los precios de cada una de las views que correspondan a las gasolineras con
     descuentos.
  */
+    /*
     @Test
     public void resaltarTest() {
 
@@ -155,5 +156,7 @@ public class MainActivityITest {
         Assert.assertEquals(Color.BLACK,gasoleoSin.getCurrentTextColor());
 
     }
+    */
+     */
 
 }
