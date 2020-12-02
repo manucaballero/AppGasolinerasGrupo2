@@ -22,6 +22,9 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+/**
+ * @author Aarón Rodríguez Solar
+ */
 @RunWith(AndroidJUnit4.class)
 public class DesaplicarFiltrosUITest {
     @Rule
@@ -29,8 +32,8 @@ public class DesaplicarFiltrosUITest {
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-    RecyclerView mRecyclerView;
-    MainActivity mActivity;
+    private RecyclerView mRecyclerView;
+    private MainActivity mActivity;
 
     @Before
     public void setUp() {
@@ -38,6 +41,10 @@ public class DesaplicarFiltrosUITest {
         mRecyclerView = mActivity.findViewById(R.id.recyclerViewFiltros);
     }
 
+    /**
+     * Test que comprueba que se desaplican los filtros correctamente
+     * y se muestra al usuario los pop-up correspondientes.
+     */
     @Test
     public void desaplicarFiltrosTest(){
         //Se pulsa el botón filtrar
