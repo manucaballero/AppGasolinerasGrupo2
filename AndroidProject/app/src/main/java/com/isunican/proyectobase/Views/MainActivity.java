@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PresenterVehiculos presenterVehiculos;
 
-    public PresenterFiltros presenterFiltros;
+    private PresenterFiltros presenterFiltros;
 
 
     // Vista de lista y adaptador para cargar datos en ella
