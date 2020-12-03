@@ -28,7 +28,7 @@ import static org.hamcrest.CoreMatchers.anything;
 /**
  * @author Manuel Caballero, modificado por Daniel Sánchez
  */
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class InterfazVehiculosPropiosUITest {
     @Rule
     public ActivityTestRule<MisVehiculosActivity> mVehiculosActivity = new ActivityTestRule<>(MisVehiculosActivity.class);
