@@ -3,6 +3,7 @@ package com.isunican.proyectobase;
 import android.widget.EditText;
 
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -18,6 +19,7 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
+import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
@@ -27,15 +29,16 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
-/**
- * @author Daniel Sánchez Díez
- */
+
 public class InterfazFormularioUITest {
 
     @Rule
     public ActivityTestRule<FormActivity> mActivityTestRule = new ActivityTestRule(FormActivity.class);
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
+/*
+ * @author Daniel Sánchez Díez
+ */
 /*
     @Test
     public void testInterfaz() {
@@ -65,6 +68,64 @@ public class InterfazFormularioUITest {
     }
     */
 
+/**
+ * @author Manuel Caballero Rabago y Miguel Casamichana Bolado
+ * Se comprueba que no se pueden añadir dos vehiculos iguales
+ */
+/*
+@Test
+public void comprobarDuplicidadTest(){
+    Assert.assertTrue(true);
+    boolean aux = true;
+    while(aux) {
+        try {
+            //Se abre el desplegable del menú y se actualiza la lista de vehiculos a por defecto
+            openActionBarOverflowOrOptionsMenu(mActivityTestRule.getActivity().getApplicationContext());
+            onView(withText("Restaurar vehículos de fábrica")).perform(click());
+
+            //Se abre el desplegable del menú y se selecciona "Nuevo Vehículo"
+            openActionBarOverflowOrOptionsMenu(mActivityTestRule.getActivity().getApplicationContext());
+            onView(withText("Nuevo Vehículo")).perform(click());
+            //Se añaden los campos obligatorios
+            onView(withId(R.id.campoModelo)).perform(typeText("vehiculoPruebaInterf"));
+            onView(withId(R.id.campoCapacidad)).perform(typeText("50"));
+            onView(withId(R.id.campoConsumoMedio)).perform(typeText("5"));
+            //Se cierra el teclado para que se pueda hacer click en "Aceptar"
+            Espresso.closeSoftKeyboard();
+            onView(withId(R.id.txtAceptar)).perform(click());
+
+            //Se repite el proceso para añadir un mismo vehículo repetido y
+            // comprobar que salte el error en el campo de texto
+            openActionBarOverflowOrOptionsMenu(mActivityTestRule.getActivity().getApplicationContext());
+            onView(withText("Nuevo Vehículo")).perform(click());
+            EditText modelo = mActivityTestRule.getActivity().findViewById(R.id.campoModelo);
+            onView(withId(R.id.campoModelo)).perform(typeText("vehiculoPruebaInterf"));
+            onView(withId(R.id.campoCapacidad)).perform(typeText("50"));
+            onView(withId(R.id.campoConsumoMedio)).perform(typeText("5"));
+            Espresso.closeSoftKeyboard();
+            onView(withId(R.id.txtAceptar)).perform(click());
+
+            //Comprobamos que se notifica el error y no se consigue añadir el vehiculo
+            //Assert.assertEquals("Campo Requerido", modelo.getError());
+            //modelo.check(matches(hasErrorText("Cannot be blank!")));
+            onView(withId(R.id.campoModelo)).check(matches(hasErrorText("Ya existe un vehiculo con estas características. " +
+                    "Introduzca una nueva Anotación para diferenciarlos.")));
+            //Volvemos a la interfaz principal
+            Espresso.pressBack();
+
+            //Se abre el desplegable del menú y se actualiza la lista de vehiculos a por defecto
+            openActionBarOverflowOrOptionsMenu(mActivityTestRule.getActivity().getApplicationContext());
+            onView(withText("Restaurar vehículos de fábrica")).perform(click());
+            aux = false;
+
+
+        }catch(NoMatchingViewException e) {
+            //Si salta el pop up de añadir vehículo se cierra
+            onView(withId(R.id.buttonMasTarde)).perform(click());
+        }
+    }
+}
+*/
     @Test
     public void test(){
         Assert.assertTrue(true);
