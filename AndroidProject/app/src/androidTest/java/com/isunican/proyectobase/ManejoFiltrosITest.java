@@ -88,6 +88,7 @@ public class ManejoFiltrosITest {
 
         lista.add(new SinDescuentoFiltro());
         lista.add(new Gasolina95Filtro());
+        Assert.assertTrue(lista.size()==2);
         onView(withId(R.id.buttonReset)).perform(click());
         Assert.assertTrue(lista.size()==0);
 
