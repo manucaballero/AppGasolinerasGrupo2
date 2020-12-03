@@ -37,7 +37,7 @@ public class InterfazFormularioUITest {
     public ActivityTestRule<FormActivity> mActivityTestRule = new ActivityTestRule(FormActivity.class);
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
-
+/*
     @Test
     public void testInterfaz() {
 
@@ -64,4 +64,6 @@ public class InterfazFormularioUITest {
         onView(withId(R.id.campoCombustible)).check(matches(withSpinnerText(containsString("GasoleoA"))));
 
     }
+    */
+
 }

@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
+    public Intent myIntentPop;
+
     // Variables necesarias para mostrar el pop-up de añadir vehiculo
     private static final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
     private static final String ERROR_TAG = "Error";
@@ -555,12 +557,14 @@ public class MainActivity extends AppCompatActivity {
             //Se carga la fecha de la última vez que se mostró
             Date ultimaFecha=cargarFechaPopUp();
 
+
             //Si no hay fecha guardada y solo está el vehiculo por defecto, se muestra el pop-up y se guarda la fecha
             if(ultimaFecha==null  && presenterVehiculos.getVehiculos().size()<=1){
                 guardarFechaPopUp();
                 Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                 MainActivity.this.startActivity(myIntent);
             }
+
 
             //Si hay una fecha guardada se muestra el pop-up solo si han transcurrido 24h
             if(ultimaFecha!=null){
@@ -571,12 +575,14 @@ public class MainActivity extends AppCompatActivity {
                 long diffInMillies = Math.abs(today.getTime() - ultimaFecha.getTime());
                 tiempoTranscurrido = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
+
                 //Si pasan mas de 24h se debe volver a mostrar el pop-up.
                 if(tiempoTranscurrido>=120 && presenterVehiculos.getVehiculos().size()<=1){
                     guardarFechaPopUp();
                     Intent myIntent = new Intent(MainActivity.this, PopUpPrimerVehiculoActivity.class);
                     MainActivity.this.startActivity(myIntent);
                 }
+
             }
         }
 

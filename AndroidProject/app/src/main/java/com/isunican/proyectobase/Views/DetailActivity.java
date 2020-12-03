@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.isunican.proyectobase.Model.Gasolinera;
+import com.isunican.proyectobase.Presenter.PresenterGasolineras;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.R;
 
@@ -52,7 +53,6 @@ public class DetailActivity extends AppCompatActivity {
     ImageView imgLogo;
     //logo
 
-    Gasolinera g;
 
     /**
      * onCreate
@@ -98,7 +98,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-        g = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosGasolinera));
+        Gasolinera g = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosGasolinera));
 
 
         //Si lo llamas aqui aunque no hagas nada va bien
