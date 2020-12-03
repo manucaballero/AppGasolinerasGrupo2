@@ -54,6 +54,7 @@ public class MainActivityITest {
         Prueba de interfaz en la que se comprueba que se muestran correctamente por pantalla
         el nombre de los filtros activos deseados.
      */
+    /*
     @Before
     public void setUp(){
         try {
@@ -77,7 +78,7 @@ public class MainActivityITest {
         }
 
     }
-
+*/
     /**
      * Comprobamos que el botón reset de los filtros funciona correctamente,
      * para ello le pulsamos sin ningún filtro y comprobamos que la lista de filtros añadidos esta vacía,
@@ -86,7 +87,7 @@ public class MainActivityITest {
      * @author Ruben Calleja
      *
      */
-
+/*
     @Test
     public void botonResetTest(){
 
@@ -113,22 +114,23 @@ public class MainActivityITest {
             }
         }
     }
-
+*/
     /*
         Se comprueba que la lista se cargue correctamente en la interfaz
      */
+    /*
     @Test
     public void listaCargadaTest(){
         ListAdapter adapter = mActivityTestRule.getActivity().adapter;
         Assert.assertNotEquals(adapter.getCount(), 0);
     }
-
+*/
     /*
     Se comprueba que se muestre por la interfaz el color esperado de background de cada view y el color
     de letra esperado de los precios de cada una de las views que correspondan a las gasolineras con
     descuentos.
     */
-
+/*
     @Test
     public void resaltarTest() {
 
@@ -184,5 +186,5 @@ public class MainActivityITest {
 
     }
 
-
+*/
 }
