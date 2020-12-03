@@ -120,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CHECK_SETTINGS = 101;
     private FusedLocationProviderClient mFusedLocationClient;
 
-    public Intent myIntentPop;
-
     // Variables necesarias para mostrar el pop-up de añadir vehiculo
     private static final String POPUPPRIMERVEHICULO_TXT="/popUpPrimerVehiculo";
     private static final String ERROR_TAG = "Error";

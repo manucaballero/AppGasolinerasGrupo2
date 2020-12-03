@@ -65,4 +65,9 @@ public class InterfazFormularioUITest {
     }
     */
 
+    @Test
+    public void test(){
+        Assert.assertTrue(true);
+    }
+
 }
