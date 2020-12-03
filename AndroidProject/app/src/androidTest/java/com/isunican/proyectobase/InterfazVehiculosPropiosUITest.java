@@ -14,6 +14,7 @@ import com.isunican.proyectobase.Model.Vehiculo;
 import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.Views.MisVehiculosActivity;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,4 +62,9 @@ public class InterfazVehiculosPropiosUITest {
         }
     }
      */
+
+    @Test
+    public void test(){
+        Assert.assertTrue(true);
+    }
 }

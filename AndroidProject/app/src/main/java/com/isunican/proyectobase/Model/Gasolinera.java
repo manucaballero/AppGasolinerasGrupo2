@@ -257,14 +257,10 @@ public class Gasolinera implements Parcelable {
     public boolean equals(@Nullable Object obj) {
         if(obj instanceof Gasolinera){
             Gasolinera g = (Gasolinera) obj;
-            if(this.ideess == g.ideess && this.localidad.equals(g.localidad) && this.provincia.equals(g.provincia)
+            return (this.ideess == g.ideess && this.localidad.equals(g.localidad) && this.provincia.equals(g.provincia)
                     && this.direccion.equals(g.direccion) && this.gasoleoA == g.gasoleoA
                     && this.gasolina95 == g.gasolina95 && this.rotulo.equals(g.rotulo) && this.posicion.getLatitud() == g.posicion.getLatitud()
-                    && this.posicion.getLongitud() == g.posicion.getLongitud()){
-                return true;
-            }else {
-                return false;
-            }
+                    && this.posicion.getLongitud() == g.posicion.getLongitud());
         }else{
             return false;
         }

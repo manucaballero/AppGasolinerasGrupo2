@@ -130,6 +130,11 @@ public class DesaplicarFiltrosUITest {
         }
     }
     */
+
+    @Test
+    public void test(){
+        Assert.assertTrue(true);
+    }
 }
 
 

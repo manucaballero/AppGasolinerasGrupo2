@@ -14,6 +14,7 @@ import com.isunican.proyectobase.Model.Gasolinera;
 import com.isunican.proyectobase.Views.MainActivity;
 
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,6 +46,11 @@ public class BotonVerDescuentoUITest {
     private int i;
     private ListAdapter adapter;
     Gasolinera g;
+
+    @Test
+    public void test(){
+        Assert.assertTrue(true);
+    }
 /*
     @Before
     public void setUp() {
