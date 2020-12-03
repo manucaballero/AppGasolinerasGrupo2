@@ -45,7 +45,7 @@ public class BotonVerDescuentoUITest {
     private int i;
     private ListAdapter adapter;
     Gasolinera g;
-
+/*
     @Before
     public void setUp() {
         encontrada = false;
@@ -69,10 +69,11 @@ public class BotonVerDescuentoUITest {
         adapter = mActivityTestRule.getActivity().adapter;
         g = null;
     }
-
+*/
     /**
      * Comprobamos que el boton de mostrar descuento no se muestra en las gasolineras que no tienen descuento.
      */
+    /*
     @Test
     public void botonVerDescuentoGasolineraSinDescuentoUITest() {
         //Recorremos las gasolineras hasta encontrar una que no tenga descuento para probar que está el botón.
@@ -88,12 +89,13 @@ public class BotonVerDescuentoUITest {
         }
 
     }
-
+    */
     /**
      * Comprobamos que el boton de mostrar descuento se muestra en las gasolineras que tienen descuento
      * y además comprobamos que al pulsar el botón se muestre el pop-up y que el codigo de descuento mostrado
      * es el adecuado.
      */
+    /*
     @Test
     public void botonVerDescuentoGasolineraConDescuentoUITest() {
         //Recorremos las gasolineras hasta encontrar una que tenga descuento para probar que está el botón.
@@ -120,4 +122,5 @@ public class BotonVerDescuentoUITest {
             i++;
         }
     }
+    */
 }

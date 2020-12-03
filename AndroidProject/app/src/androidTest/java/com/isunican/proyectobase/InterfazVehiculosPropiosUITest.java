@@ -34,6 +34,7 @@ public class InterfazVehiculosPropiosUITest {
     public ActivityTestRule<MisVehiculosActivity> mVehiculosActivity = new ActivityTestRule<>(MisVehiculosActivity.class);
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
+    /*
     @Test
     public void VehiculosPropiosUITest(){
 
@@ -59,4 +60,5 @@ public class InterfazVehiculosPropiosUITest {
             }
         }
     }
+     */
 }
