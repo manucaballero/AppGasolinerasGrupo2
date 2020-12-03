@@ -30,7 +30,6 @@ import static org.hamcrest.Matchers.is;
 /**
  * @author Daniel Sánchez Díez
  */
-@RunWith(AndroidJUnit4.class)
 public class InterfazFormularioUITest {
 
     @Rule
