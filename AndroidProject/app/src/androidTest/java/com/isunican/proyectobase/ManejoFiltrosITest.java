@@ -45,7 +45,7 @@ import static org.hamcrest.Matchers.anything;
 /**
  * @author Miguel Casamichana
  */
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class ManejoFiltrosITest {
 
     @Rule
@@ -53,33 +53,22 @@ public class ManejoFiltrosITest {
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-    public AdapterFiltros adapter;
-    private PresenterFiltros pf;
-
     /*
         @author Miguel Casamichana Bolado
-
         Prueba de interfaz en la que se comprueba que se muestran correctamente por pantalla
         el nombre de los filtros activos deseados.
      */
-    @Before
-    public void setUp(){
-        pf = new PresenterFiltros();
-        adapter = new AdapterFiltros(mActivityTestRule.getActivity(), pf.getListaFiltros());
-    }
-
+    /*
     @Test
     public void mostrarFiltrosActivosTest() {
-
-        List<IFiltro> lista = pf.getListaFiltros();
-
+        List<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
         for(int i = 0; i< lista.size(); i++){
             IFiltro filtro = lista.get(i);
             DataInteraction d = onData(anything()).inAdapterView(withId(R.id.recyclerViewFiltros)).atPosition(i);
             d.onChildView(withId(R.id.txtNombreFiltro)).check(matches(withText(filtro.getNombre())));
         }
-
     }
+    */
 
     /**
      * Comprobamos que el botón reset de los filtros funciona correctamente,
@@ -91,21 +80,18 @@ public class ManejoFiltrosITest {
      */
 
 /*
-
     @Test
     public void botonResetTest(){
         List<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
-
         onView(withId(R.id.button2)).perform(click());
         onView(withId(R.id.buttonReset)).perform(click());
         onView(withId(R.id.button2)).perform(click());
         Assert.assertTrue(lista.size()==0);
-
         lista.add(new SinDescuentoFiltro());
         lista.add(new Gasolina95Filtro());
+        Assert.assertTrue(lista.size()==2);
         onView(withId(R.id.buttonReset)).perform(click());
         Assert.assertTrue(lista.size()==0);
-
     }*/
 
 

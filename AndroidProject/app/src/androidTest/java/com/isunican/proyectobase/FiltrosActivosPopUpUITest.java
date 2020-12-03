@@ -1,5 +1,5 @@
 package com.isunican.proyectobase;
-/*
+
 import android.Manifest;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +9,7 @@ import androidx.test.rule.GrantPermissionRule;
 import com.isunican.proyectobase.Views.MainActivity;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;*/
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -26,10 +26,11 @@ import static androidx.test.espresso.action.ViewActions.*;
  */
 //@RunWith(AndroidJUnit4.class)
 public class FiltrosActivosPopUpUITest {
-    /*@Rule
+    @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
+    /*
     private RecyclerView recyclerView;
     @Before
     public void setUp() {
