@@ -47,7 +47,7 @@ public class AnhadeVehiculoITest {
 
 
     @Test
-    public void anhadeVehiculoTest(){
+    public void anhadeVehiculoITest(){
 
         int exitCode=0;
 
