@@ -1,14 +1,11 @@
-package com.isunican.proyectobase.MainActivity;
+package com.isunican.proyectobase.Views.MainActivityUITest;
 
 import android.Manifest;
 
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 import com.isunican.proyectobase.Views.MainActivity;
-import org.junit.Assert;
-import org.junit.Before;
+
 import org.junit.Rule;
 import org.junit.Test;
 
