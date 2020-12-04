@@ -56,8 +56,19 @@ public class Gasolina95FiltroTest {
         listaGasoNoDes.add(new Gasolinera(9144,"SANTANDER","SANTANDER", "Av Parayas", 1.543,0,"EASYGAS","43.40741814","-3.92677519"));
         listaGasoNoDes.add(new Gasolinera(1115,"SANTANDER","SANTANDER", "Calle el Empalme", 1.254,0,"CARREFOUR","43.42741814","-3.02677519"));
 
-
-
+        //Descuento por defecto del 10%
+        Descuento descuento = new Descuento("codigo", "Descripción", 10);
+        //Introducimos el descuento en las gasolineras que sean de CEPSA
+        for(Gasolinera g:listaGaso){
+            if(g.getRotulo().equals("CEPSA")){
+                g.setDescuento(descuento);
+            }
+        }
+        for(Gasolinera g:listaGaso0){
+            if(g.getRotulo().equals("CEPSA")){
+                g.setDescuento(descuento);
+            }
+        }
     }
 
     /**
@@ -93,11 +104,11 @@ public class Gasolina95FiltroTest {
 
         //Comprobamos que en caso de empate si una tiene descuento se pone primero, todas estan a 0, pero como una tiene descuento está la primera
         assertEquals(true, g1.getTieneDescuento());
-        assertTrue(g1.equals(listaGaso0.get(0)));
-        assertTrue(g2.equals(listaGaso0.get(1)));
-        assertTrue(g3.equals(listaGaso0.get(2)));
-        assertTrue(g4.equals(listaGaso0.get(3)));
-        assertTrue(g5.equals(listaGaso0.get(4)));
+        assertEquals(g1, listaGaso0.get(0));
+        assertEquals(g2, listaGaso0.get(1));
+        assertEquals(g3, listaGaso0.get(2));
+        assertEquals(g4, listaGaso0.get(3));
+        assertEquals(g5, listaGaso0.get(4));
 
 
 
@@ -110,11 +121,11 @@ public class Gasolina95FiltroTest {
         sut.ordena(listaGasoNoDes);
 
 
-        assertTrue(g1.equals(listaGasoNoDes.get(0)));
-        assertTrue(g2.equals(listaGasoNoDes.get(1)));
-        assertTrue(g3.equals(listaGasoNoDes.get(2)));
-        assertTrue(g4.equals(listaGasoNoDes.get(3)));
-        assertTrue(g5.equals(listaGasoNoDes.get(4)));
+        assertEquals(g1, listaGasoNoDes.get(0));
+        assertEquals(g2, listaGasoNoDes.get(1));
+        assertEquals(g3, listaGasoNoDes.get(2));
+        assertEquals(g4, listaGasoNoDes.get(3));
+        assertEquals(g5, listaGasoNoDes.get(4));
 
         //Comprobamos el caso con la lista vacía
         listaGaso.clear();

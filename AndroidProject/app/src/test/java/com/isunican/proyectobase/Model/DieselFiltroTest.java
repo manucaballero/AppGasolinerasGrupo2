@@ -79,11 +79,11 @@ public class DieselFiltroTest {
         gasolineraList.get(4).setTieneDescuento(true);
         sut.ordena(gasolineraList);
 
-        assertTrue(g1.equals(gasolineraList.get(0)));
-        assertTrue(g2.equals(gasolineraList.get(1)));
-        assertTrue(g3.equals(gasolineraList.get(2)));
-        assertTrue(g4.equals(gasolineraList.get(3)));
-        assertTrue(g5.equals(gasolineraList.get(4)));
+        assertEquals(g1, gasolineraList.get(0));
+        assertEquals(g2, gasolineraList.get(1));
+        assertEquals(g3, gasolineraList.get(2));
+        assertEquals(g4, gasolineraList.get(3));
+        assertEquals(g5, gasolineraList.get(4));
 
 
         //lista con gasolineras sin descuento y gasoleoA==0
@@ -95,22 +95,22 @@ public class DieselFiltroTest {
 
         sut.ordena(l);
 
-        assertTrue(g1.equals(l.get(0)));
-        assertTrue(g2.equals(l.get(1)));
-        assertTrue(g3.equals(l.get(2)));
-        assertTrue(g4.equals(l.get(3)));
-        assertTrue(g5.equals(l.get(4)));
+        assertEquals(g1, l.get(0));
+        assertEquals(g2, l.get(1));
+        assertEquals(g3, l.get(2));
+        assertEquals(g4, l.get(3));
+        assertEquals(g5, l.get(4));
 
 
 
         //Lista de gasolineras con todos los precios iguales, y una de ellas con descuento.
         g5.setTieneDescuento(true);
         sut.ordena(l);
-        assertTrue(g5.equals(l.get(0)));
-        assertTrue(g1.equals(l.get(1)));
-        assertTrue(g2.equals(l.get(2)));
-        assertTrue(g3.equals(l.get(3)));
-        assertTrue(g4.equals(l.get(4)));
+        assertEquals(g5, l.get(0));
+        assertEquals(g1, l.get(1));
+        assertEquals(g2, l.get(2));
+        assertEquals(g3, l.get(3));
+        assertEquals(g4, l.get(4));
 
 
         //lista vacía

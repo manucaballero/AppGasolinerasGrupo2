@@ -1,5 +1,6 @@
 package com.isunican.proyectobase.Model;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,6 +8,7 @@ import android.os.Parcelable;
 
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 
 /*
@@ -25,6 +27,20 @@ public class Gasolinera implements Parcelable {
     private String rotulo;
     private Posicion posicion;
 
+    //Descuento de la gasolinera sobre todos sus combustibles
+    private Descuento descuento;
+
+    public Descuento getDescuento() { return this.descuento; }
+    public void setDescuento(Descuento descuento) {
+        if(!tieneDescuento || this.descuento.getPorcentaje() < descuento.getPorcentaje()){
+            this.descuento = descuento;
+            tieneDescuento = true;
+        }
+    }
+    public void removeDescuento(){
+        this.descuento = null;
+    }
+
     //Guardarán el precio con descuento y consumo.
     private double gasoleoA;
     private double gasolina95;
@@ -35,7 +51,7 @@ public class Gasolinera implements Parcelable {
 
     private double distanciaEnKm;
     private boolean tieneDescuento;
-    private final double DEPOSITO = 50;
+    private static final double DEPOSITO = 50;
     private double multiplicadorCostePorLitro;
 
 
@@ -56,12 +72,6 @@ public class Gasolinera implements Parcelable {
 
         this.posicion = new Posicion(Double.parseDouble(latitud.replace(",",".")),Double.parseDouble(longitud.replace(",",".")));
 
-        if(rotulo.equals("CEPSA")){
-            setTieneDescuento(true);
-        }else{
-            setTieneDescuento(false);
-        }
-
     }
 
     /**
@@ -80,8 +90,8 @@ public class Gasolinera implements Parcelable {
         }
         if(this.getTieneDescuento()){
 
-            this.gasoleoAConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasoleoA*0.9,3));
-            this.gasolina95ConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasolina95*0.9,3));
+            this.gasoleoAConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasoleoA*((double)(100-descuento.getPorcentaje())/100),3));
+            this.gasolina95ConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasolina95*((double)(100-descuento.getPorcentaje())/100),3));
         }else{
             this.gasoleoAConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasoleoA,3));
             this.gasolina95ConDescuento=Math.abs(round(multiplicadorCostePorLitro * gasolina95,3));
@@ -187,6 +197,7 @@ public class Gasolinera implements Parcelable {
      * y recibiéndolos con
      * Gasolinera g = getIntent().getExtras().getParcelable("id")
      */
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     protected Gasolinera(Parcel in) {
         ideess = in.readInt();
         localidad = in.readString();
@@ -196,12 +207,10 @@ public class Gasolinera implements Parcelable {
         gasolina95 = in.readDouble();
         rotulo = in.readString();
         posicion = new Posicion(Double.parseDouble(in.readString().replace(",",".")),Double.parseDouble(in.readString().replace(",",".")));
-        if(rotulo.equals("CEPSA")){
-            setTieneDescuento(true);
-        }else{
-            setTieneDescuento(false);
+        tieneDescuento = in.readBoolean();
+        if(tieneDescuento){
+            descuento = new Descuento(in.readString(), in.readString(), in.readInt());
         }
-
     }
 
     @Override
@@ -209,6 +218,7 @@ public class Gasolinera implements Parcelable {
         return 0;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(ideess);
@@ -220,10 +230,18 @@ public class Gasolinera implements Parcelable {
         dest.writeString(rotulo);
         dest.writeString(String.valueOf(posicion.getLatitud()));
         dest.writeString(String.valueOf(posicion.getLongitud()));
+        dest.writeBoolean(tieneDescuento);
+        if(tieneDescuento){
+            dest.writeString(this.descuento.getCodigo());
+            dest.writeString(this.descuento.getDescripcion());
+            dest.writeInt(this.descuento.getPorcentaje());
+        }
+
     }
 
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<Gasolinera> CREATOR = new Parcelable.Creator<Gasolinera>() {
+        @RequiresApi(api = Build.VERSION_CODES.Q)
         @Override
         public Gasolinera createFromParcel(Parcel in) {
             return new Gasolinera(in);
@@ -239,18 +257,17 @@ public class Gasolinera implements Parcelable {
     public boolean equals(@Nullable Object obj) {
         if(obj instanceof Gasolinera){
             Gasolinera g = (Gasolinera) obj;
-            if(this.ideess == g.ideess && this.localidad.equals(g.localidad) && this.provincia.equals(g.provincia)
-                    && this.localidad.equals(g.localidad) && this.direccion.equals(g.direccion) && this.gasoleoA == g.gasoleoA
+            return (this.ideess == g.ideess && this.localidad.equals(g.localidad) && this.provincia.equals(g.provincia)
+                    && this.direccion.equals(g.direccion) && this.gasoleoA == g.gasoleoA
                     && this.gasolina95 == g.gasolina95 && this.rotulo.equals(g.rotulo) && this.posicion.getLatitud() == g.posicion.getLatitud()
-                    && this.posicion.getLongitud() == g.posicion.getLongitud()){
-                return true;
-            }else {
-                return false;
-            }
+                    && this.posicion.getLongitud() == g.posicion.getLongitud());
         }else{
             return false;
         }
     }
 
-
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
+}

@@ -1,10 +1,14 @@
 package com.isunican.proyectobase.Views;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,11 +40,18 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtDieselConDescuento;
     TextView txtGasolina95ConDescuento;
     TextView txtPrecioGasolina95ConDescuento;
+    Button buttonVerDescuento;
+    TextView txtDiesel;
+    TextView txtGasolina95;
+    TextView txtDialog;
+    TextView buttonDialog;
+    LinearLayout layout1;
+    LinearLayout layout2;
+
 
     ImageView imgLogo;
     //logo
 
-    Gasolinera g;
 
     /**
      * onCreate
@@ -69,7 +80,9 @@ public class DetailActivity extends AppCompatActivity {
         txtMaps = findViewById(R.id.txtMaps);
         txtDieselPrecio = findViewById(R.id.txtPrecioDiesel);
         txtGasolina95Precio = findViewById(R.id.txtPrecioGasolina95);
-
+        buttonVerDescuento = findViewById(R.id.buttonVerDescuento);
+        txtDiesel = findViewById(R.id.txtDiesel);
+        txtGasolina95 = findViewById(R.id.txtGasolina95);
 
         txtDieselPrecioConDescuento=findViewById(R.id.txtPrecioDieselConDescuento);
         txtDieselConDescuento=findViewById(R.id.textDieselConDescuento);
@@ -79,7 +92,12 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-        g = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosGasolinera));
+        layout1 = findViewById(R.id.layout1);
+        layout2 = findViewById(R.id.layout2);
+
+
+
+        Gasolinera g = getIntent().getExtras().getParcelable(getResources().getString(R.string.pasoDatosGasolinera));
 
 
         //Si lo llamas aqui aunque no hagas nada va bien
@@ -115,14 +133,6 @@ public class DetailActivity extends AppCompatActivity {
         txtPrecioGasolina95ConDescuento.setTextSize(20);
         txtGasolina95ConDescuento.setTextSize(20);
 
-        //Si no tiene descuento se oculta esa línea
-        if(!g.getTieneDescuento()) {
-            txtDieselPrecioConDescuento.setVisibility(View.INVISIBLE);
-            txtDieselConDescuento.setVisibility(View.INVISIBLE);
-            txtPrecioGasolina95ConDescuento.setVisibility(View.INVISIBLE);
-            txtGasolina95ConDescuento.setVisibility(View.INVISIBLE);
-        }
-
 
 
         int imageID = getResources().getIdentifier(g.getRotulo().toLowerCase(),
@@ -133,6 +143,53 @@ public class DetailActivity extends AppCompatActivity {
                     "drawable", getPackageName());
         }
         imgLogo.setImageResource(imageID);
+
+
+        //Se crear un nuevo DialogAlert
+        final AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
+        final AlertDialog dialog = builder.create();
+
+        //Se carga el diseño para el dialog alert creado en el xml dialog_descuentos_design
+        View viewDialog = View.inflate(this, R.layout.dialog_descuentos_design, null);
+        dialog.setView(viewDialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        txtDialog = viewDialog.findViewById(R.id.txtDescuento);
+        buttonDialog = viewDialog.findViewById(R.id.buttonAceptarDialog);
+        if(g.getTieneDescuento()) {
+            txtDialog.setText(g.getDescuento().getCodigo());
+        }
+        //Se define el comportamiento del botón del dialog
+        buttonDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        buttonVerDescuento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+
+        //Si no tiene descuento se eliminan los elementos del xml que tengan descuento
+        if(!g.getTieneDescuento()) {
+            txtDieselPrecioConDescuento.setVisibility(View.GONE);
+            txtDiesel.setTextSize(20);
+            txtDieselPrecio.setTextSize(25);
+            txtDieselConDescuento.setVisibility(View.GONE);
+            txtPrecioGasolina95ConDescuento.setVisibility(View.GONE);
+            txtGasolina95ConDescuento.setVisibility(View.GONE);
+            txtGasolina95.setTextSize(20);
+            txtGasolina95Precio.setTextSize(25);
+            buttonVerDescuento.setVisibility(View.GONE);
+            layout1.setVisibility(View.GONE);
+            layout2.setVisibility(View.GONE);
+        }
+
+
 
     }
 }

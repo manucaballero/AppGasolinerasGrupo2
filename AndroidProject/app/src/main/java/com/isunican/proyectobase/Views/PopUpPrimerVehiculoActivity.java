@@ -3,12 +3,9 @@ package com.isunican.proyectobase.Views;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.isunican.proyectobase.R;
@@ -26,7 +23,7 @@ public class PopUpPrimerVehiculoActivity extends AppCompatActivity {
         boton = findViewById(R.id.buttonAnhadir);
         boton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent1 = new Intent(PopUpPrimerVehiculoActivity.this, FormActivity.class);
+                 Intent myIntent1 = new Intent(PopUpPrimerVehiculoActivity.this, FormActivity.class);
                 //myIntent.putExtra("Lista", listaVehiculos)
                 PopUpPrimerVehiculoActivity.this.startActivity(myIntent1);
             }
@@ -41,13 +38,10 @@ public class PopUpPrimerVehiculoActivity extends AppCompatActivity {
             }
         });
 
-        DisplayMetrics medidasVentana = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(medidasVentana);
-
-        int ancho = medidasVentana.widthPixels;
-        int alto = medidasVentana.heightPixels;
-
-        getWindow().setLayout((int) (ancho * 0.9), (int) (alto * 0.5));
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.height = 1000;
+        params.width = 700;
+        this.getWindow().setAttributes(params);
 
 
     }
