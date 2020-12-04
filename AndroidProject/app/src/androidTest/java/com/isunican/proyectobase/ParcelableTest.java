@@ -1,4 +1,4 @@
-package com.isunican.proyectobase.Utilities;
+package com.isunican.proyectobase;
 
 import android.os.Parcel;
 import com.isunican.proyectobase.Model.Descuento;
