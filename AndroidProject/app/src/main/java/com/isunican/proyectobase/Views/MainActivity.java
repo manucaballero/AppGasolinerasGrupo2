@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
     private PresenterFiltros presenterFiltros;
 
+    public boolean ubicacion;
+
 
     // Vista de lista y adaptador para cargar datos en ella
     private ListView listViewGasolineras;
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ubicacion=true;
         setContentView(R.layout.activity_main);
         this.presenterGasolineras = new PresenterGasolineras();
 
@@ -368,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
 
+
                         } catch (ApiException exception) {
                             switchExcapcionLocation(exception);
                         }
@@ -522,7 +526,12 @@ public class MainActivity extends AppCompatActivity {
                         ResolvableApiException resolvable = (ResolvableApiException) exception;
                         // Show the dialog by calling startResolutionForResult(),
                         // and check the result in onActivityResult().
-                        resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                        if(ubicacion){
+                            ubicacion=false;
+                            resolvable.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                        }
+
+
                     } catch (IntentSender.SendIntentException|ClassCastException e) {
                         // Ignore the error.
                     }
@@ -534,6 +543,7 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     break;
             }
+
         }
 
         private void comparaRotulos(Gasolinera g) {
@@ -717,11 +727,11 @@ public class MainActivity extends AppCompatActivity {
             rotulo.setText(gasolinera.getRotulo());
             direccion.setText(gasolinera.getDireccion());
             if (gasolinera.getTieneDescuento()) {
-                textViewGasoleoA.setText(" " + gasolinera.getGasoleoAConDescuento() + getResources().getString(R.string.moneda));
-                textViewGasolina95.setText(" " + gasolinera.getGasolina95ConDescuento() + getResources().getString(R.string.moneda));
+                textViewGasoleoA.setText(" " + Math.abs(gasolinera.getGasoleoAConDescuento()) + getResources().getString(R.string.moneda));
+                textViewGasolina95.setText(" " + Math.abs(gasolinera.getGasolina95ConDescuento()) + getResources().getString(R.string.moneda));
             } else {
-                textViewGasoleoA.setText(" " + gasolinera.getGasoleoA() + getResources().getString(R.string.moneda));
-                textViewGasolina95.setText(" " + gasolinera.getGasolina95() + getResources().getString(R.string.moneda));
+                textViewGasoleoA.setText(" " + Math.abs(gasolinera.getGasoleoA()) + getResources().getString(R.string.moneda));
+                textViewGasolina95.setText(" " + Math.abs(gasolinera.getGasolina95()) + getResources().getString(R.string.moneda));
             }
 
             // carga icono
