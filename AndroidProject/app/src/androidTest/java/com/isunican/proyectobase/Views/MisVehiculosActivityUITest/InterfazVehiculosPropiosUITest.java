@@ -1,29 +1,18 @@
-package com.isunican.proyectobase.MisVehiculosActivity;
+package com.isunican.proyectobase.Views.MisVehiculosActivityUITest;
 
 import android.Manifest;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 
-import androidx.test.espresso.DataInteraction;
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
-import com.isunican.proyectobase.Model.Vehiculo;
-import com.isunican.proyectobase.Presenter.PresenterVehiculos;
 import com.isunican.proyectobase.Views.MisVehiculosActivity;
 
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import static androidx.test.espresso.Espresso.onData;
-import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static org.hamcrest.CoreMatchers.anything;
 
 /**
