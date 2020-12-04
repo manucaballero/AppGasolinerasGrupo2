@@ -49,7 +49,6 @@ public class ManejoFiltrosITest {
 
     /*
         @author Miguel Casamichana Bolado
-
         Prueba de interfaz en la que se comprueba que se muestran correctamente por pantalla
         el nombre de los filtros activos deseados.
      */
@@ -58,13 +57,11 @@ public class ManejoFiltrosITest {
     public void mostrarFiltrosActivosTest() {
 
         List<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
-
         for(int i = 0; i< lista.size(); i++){
             IFiltro filtro = lista.get(i);
             DataInteraction d = onData(anything()).inAdapterView(withId(R.id.recyclerViewFiltros)).atPosition(i);
             d.onChildView(withId(R.id.txtNombreFiltro)).check(matches(withText(filtro.getNombre())));
         }
-
     }
     */
 
@@ -78,22 +75,18 @@ public class ManejoFiltrosITest {
      */
 
 /*
-
     @Test
     public void botonResetTest(){
         List<IFiltro> lista = mActivityTestRule.getActivity().listaFiltros;
-
         onView(withId(R.id.button2)).perform(click());
         onView(withId(R.id.buttonReset)).perform(click());
         onView(withId(R.id.button2)).perform(click());
         Assert.assertTrue(lista.size()==0);
-
         lista.add(new SinDescuentoFiltro());
         lista.add(new Gasolina95Filtro());
         Assert.assertTrue(lista.size()==2);
         onView(withId(R.id.buttonReset)).perform(click());
         Assert.assertTrue(lista.size()==0);
-
     }*/
 
 

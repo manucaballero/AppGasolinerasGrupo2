@@ -35,22 +35,18 @@ public class DesaplicarFiltrosUITest {
     /*
     private RecyclerView mRecyclerView;
     private MainActivity mActivity;
-
     @Before
     public void setUp() {
         mActivity = mActivityTestRule.getActivity();
         mRecyclerView = mActivity.findViewById(R.id.recyclerViewFiltros);
     }
-
     /**
      * Test que comprueba que se desaplican los filtros correctamente
      * y se muestra al usuario los pop-up correspondientes.
 
     @Test
     public void desaplicarFiltrosTest() {
-
         boolean salir = true;
-
         while (salir) {
             try {
                 //Se pulsa el botón filtrar
@@ -70,14 +66,11 @@ public class DesaplicarFiltrosUITest {
                 //Se comprueba que los filtros que se muestran aplicados son 2
                 int itemCount = mRecyclerView.getAdapter().getItemCount();
                 Assert.assertEquals(itemCount, 2);
-
                 //Se compreba que la lista de filtros se muestra
                 onView(withId(R.id.recyclerViewFiltros)).check(matches(isDisplayed()));
-
                 //Se pulsa el primero, el que se quiere eliminar
                 onView(withId(R.id.recyclerViewFiltros))
                         .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -86,18 +79,13 @@ public class DesaplicarFiltrosUITest {
 
                 //Se muestra un popup para confirmar que se quiere eliminar, se pulsa aceptar
                 onView(withId(R.id.buttonSiBorrarFiltro)).perform(click());
-
                 //Se comprueba que los filtros que se muestran aplicados son 1
                 itemCount = mRecyclerView.getAdapter().getItemCount();
                 Assert.assertEquals(itemCount, 1);
-
                 //Se comprueba que la lista de filtros se muestra
                 onView(withId(R.id.recyclerViewFiltros)).check(matches(isDisplayed()));
-
-
                 */
-                //Ahora compruebo si al pulsar No Borrar en el pop-up, se mantiene el filtro
-
+    //Ahora compruebo si al pulsar No Borrar en el pop-up, se mantiene el filtro
                 /*
                 //Se pulsa el primero, el que se quiere eliminar
                 onView(withId(R.id.recyclerViewFiltros))
@@ -111,15 +99,12 @@ public class DesaplicarFiltrosUITest {
 
                 //Se muestra un popup para confirmar que se quiere eliminar, se pulsa aceptar
                 onView(withId(R.id.buttonNoBorrarFiltro)).perform(click());
-
                 //Se comprueba que los filtros que se muestran aplicados son 1 (la misma cantidad que antes)
                 itemCount = mRecyclerView.getAdapter().getItemCount();
                 Assert.assertEquals(itemCount, 1);
-
                 //Se comprueba que la lista de filtros se muestra
                 onView(withId(R.id.recyclerViewFiltros)).check(matches(isDisplayed()));
                 salir = false;
-
             } catch (NoMatchingViewException e) {
                 try{
                     Thread.sleep(1000);
@@ -135,6 +120,7 @@ public class DesaplicarFiltrosUITest {
     public void test(){
         Assert.assertTrue(true);
     }
+
 }
 
 

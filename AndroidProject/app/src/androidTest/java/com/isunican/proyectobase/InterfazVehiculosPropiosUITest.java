@@ -38,7 +38,6 @@ public class InterfazVehiculosPropiosUITest {
     /*
     @Test
     public void VehiculosPropiosUITest(){
-
         ArrayAdapter<Vehiculo> adapter = mVehiculosActivity.getActivity().adapter;
         Vehiculo seleccionado = PresenterVehiculos.getVehiculoSeleccionado();
         Vehiculo v;
@@ -46,13 +45,12 @@ public class InterfazVehiculosPropiosUITest {
         for(int i=0; i<adapter.getCount(); i++){
             d = onData(anything()).inAdapterView(withId(R.id.listViewVehiculos)).atPosition(i);
             v = adapter.getItem(i);
-
             //Revisamos que el modelo, las anotaciones y la matricula concuerden con las de la lista de vehiculos
             d.onChildView(withId(R.id.textViewModelo)).check(matches(withText(v.getModelo())));
             d.onChildView(withId(R.id.textViewAnotacion)).check(matches(withText(v.getAnotaciones())));
             d.onChildView(withId(R.id.textViewCombustible)).check(matches(withText(v.getCombustible())));
 
-            
+
             //Si el vehiculo actual es el seleccionado revisamos que este dato aparezca en la interfaz
             if(v.equals(seleccionado)){
                 d.onChildView(withId(R.id.textViewSeleccionado)).check(matches(withText("Seleccionado")));
